@@ -5,13 +5,17 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
@@ -54,7 +58,7 @@ public class FakturaController implements Initializable {
     public TableColumn<String, String> tblRowidRacuna;
     public TableColumn<Artikl, Integer> tblRowidArtikla;
     public TableColumn<PosaoArtikli, Button> tblRowButton;
-    public TableColumn<Artikl, Integer> tblRowCena;
+    public TableColumn<Artikl, Double> tblRowCena;
 
     private ObservableList<Automobil> automobili;
     private ObservableList<Klijent> klijenti;
@@ -192,9 +196,35 @@ public class FakturaController implements Initializable {
 
 
             tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
+
             tblRowidRacuna.setCellValueFactory(param -> new ReadOnlyStringWrapper(txtFieldBrojRacuna.getText()));
             tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
-          /*  tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cenaArtikla"));*/
+            tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cenaArtikla"));
+            tblRowCena.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+            tblRowCena.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent<Artikl, Double>>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent<Artikl, Double> t) {
+                            t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow()).setCena(t.getNewValue());
+                            double tt = t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow()).getCena();
+                            int idArtikla = t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow()).getIdArtikla();
+                            System.out.println("TEST USLUGE CENA: " + tt);
+                            System.out.println(t.getTableView().getItems()); // vraca sve objeke - redove iz tabele
+                            //Da ne bi brisao izmenjenu kolicinu mora da se doda nova ovim kodom ispod
+                            tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cenaArtikla"));
+                            posaoArtikliObject.setIdArtikla(idArtikla);
+                            posaoArtikliObject.setCena(tt);
+                            try {
+                                posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliObject);
+                            } catch (SQLException | AcrenoException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        }
+                    }
+            );
             //tblRowidRacuna.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
             tblPosaoArtikli.getItems().add(listViewPretragaArtikli.getSelectionModel().getSelectedItem()); //Dodaje
 
