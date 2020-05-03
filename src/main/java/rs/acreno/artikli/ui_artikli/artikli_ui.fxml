@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="artikliUiBorderPane" fx:controller="rs.acreno.artikli.ArtkikliCntroller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="750.0" prefWidth="930.0" style="-fx-background-color: #2d2d2d;"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Label text="ARTIKLI  UI" textFill="WHITE" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="32.0"/>
+            </font>
+        </Label>
+    </center>
+</BorderPane>

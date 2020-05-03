@@ -47,11 +47,11 @@ public class AutomobiliController implements Initializable {
 
     //TABELA FAKTURA
     public TableView<Racun> tblFakture;
-    public TableColumn tblRowIdRacuna;
-    public TableColumn tblRowIdAutomobila;
-    public TableColumn tblRowDatumRacuna;
-    public TableColumn tblRowPopustRacuna;
-    public TableColumn tblRowNapomeneRacuna;
+    public TableColumn<Racun, Integer> tblRowIdRacuna;
+    public TableColumn<Racun, Integer> tblRowIdAutomobila;
+    public TableColumn<Racun, String> tblRowDatumRacuna;
+    public TableColumn<Racun, Integer> tblRowPopustRacuna;
+    public TableColumn<Racun, String> tblRowNapomeneRacuna;
 
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
@@ -90,10 +90,6 @@ public class AutomobiliController implements Initializable {
 
 
     public void btnNoviRacunMouseEventNovaFaktura(MouseEvent mouseEvent) {
-        showFakturaUi();
-    }
-
-    private void showFakturaUi() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(FakturaController.class.getResource(Constants.FAKTURA_UI_VIEW_URI));
@@ -102,14 +98,17 @@ public class AutomobiliController implements Initializable {
             FakturaController fakturaController = fxmlLoader.getController();
             fakturaController.setAutomobili(automobil);
             fakturaController.setKlijenti(klijenti);
+            racuni = FXCollections.observableArrayList(
+                    racuniDAO.findRacunByProperty(RacuniSearchType.ID_AUTOMOBILA, automobil.get(0).getIdAuta()));
             fakturaController.setRacuni(racuni);
+
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("test");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-        } catch (IOException e) {
+        } catch (IOException | SQLException | AcrenoException e) {
             e.printStackTrace();
         }
     }
@@ -120,6 +119,14 @@ public class AutomobiliController implements Initializable {
         int IdAutomobila = automobil.get(0).getIdAuta();
         ObservableList<Racun> filteredRacuni = FXCollections.observableArrayList(
                 racuniDAO.findRacunByProperty(RacuniSearchType.ID_AUTOMOBILA, IdAutomobila));
+        tblRowIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
+        tblRowIdAutomobila.setStyle("-fx-alignment: CENTER;");
+        tblRowDatumRacuna.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        tblRowDatumRacuna.setStyle("-fx-alignment: CENTER;");
+        tblRowPopustRacuna.setCellValueFactory(new PropertyValueFactory<>("popust"));
+        tblRowPopustRacuna.setStyle("-fx-alignment: CENTER;");
+        tblRowNapomeneRacuna.setCellValueFactory(new PropertyValueFactory<>("napomeneRacuna"));
+        tblRowNapomeneRacuna.setStyle("-fx-alignment: CENTER;");
         tblFakture.setItems(filteredRacuni);
     }
 }

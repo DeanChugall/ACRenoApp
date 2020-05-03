@@ -168,29 +168,11 @@ public class SqlQuerys {
     public static final String FIND_ALL_POSAO_USLUGE_DAO = "SELECT * FROM PosaoUsluge";
 
     //SQLq ARTIKLI
-    public static final String CREATE_TABLE_ARTIKLI =
-            "CREATE TABLE IF NOT EXISTS \"Artikli\" (\n" +
-                    "\t\"idArtikla\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
-                    "\t\"kataloskiBrArtikla\"\tTEXT,\n" +
-                    "\t\"nazivArtikla\"\tTEXT,\n" +
-                    "\t\"opisArtikla\"\tTEXT,\n" +
-                    "\t\"jedinicaMere\"\tTEXT,\n" +
-                    "\t\"kolicina\"\tINTEGER,\n" +
-                    "\t\"nabavnaCenaArtikla\"\tREAL,\n" +
-                    "\t\"cenaArtikla\"\tREAL\n" +
-                    ");";
 
     public static final String INSERT_INTO_ARTIKLE =
-            "INSERT INTO Artikli(" +
-                    "  idArtikla" +
-                    ", kataloskiBrArtikla" +
-                    ", nazivArtikla" +
-                    ", opisArtikla" +
-                    ", jedinicaMere" +
-                    ", kolicina" +
-                    ", nabavnaCenaArtikla" +
-                    ", cenaArtikla)\n" +
-                    "VALUES(null, ?, ?, ?, ?, ?, ?, ?);";
+            "INSERT INTO Artikli ( idArtikla, kataloskiBrArtikla, nazivArtikla, opisArtikla, jedinicaMere," +
+                    " kolicina, nabavnaCenaArtikla, cenaArtikla )" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_ARTIKLI_TABLE = "" +
             "UPDATE Artikli\n" +
@@ -211,25 +193,6 @@ public class SqlQuerys {
     public static final String FIND_ALL_ARTIKLE = "SELECT * FROM Artikli";
 
     //SQLq POSAO ARTIKLI DAO
-    public static final String CREATE_TABLE_POSAO_ARTIKLI_DAO =
-            "CREATE TABLE  IF NOT EXISTS \"PosaoArtikli\" (\n" +
-                    "\t\"idPosaoArtikli\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
-                    "\t\"idRacuna\"\tINTEGER NOT NULL,\n" +
-                    "\t\"idArtikla\"\tINTEGER NOT NULL,\n" +
-                    "\t\"cena\"\tREAL,\n" +
-                    "\t\"nabavnaCena\"\tREAL,\n" +
-                    "\t\"kolicina\"\tINTEGER,\n" +
-                    "\t\"jedinicaMere\"\tTEXT,\n" +
-                    "\t\"popust\"\tINTEGER,\n" +
-                    "\t\"opisPosaoArtiklli\"\tTEXT,\n" +
-                    "\t\"detaljiPosaoArtikli\"\tINTEGER,\n" +
-                    /*"\tPRIMARY KEY(\"idRacuna\",\"idArtikla\")\n" +*/
-                    "FOREIGN KEY (idRacuna)\n" +
-                    "       REFERENCES Racuni (idRacuna) \n" +
-                    "FOREIGN KEY (idArtikla)\n" +
-                    "       REFERENCES Artikli (idArtikla) \n" +
-                    ");";
-
     public static final String INSERT_INTO_POSAO_ARTIKLI_DAO =
             "INSERT INTO PosaoArtikli(" +
                     "  idPosaoArtikli" +
@@ -242,7 +205,7 @@ public class SqlQuerys {
                     ", popust" +
                     ", opisPosaoArtiklli" +
                     ", detaljiPosaoArtikli)\n" +
-                    "VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_POSAO_ARTIKLI_DAO_TABLE = "" +
             "UPDATE PosaoArtikli\n" +
@@ -258,7 +221,7 @@ public class SqlQuerys {
             ", detaljiPosaoArtikli = ?" +
             " WHERE idPosaoArtikli=?";
 
-    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idRacuna=? AND idArtikla=?";
+    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idPosaoArtikli=?";
 
     public static final String FIND_ALL_POSAO_ARTIKLE_DAO_BY_PROPERTY = "SELECT * FROM PosaoArtikli WHERE ";
 

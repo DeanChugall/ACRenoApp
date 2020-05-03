@@ -2,29 +2,69 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bPaneMainContainer"  fx:controller="rs.acreno.racuni.faktura.FakturaController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="750.0" prefWidth="1180.0" style="-fx-background-color: #383838;"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <center>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                   style="-fx-background-color: #383838;" BorderPane.alignment="CENTER">
-            <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                    <children>
-                        <Label layoutX="419.0" layoutY="149.0" prefHeight="59.0" prefWidth="232.0" text="FAKTURA UI"
-                               textFill="#dddddd">
-                            <font>
-                                <Font size="35.0"/>
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
-            </items>
-        </SplitPane>
-    </center>
+<BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1180.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.FakturaController">
+   <center>
+      <SplitPane dividerPositions="0.18590831918505943" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="46.0" layoutY="31.0" prefHeight="30.0" prefWidth="89.0" text="Br. Racuna" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldBrojRacuna" editable="false" focusTraversable="false" layoutX="46.0" layoutY="61.0" prefHeight="30.0" prefWidth="108.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="204.0" layoutY="31.0" prefHeight="30.0" prefWidth="126.0" text="Ime Klijenta" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldImeKlijenta" editable="false" focusTraversable="false" layoutX="204.0" layoutY="61.0" prefHeight="38.0" prefWidth="198.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="428.0" layoutY="31.0" prefHeight="30.0" prefWidth="126.0" text="REG. TABLICA" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldRegTablica" editable="false" focusTraversable="false" layoutX="428.0" layoutY="61.0" prefHeight="38.0" prefWidth="198.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <SplitPane dividerPositions="0.6213114754098361" layoutY="139.0" orientation="VERTICAL" prefHeight="612.0" prefWidth="957.0" style="-fx-background-color: #383838;">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView layoutX="21.0" layoutY="57.0" prefHeight="200.0" prefWidth="891.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                              <TextField layoutX="21.0" layoutY="30.0" prefHeight="25.0" prefWidth="374.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
 </BorderPane>

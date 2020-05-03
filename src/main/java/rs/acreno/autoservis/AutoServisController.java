@@ -42,7 +42,7 @@ public class AutoServisController implements Initializable {
     public TextField txtFieldRegOznaka;
     //Inicijalizacija AUTOMOBIL Objekta
     private final AutomobilDAO automobilDAO = new SQLAutomobilDAO();
-    private final ObservableList<Automobil> automobili =
+    private  ObservableList<Automobil> automobili =
             FXCollections.observableArrayList(automobilDAO.findAllAutomobil());
     //Inicijalizacija Klijent Objekta
     private final KlijentDAO klijentDAO = new SQLKlijnetDAO();
@@ -82,15 +82,15 @@ public class AutoServisController implements Initializable {
             AutomobiliController automobiliController = fxmlLoader.getController();
             String regOznaka = txtFieldRegOznaka.getText(); //Uzmi reg tablicu kao parametar za auto
             //Temp lista za cuvanje samo jednog filtriranog auta
-            ObservableList<Automobil> tempListAuto = FXCollections.observableArrayList(
+            automobili = FXCollections.observableArrayList(
                     automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, regOznaka));
 
-            automobiliController.setAutomobil(tempListAuto); //Prosledjivanje filtriranog Auto Objekta
+            automobiliController.setAutomobil(automobili); //Prosledjivanje filtriranog Auto Objekta
 
             // Prosledjivanje filtriranog Klijent Objekta ka AutomobiliController-u
             automobiliController.setKlijenti(FXCollections.observableArrayList(
                     klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
-                            tempListAuto.get(0).getIdKlijenta())
+                            automobili.get(0).getIdKlijenta())
             ));
             //Prosledjivanje Filtriranih racuna
             automobiliController.setRacuni(racuni);
