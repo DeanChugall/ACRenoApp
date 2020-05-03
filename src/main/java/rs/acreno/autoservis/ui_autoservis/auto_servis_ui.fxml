@@ -62,7 +62,7 @@
          <font>
             <Font name="System Bold" size="34.0" />
          </font></TextField>
-      <Button fx:id="btnOpenAutomobili" layoutX="547.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#btnOpenAutomobiliMouseEvent" prefHeight="45.0" prefWidth="201.0" text="Button" />
+      <Button fx:id="btnOpenAutomobili" layoutX="1071.0" layoutY="86.0" mnemonicParsing="false" onMouseClicked="#btnOpenAutomobiliMouseEvent" prefHeight="45.0" prefWidth="201.0" text="Button" />
       <ListView fx:id="listViewAutmobiliSearch" layoutX="501.0" layoutY="344.0" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="388.0" visible="false" />
    </children>
 </AnchorPane>

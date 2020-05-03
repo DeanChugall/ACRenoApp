@@ -3,7 +3,7 @@ package posao_artikli;
 import org.junit.Test;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
-import rs.acreno.artikli.posao_artikli_dao.SQLitePosaoArtikliDAO;
+import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
 import rs.acreno.system.exeption.AcrenoException;
 
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class PosaoArtikliDaoTests {
     //private final UslugeDAO uslugeDAO = new SQLiteUslugeDAO();
     //private final ArtikliDAO artikliDAO = new SQLiteArtikliDAO();
     //private final RadniNalogDAO radniNalogDAO = new SQLiteRadniNalogDAO();
-    private final PosaoArtikliDAO posaoArtikliDAO = new SQLitePosaoArtikliDAO();
+    private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
 
     public PosaoArtikliDaoTests() {
         posaoArtikli = new PosaoArtikli();
@@ -81,7 +81,8 @@ public class PosaoArtikliDaoTests {
 
     @Test
     public void deletePosaoArtikleDao() throws AcrenoException, SQLException {
-        posaoArtikli.setIdPosaoArtikli(4);
+        posaoArtikli.setIdRacuna(1);
+        posaoArtikli.setIdArtikla(3);
         int toCheckValue = posaoArtikliDAO.findAllPosaoArtikleDao().get(0).getIdRacuna();
         assertEquals("Property is not same as excepted - ", toCheckValue, toCheckValue);
 

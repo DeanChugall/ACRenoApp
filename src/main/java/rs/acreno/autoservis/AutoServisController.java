@@ -64,12 +64,12 @@ public class AutoServisController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO
-        btnOpenAutomobili.setOnAction(e -> {
+       /* btnOpenAutomobili.setOnAction(e -> {
             ((Stage) ((Node) e.getSource()).getScene().getWindow()).hide();
             showAutomobiliUi();
             ((Stage) ((Node) e.getSource()).getScene().getWindow()).show();
 
-        });
+        });*/
     }
 
     public void showAutomobiliUi() {
@@ -109,6 +109,8 @@ public class AutoServisController implements Initializable {
     }
 
     public void btnOpenAutomobiliMouseEvent(MouseEvent mouseEvent) {
+        System.exit(0);
+
     }
 
     public void txtFieldRegTablicaSaerchKeyListener(KeyEvent keyEvent) {

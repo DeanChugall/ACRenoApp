@@ -195,8 +195,8 @@ public class SqlQuerys {
     //SQLq POSAO ARTIKLI DAO
     public static final String INSERT_INTO_POSAO_ARTIKLI_DAO =
             "INSERT INTO PosaoArtikli(" +
-                    "  idPosaoArtikli" +
-                    ", idRacuna" +
+                   /* "  idPosaoArtikli" +*/
+                    " idRacuna" +
                     ", idArtikla" +
                     ", cena" +
                     ", nabavnaCena" +
@@ -205,7 +205,7 @@ public class SqlQuerys {
                     ", popust" +
                     ", opisPosaoArtiklli" +
                     ", detaljiPosaoArtikli)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_POSAO_ARTIKLI_DAO_TABLE = "" +
             "UPDATE PosaoArtikli\n" +
@@ -221,7 +221,7 @@ public class SqlQuerys {
             ", detaljiPosaoArtikli = ?" +
             " WHERE idPosaoArtikli=?";
 
-    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idPosaoArtikli=?";
+    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idRacuna=? AND idArtikla=?";
 
     public static final String FIND_ALL_POSAO_ARTIKLE_DAO_BY_PROPERTY = "SELECT * FROM PosaoArtikli WHERE ";
 

@@ -1,8 +1,10 @@
 package rs.acreno.artikli;
 
+import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
+
 import java.util.Objects;
 
-public class Artikl {
+public class Artikl extends PosaoArtikli {
 
     private int idArtikla;
     private String kataloskiBrArtikla;

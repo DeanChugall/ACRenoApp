@@ -13,7 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SQLitePosaoArtikliDAO implements PosaoArtikliDAO {
+public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
     private Connection connection;
     private final QueryRunner dbAccess = new QueryRunner();
     private List<PosaoArtikli> posaoArtikliDao = null;
@@ -42,7 +42,7 @@ public class SQLitePosaoArtikliDAO implements PosaoArtikliDAO {
             connect();
             dbAccess.update(connection,
                     SqlQuerys.INSERT_INTO_POSAO_ARTIKLI_DAO
-                    , posaoArtikli.getIdPosaoArtikli()
+                   /* , posaoArtikli.getIdPosaoArtikli()*/
                     , posaoArtikli.getIdRacuna()
                     , posaoArtikli.getIdArtikla()
                     , posaoArtikli.getCena()
@@ -89,7 +89,8 @@ public class SQLitePosaoArtikliDAO implements PosaoArtikliDAO {
     public boolean deletePosaoArtikliDao(PosaoArtikli posaoArtikli) throws AcrenoException, SQLException {
         try {
             connect();
-            dbAccess.update(connection, SqlQuerys.DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO, posaoArtikli.getIdPosaoArtikli());
+            dbAccess.update(connection, SqlQuerys.DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO,
+                    posaoArtikli.getIdRacuna(), posaoArtikli.getIdArtikla());
             return true;
         } catch (Exception e) {
             throw new AcrenoException("Greska u DB DELETE deleteArtikli ARTIKLI", e);
@@ -102,8 +103,7 @@ public class SQLitePosaoArtikliDAO implements PosaoArtikliDAO {
 
     @Override
     public List<PosaoArtikli> findPosaoArtikliByPropertyDao(@NotNull PosaoArtikliDaoSearchType posaoArtikliDaoSearchType,
-                                                            Object value)
-            throws AcrenoException, SQLException {
+                                                            Object value)  throws AcrenoException, SQLException {
         String whereClause = "";
         String valueClause = "";
         switch (posaoArtikliDaoSearchType) {
