@@ -13,7 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SQLiteArtikliDAO implements ArtikliDAO {
+public class SQLArtikliDAO implements ArtikliDAO {
     private Connection connection;
     private final QueryRunner dbAccess = new QueryRunner();
     private List<Artikl> artiklsList = null;

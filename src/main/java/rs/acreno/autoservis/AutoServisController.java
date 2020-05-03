@@ -111,7 +111,7 @@ public class AutoServisController implements Initializable {
     public void btnOpenAutomobiliMouseEvent(MouseEvent mouseEvent) {
     }
 
-    public void btnRegTablicaSaerchKeyListener(KeyEvent keyEvent) {
+    public void txtFieldRegTablicaSaerchKeyListener(KeyEvent keyEvent) {
         txtFieldRegOznaka.textProperty().addListener(observable -> {
             if (txtFieldRegOznaka.textProperty().get().isEmpty()) {
                 listViewAutmobiliSearch.setItems(automobili);
@@ -158,6 +158,9 @@ public class AutoServisController implements Initializable {
             String regOznaka = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0).getRegOznaka();
             txtFieldRegOznaka.setText(regOznaka);
             listViewAutmobiliSearch.setVisible(false);
+            ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).hide();
+            showAutomobiliUi();
+            ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
 
         } else if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
             //System.out.println(tblRadniNalog.getSelectionModel().getSelectedItem().getIdAutomobila());

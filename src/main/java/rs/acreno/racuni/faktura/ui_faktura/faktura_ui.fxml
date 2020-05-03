@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -16,52 +19,85 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="46.0" layoutY="31.0" prefHeight="30.0" prefWidth="89.0" text="Br. Racuna" textFill="#d7d7d7">
+                  <Label layoutX="21.0" layoutY="31.0" prefHeight="30.0" prefWidth="89.0" text="Br. Racuna" textFill="#d7d7d7">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFieldBrojRacuna" editable="false" focusTraversable="false" layoutX="46.0" layoutY="61.0" prefHeight="30.0" prefWidth="108.0">
+                  <TextField fx:id="txtFieldBrojRacuna" editable="false" focusTraversable="false" layoutX="21.0" layoutY="61.0" prefHeight="30.0" prefWidth="108.0">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="204.0" layoutY="31.0" prefHeight="30.0" prefWidth="126.0" text="Ime Klijenta" textFill="#d7d7d7">
+                  <Label layoutX="142.0" layoutY="29.0" prefHeight="30.0" prefWidth="126.0" text="Ime Klijenta" textFill="#d7d7d7">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFieldImeKlijenta" editable="false" focusTraversable="false" layoutX="204.0" layoutY="61.0" prefHeight="38.0" prefWidth="198.0">
+                  <TextField fx:id="txtFieldImeKlijenta" editable="false" focusTraversable="false" layoutX="142.0" layoutY="59.0" prefHeight="38.0" prefWidth="198.0">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="428.0" layoutY="31.0" prefHeight="30.0" prefWidth="126.0" text="REG. TABLICA" textFill="#d7d7d7">
+                  <Label layoutX="447.0" layoutY="29.0" prefHeight="30.0" prefWidth="126.0" text="REG. TABLICA" textFill="#d7d7d7">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFieldRegTablica" editable="false" focusTraversable="false" layoutX="428.0" layoutY="61.0" prefHeight="38.0" prefWidth="198.0">
+                  <TextField fx:id="txtFieldRegTablica" editable="false" focusTraversable="false" layoutX="447.0" layoutY="59.0" prefHeight="38.0" prefWidth="198.0">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </TextField>
-                  <SplitPane dividerPositions="0.6213114754098361" layoutY="139.0" orientation="VERTICAL" prefHeight="612.0" prefWidth="957.0" style="-fx-background-color: #383838;">
+                  <SplitPane dividerPositions="0.6213114754098361" layoutY="274.0" orientation="VERTICAL" prefHeight="477.0" prefWidth="957.0" style="-fx-background-color: #383838;">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="955.0">
                            <children>
-                              <TableView layoutX="21.0" layoutY="57.0" prefHeight="200.0" prefWidth="891.0">
+                              <TableView layoutX="22.0" layoutY="41.0" prefHeight="200.0" prefWidth="891.0">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="C1" />
                                   <TableColumn prefWidth="75.0" text="C2" />
                                 </columns>
                               </TableView>
-                              <TextField layoutX="21.0" layoutY="30.0" prefHeight="25.0" prefWidth="374.0" />
+                              <TextField fx:id="txtFieldPretragaArtikla" layoutX="22.0" layoutY="14.0" onKeyReleased="#txtFieldPretragaArtiklaKeyListener" prefHeight="25.0" prefWidth="374.0" />
+                              <ListView fx:id="listViewPretragaArtikli" layoutX="19.0" layoutY="40.0" prefHeight="200.0" prefWidth="378.0" visible="false" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                     </items>
                   </SplitPane>
+                  <DatePicker fx:id="dPickDatumFaktura" layoutX="663.0" layoutY="63.0" prefHeight="35.0" prefWidth="187.0" />
+                  <Label layoutX="663.0" layoutY="31.0" prefHeight="30.0" prefWidth="126.0" text="DATUM" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="350.0" layoutY="29.0" prefHeight="30.0" prefWidth="71.0" text="ID AUTA" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldIdAutomobila" editable="false" focusTraversable="false" layoutX="348.0" layoutY="59.0" prefHeight="38.0" prefWidth="83.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="21.0" layoutY="102.0" prefHeight="30.0" prefWidth="89.0" text="POPUST" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldPopustRacuna" focusTraversable="false" layoutX="21.0" layoutY="132.0" prefHeight="30.0" prefWidth="108.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="164.0" layoutY="132.0" prefHeight="109.0" prefWidth="290.0" />
+                  <Label layoutX="164.0" layoutY="102.0" prefHeight="30.0" prefWidth="229.0" text="NAPOMENA RACUNA" textFill="#d7d7d7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

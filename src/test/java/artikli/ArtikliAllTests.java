@@ -3,7 +3,7 @@ package artikli;
 import org.junit.Test;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
-import rs.acreno.artikli.SQLiteArtikliDAO;
+import rs.acreno.artikli.SQLArtikliDAO;
 import rs.acreno.system.exeption.AcrenoException;
 
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ public class ArtikliAllTests {
     private  Artikl artikl;
 
 
-    private final ArtikliDAO artikliDAO = new SQLiteArtikliDAO();
+    private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
 
     public ArtikliAllTests() {
         artikl = new Artikl();
