@@ -14,7 +14,7 @@ public interface RacuniDAO extends DAO {
 
     boolean updateRacun(Racun racun) throws SQLException, AcrenoException;
 
-    boolean deleteRacun(Racun racun) throws AcrenoException, SQLException;
+    boolean deleteRacun(int idRacuna) throws AcrenoException, SQLException;
 
     List<Racun> findRacunByProperty(RacuniSearchType racuniSearchType, Object value) throws AcrenoException, SQLException;
 

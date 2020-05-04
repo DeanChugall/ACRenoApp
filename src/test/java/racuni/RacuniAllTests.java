@@ -67,12 +67,11 @@ public class RacuniAllTests {
 
     @Test
     public void deleteRacun() throws AcrenoException, SQLException {
-        racun.setIdRacuna(1);
         int fromRacunObject = racun.getIdRacuna();
         int toCheckValue = 1;
         assertEquals("Property is not same as excepted - ", toCheckValue, fromRacunObject);
 
-        racuniDAO.deleteRacun(racun);
+        racuniDAO.deleteRacun(1);
 
     }
 }

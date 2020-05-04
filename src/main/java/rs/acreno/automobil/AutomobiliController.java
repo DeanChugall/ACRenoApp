@@ -6,17 +6,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
+import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
@@ -29,19 +28,11 @@ import rs.acreno.system.exeption.AcrenoException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AutomobiliController implements Initializable {
 
-    @FXML
-    public BorderPane automobiliUiBorderPane;
-    public Button btnClosePopup;
-    public TextField txtFieldRegOznaka;
-    public TextField txtFieldImeKlijenta;
-
-    private ObservableList<Automobil> automobil;
-    private ObservableList<Klijent> klijenti;
-    private ObservableList<Racun> racuni;
     //TOP MENU
     public Button btnNoviRacun;
 
@@ -53,72 +44,88 @@ public class AutomobiliController implements Initializable {
     public TableColumn<Racun, Integer> tblRowPopustRacuna;
     public TableColumn<Racun, String> tblRowNapomeneRacuna;
 
-    //Inicijalizacija Racuni Objekta
-    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
+    @FXML
+    public Button btnClosePopup;
+    public TextField txtFieldRegOznaka;
+    public TextField txtFieldImeKlijenta;
 
-    public AutomobiliController() {
-    }
+    private ObservableList<Automobil> automobil;
+    private ObservableList<Klijent> klijenti;
+    private ObservableList<Racun> racuni;
 
     public void setAutomobil(ObservableList<Automobil> automobil) {
         this.automobil = automobil;
+    }
+
+    public ObservableList<Automobil> getAutomobil() {
+        return automobil;
     }
 
     public void setKlijenti(ObservableList<Klijent> klijenti) {
         this.klijenti = klijenti;
     }
 
-    public void setRacuni(ObservableList<Racun> racuni) {
-        this.racuni = racuni;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // TODO
-        btnClosePopup.setOnAction(e -> {
-            ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();
-        });
-        Platform.runLater(() -> {
-            txtFieldRegOznaka.setText(automobil.get(0).getRegOznaka());
-            txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
-            try {
-                popuniTabeluRacuni();
-            } catch (AcrenoException | SQLException e) {
-                e.printStackTrace();
-            }
-        });
+    public ObservableList<Klijent> getKlijenti() {
+        return klijenti;
     }
 
 
-    public void btnNoviRacunMouseEventNovaFaktura(MouseEvent mouseEvent) {
+    //Inicijalizacija Racuni Objekta
+    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
+
+    private Stage stage;
+    private final AutoServisController autoServisController;
+
+    public AutomobiliController(@NotNull AutoServisController autoServisController) {
+        this.autoServisController = autoServisController;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(FakturaController.class.getResource(Constants.FAKTURA_UI_VIEW_URI));
-            Parent root = fxmlLoader.load();
-
-            FakturaController fakturaController = fxmlLoader.getController();
-            fakturaController.setAutomobili(automobil);
-            fakturaController.setKlijenti(klijenti);
-            racuni = FXCollections.observableArrayList(
-                    racuniDAO.findRacunByProperty(RacuniSearchType.ID_AUTOMOBILA, automobil.get(0).getIdAuta()));
-            fakturaController.setRacuni(racuni);
-
-
-            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
+            // Set this class as the controller
+            loader.setController(this);
+            // Load the scene
+            stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("test");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-        } catch (IOException | SQLException | AcrenoException e) {
+            stage.setScene(new Scene(loader.load()));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void popuniTabeluRacuni() throws AcrenoException, SQLException {
+    public void showAutmobilStage() {
+        stage.setTitle(getAutomobil().get(0).getRegOznaka() + " || " + getKlijenti().get(0).getImePrezime());
+        stage.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        btnClosePopup.setOnAction(e -> {
+            ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();
+        });
+
+        btnNoviRacun.setOnMouseClicked(e -> {
+            FakturaController fakturaController = new FakturaController(this);
+            fakturaController.showFakturaStage();
+        });
+
+        Platform.runLater(() -> {
+            txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());
+            txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
+            popuniTabeluRacuni();
+        });
+    }
+
+
+
+
+    private void popuniTabeluRacuni() {
+        try {
+            racuni = FXCollections.observableArrayList(
+                    racuniDAO.findRacunByProperty(RacuniSearchType.ID_AUTOMOBILA, getAutomobil().get(0).getIdAuta()));
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
         tblRowIdRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
         tblRowIdRacuna.setStyle("-fx-alignment: CENTER;");
-        int IdAutomobila = automobil.get(0).getIdAuta();
-        ObservableList<Racun> filteredRacuni = FXCollections.observableArrayList(
-                racuniDAO.findRacunByProperty(RacuniSearchType.ID_AUTOMOBILA, IdAutomobila));
         tblRowIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
         tblRowIdAutomobila.setStyle("-fx-alignment: CENTER;");
         tblRowDatumRacuna.setCellValueFactory(new PropertyValueFactory<>("datum"));
@@ -127,7 +134,8 @@ public class AutomobiliController implements Initializable {
         tblRowPopustRacuna.setStyle("-fx-alignment: CENTER;");
         tblRowNapomeneRacuna.setCellValueFactory(new PropertyValueFactory<>("napomeneRacuna"));
         tblRowNapomeneRacuna.setStyle("-fx-alignment: CENTER;");
-        tblFakture.setItems(filteredRacuni);
+        tblFakture.setItems(racuni);
     }
+
 }
 

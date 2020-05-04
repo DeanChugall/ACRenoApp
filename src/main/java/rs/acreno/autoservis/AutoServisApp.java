@@ -26,7 +26,7 @@ public class AutoServisApp extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        System.out.println("Entering init method");
+        System.out.println("Entering stop method in AutoServisApp");
     }
 
     public static void main(String[] args) {

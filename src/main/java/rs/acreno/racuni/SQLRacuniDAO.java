@@ -76,10 +76,10 @@ public class SQLRacuniDAO implements RacuniDAO {
     }
 
     @Override
-    public boolean deleteRacun(Racun racun) throws AcrenoException, SQLException {
+    public boolean deleteRacun(int idRacun) throws AcrenoException, SQLException {
         try {
             connect();
-            dbAccess.update(connection, SqlQuerys.DELETE_FROM_RACUN, racun.getIdRacuna());
+            dbAccess.update(connection, SqlQuerys.DELETE_FROM_RACUN, idRacun);
             return true;
         } catch (Exception e) {
             throw new AcrenoException("Greska u DB DELETE deleteRacun RACUNI", e);

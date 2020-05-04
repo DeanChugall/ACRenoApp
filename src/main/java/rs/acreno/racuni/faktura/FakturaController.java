@@ -1,38 +1,36 @@
 package rs.acreno.racuni.faktura;
 
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
 import rs.acreno.artikli.SQLArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
-import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
 import rs.acreno.automobil.Automobil;
+import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
+import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
-import rs.acreno.system.util.ActionButtonTableCell;
-import rs.acreno.system.util.GeneralUiUtility;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -41,227 +39,137 @@ import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
 
+    public BorderPane bPaneMainContainer;
+    @FXML
+    private TextField txtFidRacuna;
 
-    public TextField txtFieldBrojRacuna;
-    public TextField txtFieldImeKlijenta;
-    public TextField txtFieldRegTablica;
-    public DatePicker dPickDatumFaktura;
-    public TextField txtFieldIdAutomobila;
-    public TextField txtFieldPopustRacuna;
-    public TextArea txtAreaNapomenaRacuna;
+    @FXML
+    private TextField txtFklijentImePrezime;
+    @FXML
+    private TextField txtFregTablica;
+    @FXML
+    private DatePicker datePickerDatumRacuna;
 
-    //Pretraga Artikala Tabela
-    public ListView<Artikl> listViewPretragaArtikli;
-    public TextField txtFieldPretragaArtikla;
-    public TableView<PosaoArtikli> tblPosaoArtikli;
-    public TableColumn<PosaoArtikli, Integer> tblRowidPosaoArtikli;
-    public TableColumn<String, String> tblRowidRacuna;
-    public TableColumn<Artikl, Integer> tblRowidArtikla;
-    public TableColumn<PosaoArtikli, Button> tblRowButton;
-    public TableColumn<Artikl, Double> tblRowCena;
+    private Stage stage;
+    private final AutomobiliController automobiliController;
 
+    //INIT GUI FIELDS
+    private int idFakture;
+    private int idAutomobila;
+    private String regOznakaAutomobila;
+    private int idKlijenta;
+    private String imePrezimeKlijenta;
+
+    //INIT ObservableList-s
     private ObservableList<Automobil> automobili;
     private ObservableList<Klijent> klijenti;
     private ObservableList<Racun> racuni;
     private ObservableList<Artikl> artikli;
     private ObservableList<PosaoArtikli> posaoArtikli;
 
+
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
     private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
-    private PosaoArtikli posaoArtikliObject= new PosaoArtikli();
+    private final PosaoArtikli posaoArtikliObject = new PosaoArtikli();
 
 
-    public void setAutomobili(ObservableList<Automobil> automobili) {
-        this.automobili = automobili;
-    }
-
-    public void setKlijenti(ObservableList<Klijent> klijenti) {
-        this.klijenti = klijenti;
-    }
-
-    public void setRacuni(ObservableList<Racun> racuni) {
-        this.racuni = racuni;
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(() -> {
-            System.out.println(automobili.get(0).getRegOznaka());
-            System.out.println(klijenti.get(0).getImePrezime());
-
-            for (Racun racun : racuni) {
-                System.out.println(racun.getIdRacuna());
-            }
-            try {
-                txtFieldBrojRacuna.setText(String.valueOf(brojFakture()));
-                txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
-                txtFieldRegTablica.setText(automobili.get(0).getRegOznaka());
-                txtFieldIdAutomobila.setText(String.valueOf(automobili.get(0).getIdAuta()));
-                //Datum
-                LocalDate now = LocalDate.now();
-                dPickDatumFaktura.setValue(now);
-
-                //Inicijalizacija Artikala
-               // artikli = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
-                //Inicijalizacija Artikala
-               // posaoArtikli = FXCollections.observableArrayList();
-            } catch (AcrenoException | SQLException e) {
-                e.printStackTrace();
-            }
-            //Postavljenje dugmica ADD u Tabeli ARTIKLI
-            tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", (PosaoArtikli p) -> {
-                System.out.println("KLICK FROM BUTTON IN TABLE ARTIKLI");
-                p.setIdRacuna(Integer.parseInt(txtFieldBrojRacuna.getText()));
-                System.out.println("ID RACINA: " + p.getIdRacuna());
-                System.out.println("ID ARTIKLA: " + p.getIdArtikla());
-                tblPosaoArtikli.getItems().remove(p);
-
-                try {
-                    posaoArtikliDAO.deletePosaoArtikliDao(p);
-                } catch (AcrenoException | SQLException e) {
-                    e.printStackTrace();
-                }
-
-                return p;
-
-            }));
-        });
-    }
-
-
-    public void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
-        txtFieldPretragaArtikla.textProperty().addListener(observable -> {
-            if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
-                listViewPretragaArtikli.setItems(artikli);
-                return;
-            }
-            ObservableList<Artikl> artikl = null;
-            ObservableList<Artikl> tempArtikl = null;
-            try {
-                artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-                tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
-            } catch (AcrenoException | SQLException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
-
-                String RegTablica = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
-
-                if (RegTablica.contains(txtFieldPretragaArtikla.textProperty().get())) {
-                    tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
-                    listViewPretragaArtikli.setItems(tempArtikl); // Dodaje u FXlistView
-                    listViewPretragaArtikli.setCellFactory(param -> new ListCell<>() {
-                        @Override
-                        protected void updateItem(Artikl item, boolean empty) {
-                            super.updateItem(item, empty);
-                            listViewPretragaArtikli.setVisible(true); //Prikazuje listu vidljivom
-                            if (empty || item == null || item.getNazivArtikla() == null) {
-                                setText(null);
-                            } else {
-                                setText(item.getNazivArtikla());
-
-                               }
-                        }
-                    });
-                    //break;
-                }
-            }
-        });
-    }
-
-    @FXML
-    // Zatvara popUp ListView pretrage i setuje selektovanu vrednost u TF sa double click
-    public void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
-        //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-            String nazivArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
-            txtFieldPretragaArtikla.setText(nazivArtikla);
-            listViewPretragaArtikli.setVisible(false);
-            //Dodavanje objekta Artikl iz filtrirane ListeView
-
-
-            //posaoArtikliObject.setIdPosaoArtikli(4);
-           // posaoArtikliObject.setIdPosaoArtikli(4);
-            posaoArtikliObject.setIdRacuna(Integer.parseInt(txtFieldBrojRacuna.getText()));
-            posaoArtikliObject.setIdArtikla(listViewPretragaArtikli.getSelectionModel().getSelectedItem().getIdArtikla());
-            posaoArtikliObject.setJedinicaMere(listViewPretragaArtikli.getSelectionModel().getSelectedItem().getJedinicaMere());
-            posaoArtikliObject.setOpisPosaoArtiklli("setOpisPosaoArtiklli");
-            posaoArtikliObject.setDetaljiPosaoArtikli("setDetaljiPosaoArtikli");
-
-            posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject);
-
-
-
-            tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
-
-            tblRowidRacuna.setCellValueFactory(param -> new ReadOnlyStringWrapper(txtFieldBrojRacuna.getText()));
-            tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
-            tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cenaArtikla"));
-            tblRowCena.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-            tblRowCena.setOnEditCommit(
-                    new EventHandler<TableColumn.CellEditEvent<Artikl, Double>>() {
-                        @Override
-                        public void handle(TableColumn.CellEditEvent<Artikl, Double> t) {
-                            t.getTableView().getItems().get(
-                                    t.getTablePosition().getRow()).setCena(t.getNewValue());
-                            double tt = t.getTableView().getItems().get(
-                                    t.getTablePosition().getRow()).getCena();
-                            int idArtikla = t.getTableView().getItems().get(
-                                    t.getTablePosition().getRow()).getIdArtikla();
-                            System.out.println("TEST USLUGE CENA: " + tt);
-                            System.out.println(t.getTableView().getItems()); // vraca sve objeke - redove iz tabele
-                            //Da ne bi brisao izmenjenu kolicinu mora da se doda nova ovim kodom ispod
-                            tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cenaArtikla"));
-                            posaoArtikliObject.setIdArtikla(idArtikla);
-                            posaoArtikliObject.setCena(tt);
-                            try {
-                                posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliObject);
-                            } catch (SQLException | AcrenoException throwables) {
-                                throwables.printStackTrace();
-                            }
-                        }
-                    }
-            );
-            //tblRowidRacuna.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-            tblPosaoArtikli.getItems().add(listViewPretragaArtikli.getSelectionModel().getSelectedItem()); //Dodaje
-
-
-
-        } else if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
-
-        }
-    }
-
-    private int brojFakture() throws AcrenoException, SQLException {
-        int brojFakture = 0;
-        List<Racun> racuni = racuniDAO.findAllRacune();
-        for (Racun racun : racuni) {
-            System.out.println(racun.getIdRacuna());
-            brojFakture = racun.getIdRacuna();
-        }
-        return brojFakture + 1;
-    }
-
-    public void btnKreirajNoviRacunAction(ActionEvent actionEvent)  {
-        Racun noviRacun = new Racun();
-        noviRacun.setIdAutomobila(Integer.parseInt(txtFieldIdAutomobila.getText()));
-        noviRacun.setDatum(dPickDatumFaktura.getValue().toString());
-        if (!txtFieldPopustRacuna.getText().isEmpty()) {
-            noviRacun.setPopust(Integer.parseInt(txtFieldPopustRacuna.getText()));
-        }
-        noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
+    public FakturaController(AutomobiliController automobiliController) {
+        this.automobiliController = automobiliController;
         try {
-            racuniDAO.insertRacun(noviRacun);
-            GeneralUiUtility.alertDialogBox(Alert.AlertType.CONFIRMATION, "Uspesno kreiranje racuna",
-                    "Kreiranje racuna", "Uspesno kreiran racun !");
-        } catch (AcrenoException | SQLException e) {
-            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "ERROR kreiranje racuna",
-                    "Kreiranje racuna", "Greska, kontakrirajte Dexa !/n" + e);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
+            // Set this class as the controller
+            loader.setController(this);
+            // Load the scene
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(loader.load()));
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        // Setup the window/stage
+    }
+
+    /**
+     * Show the stage that was loaded in the constructor
+     */
+    public void showFakturaStage() {
+        initGUI();
+        stage.showAndWait();
+    }
+
+
+    private void initGUI() {
+        //Inicijalizacija podataka
+        automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
+        klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
+        idFakture = brojFakture();
+        idAutomobila = automobili.get(0).getIdAuta();
+        regOznakaAutomobila = automobili.get(0).getRegOznaka();
+        idKlijenta = klijenti.get(0).getIdKlijenta();
+        imePrezimeKlijenta = klijenti.get(0).getImePrezime();
+        //Popunjavanje GUIa
+        stage.setTitle("Registarska Oznaka: " +regOznakaAutomobila + " || Klijent: " + imePrezimeKlijenta);
+        txtFklijentImePrezime.setText(imePrezimeKlijenta);
+        txtFregTablica.setText(regOznakaAutomobila);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            txtFidRacuna.setText(String.valueOf(brojFakture()));
+           /* txtFidRacuna.setText(String.valueOf(racuni.get(0).getIdRacuna()));
+            txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime());
+            txtFregTablica.setText(automobili.get(0).getRegOznaka());*/
+            //Datum
+            LocalDate now = LocalDate.now();
+            datePickerDatumRacuna.setValue(now);
+
+        });
+    }
+
+    public void btnOdustaniMouseClick(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
+        racuniDAO.deleteRacun(Integer.parseInt(txtFidRacuna.getText()));
+        ((Stage) (((Button) mouseEvent.getSource()).getScene().getWindow())).close();
+        System.out.println("ID RACUNA = " + racuni.get(0).getIdRacuna());
+    }
+
+    private void closeWindowEvent(WindowEvent event) {
+        System.out.println("Window close request ...");
+/*
+        if(storageModel.dataSetChanged()) {  // if the dataset has changed, alert the user with a popup
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.getButtonTypes().remove(ButtonType.OK);
+            alert.getButtonTypes().add(ButtonType.CANCEL);
+            alert.getButtonTypes().add(ButtonType.YES);
+            alert.setTitle("Quit application");
+            alert.setContentText(String.format("Close without saving?"));
+            alert.initOwner(primaryStage.getOwner());
+            Optional<ButtonType> res = alert.showAndWait();
+
+            if(res.isPresent()) {
+                if(res.get().equals(ButtonType.CANCEL))
+                    event.consume();
+            }
+        }*/
+    }
+
+    //Odredjuje poslednji broj fakture i dodaje 1
+    private int brojFakture() {
+        int brojFakture = 0;
+        List<Racun> racuni = null;
+        try {
+            racuni = racuniDAO.findAllRacune();
+            for (Racun racun : racuni) {
+                //System.out.println("brojFakture: " + racun.getIdRacuna());
+                brojFakture = racun.getIdRacuna() + 1;
+            }
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        return brojFakture;
     }
 }
 
