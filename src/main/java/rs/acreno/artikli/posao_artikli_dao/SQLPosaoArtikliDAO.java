@@ -42,9 +42,10 @@ public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
             connect();
             dbAccess.update(connection,
                     SqlQuerys.INSERT_INTO_POSAO_ARTIKLI_DAO
-                   /* , posaoArtikli.getIdPosaoArtikli()*/
+                    , posaoArtikli.getIdPosaoArtikli()
                     , posaoArtikli.getIdRacuna()
                     , posaoArtikli.getIdArtikla()
+                    , posaoArtikli.getNazivArtikla()
                     , posaoArtikli.getCena()
                     , posaoArtikli.getNabavnaCena()
                     , posaoArtikli.getKolicina()
@@ -67,6 +68,7 @@ public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
             dbAccess.update(connection, SqlQuerys.UPDATE_POSAO_ARTIKLI_DAO_TABLE
                     , posaoArtikli.getIdRacuna()
                     , posaoArtikli.getIdArtikla()
+                    , posaoArtikli.getNazivArtikla()
                     , posaoArtikli.getCena()
                     , posaoArtikli.getNabavnaCena()
                     , posaoArtikli.getKolicina()
@@ -103,7 +105,7 @@ public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
 
     @Override
     public List<PosaoArtikli> findPosaoArtikliByPropertyDao(@NotNull PosaoArtikliDaoSearchType posaoArtikliDaoSearchType,
-                                                            Object value)  throws AcrenoException, SQLException {
+                                                            Object value) throws AcrenoException, SQLException {
         String whereClause = "";
         String valueClause = "";
         switch (posaoArtikliDaoSearchType) {

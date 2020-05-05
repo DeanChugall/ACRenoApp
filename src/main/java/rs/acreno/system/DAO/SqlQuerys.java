@@ -195,9 +195,10 @@ public class SqlQuerys {
     //SQLq POSAO ARTIKLI DAO
     public static final String INSERT_INTO_POSAO_ARTIKLI_DAO =
             "INSERT INTO PosaoArtikli(" +
-                   /* "  idPosaoArtikli" +*/
-                    " idRacuna" +
+                    "  idPosaoArtikli" +
+                    ", idRacuna" +
                     ", idArtikla" +
+                    ", nazivArtikla" +
                     ", cena" +
                     ", nabavnaCena" +
                     ", kolicina" +
@@ -205,13 +206,14 @@ public class SqlQuerys {
                     ", popust" +
                     ", opisPosaoArtiklli" +
                     ", detaljiPosaoArtikli)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_POSAO_ARTIKLI_DAO_TABLE = "" +
             "UPDATE PosaoArtikli\n" +
             "SET " +
             "  idRacuna = ?" +
             ", idArtikla = ?" +
+            ", nazivArtikla = ?" +
             ", cena = ?" +
             ", nabavnaCena = ?" +
             ", kolicina = ?" +
@@ -228,18 +230,6 @@ public class SqlQuerys {
     public static final String FIND_ALL_POSAO_ARTIKLE_DAO = "SELECT * FROM PosaoArtikli";
 
     //SQLq RADNI NALOZI
-    public static final String CREATE_RADNI_NALOG_TABLE_QUERY = "" +
-            "CREATE TABLE \"RadniNalog\" (\n" +
-            "\t\"IdRadnogNaloga\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
-            "\t\"IdAutomobila\"\tINTEGER NOT NULL,\n" +
-            "\t\"Datum\"\tTEXT,\n" +
-            "\t\"DetaljiStranke\"\tTEXT,\n" +
-            "\t\"DetaljiServisera\"\tTEXT,\n" +
-            "\t\"DaLiJePonudaIliRacun\"\tNUMERIC,\n" +
-            "\t\"Kilometraza\"\tTEXT,\n" +
-            "FOREIGN KEY (IdAutomobila)\n" +
-            "       REFERENCES Automobil (idAuta) \n" +
-            ");";
 
     public static final String INSERT_RADNI_NALOG_IN_TABLE =
             "INSERT INTO RadniNalog(" +

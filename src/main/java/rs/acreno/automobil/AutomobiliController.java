@@ -116,7 +116,6 @@ public class AutomobiliController implements Initializable {
 
 
 
-
     private void popuniTabeluRacuni() {
         try {
             racuni = FXCollections.observableArrayList(

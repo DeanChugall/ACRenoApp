@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ArtikliDAO extends DAO {
 
-    long insertArtikli(Artikl usluga) throws AcrenoException, SQLException;
+    long insertArtikli(Artikl artikl) throws AcrenoException, SQLException;
 
-    boolean updateArtikli(Artikl usluga) throws SQLException, AcrenoException;
+    boolean updateArtikli(Artikl artikl) throws SQLException, AcrenoException;
 
-    boolean deleteArtikli(Artikl usluga) throws AcrenoException, SQLException;
+    boolean deleteArtikli(Artikl artikl) throws AcrenoException, SQLException;
 
     List<Artikl> findArtikliByProperty(ArtikliSearchType artikliSearchType, Object value) throws AcrenoException, SQLException;
 

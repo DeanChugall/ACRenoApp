@@ -19,10 +19,6 @@ import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
-import rs.acreno.racuni.Racun;
-import rs.acreno.racuni.RacuniDAO;
-import rs.acreno.racuni.RacuniSearchType;
-import rs.acreno.racuni.SQLRacuniDAO;
 import rs.acreno.system.exeption.AcrenoException;
 
 import java.net.URL;
@@ -58,7 +54,8 @@ public class AutoServisController implements Initializable {
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {  }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
 
     public void showAutomobiliUi() throws AcrenoException, SQLException {

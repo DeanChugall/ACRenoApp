@@ -6,6 +6,7 @@ public class PosaoArtikli {
     private int idPosaoArtikli;
     private int idRacuna;
     private int idArtikla;
+    private String nazivArtikla;
     private double cena;
     private double nabavnaCena;
     private int kolicina;
@@ -23,6 +24,22 @@ public class PosaoArtikli {
         this.idPosaoArtikli = idPosaoArtikli;
         this.idRacuna = idRacuna;
         this.idArtikla = idArtikla;
+        this.cena = cena;
+        this.nabavnaCena = nabavnaCena;
+        this.kolicina = kolicina;
+        this.jedinicaMere = jedinicaMere;
+        this.popust = popust;
+        this.opisPosaoArtiklli = opisPosaoArtiklli;
+        this.detaljiPosaoArtikli = detaljiPosaoArtikli;
+    }
+
+    public PosaoArtikli(int idPosaoArtikli, int idRacuna, int idArtikla, String nazivArtikla,
+                        double cena, double nabavnaCena, int kolicina, String jedinicaMere,
+                        int popust, String opisPosaoArtiklli, String detaljiPosaoArtikli) {
+        this.idPosaoArtikli = idPosaoArtikli;
+        this.idRacuna = idRacuna;
+        this.idArtikla = idArtikla;
+        this.nazivArtikla = nazivArtikla;
         this.cena = cena;
         this.nabavnaCena = nabavnaCena;
         this.kolicina = kolicina;
@@ -54,6 +71,14 @@ public class PosaoArtikli {
 
     public void setIdArtikla(int idArtikla) {
         this.idArtikla = idArtikla;
+    }
+
+    public String getNazivArtikla() {
+        return nazivArtikla;
+    }
+
+    public void setNazivArtikla(String nazivArtikla) {
+        this.nazivArtikla = nazivArtikla;
     }
 
     public double getCena() {
