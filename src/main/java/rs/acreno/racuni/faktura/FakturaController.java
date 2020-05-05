@@ -9,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -60,6 +62,7 @@ public class FakturaController implements Initializable {
     public Button btnSacuvajRacun;
     public TextField txtFopisArtikla;
     public TextArea txtAreaDetaljiOpisArtikla;
+
 
 
     @FXML
@@ -157,10 +160,14 @@ public class FakturaController implements Initializable {
 
     }
 
-
+    public Button btnPrint;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
+
+            btnPrint.setOnAction(e -> {
+                System.out.println("PRINT !!!!");
+            });
 
             btnCloseFakture.setOnAction(e -> {
                 ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();

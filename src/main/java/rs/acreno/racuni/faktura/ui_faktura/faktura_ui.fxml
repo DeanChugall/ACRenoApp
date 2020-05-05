@@ -12,95 +12,61 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #383838;"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;"
-                   BorderPane.alignment="CENTER">
+        <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="674.0" prefWidth="956.0">
                     <children>
-                        <TableView fx:id="tblPosaoArtikli" layoutX="92.0" layoutY="269.0" prefHeight="264.0"
-                                   prefWidth="973.0">
+                        <TableView fx:id="tblPosaoArtikli" layoutX="92.0" layoutY="269.0" prefHeight="264.0" prefWidth="973.0">
                             <columns>
-                                <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" text="idPosaoArtikli"/>
-                                <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" text="idRacuna"/>
-                                <TableColumn fx:id="tblRowidArtikla" prefWidth="81.0" text="idArtikla"/>
-                                <TableColumn fx:id="tblRowNazivArtikla" prefWidth="103.0" text="Naziv Artikla"/>
-                                <TableColumn fx:id="tblRowOpisArtikla" prefWidth="75.0" text="Opis"/>
-                                <TableColumn fx:id="tblRowCena" prefWidth="75.0" text="cena"/>
-                                <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena"/>
-                                <TableColumn fx:id="tblRowKolicina" prefWidth="68.0" text="kolicina"/>
-                                <TableColumn fx:id="tblRowJedinicaMere" prefWidth="97.0" text="jedinicaMere"/>
-                                <TableColumn fx:id="tblRowPopust" prefWidth="75.0" text="popust"/>
-                                <TableColumn fx:id="tblRowButton" prefWidth="75.0" text="button"/>
+                                <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" text="idPosaoArtikli" />
+                                <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" text="idRacuna" />
+                                <TableColumn fx:id="tblRowidArtikla" prefWidth="81.0" text="idArtikla" />
+                                <TableColumn fx:id="tblRowNazivArtikla" prefWidth="103.0" text="Naziv Artikla" />
+                                <TableColumn fx:id="tblRowOpisArtikla" prefWidth="75.0" text="Opis" />
+                                <TableColumn fx:id="tblRowCena" prefWidth="75.0" text="cena" />
+                                <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" />
+                                <TableColumn fx:id="tblRowKolicina" prefWidth="68.0" text="kolicina" />
+                                <TableColumn fx:id="tblRowJedinicaMere" prefWidth="97.0" text="jedinicaMere" />
+                                <TableColumn fx:id="tblRowPopust" prefWidth="75.0" text="popust" />
+                                <TableColumn fx:id="tblRowButton" prefWidth="75.0" text="button" />
                             </columns>
                         </TableView>
-                        <Label layoutX="461.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0"
-                               text="Registarska Oznaka" textFill="#d3d3d3"/>
-                        <Label layoutX="111.0" layoutY="26.0" prefHeight="23.0" prefWidth="98.0" text="Klijent"
-                               textFill="#d3d3d3"/>
-                        <DatePicker fx:id="datePickerDatumRacuna" layoutX="277.0" layoutY="45.0"/>
-                        <Label layoutX="277.0" layoutY="26.0" prefHeight="23.0" prefWidth="111.0" text="Datum"
-                               textFill="#d3d3d3"/>
-                        <TextField fx:id="txtFklijentImePrezime" layoutX="111.0" layoutY="45.0"/>
-                        <Label layoutX="14.0" layoutY="26.0" prefHeight="23.0" prefWidth="69.0" text="ID RACUNA"
-                               textFill="#d3d3d3"/>
-                        <TextField fx:id="txtFidRacuna" layoutX="8.0" layoutY="45.0" prefHeight="25.0"
-                                   prefWidth="76.0"/>
-                        <TextField fx:id="txtFregTablica" layoutX="461.0" layoutY="46.0"/>
-                        <TextField fx:id="txtFieldPretragaArtikla" layoutX="86.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="281.0"/>
-                        <Label layoutX="397.0" layoutY="110.0" prefHeight="23.0" prefWidth="69.0" text="ID ARTIKLA"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="478.0" layoutY="110.0" prefHeight="23.0" prefWidth="69.0" text="CENA"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="563.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="NABAVNA CENA"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="671.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="KOLICINA"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="748.0" layoutY="110.0" prefHeight="23.0" prefWidth="67.0" text="JED. MERE"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="833.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="POPUST"
-                               textFill="#d3d3d3"/>
-                        <TextField fx:id="txtFidArtikla" layoutX="392.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="72.0"/>
-                        <TextField fx:id="txtFcenaArtikla" layoutX="477.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="72.0"/>
-                        <TextField fx:id="txtFnabavnaCenaArtikla" layoutX="563.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="89.0"/>
-                        <TextField fx:id="txtFKolicinaArtikla" layoutX="665.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="72.0"/>
-                        <TextField fx:id="txtFjedinicaMereArtikla" layoutX="744.0" layoutY="133.0" prefHeight="25.0"
-                                   prefWidth="72.0"/>
-                        <TextField fx:id="txtFpopustArtikla" layoutX="833.0" layoutY="132.0" prefHeight="25.0"
-                                   prefWidth="72.0"/>
-                        <Button fx:id="btnDodajArtiklRacun" disable="true" layoutX="88.0" layoutY="180.0"
-                                mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0"
-                                text="DODAJ ARTIKL U RACUN"/>
-                        <ListView fx:id="listViewPretragaArtikli" layoutX="86.0" layoutY="158.0" prefHeight="200.0"
-                                  prefWidth="332.0" visible="false"/>
-                        <Label layoutX="627.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna"
-                               textFill="#d3d3d3"/>
-                        <Label layoutX="764.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Popust Racuna"
-                               textFill="#d3d3d3"/>
-                        <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="618.0" layoutY="46.0" prefHeight="54.0"
-                                  prefWidth="122.0" wrapText="true"/>
-                        <TextField fx:id="txtFpopustRacuna" layoutX="764.0" layoutY="46.0" prefHeight="25.0"
-                                   prefWidth="100.0"/>
-                        <Button fx:id="btnOdustaniObrisiRacun" layoutX="1026.0" layoutY="29.0" mnemonicParsing="false"
-                                prefHeight="60.0" prefWidth="106.0" text="ODUSTANI"/>
-                        <Button fx:id="btnSacuvajRacun" layoutX="908.0" layoutY="33.0" mnemonicParsing="false"
-                                prefHeight="55.0" prefWidth="104.0" text="SACUVAJ"/>
-                        <TextField fx:id="txtFopisArtikla" layoutX="930.0" layoutY="132.0" prefHeight="25.0"
-                                   prefWidth="183.0"/>
-                        <Label layoutX="934.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="OPIS ARTIKLA"
-                               textFill="#d3d3d3"/>
-                        <TextArea fx:id="txtAreaDetaljiOpisArtikla" layoutX="640.0" layoutY="181.0" prefHeight="57.0"
-                                  prefWidth="313.0"/>
-                        <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0"
-                               text="DETALJI ARTIKLA KAO ENKI OPIS AKO TREBA" textFill="#d3d3d3"/>
+                        <Label layoutX="461.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Registarska Oznaka" textFill="#d3d3d3" />
+                        <Label layoutX="111.0" layoutY="26.0" prefHeight="23.0" prefWidth="98.0" text="Klijent" textFill="#d3d3d3" />
+                        <DatePicker fx:id="datePickerDatumRacuna" layoutX="277.0" layoutY="45.0" />
+                        <Label layoutX="277.0" layoutY="26.0" prefHeight="23.0" prefWidth="111.0" text="Datum" textFill="#d3d3d3" />
+                        <TextField fx:id="txtFklijentImePrezime" layoutX="111.0" layoutY="45.0" />
+                        <Label layoutX="14.0" layoutY="26.0" prefHeight="23.0" prefWidth="69.0" text="ID RACUNA" textFill="#d3d3d3" />
+                        <TextField fx:id="txtFidRacuna" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="76.0" />
+                        <TextField fx:id="txtFregTablica" layoutX="461.0" layoutY="46.0" />
+                        <TextField fx:id="txtFieldPretragaArtikla" layoutX="86.0" layoutY="133.0" prefHeight="25.0" prefWidth="281.0" />
+                        <Label layoutX="397.0" layoutY="110.0" prefHeight="23.0" prefWidth="69.0" text="ID ARTIKLA" textFill="#d3d3d3" />
+                        <Label layoutX="478.0" layoutY="110.0" prefHeight="23.0" prefWidth="69.0" text="CENA" textFill="#d3d3d3" />
+                        <Label layoutX="563.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="NABAVNA CENA" textFill="#d3d3d3" />
+                        <Label layoutX="671.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="KOLICINA" textFill="#d3d3d3" />
+                        <Label layoutX="748.0" layoutY="110.0" prefHeight="23.0" prefWidth="67.0" text="JED. MERE" textFill="#d3d3d3" />
+                        <Label layoutX="833.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="POPUST" textFill="#d3d3d3" />
+                        <TextField fx:id="txtFidArtikla" layoutX="392.0" layoutY="133.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="txtFcenaArtikla" layoutX="477.0" layoutY="133.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="txtFnabavnaCenaArtikla" layoutX="563.0" layoutY="133.0" prefHeight="25.0" prefWidth="89.0" />
+                        <TextField fx:id="txtFKolicinaArtikla" layoutX="665.0" layoutY="133.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="txtFjedinicaMereArtikla" layoutX="744.0" layoutY="133.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="txtFpopustArtikla" layoutX="833.0" layoutY="132.0" prefHeight="25.0" prefWidth="72.0" />
+                        <Button fx:id="btnDodajArtiklRacun" disable="true" layoutX="88.0" layoutY="180.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN" />
+                        <ListView fx:id="listViewPretragaArtikli" layoutX="86.0" layoutY="158.0" prefHeight="200.0" prefWidth="332.0" visible="false" />
+                        <Label layoutX="627.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna" textFill="#d3d3d3" />
+                        <Label layoutX="764.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Popust Racuna" textFill="#d3d3d3" />
+                        <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="618.0" layoutY="46.0" prefHeight="54.0" prefWidth="122.0" wrapText="true" />
+                        <TextField fx:id="txtFpopustRacuna" layoutX="764.0" layoutY="46.0" prefHeight="25.0" prefWidth="100.0" />
+                        <Button fx:id="btnOdustaniObrisiRacun" layoutX="1026.0" layoutY="29.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="ODUSTANI" />
+                        <Button fx:id="btnSacuvajRacun" layoutX="908.0" layoutY="33.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="104.0" text="SACUVAJ" />
+                        <TextField fx:id="txtFopisArtikla" layoutX="930.0" layoutY="132.0" prefHeight="25.0" prefWidth="183.0" />
+                        <Label layoutX="934.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="OPIS ARTIKLA" textFill="#d3d3d3" />
+                        <TextArea fx:id="txtAreaDetaljiOpisArtikla" layoutX="640.0" layoutY="181.0" prefHeight="57.0" prefWidth="313.0" />
+                        <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0" text="DETALJI ARTIKLA KAO ENKI OPIS AKO TREBA" textFill="#d3d3d3" />
+                  <Button fx:id="btnPrint" layoutX="893.0" layoutY="596.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Print" />
                     </children>
                 </AnchorPane>
             </items>
@@ -109,12 +75,11 @@
     <top>
         <AnchorPane prefHeight="63.0" prefWidth="1180.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnCloseFakture" layoutX="1056.0" layoutY="19.0" mnemonicParsing="false"
-                        prefHeight="35.0" prefWidth="87.0" text="ZATVORI"/>
+                <Button fx:id="btnCloseFakture" layoutX="1056.0" layoutY="19.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="87.0" text="ZATVORI" />
             </children>
         </AnchorPane>
     </top>
     <bottom>
-        <AnchorPane prefHeight="49.0" prefWidth="1180.0" BorderPane.alignment="CENTER"/>
+        <AnchorPane prefHeight="49.0" prefWidth="1180.0" BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>
