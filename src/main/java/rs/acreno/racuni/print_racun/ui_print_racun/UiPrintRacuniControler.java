@@ -117,6 +117,14 @@ public class UiPrintRacuniControler implements Initializable {
         tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
         tblRowOpisArtikla.setCellValueFactory(new PropertyValueFactory<>("opisPosaoArtiklli"));
         tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
+        tblRowKolicina.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+        tblRowKolicina.setStyle("-fx-alignment: CENTER;");
+        tblRowJedinicaMere.setCellValueFactory(new PropertyValueFactory<>("jedinicaMere"));
+        tblRowJedinicaMere.setStyle("-fx-alignment: CENTER;");
+        tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cena"));
+        tblRowCena.setStyle("-fx-alignment: CENTER;");
+        tblRowPopust.setCellValueFactory(new PropertyValueFactory<>("popust"));
+        tblRowPopust.setStyle("-fx-alignment: CENTER;");
 
         tblPosaoArtikli.setItems(posaoArtikli);
 

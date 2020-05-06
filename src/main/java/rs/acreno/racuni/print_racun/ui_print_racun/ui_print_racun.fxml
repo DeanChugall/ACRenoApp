@@ -18,17 +18,17 @@
          </font>
       </Label>
       <Button fx:id="btnPrint" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
-      <TableView fx:id="tblPosaoArtikli" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
+      <TableView fx:id="tblPosaoArtikli" editable="true" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
          <columns>
             <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
             <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
-            <TableColumn fx:id="tblRowidArtikla" prefWidth="62.0" text="idArtikla" />
+            <TableColumn fx:id="tblRowidArtikla" prefWidth="62.0" text="idArtikla" visible="false" />
             <TableColumn fx:id="tblRowNazivArtikla" prefWidth="91.0" text="Naziv Artikla" />
-            <TableColumn fx:id="tblRowOpisArtikla" prefWidth="83.0" text="Opis" />
-            <TableColumn fx:id="tblRowKolicina" prefWidth="49.0" text="kolicina" />
-            <TableColumn fx:id="tblRowJedinicaMere" prefWidth="47.0" text="J.Mere" />
-            <TableColumn fx:id="tblRowCena" prefWidth="84.0" text="cena" />
-            <TableColumn fx:id="tblRowPopust" text="popust" />
+            <TableColumn fx:id="tblRowOpisArtikla" prefWidth="209.0" text="Opis" />
+            <TableColumn fx:id="tblRowKolicina" prefWidth="45.0" text="kolicina" />
+            <TableColumn fx:id="tblRowJedinicaMere" prefWidth="54.0" text="J.Mere" />
+            <TableColumn fx:id="tblRowCena" prefWidth="95.0" text="cena" />
+            <TableColumn fx:id="tblRowPopust" prefWidth="77.0" text="popust" />
             <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" visible="false" />
          </columns>
       </TableView>
