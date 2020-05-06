@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="595.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.ui_print_racun.UiPrintRacuniControler">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPrint" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
+      <TableView fx:id="tblPosaoArtikli" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
+         <columns>
+            <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
+            <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
+            <TableColumn fx:id="tblRowidArtikla" prefWidth="62.0" text="idArtikla" />
+            <TableColumn fx:id="tblRowNazivArtikla" prefWidth="91.0" text="Naziv Artikla" />
+            <TableColumn fx:id="tblRowOpisArtikla" prefWidth="83.0" text="Opis" />
+            <TableColumn fx:id="tblRowKolicina" prefWidth="49.0" text="kolicina" />
+            <TableColumn fx:id="tblRowJedinicaMere" prefWidth="47.0" text="J.Mere" />
+            <TableColumn fx:id="tblRowCena" prefWidth="84.0" text="cena" />
+            <TableColumn fx:id="tblRowPopust" text="popust" />
+            <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" visible="false" />
+         </columns>
+      </TableView>
+      <TextField fx:id="txtFidRacuna" layoutX="14.0" layoutY="105.0" prefHeight="25.0" prefWidth="99.0" />
+      <Label layoutX="14.0" layoutY="88.0" text="ID Racuna" />
+      <ImageView fitHeight="74.0" fitWidth="141.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:\C:\Users\Dean VM\Desktop\ACrenoApp\src\main\resources\images\faktura\log-acreno.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

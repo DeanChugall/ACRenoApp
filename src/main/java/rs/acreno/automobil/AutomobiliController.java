@@ -28,7 +28,6 @@ import rs.acreno.system.exeption.AcrenoException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AutomobiliController implements Initializable {
@@ -98,9 +97,7 @@ public class AutomobiliController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnClosePopup.setOnAction(e -> {
-            ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();
-        });
+        btnClosePopup.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
 
         btnNoviRacun.setOnMouseClicked(e -> {
             FakturaController fakturaController = new FakturaController(this);
@@ -113,8 +110,6 @@ public class AutomobiliController implements Initializable {
             popuniTabeluRacuni();
         });
     }
-
-
 
     private void popuniTabeluRacuni() {
         try {

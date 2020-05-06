@@ -87,6 +87,12 @@
                 <directory>src\main\java\rs\acreno\racuni\faktura\ui_faktura</directory>
             </resource>
             <resource>
+                <directory>src\main\java\rs\acreno\racuni\print_racun\ui_print_racun</directory>
+            </resource>
+            <resource>
+                <directory>src\main\resources\AcrDB</directory>
+            </resource>
+            <resource>
                 <directory>src\main\resources\images</directory>
             </resource>
             <resource>

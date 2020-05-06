@@ -143,6 +143,7 @@ public class PosaoArtikli {
                 "idPosaoArtikli=" + idPosaoArtikli +
                 ", idRacuna=" + idRacuna +
                 ", idArtikla=" + idArtikla +
+                ", nazivArtikla='" + nazivArtikla + '\'' +
                 ", cena=" + cena +
                 ", nabavnaCena=" + nabavnaCena +
                 ", kolicina=" + kolicina +

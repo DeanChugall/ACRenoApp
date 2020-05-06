@@ -9,13 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Scale;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -33,6 +33,7 @@ import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
+import rs.acreno.racuni.print_racun.ui_print_racun.UiPrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
@@ -64,7 +65,6 @@ public class FakturaController implements Initializable {
     public TextArea txtAreaDetaljiOpisArtikla;
 
 
-
     @FXML
     private TextField txtFidRacuna;
     @FXML
@@ -91,7 +91,7 @@ public class FakturaController implements Initializable {
     public TableColumn<PosaoArtikli, Button> tblRowButton;
 
 
-    private Stage stage;
+    private Stage stageFaktura;
     private final AutomobiliController automobiliController;
 
     //INIT GUI FIELDS
@@ -121,14 +121,13 @@ public class FakturaController implements Initializable {
     public FakturaController(AutomobiliController automobiliController) {
         this.automobiliController = automobiliController;
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
             // Set this class as the controller
             loader.setController(this);
             // Load the scene
-            stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(loader.load()));
+            stageFaktura = new Stage();
+            stageFaktura.initModality(Modality.APPLICATION_MODAL);
+            stageFaktura.setScene(new Scene(loader.load()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,7 +139,7 @@ public class FakturaController implements Initializable {
      */
     public void showFakturaStage() {
         initGUI();
-        stage.showAndWait();
+        stageFaktura.showAndWait();
     }
 
     private void initGUI() {
@@ -153,20 +152,42 @@ public class FakturaController implements Initializable {
         idKlijenta = klijenti.get(0).getIdKlijenta();
         imePrezimeKlijenta = klijenti.get(0).getImePrezime();
         //Popunjavanje GUIa
-        stage.setTitle("Registarska Oznaka: " + regOznakaAutomobila + " || Klijent: " + imePrezimeKlijenta);
+        stageFaktura.setTitle("Registarska Oznaka: " + regOznakaAutomobila + " || Klijent: " + imePrezimeKlijenta);
         txtFklijentImePrezime.setText(imePrezimeKlijenta);
         txtFregTablica.setText(regOznakaAutomobila);
         txtFpopustRacuna.setText(String.valueOf(0));
 
+
+
     }
 
     public Button btnPrint;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
 
             btnPrint.setOnAction(e -> {
-                System.out.println("PRINT !!!!");
+                System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
+                    // Set this class as the controller
+                   // loader.setController(this);
+                    // Load the scene
+                    Stage stagePrint = new Stage();
+                    stagePrint.initModality(Modality.APPLICATION_MODAL);
+                    stagePrint.setScene(new Scene(loader.load()));
+                    /**
+                     *  Inicijalizacija Porint Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
+                     *  Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
+                     *  TODO: posataviti seter u ovom controleru kao i u {@link UiPrintRacuniControler}
+                     */
+                    initUiPrintControler(loader);
+                    stagePrint.showAndWait();//Open Stage and wait
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             });
 
             btnCloseFakture.setOnAction(e -> {
@@ -232,11 +253,8 @@ public class FakturaController implements Initializable {
             LocalDate now = LocalDate.now();
             datePickerDatumRacuna.setValue(now);
             napraviNoviRacun();
-
-
         });
     }
-
 
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Window close request ...");
@@ -322,7 +340,6 @@ public class FakturaController implements Initializable {
         }
     }
 
-
     public void napraviNoviRacun() {
         noviRacun = new Racun();
         noviRacun.setIdRacuna(brojFakture);
@@ -331,13 +348,12 @@ public class FakturaController implements Initializable {
         noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
         noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
         try {
+
             racuniDAO.insertRacun(noviRacun);
             //Inicijalizacija broja fakture MORA DA IDE OVDE
             racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
             brojFakture = racuniDAO.findAllRacune().get(racuni.size() - 1).getIdRacuna();
             txtFidRacuna.setText(String.valueOf(brojFakture));
-
-            System.out.println("BROJ RACUNA: " + brojFakture);
 
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
@@ -345,7 +361,6 @@ public class FakturaController implements Initializable {
     }
 
     public void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
-        System.out.println("TEST: btnDodajArtiklRacunMouseClick");
 
         PosaoArtikli posaoArtikliObject = new PosaoArtikli();
         //  posaoArtikliObject.setIdPosaoArtikli(0);
@@ -394,6 +409,16 @@ public class FakturaController implements Initializable {
         }
 
         btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
+    }
+
+    /**
+     *Inicijalizacija UiPrintControlera, a implementira se {@link #initialize}
+     * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
+     */
+    private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
+        UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
+        uiPrintRacuniControler.setFakturaController(this, stageFaktura);
+        uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 }
 
