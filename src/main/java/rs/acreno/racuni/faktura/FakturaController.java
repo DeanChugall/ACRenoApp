@@ -14,8 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -158,7 +156,6 @@ public class FakturaController implements Initializable {
         txtFpopustRacuna.setText(String.valueOf(0));
 
 
-
     }
 
     public Button btnPrint;
@@ -172,7 +169,7 @@ public class FakturaController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
                     // Set this class as the controller
-                   // loader.setController(this);
+                    // loader.setController(this);
                     // Load the scene
                     Stage stagePrint = new Stage();
                     stagePrint.initModality(Modality.APPLICATION_MODAL);
@@ -190,9 +187,7 @@ public class FakturaController implements Initializable {
                 }
             });
 
-            btnCloseFakture.setOnAction(e -> {
-                ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();
-            });
+            btnCloseFakture.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
 
             //BTN SACUVAJ UPDATE RACUNA
             btnSacuvajRacun.setOnAction(e -> {
@@ -254,26 +249,6 @@ public class FakturaController implements Initializable {
             datePickerDatumRacuna.setValue(now);
             napraviNoviRacun();
         });
-    }
-
-    private void closeWindowEvent(WindowEvent event) {
-        System.out.println("Window close request ...");
-/*
-        if(storageModel.dataSetChanged()) {  // if the dataset has changed, alert the user with a popup
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.getButtonTypes().remove(ButtonType.OK);
-            alert.getButtonTypes().add(ButtonType.CANCEL);
-            alert.getButtonTypes().add(ButtonType.YES);
-            alert.setTitle("Quit application");
-            alert.setContentText(String.format("Close without saving?"));
-            alert.initOwner(primaryStage.getOwner());
-            Optional<ButtonType> res = alert.showAndWait();
-
-            if(res.isPresent()) {
-                if(res.get().equals(ButtonType.CANCEL))
-                    event.consume();
-            }
-        }*/
     }
 
 
@@ -412,8 +387,10 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     *Inicijalizacija UiPrintControlera, a implementira se {@link #initialize}
+     * Inicijalizacija {@link UiPrintRacuniControler}, a implementira se {@link #initialize}
+     *
      * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
+     * @see UiPrintRacuniControler
      */
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
         UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();

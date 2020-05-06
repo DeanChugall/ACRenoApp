@@ -55,7 +55,7 @@ public class UiPrintRacuniControler implements Initializable {
         this.idRacuna = idRacuna;
     }
     /**
-     * Referenca ka {@link FakturaController} u, ako slucajno zatreba nesto iz tog kontrolora
+     * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
      */
     private Stage fakturaStage;
     private FakturaController fakturaController;
