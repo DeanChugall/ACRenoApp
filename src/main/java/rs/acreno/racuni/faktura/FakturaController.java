@@ -33,7 +33,7 @@ import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
-import rs.acreno.racuni.print_racun.ui_print_racun.UiPrintRacuniControler;
+import rs.acreno.racuni.print_racun.UiPrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;

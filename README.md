@@ -5,8 +5,9 @@ popravki i održavanja automobila.
 #### System Requirements
 
 ---
-- JAVA JDK 14
-- JAVAFX 14
+- **JAVA JDK 14**
+- **JAVAFX 14**
+- **MS ACCESS** 2019 (because is DB currently implemented in MS ACCESS)
 
 #### Korisne komande
 

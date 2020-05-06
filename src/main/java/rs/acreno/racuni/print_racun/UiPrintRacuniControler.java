@@ -1,4 +1,4 @@
-package rs.acreno.racuni.print_racun.ui_print_racun;
+package rs.acreno.racuni.print_racun;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
