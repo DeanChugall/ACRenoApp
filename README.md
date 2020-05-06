@@ -25,6 +25,5 @@ Where is '/PATH/.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory.
 ---
 Run App command
 ```bash
-java -jar --module-path {%PATH_TO_YOUR_FX_LIB_DIR}}/lib
- --add-modules javafx.controls,javafx.fxml ACReno.jar
+java -jar --module-path {%PATH_TO_YOUR_FX_LIB_DIR}}/lib --add-modules javafx.controls,javafx.fxml ACReno.jar
 ```
