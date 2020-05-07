@@ -155,11 +155,14 @@ public class FakturaController implements Initializable {
             //Datum
             LocalDate now = LocalDate.now();
             datePickerDatumRacuna.setValue(now);
+
             napraviNoviRacun();
         });
     }
 
-
+    /**
+     * Inicijalizacija
+     */
     private void initGUI() {
         //Inicijalizacija podataka
         automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
@@ -230,7 +233,6 @@ public class FakturaController implements Initializable {
                                 setText(null);
                             } else {
                                 setText(item.getNazivArtikla());
-
                             }
                         }
                     });
@@ -250,6 +252,7 @@ public class FakturaController implements Initializable {
             double nabavnaCenaArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
             String jedinicaMereArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
             String opisArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+            //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
             txtFcenaArtikla.setText(String.valueOf(cenaArtikla));
             txtFnabavnaCenaArtikla.setText(String.valueOf(nabavnaCenaArtikla));
@@ -258,8 +261,9 @@ public class FakturaController implements Initializable {
             txtFpopustArtikla.setText(String.valueOf(0));
             txtFieldPretragaArtikla.setText(nazivArtikla);
             txtFopisArtikla.setText(opisArtikla);
+
             btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
-            listViewPretragaArtikli.setVisible(false);
+            listViewPretragaArtikli.setVisible(false); //Sakrij ListView
         }
     }
 
@@ -279,7 +283,6 @@ public class FakturaController implements Initializable {
         posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
         posaoArtikliObject.setPopust(Integer.parseInt(txtFpopustArtikla.getText()));
         try {
-
             posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject);
 
             ObservableList<PosaoArtikli> test = FXCollections.observableArrayList(
@@ -326,7 +329,6 @@ public class FakturaController implements Initializable {
         uiPrintRacuniControler.setFakturaController(this, stagePrint);
         uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
-
 
     @FXML
     public void btnPrintAction() {
@@ -382,7 +384,7 @@ public class FakturaController implements Initializable {
 
     @FXML
     public void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
-        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili obrise
+        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

@@ -75,7 +75,6 @@ public class UiPrintRacuniControler implements Initializable {
         });
     }
 
-
     public void btnPrintAct(ActionEvent actionEvent) {
         PrinterJob job = PrinterJob.createPrinterJob();
 
