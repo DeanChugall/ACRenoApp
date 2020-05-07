@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -127,13 +128,12 @@ public class FakturaController implements Initializable {
         this.automobiliController = autmobilController;
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
 
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
-            listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchAutomobil);
+            listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
 
             //Postavljenje dugmica ADD u Tabeli ARTIKLI
@@ -151,7 +151,6 @@ public class FakturaController implements Initializable {
                 tblPosaoArtikli.getItems().remove(p);
                 return p;
             }));
-
             //Datum
             LocalDate now = LocalDate.now();
             datePickerDatumRacuna.setValue(now);
@@ -161,7 +160,7 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     * Inicijalizacija
+     * Inicijalizacija TODO: Zavrsiti ovo sranje sa JAVA DOC-om
      */
     private void initGUI() {
         //Inicijalizacija podataka
@@ -178,8 +177,7 @@ public class FakturaController implements Initializable {
     }
 
     public void napraviNoviRacun() {
-        initGUI();
-
+        initGUI(); //Inicijalizacija podataka za novi racun
         noviRacun = new Racun();
         noviRacun.setIdRacuna(brojFakture);
         noviRacun.setIdAutomobila(idAutomobila);
@@ -188,7 +186,6 @@ public class FakturaController implements Initializable {
         if (!txtFpopustRacuna.getText().isEmpty())
             noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
         try {
-
             racuniDAO.insertRacun(noviRacun);
             //Inicijalizacija broja fakture MORA DA IDE OVDE
             racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
@@ -200,9 +197,18 @@ public class FakturaController implements Initializable {
         }
     }
 
-
     private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
 
+    /**
+     * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
+     * <p>
+     * Prilikom kucanja u txtF pokazuju se filtrirani Artikl u ListView koji je inicijalno sakriven
+     * Ukoliko ima podataka ListView se prikazuje, i na kraju se dupli klik resava u {@link #zatvoriListViewSearchArtikli}
+     *
+     * @author Dejan Cugalj
+     * @see #zatvoriListViewSearchArtikli(MouseEvent)
+     * @see #listViewPretragaArtikli
+     */
     public void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
@@ -219,9 +225,9 @@ public class FakturaController implements Initializable {
             }
             for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
 
-                String RegTablica = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
+                String nazivArtikla = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
 
-                if (RegTablica.contains(txtFieldPretragaArtikla.textProperty().get())) {
+                if (nazivArtikla.contains(txtFieldPretragaArtikla.textProperty().get())) {
                     tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
                     listViewPretragaArtikli.setItems(tempArtikl); // Dodaje u FXlistView
                     listViewPretragaArtikli.setCellFactory(param -> new ListCell<>() {
@@ -242,16 +248,35 @@ public class FakturaController implements Initializable {
         });
     }
 
-    // Zatvara popUp ListView pretrage i setuje selektovanu vrednost u TF sa double click
-    public void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) {
+    /**
+     * Duplim klikom se selektuje Artikl objekat i popunjavaju se TF polja podacima tog Artikla
+     * Nakon toga se {@link #btnDodajArtiklRacunMouseClick(MouseEvent)} dodaje u tabelu {@link #tblPosaoArtikli}
+     * {@code .getSelectedItems().get(0)} Moze jer je samo jedan odabran Artikl u jednom momentu
+     *
+     * @param mouseEvent na dupli click selektuje Artikl objekat
+     * @author Dejan Cugalj
+     * @see #btnDodajArtiklRacunMouseClick(MouseEvent)
+     * @see #tblPosaoArtikli
+     * @see Artikl
+     * @see PosaoArtikli
+     * @see PosaoArtikliDAO
+     */
+    public void zatvoriListViewSearchArtikli(@NotNull MouseEvent mouseEvent) {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-            String nazivArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
-            int idArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
-            double cenaArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getCenaArtikla();
-            double nabavnaCenaArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
-            String jedinicaMereArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
-            String opisArtikla = listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+            // Popunjavanje TF polja sa podacima Artikla
+            String nazivArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
+            int idArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
+            double cenaArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getCenaArtikla();
+            double nabavnaCenaArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
+            String jedinicaMereArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
+            String opisArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
             //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
             txtFcenaArtikla.setText(String.valueOf(cenaArtikla));
@@ -267,9 +292,23 @@ public class FakturaController implements Initializable {
         }
     }
 
-
+    /**
+     * <p> Pravljenje "POSAO ARTIKLI" objekta za FK tabelu "PosaoArtikli" (Many to Many) </p>
+     * <p> Kreiranje objekta {@link PosaoArtikli} i popunjavanje sa podacima </p>
+     * <p>
+     * {@code  posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject);} // SQL Staff {@link PosaoArtikliDAO}
+     * </p>
+     * <p>
+     * Popunjavanje tabele {@link #tblPosaoArtikli}
+     * </p>
+     *
+     * @param mouseEvent in case if we need
+     * @see PosaoArtikli
+     * @see PosaoArtikliDAO#insertPosaoArtikliDao(PosaoArtikli)
+     */
     public void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
 
+        // Create Posao Artikli Object and populate with data
         PosaoArtikli posaoArtikliObject = new PosaoArtikli();
         //  posaoArtikliObject.setIdPosaoArtikli(0);
         posaoArtikliObject.setIdRacuna(brojFakture);
@@ -283,12 +322,13 @@ public class FakturaController implements Initializable {
         posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
         posaoArtikliObject.setPopust(Integer.parseInt(txtFpopustArtikla.getText()));
         try {
-            posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject);
+            posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
 
+            //Create ObservableList<PosaoArtikli> and insert in table for print and preview
             ObservableList<PosaoArtikli> test = FXCollections.observableArrayList(
                     posaoArtikliDAO.findPosaoArtikliByPropertyDao(
                             PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture));
-
+            // Insert in table "tblPosaoArtikli"
             tblRowidPosaoArtikli.setCellValueFactory(cellData ->
                     new SimpleIntegerProperty(cellData.getValue().getIdPosaoArtikli()));
             tblRowidRacuna.setCellValueFactory(cellData ->
@@ -314,7 +354,6 @@ public class FakturaController implements Initializable {
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
-
         btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
     }
 
@@ -330,6 +369,14 @@ public class FakturaController implements Initializable {
         uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 
+    /**
+     * Otvaranje Print Fakture {@link UiPrintRacuniControler}
+     * Inicijalizacija Print Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
+     * Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
+     *
+     * @see #initUiPrintControler(FXMLLoader)
+     * @see UiPrintRacuniControler
+     */
     @FXML
     public void btnPrintAction() {
         System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
@@ -338,11 +385,8 @@ public class FakturaController implements Initializable {
             stagePrint = new Stage();
             stagePrint.initModality(Modality.APPLICATION_MODAL);
             stagePrint.setScene(new Scene(loader.load()));
-            /**
-             *  Inicijalizacija Porint Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
-             *  Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
-             */
-            initUiPrintControler(loader);
+
+            initUiPrintControler(loader); //Inicijalizacija Porint Controlora i prosledjivanje id Racuna
 
             stagePrint.showAndWait();//Open Stage and wait
 

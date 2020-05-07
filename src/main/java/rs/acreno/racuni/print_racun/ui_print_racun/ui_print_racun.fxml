@@ -18,7 +18,7 @@
          </font>
       </Label>
       <Button fx:id="btnPrint" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
-      <TableView fx:id="tblPosaoArtikli" editable="true" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
+      <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
          <columns>
             <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
             <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />

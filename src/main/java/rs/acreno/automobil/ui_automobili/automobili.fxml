@@ -16,13 +16,14 @@
                 <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka" textFill="#e8e8e8" />
                 <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta" textFill="#e8e8e8" />
                 <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0" />
-                <TableView fx:id="tblFakture" layoutX="714.0" layoutY="54.0" prefHeight="264.0" prefWidth="470.0">
+                <TableView fx:id="tblFakture" layoutX="504.0" layoutY="148.0" prefHeight="484.0" prefWidth="691.0">
                     <columns>
                         <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" />
                         <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" />
                         <TableColumn fx:id="tblRowDatumRacuna" prefWidth="61.0" text="Datum" />
                         <TableColumn fx:id="tblRowPopustRacuna" prefWidth="75.0" text="Popust" />
                         <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="143.0" text="Napomene" />
+                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="75.0" />
                     </columns>
                 </TableView>
             </children>

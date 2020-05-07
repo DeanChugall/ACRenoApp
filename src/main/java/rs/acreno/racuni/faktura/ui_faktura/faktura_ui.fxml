@@ -53,9 +53,9 @@
                         <TextArea fx:id="txtAreaDetaljiOpisArtikla" layoutX="640.0" layoutY="181.0" prefHeight="57.0" prefWidth="313.0" />
                         <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0" text="DETALJI ARTIKLA KAO NEKI OPIS AKO TREBA" textFill="#d3d3d3" />
                         <Button fx:id="btnPrint" layoutX="1150.0" layoutY="238.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="33.0" prefWidth="94.0" text="Print" />
-                        <Pane fx:id="panePrint" layoutX="83.0" layoutY="313.0" prefHeight="373.0" prefWidth="846.0">
+                        <Pane fx:id="panePrint" layoutX="83.0" layoutY="313.0" prefHeight="304.0" prefWidth="959.0">
                             <children>
-                                <TableView fx:id="tblPosaoArtikli" layoutY="14.0" prefHeight="264.0" prefWidth="841.0">
+                                <TableView fx:id="tblPosaoArtikli" layoutY="14.0" prefHeight="264.0" prefWidth="942.0">
                                     <columns>
                                         <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" text="idPosaoArtikli" />
                                         <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" text="idRacuna" />

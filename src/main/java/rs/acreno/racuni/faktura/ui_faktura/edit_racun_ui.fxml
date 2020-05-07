@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.EditRacunController">
+   <top>
+      <AnchorPane fx:id="aPaneTop" prefHeight="110.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtFIdRacuna" layoutX="42.0" layoutY="43.0" prefHeight="25.0" prefWidth="101.0" />
+            <Label layoutX="42.0" layoutY="14.0" prefHeight="17.0" prefWidth="85.0" text="ID RACUNA" textFill="#fcfcfc" />
+             <Label layoutX="525.0" layoutY="22.0" prefHeight="23.0" prefWidth="111.0" text="Registarska Oznaka" textFill="#d3d3d3" />
+             <TextField fx:id="txtFregTablica" layoutX="525.0" layoutY="43.0" />
+             <Label layoutX="175.0" layoutY="21.0" prefHeight="23.0" prefWidth="98.0" text="Klijent" textFill="#d3d3d3" />
+             <DatePicker fx:id="datePickerDatumRacuna" layoutX="341.0" layoutY="40.0" />
+             <Label layoutX="341.0" layoutY="21.0" prefHeight="23.0" prefWidth="111.0" text="Datum" textFill="#d3d3d3" />
+             <TextField fx:id="txtFklijentImePrezime" layoutX="175.0" layoutY="40.0" />
+             <Label layoutX="691.0" layoutY="19.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna" textFill="#d3d3d3" />
+             <Label layoutX="828.0" layoutY="19.0" prefHeight="23.0" prefWidth="111.0" text="Popust Racuna" textFill="#d3d3d3" />
+             <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="682.0" layoutY="38.0" prefHeight="54.0" prefWidth="122.0" wrapText="true" />
+             <TextField fx:id="txtFpopustRacuna" layoutX="828.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+             <TableView fx:id="tblPosaoArtikli" layoutX="186.0" layoutY="179.0" prefHeight="264.0" prefWidth="942.0">
+                 <columns>
+                     <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" text="idPosaoArtikli" />
+                     <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" text="idRacuna" />
+                     <TableColumn fx:id="tblRowidArtikla" prefWidth="81.0" text="idArtikla" />
+                     <TableColumn fx:id="tblRowNazivArtikla" prefWidth="103.0" text="Naziv Artikla" />
+                     <TableColumn fx:id="tblRowOpisArtikla" prefWidth="75.0" text="Opis" />
+                     <TableColumn fx:id="tblRowCena" prefWidth="75.0" text="cena" />
+                     <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" />
+                     <TableColumn fx:id="tblRowKolicina" prefWidth="68.0" text="kolicina" />
+                     <TableColumn fx:id="tblRowJedinicaMere" prefWidth="97.0" text="jedinicaMere" />
+                     <TableColumn fx:id="tblRowPopust" prefWidth="75.0" text="popust" />
+                     <TableColumn fx:id="tblRowButton" prefWidth="75.0" text="button" />
+                 </columns>
+             </TableView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

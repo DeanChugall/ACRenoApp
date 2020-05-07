@@ -176,7 +176,6 @@ public class AutoServisController implements Initializable {
             ((Node) mouseEvent.getSource()).getScene().getWindow().hide();
             openAutomobiliUi();
             ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
-
         }
     }
 

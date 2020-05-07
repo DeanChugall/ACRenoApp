@@ -22,9 +22,11 @@ import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
 import rs.acreno.racuni.SQLRacuniDAO;
+import rs.acreno.racuni.faktura.EditRacunController;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.util.ActionButtonTableCell;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +46,15 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, String> tblRowDatumRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
+    @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
 
+    /**
+     * Empty AutomobilController Constructor
+     */
+    public AutomobiliController() {
+    }
+
+    private ObservableList<Automobil> automobil;
 
     /**
      * Setovanje {@link Automobil} objekta preko seter metode, a u {@link AutoServisController}-u
@@ -53,8 +63,6 @@ public class AutomobiliController implements Initializable {
      * @see Automobil
      * @see AutoServisController
      */
-    private ObservableList<Automobil> automobil;
-
     public void setAutomobil(ObservableList<Automobil> automobil) {
         this.automobil = automobil;
     }
@@ -71,6 +79,8 @@ public class AutomobiliController implements Initializable {
         return automobil;
     }
 
+    private ObservableList<Klijent> klijenti;
+
     /**
      * Setovanje {@link Klijent} objekta preko seter metode, a u {@link AutoServisController}-u
      * Omoguceno preko {@link #setAutoServisController(AutoServisController, Stage)}
@@ -78,8 +88,6 @@ public class AutomobiliController implements Initializable {
      * @see Klijent
      * @see AutoServisController
      */
-    private ObservableList<Klijent> klijenti;
-
     public void setKlijenti(ObservableList<Klijent> klijenti) {
         this.klijenti = klijenti;
     }
@@ -95,7 +103,6 @@ public class AutomobiliController implements Initializable {
     public ObservableList<Klijent> getKlijenti() {
         return klijenti;
     }
-
 
     /**
      * stageAutoSerivs referenca ako bude zatrebalo
@@ -123,26 +130,33 @@ public class AutomobiliController implements Initializable {
         this.stageAutoSerivs.set(stageAutoServis);
     }
 
-    /**
-     * Empty AutomobilController Constructor
-     */
-    public AutomobiliController() {
-    }
 
     /**
      * Inicijalizacija {@link AutomobiliController}-a
+     * {@code tblRowBtnIzmeniRacun.setCellFactory} postavlje dugmice u {@link #tblFakture} tabelu Racuna.
+     * Dugmici otvaraju {@link #btnOpenEditRacunUiAction(Racun)}
+     * <p>
      * Setuje se REG. TABLICA{@code txtFieldRegOznaka} i IME KLIJENTA{@code txtFieldImeKlijenta}
      * {@code  txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka())} Moze jer je samo jedan Automobil
      * {@code  txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime()} Moze jer je samo jedan Klijent
+     * <p>
      * Pa nakon toga se popunjava tabela sa racunima u {@link #popuniTabeluRacuni()}
      *
      * @param location  gde da ucitamo
      * @param resources da li ima nesto u resource
+     * @see #btnOpenEditRacunUiAction(Racun)
      * @see #popuniTabeluRacuni()
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
+
+            //Inicijalizacija i Postavljenje dugmeta u tabeli racuni
+            tblRowBtnIzmeniRacun.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (Racun p) -> {
+                btnOpenEditRacunUiAction(p);
+                //tblPosaoArtikli.getItems().remove(p);
+                return p;
+            }));
 
             txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());// Moze jer je samo jedan Automobil
             txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
@@ -187,7 +201,7 @@ public class AutomobiliController implements Initializable {
     }
 
     /**
-     * Otvaranje {@link FakturaController} UI-a i komunikacija izmedju ova dva kontrolora.
+     * Otvaranje {@link FakturaController} UI-a i komunikacija izmedju ova dva kontrolora. {@code onMouseClick}
      * Komunikacija se implemetira {@link FakturaController#setAutmobilController(AutomobiliController, Stage)}
      * Takodje se prosledjuje i STAGE u slucaju da zatreba.
      * Nakon toga se incijalizuje Title preko {@code stageFaktura.setTitle }
@@ -213,12 +227,43 @@ public class AutomobiliController implements Initializable {
     }
 
     /**
+     * Metoda koja otvara Editovanje racuna {@link EditRacunController} UI
+     * i prosledjuje CONTROLLER i STAGE u {@link AutomobiliController}.
+     * Implementirana je u {@link #initialize(URL, ResourceBundle)} {@code tblRowBtnIzmeniRacun.setCellFactory} delu.
+     *
+     * @author Dejan Cugalj
+     * @see EditRacunController
+     * @see AutomobiliController
+     */
+    public void btnOpenEditRacunUiAction(@NotNull Racun racun) {
+        FXMLLoader fxmlLoaderEditRacun = new FXMLLoader(getClass().getResource(Constants.EDIT_RACUN_UI_VIEW));
+        Stage stageEditRacun = new Stage();
+        stageEditRacun.initModality(Modality.APPLICATION_MODAL);
+        try {
+            stageEditRacun.setScene(new Scene(fxmlLoaderEditRacun.load()));
+
+            //Inicijalizacija EDIT RACUN Kontrolora
+            EditRacunController editRacunController = fxmlLoaderEditRacun.getController();
+            editRacunController.setAutomobiliController(this, stageEditRacun);
+            stageEditRacun.setTitle("TEST ID RACUNA: " + racun.getIdRacuna());
+            editRacunController.setIdRacuna(racun.getIdRacuna());
+            stageEditRacun.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
      * Zatvori prozor Automobili
+     *
      * @param actionEvent posto koristimo sakrivanje prozara
      */
     @FXML
     public void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
+
 }
 

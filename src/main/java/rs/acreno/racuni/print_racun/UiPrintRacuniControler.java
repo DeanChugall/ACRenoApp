@@ -8,6 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.print.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
@@ -17,10 +21,12 @@ import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.util.DragAndDropTable;
 import rs.acreno.system.util.GeneralUiUtility;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UiPrintRacuniControler implements Initializable {
@@ -45,13 +51,15 @@ public class UiPrintRacuniControler implements Initializable {
     public TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
     public TableColumn<PosaoArtikli, Number> tblRowPopust;
 
-    public UiPrintRacuniControler() {}
+    public UiPrintRacuniControler() {
+    }
 
     /**
      * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
      */
     private Stage fakturaStage;
     private FakturaController fakturaController;
+
     public void setFakturaController(FakturaController fakturaController, Stage fakturaStage) {
         this.fakturaController = fakturaController;
         this.fakturaStage = fakturaStage;
@@ -66,16 +74,22 @@ public class UiPrintRacuniControler implements Initializable {
     }
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             txtFidRacuna.setText(String.valueOf(getIdRacuna()));
             initPosaoArtikliDbTable(getIdRacuna()); // inicijalizuj PosaoArtikl Objekat
             popuniTabeluPosaoArtikli();
+            DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //rearagne table rows if need in print Racun
         });
     }
 
     public void btnPrintAct(ActionEvent actionEvent) {
+
+        ancorPanePrint.requestFocus(); // remove focus from table for print
+        tblPosaoArtikli.getSelectionModel().clearSelection(); // clear selection from table for print
+
         PrinterJob job = PrinterJob.createPrinterJob();
 
         if (job != null && job.showPrintDialog(ancorPanePrint.getScene().getWindow())) {
@@ -101,6 +115,7 @@ public class UiPrintRacuniControler implements Initializable {
                         , "GRESKA U PRINTU racuna" + job.getJobStatus());
             }
             btnPrint.setVisible(true);
+
         }
     }
 
@@ -130,8 +145,9 @@ public class UiPrintRacuniControler implements Initializable {
     }
 
     /**
-     *Prilikom ulaza u UiPrintControler potrebno je naci sve artikle iz vezne tabele koji su u korelaciji
+     * Prilikom ulaza u UiPrintControler potrebno je naci sve artikle iz vezne tabele koji su u korelaciji
      * sa ovim ID Racunom. Korisi se {@link #initialize}
+     *
      * @param idRacuna id racuna kao parametar pretrage u bazi za Posao Artikle veznu Tabelu
      * @return ObservableList<PosaoArtikli>
      */

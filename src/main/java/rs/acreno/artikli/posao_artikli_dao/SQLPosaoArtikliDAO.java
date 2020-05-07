@@ -110,16 +110,16 @@ public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
         String valueClause = "";
         switch (posaoArtikliDaoSearchType) {
             case ID_ARTIKLA_POSAO_DAO -> {
-                whereClause = "idArtikla LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "idArtikla=?";
+                valueClause = value.toString();
             }
             case ID_RACUNA_POSAO_ARTIKLI_DAO -> {
-                whereClause = "idRacuna LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "idRacuna=?";
+                valueClause = value.toString();
             }
             case ID_POSAO_ARTIKLI -> {
-                whereClause = "idPosaoArtikli LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "idPosaoArtikli=?";
+                valueClause = value.toString();
             }
             default -> System.out.println("Nepoznati Search type ARTIKL");
         }
