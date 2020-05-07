@@ -30,94 +30,146 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AutomobiliController implements Initializable {
 
     //TOP MENU
-    public Button btnNoviRacun;
+    @FXML private Button btnNoviRacun;
 
-    //TABELA FAKTURA
-    public TableView<Racun> tblFakture;
-    public TableColumn<Racun, Integer> tblRowIdRacuna;
-    public TableColumn<Racun, Integer> tblRowIdAutomobila;
-    public TableColumn<Racun, String> tblRowDatumRacuna;
-    public TableColumn<Racun, Integer> tblRowPopustRacuna;
-    public TableColumn<Racun, String> tblRowNapomeneRacuna;
+    //TABELA FAKTURE
+    @FXML private TableView<Racun> tblFakture;
+    @FXML private TableColumn<Racun, Integer> tblRowIdRacuna;
+    @FXML private TableColumn<Racun, Integer> tblRowIdAutomobila;
+    @FXML private TableColumn<Racun, String> tblRowDatumRacuna;
+    @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
+    @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
 
-    @FXML
-    public Button btnClosePopup;
-    public TextField txtFieldRegOznaka;
-    public TextField txtFieldImeKlijenta;
+    @FXML private Button btnClosePopup;
+    @FXML private TextField txtFieldRegOznaka;
+    @FXML private TextField txtFieldImeKlijenta;
 
+    /**
+     * Setovanje {@link Automobil} objekta preko seter metode, a u {@link AutoServisController}-u
+     * Omoguceno preko {@link #setAutoServisController(AutoServisController, Stage)}
+     *
+     * @param automobil prosldjivanje Autmobil Objekta {@link AutoServisController} preko setovanog kontrolora.
+     * @see Automobil
+     * @see AutoServisController
+     */
     private ObservableList<Automobil> automobil;
-    private ObservableList<Klijent> klijenti;
-    private ObservableList<Racun> racuni;
-
     public void setAutomobil(ObservableList<Automobil> automobil) {
         this.automobil = automobil;
     }
 
+    /**
+     * Geter za prosledjen Automobil objekat iz {@link AutoServisController}-a. Dobijen iz {@link #setAutomobil}
+     * Prosledjuje se naknadno u {@link FakturaController #initGUI()}
+     *
+     * @return ObservableList<Automobil>
+     * @see FakturaController
+     * @see AutoServisController
+     */
     public ObservableList<Automobil> getAutomobil() {
         return automobil;
     }
 
+    /**
+     * Setovanje {@link Klijent} objekta preko seter metode, a u {@link AutoServisController}-u
+     * Omoguceno preko {@link #setAutoServisController(AutoServisController, Stage)}
+     *
+     * @param klijenti prosldjivanje Klijent Objekta {@link AutoServisController} preko setovanog kontrolora.
+     * @see Klijent
+     * @see AutoServisController
+     */
+    private ObservableList<Klijent> klijenti;
     public void setKlijenti(ObservableList<Klijent> klijenti) {
         this.klijenti = klijenti;
     }
 
+    /**
+     * Geter za prosledjen Klijent objekat iz {@link AutoServisController}-a. Dobijen iz {@link #setKlijenti}
+     * Prosledjuje se naknadno u {@link FakturaController #initGUI()}
+     *
+     * @return ObservableList<Klijent>
+     * @see FakturaController
+     * @see AutoServisController
+     */
     public ObservableList<Klijent> getKlijenti() {
         return klijenti;
     }
 
 
-    //Inicijalizacija Racuni Objekta
-    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
 
-    private Stage stageAutoSerivs;
-    private  AutoServisController autoServisController;
+    /**
+     * stageAutoSerivs referenca ako bude zatrebalo
+     */
+    private final AtomicReference<Stage> stageAutoSerivs = new AtomicReference<>();
+
+    /**
+     * autoServisController referenca ako bude zatrebalo
+     */
+    private final AtomicReference<AutoServisController> autoServisController = new AtomicReference<>();
 
 
-    public void setAutoServisController(AutoServisController autoServisController, Stage stageAutoSerivs) {
-        this.autoServisController = autoServisController;
-        this.stageAutoSerivs = stageAutoSerivs;
+    /**
+     * Seter metoda koja se koristi u {@link AutoServisController #showAutomobiliUi()}-u
+     * Preko nje mozemo da prosledimo Klijent i Automobil Objekat ovde,
+     * a iz {@link AutoServisController #showAutomobiliUi()}-a
+     *
+     * @param autoServisController referenca ka auto servis kontroloru
+     * @param stageAutoServis      refereca ka Stage-u auto servisu
+     * @see AutoServisController
+     * @see #setKlijenti(ObservableList)
+     * @see #setAutomobil(ObservableList)
+     */
+    public void setAutoServisController(AutoServisController autoServisController, Stage stageAutoServis) {
+        this.autoServisController.set(autoServisController);
+        this.stageAutoSerivs.set(stageAutoServis);
     }
 
-// stageAutomobil.setTitle(getAutomobil().get(0).getRegOznaka() + " || " + getKlijenti().get(0).getImePrezime());
     /**
      * Empty AutomobilController Constructor
      */
-    public AutomobiliController() {}
+    public AutomobiliController() {
+    }
 
 
-    Stage stageFaktura;
+    private Stage stageFaktura;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-        btnClosePopup.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
+            btnClosePopup.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
 
-        btnNoviRacun.setOnMouseClicked(e -> {
-            try {
+            btnNoviRacun.setOnMouseClicked(e -> {
+                try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
-                stageFaktura = new Stage();
-                stageFaktura.initModality(Modality.APPLICATION_MODAL);
-                stageFaktura.setScene(new Scene(loader.load()));
-                initUiFakturaControler(loader);
-                stageFaktura.showAndWait();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
+                    stageFaktura = new Stage();
+                    stageFaktura.initModality(Modality.APPLICATION_MODAL);
+                    stageFaktura.setScene(new Scene(loader.load()));
+                    initUiFakturaControler(loader);
+                    stageFaktura.showAndWait();
 
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());
             txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
             popuniTabeluRacuni();
-
         });
     }
 
+
+
+    /**
+     * TODO: Napisati Java DOC
+     */
+    //Inicijalizacija Racuni Objekta
+    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
+    private ObservableList<Racun> racuni;
     private void popuniTabeluRacuni() {
         try {
             racuni = FXCollections.observableArrayList(

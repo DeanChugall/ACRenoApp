@@ -42,10 +42,10 @@ public class AutoServisController implements Initializable {
 
     /**
      * txtF za Reg. Tablicu u {@link #txtFieldRegTablicaSaerchKeyListener), pa posle bitno za
-     * prosledjivanje tablice {@link AutomobiliController}-u, a koristi se {@link #showAutomobiliUi}
+     * prosledjivanje tablice {@link AutomobiliController}-u, a koristi se {@link #openAutomobiliUi }
      *
      * @see {@link #txtFieldRegTablicaSaerchKeyListener()}
-     * @see {@link #showAutomobiliUi}
+     * @see {@link #openAutomobiliUi }
      * @see {@link AutomobiliController}
      */
     @FXML private TextField txtFieldRegOznaka;
@@ -156,13 +156,13 @@ public class AutoServisController implements Initializable {
 
     /**
      * Zatvara popUp ListView pretrage i setuje selektovanu vrednost u TF sa double click
-     * Nakon toga @see {@link #showAutomobiliUi()}
+     * Nakon toga @see {@link #openAutomobiliUi()}
      *
      * @param mouseEvent da se otvori Automobil controller i zatvori AutoServis Controler
      * @throws AcrenoException Malo bolje objasnjenje SQL Except
-     * @throws SQLException    zbog {@code showAutomobiliUi()} {@link #showAutomobiliUi()}
+     * @throws SQLException    zbog {@code showAutomobiliUi()} {@link #openAutomobiliUi()}
      * @author Dejan Cugalj
-     * @see #showAutomobiliUi()
+     * @see #openAutomobiliUi()
      */
     @FXML
     private void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
@@ -174,7 +174,7 @@ public class AutoServisController implements Initializable {
             txtFieldRegOznaka.setText(regOznaka);
             listViewAutmobiliSearch.setVisible(false);
             ((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-            showAutomobiliUi();
+            openAutomobiliUi();
             ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
 
         }
@@ -198,7 +198,7 @@ public class AutoServisController implements Initializable {
      * @see #zatvoriListViewSearchAutomobil
      * @see AutomobiliController
      */
-    private void showAutomobiliUi() throws AcrenoException, SQLException {
+    private void openAutomobiliUi() throws AcrenoException, SQLException {
         try {
             // Standart FX load UI
             FXMLLoader fxmlLoaderAutomobil = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
@@ -211,7 +211,7 @@ public class AutoServisController implements Initializable {
             automobiliController.setAutoServisController(this, stageAutomobil);
 
             //Prosledjivanje filtriranog AUTOMOBILA po REG tablici u ObservableList "automobil"
-            String regOznaka = txtFieldRegOznaka.getText(); //Uzmi reg tablicu kao parametar za auto
+            String regOznaka = txtFieldRegOznaka.getText(); //Uzmi reg tablicu kao filter parametar za auto
             automobili = FXCollections.observableArrayList(
                     automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, regOznaka));
             automobiliController.setAutomobil(automobili); // Prosledjivanje "Automobil" Obj u Automobil Kontroler

@@ -152,7 +152,6 @@ public class FakturaController implements Initializable {
                     /**
                      *  Inicijalizacija Porint Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
                      *  Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
-                     *  TODO: posataviti seter u ovom controleru kao i u {@link UiPrintRacuniControler}
                      */
                     initUiPrintControler(loader);
 
