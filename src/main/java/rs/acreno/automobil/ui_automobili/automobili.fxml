@@ -8,28 +8,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="rs.acreno.automobil.AutomobiliController">
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="txtFieldRegOznaka" layoutX="54.0" layoutY="54.0"/>
-                <Button fx:id="btnClosePopup" layoutX="1236.0" layoutY="25.0" mnemonicParsing="false"
-                        text="Close Popup"/>
-                <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka"
-                       textFill="#e8e8e8"/>
-                <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta"
-                       textFill="#e8e8e8"/>
-                <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0"/>
+                <TextField fx:id="txtFieldRegOznaka" layoutX="54.0" layoutY="54.0" />
+                <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka" textFill="#e8e8e8" />
+                <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta" textFill="#e8e8e8" />
+                <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0" />
                 <TableView fx:id="tblFakture" layoutX="714.0" layoutY="54.0" prefHeight="264.0" prefWidth="470.0">
                     <columns>
-                        <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna"/>
-                        <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila"/>
-                        <TableColumn fx:id="tblRowDatumRacuna" prefWidth="61.0" text="Datum"/>
-                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="75.0" text="Popust"/>
-                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="143.0" text="Napomene"/>
+                        <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" />
+                        <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" />
+                        <TableColumn fx:id="tblRowDatumRacuna" prefWidth="61.0" text="Datum" />
+                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="75.0" text="Popust" />
+                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="143.0" text="Napomene" />
                     </columns>
                 </TableView>
             </children>
@@ -38,16 +31,12 @@
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="40.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0"
-                        text="Radni Nalog"/>
-                <Button layoutX="152.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0"
-                        text="Defektaža"/>
-                <Button fx:id="btnNoviRacun" layoutX="265.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0"
-                        prefWidth="95.0" text="Novi Račun"/>
-                <Button layoutX="377.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0"
-                        text="Izmeni Klijenta"/>
-                <Button layoutX="482.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0"
-                        text="Izmena Automobia"/>
+                <Button layoutX="40.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Radni Nalog" />
+                <Button layoutX="152.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Defektaža" />
+                <Button fx:id="btnNoviRacun" layoutX="265.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="53.0" prefWidth="95.0" text="Novi Račun" />
+                <Button layoutX="377.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Izmeni Klijenta" />
+                <Button layoutX="482.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0" text="Izmena Automobia" />
+                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1197.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="46.0" prefWidth="108.0" text="Zatvori Prozor" />
             </children>
         </AnchorPane>
     </top>

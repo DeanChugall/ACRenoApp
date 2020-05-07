@@ -3,6 +3,7 @@ package rs.acreno.automobil;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +23,6 @@ import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
 import rs.acreno.racuni.SQLRacuniDAO;
 import rs.acreno.racuni.faktura.FakturaController;
-import rs.acreno.racuni.print_racun.UiPrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 
@@ -34,8 +34,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AutomobiliController implements Initializable {
 
-    //TOP MENU
-    @FXML private Button btnNoviRacun;
+    @FXML private TextField txtFieldRegOznaka;
+    @FXML private TextField txtFieldImeKlijenta;
 
     //TABELA FAKTURE
     @FXML private TableView<Racun> tblFakture;
@@ -45,19 +45,16 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
 
-    @FXML private Button btnClosePopup;
-    @FXML private TextField txtFieldRegOznaka;
-    @FXML private TextField txtFieldImeKlijenta;
 
     /**
      * Setovanje {@link Automobil} objekta preko seter metode, a u {@link AutoServisController}-u
      * Omoguceno preko {@link #setAutoServisController(AutoServisController, Stage)}
      *
-     * @param automobil prosldjivanje Autmobil Objekta {@link AutoServisController} preko setovanog kontrolora.
      * @see Automobil
      * @see AutoServisController
      */
     private ObservableList<Automobil> automobil;
+
     public void setAutomobil(ObservableList<Automobil> automobil) {
         this.automobil = automobil;
     }
@@ -78,11 +75,11 @@ public class AutomobiliController implements Initializable {
      * Setovanje {@link Klijent} objekta preko seter metode, a u {@link AutoServisController}-u
      * Omoguceno preko {@link #setAutoServisController(AutoServisController, Stage)}
      *
-     * @param klijenti prosldjivanje Klijent Objekta {@link AutoServisController} preko setovanog kontrolora.
      * @see Klijent
      * @see AutoServisController
      */
     private ObservableList<Klijent> klijenti;
+
     public void setKlijenti(ObservableList<Klijent> klijenti) {
         this.klijenti = klijenti;
     }
@@ -100,7 +97,6 @@ public class AutomobiliController implements Initializable {
     }
 
 
-
     /**
      * stageAutoSerivs referenca ako bude zatrebalo
      */
@@ -110,7 +106,6 @@ public class AutomobiliController implements Initializable {
      * autoServisController referenca ako bude zatrebalo
      */
     private final AtomicReference<AutoServisController> autoServisController = new AtomicReference<>();
-
 
     /**
      * Seter metoda koja se koristi u {@link AutoServisController #showAutomobiliUi()}-u
@@ -134,42 +129,43 @@ public class AutomobiliController implements Initializable {
     public AutomobiliController() {
     }
 
-
-    private Stage stageFaktura;
-
+    /**
+     * Inicijalizacija {@link AutomobiliController}-a
+     * Setuje se REG. TABLICA{@code txtFieldRegOznaka} i IME KLIJENTA{@code txtFieldImeKlijenta}
+     * {@code  txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka())} Moze jer je samo jedan Automobil
+     * {@code  txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime()} Moze jer je samo jedan Klijent
+     * Pa nakon toga se popunjava tabela sa racunima u {@link #popuniTabeluRacuni()}
+     *
+     * @param location  gde da ucitamo
+     * @param resources da li ima nesto u resource
+     * @see #popuniTabeluRacuni()
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-            btnClosePopup.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
 
-            btnNoviRacun.setOnMouseClicked(e -> {
-                try {
+            txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());// Moze jer je samo jedan Automobil
+            txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
-                    stageFaktura = new Stage();
-                    stageFaktura.initModality(Modality.APPLICATION_MODAL);
-                    stageFaktura.setScene(new Scene(loader.load()));
-                    initUiFakturaControler(loader);
-                    stageFaktura.showAndWait();
+            popuniTabeluRacuni(); // Popuni tabelu Racuni sa podacima
 
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
-            txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());
-            txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
-            popuniTabeluRacuni();
         });
     }
 
-
+    /**
+     * Inicijalizacija Racuni Objekta iz DBa {@link SQLRacuniDAO}
+     */
+    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
 
     /**
-     * TODO: Napisati Java DOC
+     * ObservableList racuni koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link RacuniSearchType#ID_AUTOMOBILA}
      */
-    //Inicijalizacija Racuni Objekta
-    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
     private ObservableList<Racun> racuni;
+
+    /**
+     * Popunjavanje tabele "tblFakture" sa Fakturama filtriranim po ID AUTOMOBILU.
+     * {@code getAutomobil().get(0).getIdAuta()} moze jer ima samo jedan auto sa tom REG. TABLICOM
+     */
     private void popuniTabeluRacuni() {
         try {
             racuni = FXCollections.observableArrayList(
@@ -191,16 +187,38 @@ public class AutomobiliController implements Initializable {
     }
 
     /**
-     * Inicijalizacija {@link UiPrintRacuniControler}, a implementira se {@link #initialize}
+     * Otvaranje {@link FakturaController} UI-a i komunikacija izmedju ova dva kontrolora.
+     * Komunikacija se implemetira {@link FakturaController#setAutmobilController(AutomobiliController, Stage)}
+     * Takodje se prosledjuje i STAGE u slucaju da zatreba.
+     * Nakon toga se incijalizuje Title preko {@code stageFaktura.setTitle }
      *
-     * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
-     * @see UiPrintRacuniControler
+     * @throws IOException ako nije nadjen .fxml {@link Constants#FAKTURA_UI_VIEW_URI}
+     * @see FakturaController#setAutmobilController(AutomobiliController, Stage)
      */
-    private void initUiFakturaControler(@NotNull FXMLLoader fxmlLoader) {
-        FakturaController fakturaController = fxmlLoader.getController();
+    @FXML
+    public void btnOpenFakturaUi() throws IOException {
+        FXMLLoader fxmlLoaderFaktura = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
+        Stage stageFaktura = new Stage();
+        stageFaktura.initModality(Modality.APPLICATION_MODAL);
+        stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
+
+        //Inicijalizacija FakturaController-a i setovanje naslova
+        FakturaController fakturaController = fxmlLoaderFaktura.getController();
         fakturaController.setAutmobilController(this, stageFaktura);
+        //Postavi Title u stageu FakturaController
         stageFaktura.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
+
+        stageFaktura.showAndWait();
+    }
+
+    /**
+     * Zatvori prozor Automobili
+     * @param actionEvent posto koristimo sakrivanje prozara
+     */
+    @FXML
+    public void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }
 

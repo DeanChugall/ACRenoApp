@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
 import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
+import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
@@ -61,8 +63,6 @@ public class FakturaController implements Initializable {
     @FXML private Button btnDodajArtiklRacun;
     @FXML private TextArea txtAreaNapomenaRacuna;
     @FXML private TextField txtFpopustRacuna;
-    @FXML private Button btnOdustaniObrisiRacun;
-    @FXML private Button btnSacuvajRacun;
     @FXML private TextField txtFopisArtikla;
     @FXML private TextArea txtAreaDetaljiOpisArtikla;
 
@@ -102,98 +102,35 @@ public class FakturaController implements Initializable {
 
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
-    private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
 
+    private Stage stagePrint;
+
     /**
-     * Empty Constructor
+     * Empty Constructor if we need in some case
      */
     public FakturaController() {
     }
 
-    private Stage automobilStage;
     private AutomobiliController automobiliController;
 
+    /**
+     * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
+     * Takodje se prosledjuje i STAGE ako bude zatrebalo, a iz {@link AutomobiliController #btnOpenFakturaUi()}-a
+     * Prosledjeni Automobil i Klijent objekti su iz {@link AutomobiliController}, a impl u {@link #initGUI()}
+     *
+     * @param autmobilController referenca ka automobil kontroloru
+     * @param automobilStage     refereca ka automobil Stage-u
+     * @see AutomobiliController
+     */
     public void setAutmobilController(AutomobiliController autmobilController, Stage automobilStage) {
         this.automobiliController = autmobilController;
-        this.automobilStage = automobilStage;
     }
 
-    private void initGUI() {
-        //Inicijalizacija podataka
-        automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
-        klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
-        idAutomobila = automobili.get(0).getIdAuta();
-        regOznakaAutomobila = automobili.get(0).getRegOznaka();
-        idKlijenta = klijenti.get(0).getIdKlijenta();
-        imePrezimeKlijenta = klijenti.get(0).getImePrezime();
-        //Popunjavanje GUIa
-        txtFklijentImePrezime.setText(imePrezimeKlijenta);
-        txtFregTablica.setText(regOznakaAutomobila);
-        txtFpopustRacuna.setText(String.valueOf(0));
-    }
-
-    public Button btnPrint;
-
-
-    Stage stagePrint;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-
-            btnPrint.setOnAction(e -> {
-                System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
-                    stagePrint = new Stage();
-                    stagePrint.initModality(Modality.APPLICATION_MODAL);
-                    stagePrint.setScene(new Scene(loader.load()));
-                    /**
-                     *  Inicijalizacija Porint Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
-                     *  Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
-                     */
-                    initUiPrintControler(loader);
-
-                    stagePrint.showAndWait();//Open Stage and wait
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
-
-            btnCloseFakture.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
-
-            //BTN SACUVAJ UPDATE RACUNA
-            btnSacuvajRacun.setOnAction(e -> {
-                try {
-                    //UPSATE NOVO RACUNA SA NOVIM VREDNOSTIMA ZATO OVDE REDEFINISEMO NOVI RACUN
-                    noviRacun.setIdRacuna(brojFakture);
-                    noviRacun.setIdAutomobila(idAutomobila);
-                    noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
-                    noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
-                    noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
-                    racuniDAO.updateRacun(noviRacun);
-                    GeneralUiUtility.alertDialogBox(
-                            Alert.AlertType.CONFIRMATION,
-                            "USPESNO SACUVAN RACUN",
-                            "EDITOVANJE RACUNA",
-                            "Uspesno ste sacuvali racun br." + brojFakture
-                    );
-                } catch (SQLException | AcrenoException throwables) {
-                    throwables.printStackTrace();
-                }
-            });
-
-            //BTN OBRISI ODUSTANI RACUN
-            btnOdustaniObrisiRacun.setOnAction(e -> {
-                try {
-                    racuniDAO.deleteRacun(brojFakture);
-                    ((Stage) (((Button) e.getSource()).getScene().getWindow())).close();
-                } catch (AcrenoException | SQLException acrenoException) {
-                    acrenoException.printStackTrace();
-                }
-            });
 
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchAutomobil);
@@ -201,10 +138,6 @@ public class FakturaController implements Initializable {
 
             //Postavljenje dugmica ADD u Tabeli ARTIKLI
             tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", (PosaoArtikli p) -> {
-                System.out.println("KLICK FROM BUTTON IN TABLE ARTIKLI");
-                System.out.println("ID RACINA: " + p.getIdRacuna());
-                System.out.println("ID ARTIKLA: " + p.getIdArtikla());
-                System.out.println("ID ARTIKLA: " + p.getIdPosaoArtikli());
                 try {
                     posaoArtikliDAO.deletePosaoArtikliDao(p);
                     GeneralUiUtility.alertDialogBox(
@@ -226,6 +159,46 @@ public class FakturaController implements Initializable {
         });
     }
 
+
+    private void initGUI() {
+        //Inicijalizacija podataka
+        automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
+        klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
+        idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
+        regOznakaAutomobila = automobili.get(0).getRegOznaka();//Moze jer je samo jedan Automobil
+        idKlijenta = klijenti.get(0).getIdKlijenta();//Moze jer je samo jedan Klijent
+        imePrezimeKlijenta = klijenti.get(0).getImePrezime();//Moze jer je samo jedan Klijent
+        //Popunjavanje GUIa
+        txtFklijentImePrezime.setText(imePrezimeKlijenta);
+        txtFregTablica.setText(regOznakaAutomobila);
+        txtFpopustRacuna.setText(String.valueOf(0));
+    }
+
+    public void napraviNoviRacun() {
+        initGUI();
+
+        noviRacun = new Racun();
+        noviRacun.setIdRacuna(brojFakture);
+        noviRacun.setIdAutomobila(idAutomobila);
+        noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
+        noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
+        if (!txtFpopustRacuna.getText().isEmpty())
+            noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
+        try {
+
+            racuniDAO.insertRacun(noviRacun);
+            //Inicijalizacija broja fakture MORA DA IDE OVDE
+            racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
+            brojFakture = racuniDAO.findAllRacune().get(racuni.size() - 1).getIdRacuna();
+            txtFidRacuna.setText(String.valueOf(brojFakture));
+
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
 
     public void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
@@ -290,28 +263,6 @@ public class FakturaController implements Initializable {
         }
     }
 
-    public void napraviNoviRacun() {
-        initGUI();
-
-        noviRacun = new Racun();
-        noviRacun.setIdRacuna(brojFakture);
-        noviRacun.setIdAutomobila(idAutomobila);
-        noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
-        noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
-        if (!txtFpopustRacuna.getText().isEmpty())
-            noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
-        try {
-
-            racuniDAO.insertRacun(noviRacun);
-            //Inicijalizacija broja fakture MORA DA IDE OVDE
-            racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
-            brojFakture = racuniDAO.findAllRacune().get(racuni.size() - 1).getIdRacuna();
-            txtFidRacuna.setText(String.valueOf(brojFakture));
-
-        } catch (AcrenoException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
 
@@ -374,6 +325,65 @@ public class FakturaController implements Initializable {
         UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
         uiPrintRacuniControler.setFakturaController(this, stagePrint);
         uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
+    }
+
+
+    @FXML
+    public void btnPrintAction() {
+        System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
+            stagePrint = new Stage();
+            stagePrint.initModality(Modality.APPLICATION_MODAL);
+            stagePrint.setScene(new Scene(loader.load()));
+            /**
+             *  Inicijalizacija Porint Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
+             *  Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
+             */
+            initUiPrintControler(loader);
+
+            stagePrint.showAndWait();//Open Stage and wait
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void btnSacuvajRacunAction() {
+        try {
+            //UPDATE NOVO RACUNA SA NOVIM VREDNOSTIMA ZATO OVDE REDEFINISEMO NOVI RACUN
+            noviRacun.setIdRacuna(brojFakture);
+            noviRacun.setIdAutomobila(idAutomobila);
+            noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
+            noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
+            noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
+            racuniDAO.updateRacun(noviRacun);
+            GeneralUiUtility.alertDialogBox(
+                    Alert.AlertType.CONFIRMATION,
+                    "USPESNO SACUVAN RACUN",
+                    "EDITOVANJE RACUNA",
+                    "Uspesno ste sacuvali racun br." + brojFakture
+            );
+        } catch (SQLException | AcrenoException throwables) {
+            throwables.printStackTrace(); //TODO: Ubaciti ALERT  za gresku
+        }
+    }
+
+    @FXML
+    public void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
+        try {
+            racuniDAO.deleteRacun(brojFakture);
+            ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        } catch (AcrenoException | SQLException acrenoException) {
+            acrenoException.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
+        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili obrise
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }
 
