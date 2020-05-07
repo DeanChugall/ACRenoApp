@@ -22,6 +22,7 @@ import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
 import rs.acreno.racuni.SQLRacuniDAO;
 import rs.acreno.racuni.faktura.FakturaController;
+import rs.acreno.racuni.print_racun.UiPrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 
@@ -72,42 +73,48 @@ public class AutomobiliController implements Initializable {
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
 
-    private Stage stage;
-    private final AutoServisController autoServisController;
+    private Stage stageAutoSerivs;
+    private  AutoServisController autoServisController;
 
-    public AutomobiliController(@NotNull AutoServisController autoServisController) {
+
+    public void setAutoServisController(AutoServisController autoServisController, Stage stageAutoSerivs) {
         this.autoServisController = autoServisController;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
-            // Set this class as the controller
-            loader.setController(this);
-            // Load the scene
-            stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(loader.load()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.stageAutoSerivs = stageAutoSerivs;
     }
 
-    public void showAutmobilStage() {
-        stage.setTitle(getAutomobil().get(0).getRegOznaka() + " || " + getKlijenti().get(0).getImePrezime());
-        stage.showAndWait();
-    }
+// stageAutomobil.setTitle(getAutomobil().get(0).getRegOznaka() + " || " + getKlijenti().get(0).getImePrezime());
+    /**
+     * Empty AutomobilController Constructor
+     */
+    public AutomobiliController() {}
 
+
+    Stage stageFaktura;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
         btnClosePopup.setOnAction(e -> ((Stage) (((Button) e.getSource()).getScene().getWindow())).close());
 
         btnNoviRacun.setOnMouseClicked(e -> {
-            FakturaController fakturaController = new FakturaController(this);
-            fakturaController.showFakturaStage();
+            try {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
+                stageFaktura = new Stage();
+                stageFaktura.initModality(Modality.APPLICATION_MODAL);
+                stageFaktura.setScene(new Scene(loader.load()));
+                initUiFakturaControler(loader);
+                stageFaktura.showAndWait();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
-        Platform.runLater(() -> {
+
             txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());
             txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());
             popuniTabeluRacuni();
+
         });
     }
 
@@ -131,5 +138,17 @@ public class AutomobiliController implements Initializable {
         tblFakture.setItems(racuni);
     }
 
+    /**
+     * Inicijalizacija {@link UiPrintRacuniControler}, a implementira se {@link #initialize}
+     *
+     * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
+     * @see UiPrintRacuniControler
+     */
+    private void initUiFakturaControler(@NotNull FXMLLoader fxmlLoader) {
+        FakturaController fakturaController = fxmlLoader.getController();
+        fakturaController.setAutmobilController(this, stageFaktura);
+        stageFaktura.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
+                + " || Klijent: " + txtFieldImeKlijenta.getText());
+    }
 }
 

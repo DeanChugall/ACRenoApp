@@ -16,7 +16,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
@@ -45,52 +44,44 @@ import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
 
+    @FXML private TextField txtFidRacuna;
+    @FXML private TextField txtFklijentImePrezime;
+    @FXML private TextField txtFregTablica;
+    @FXML private TextField txtFieldPretragaArtikla;
+    @FXML private DatePicker datePickerDatumRacuna;
+
     //ARTICLES FIELDS in Faktura
-    public TextField txtFieldPretragaArtikla;
-    public ListView<Artikl> listViewPretragaArtikli;
-    public TextField txtFidArtikla;
-    public TextField txtFcenaArtikla;
-    public TextField txtFnabavnaCenaArtikla;
-    public TextField txtFKolicinaArtikla;
-    public TextField txtFjedinicaMereArtikla;
-    public TextField txtFpopustArtikla;
-    public Button btnDodajArtiklRacun;
-    public TextArea txtAreaNapomenaRacuna;
-    public TextField txtFpopustRacuna;
-    public Button btnOdustaniObrisiRacun;
-    public Button btnSacuvajRacun;
-    public TextField txtFopisArtikla;
-    public TextArea txtAreaDetaljiOpisArtikla;
+    @FXML private ListView<Artikl> listViewPretragaArtikli;
+    @FXML private TextField txtFidArtikla;
+    @FXML private TextField txtFcenaArtikla;
+    @FXML private TextField txtFnabavnaCenaArtikla;
+    @FXML private TextField txtFKolicinaArtikla;
+    @FXML private TextField txtFjedinicaMereArtikla;
+    @FXML private TextField txtFpopustArtikla;
+    @FXML private Button btnDodajArtiklRacun;
+    @FXML private TextArea txtAreaNapomenaRacuna;
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private Button btnOdustaniObrisiRacun;
+    @FXML private Button btnSacuvajRacun;
+    @FXML private TextField txtFopisArtikla;
+    @FXML private TextArea txtAreaDetaljiOpisArtikla;
 
-
-    @FXML
-    private TextField txtFidRacuna;
-    @FXML
-    private Button btnCloseFakture;
-    @FXML
-    private TextField txtFklijentImePrezime;
-    @FXML
-    private TextField txtFregTablica;
-    @FXML
-    private DatePicker datePickerDatumRacuna;
+    @FXML private Button btnCloseFakture;
 
     //Pretraga Artikala Tabela
-    public TableView<PosaoArtikli> tblPosaoArtikli;
-    public TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
-    public TableColumn<PosaoArtikli, Number> tblRowidRacuna;
-    public TableColumn<PosaoArtikli, Number> tblRowidArtikla;
-    public TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
-    public TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
-    public TableColumn<PosaoArtikli, Number> tblRowCena;
-    public TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
-    public TableColumn<PosaoArtikli, Number> tblRowKolicina;
-    public TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
-    public TableColumn<PosaoArtikli, Number> tblRowPopust;
-    public TableColumn<PosaoArtikli, Button> tblRowButton;
+    @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidRacuna;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
+    @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
 
-
-    private Stage stageFaktura;
-    private final AutomobiliController automobiliController;
 
     //INIT GUI FIELDS
     private int idAutomobila;
@@ -106,7 +97,6 @@ public class FakturaController implements Initializable {
     private ObservableList<PosaoArtikli> posaoArtikli;
 
     //RACUN STAFF OBJECT
-
     private int brojFakture;
     private Racun noviRacun;
 
@@ -114,35 +104,23 @@ public class FakturaController implements Initializable {
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
     private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
-    private final PosaoArtikli posaoArtikliObject = new PosaoArtikli();
-
-    public FakturaController(AutomobiliController automobiliController) {
-        this.automobiliController = automobiliController;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
-            // Set this class as the controller
-            loader.setController(this);
-            // Load the scene
-            stageFaktura = new Stage();
-            stageFaktura.initModality(Modality.APPLICATION_MODAL);
-            stageFaktura.setScene(new Scene(loader.load()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Setup the window/stage
-    }
 
     /**
-     * Show the stage that was loaded in the constructor
+     * Empty Constructor
      */
-    public void showFakturaStage() {
-        initGUI();
-        stageFaktura.showAndWait();
+    public FakturaController() {
+    }
+
+    private Stage automobilStage;
+    private AutomobiliController automobiliController;
+
+    public void setAutmobilController(AutomobiliController autmobilController, Stage automobilStage) {
+        this.automobiliController = autmobilController;
+        this.automobilStage = automobilStage;
     }
 
     private void initGUI() {
         //Inicijalizacija podataka
-
         automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
         klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
         idAutomobila = automobili.get(0).getIdAuta();
@@ -150,15 +128,15 @@ public class FakturaController implements Initializable {
         idKlijenta = klijenti.get(0).getIdKlijenta();
         imePrezimeKlijenta = klijenti.get(0).getImePrezime();
         //Popunjavanje GUIa
-        stageFaktura.setTitle("Registarska Oznaka: " + regOznakaAutomobila + " || Klijent: " + imePrezimeKlijenta);
         txtFklijentImePrezime.setText(imePrezimeKlijenta);
         txtFregTablica.setText(regOznakaAutomobila);
         txtFpopustRacuna.setText(String.valueOf(0));
-
-
     }
 
     public Button btnPrint;
+
+
+    Stage stagePrint;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -168,10 +146,7 @@ public class FakturaController implements Initializable {
                 System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
-                    // Set this class as the controller
-                    // loader.setController(this);
-                    // Load the scene
-                    Stage stagePrint = new Stage();
+                    stagePrint = new Stage();
                     stagePrint.initModality(Modality.APPLICATION_MODAL);
                     stagePrint.setScene(new Scene(loader.load()));
                     /**
@@ -180,6 +155,7 @@ public class FakturaController implements Initializable {
                      *  TODO: posataviti seter u ovom controleru kao i u {@link UiPrintRacuniControler}
                      */
                     initUiPrintControler(loader);
+
                     stagePrint.showAndWait();//Open Stage and wait
 
                 } catch (IOException ex) {
@@ -316,12 +292,15 @@ public class FakturaController implements Initializable {
     }
 
     public void napraviNoviRacun() {
+        initGUI();
+
         noviRacun = new Racun();
         noviRacun.setIdRacuna(brojFakture);
         noviRacun.setIdAutomobila(idAutomobila);
         noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
         noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
-        noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
+        if (!txtFpopustRacuna.getText().isEmpty())
+            noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
         try {
 
             racuniDAO.insertRacun(noviRacun);
@@ -394,7 +373,7 @@ public class FakturaController implements Initializable {
      */
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
         UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
-        uiPrintRacuniControler.setFakturaController(this, stageFaktura);
+        uiPrintRacuniControler.setFakturaController(this, stagePrint);
         uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 }

@@ -2,12 +2,16 @@ package rs.acreno.autoservis;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.system.constants.Constants;
 
-public class AutoServisApp extends Application {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AutoServisApp extends Application implements Initializable {
 
 
     @Override
@@ -31,5 +35,10 @@ public class AutoServisApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("initialize in AutoServisApp");
     }
 }

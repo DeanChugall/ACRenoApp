@@ -47,13 +47,6 @@ public class UiPrintRacuniControler implements Initializable {
 
     public UiPrintRacuniControler() {}
 
-    public int getIdRacuna() {
-        return idRacuna;
-    }
-
-    public void setIdRacuna(int idRacuna) {
-        this.idRacuna = idRacuna;
-    }
     /**
      * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
      */
@@ -64,6 +57,13 @@ public class UiPrintRacuniControler implements Initializable {
         this.fakturaStage = fakturaStage;
     }
 
+    public int getIdRacuna() {
+        return idRacuna;
+    }
+
+    public void setIdRacuna(int idRacuna) {
+        this.idRacuna = idRacuna;
+    }
 
 
     @Override

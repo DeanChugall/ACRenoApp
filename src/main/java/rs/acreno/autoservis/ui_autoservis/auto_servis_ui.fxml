@@ -27,7 +27,7 @@
                         <Font name="System Bold" size="34.0" />
                     </font>
                 </TextField>
-                <Button fx:id="btnOpenAutomobili" layoutX="1068.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#btnOpenAutomobiliMouseEvent" prefHeight="45.0" prefWidth="201.0" text="Button" />
+                <Button fx:id="btnCloseApplication" layoutX="1068.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="45.0" prefWidth="201.0" text="Button" />
                 <ListView fx:id="listViewAutmobiliSearch" layoutX="84.0" layoutY="121.0" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="388.0" visible="false" />
             </children>
         </AnchorPane>
