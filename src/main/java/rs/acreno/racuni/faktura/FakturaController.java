@@ -175,8 +175,6 @@ public class FakturaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Platform.runLater(() -> {
-
-
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
@@ -324,8 +322,6 @@ public class FakturaController implements Initializable {
         tblPosaoArtikli.setItems(posaoArtikli);
     }
 
-    private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
-
     /**
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
      * <p>
@@ -333,6 +329,8 @@ public class FakturaController implements Initializable {
      * Ukoliko ima podataka ListView se prikazuje, i na kraju se dupli klik resava u {@link #zatvoriListViewSearchArtikli}
      *
      * @author Dejan Cugalj
+     * @see ArtikliDAO
+     * @see SQLArtikliDAO
      * @see #zatvoriListViewSearchArtikli(MouseEvent)
      * @see #listViewPretragaArtikli
      */
@@ -345,6 +343,7 @@ public class FakturaController implements Initializable {
             ObservableList<Artikl> artikl = null;
             ObservableList<Artikl> tempArtikl = null;
             try {
+                ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
                 artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
                 tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
             } catch (AcrenoException | SQLException e) {
@@ -522,6 +521,14 @@ public class FakturaController implements Initializable {
         }
     }
 
+    /**
+     * UPDATE Racuna kada se nesto promeni u njemu...(Datum...Napomena...Popust)
+     * <p>
+     * Setuju se svi podaci za izmenjen racun pokupljeni iz TF-ova
+     * Zatim se radi update sa {@link RacuniDAO#updateRacun(Racun)}
+     * @see RacuniDAO#updateRacun(Racun)
+     * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
+     */
     @FXML
     private void btnSacuvajRacunAction() {
         try {
@@ -589,7 +596,6 @@ public class FakturaController implements Initializable {
         btnCloseFakture.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
-
 
 }
 
