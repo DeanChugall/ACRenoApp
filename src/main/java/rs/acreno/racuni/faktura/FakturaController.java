@@ -49,6 +49,7 @@ import java.util.ResourceBundle;
 public class FakturaController implements Initializable {
 
     public Button btnCloseFakture;
+    public Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
@@ -549,10 +550,24 @@ public class FakturaController implements Initializable {
         }
     }
 
+    /**
+     * Brisanje {@link Racun} Objekta jer smo odustali i li vise necemo ovaj Racun.
+     * <p>
+     * Brise se preko {@link RacuniDAO#deleteRacun(int)} ID racuna koji se dobija iz {@link #brojFakture}.
+     * <p>
+     * {@link FakturaController} UIa i fire WINDOW_CLOSE_REQUEST on {@link AutomobiliController}
+     * zbog refresha tabele Racuni u {@link AutomobiliController}-u, a implemtira se u
+     * {@link AutomobiliController#btnOpenFakturaUi()}
+     *
+     * @param actionEvent zatvaranje UIa
+     * @see AutomobiliController#btnOpenFakturaUi()
+     * @see RacuniDAO#deleteRacun(int)
+     */
     @FXML
     private void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
         try {
             racuniDAO.deleteRacun(brojFakture);
+            btnOdustaniObrisiRacun.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         } catch (AcrenoException | SQLException acrenoException) {
             acrenoException.printStackTrace();

@@ -239,11 +239,11 @@ public class AutomobiliController implements Initializable {
      * <p>
      * {@code windowEvent -> {tblFakture.refresh()} Refresuje tabelu u povratku u Automobil UI da se vide izmene
      * koji se takodje poziva iz {@link FakturaController #btnCloseFaktureAction(ActionEvent)}, a sve zbog
-     * refresha tabele po zavrsetku EDITa.
+     * refresha i popunjavanja "tblFakture" po zavrsetku EDITa.
      *
      * @return boolean isRacunInEditMode //
      * @throws IOException ako nije nadjen .fxml {@link Constants#FAKTURA_UI_VIEW_URI}
-     * @see FakturaController#setAutmobilController(AutomobiliController, Stage)
+     * @see {@link FakturaController#btnCloseFaktureAction(ActionEvent)}
      * @see #initialize(URL, ResourceBundle)
      */
     @FXML
@@ -253,6 +253,7 @@ public class AutomobiliController implements Initializable {
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
         stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
         stageFaktura.setOnCloseRequest(windowEvent -> {
+            popuniTabeluRacuni(); //Popuni tabelu jer kada se pravi novi racun nece da se refresuje
             tblFakture.refresh(); //Uradi refresh tabele da se vide izmene
         });
         //Inicijalizacija FakturaController-a i setovanje naslova
