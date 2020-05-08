@@ -53,21 +53,22 @@
                         <TextArea fx:id="txtAreaDetaljiOpisArtikla" layoutX="640.0" layoutY="181.0" prefHeight="57.0" prefWidth="313.0" />
                         <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0" text="DETALJI ARTIKLA KAO NEKI OPIS AKO TREBA" textFill="#d3d3d3" />
                         <Button fx:id="btnPrint" layoutX="1150.0" layoutY="238.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="33.0" prefWidth="94.0" text="Print" />
-                        <Pane fx:id="panePrint" layoutX="83.0" layoutY="313.0" prefHeight="304.0" prefWidth="959.0">
+                        <Pane fx:id="panePrint" layoutX="83.0" layoutY="313.0" prefHeight="304.0" prefWidth="1166.0">
                             <children>
-                                <TableView fx:id="tblPosaoArtikli" editable="true" layoutY="14.0" prefHeight="264.0" prefWidth="942.0" style="-fx-alignment: CENTER;">
+                                <TableView fx:id="tblPosaoArtikli" editable="true" layoutY="14.0" prefHeight="264.0" prefWidth="1024.0" style="-fx-alignment: CENTER;" tableMenuButtonVisible="true">
                                     <columns>
-                                        <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" style="-fx-alignment: CENTER;" text="idPosaoArtikli" />
-                                        <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" style="-fx-alignment: CENTER;" text="idRacuna" />
-                                        <TableColumn fx:id="tblRowidArtikla" prefWidth="81.0" style="-fx-alignment: CENTER;" text="idArtikla" />
-                                        <TableColumn fx:id="tblRowNazivArtikla" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Naziv Artikla" />
-                                        <TableColumn fx:id="tblRowOpisArtikla" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Opis" />
-                                        <TableColumn fx:id="tblRowCena" prefWidth="75.0" style="-fx-alignment: CENTER;" text="cena" />
-                                        <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" style="-fx-alignment: CENTER;" text="nabavnaCena" />
-                                        <TableColumn fx:id="tblRowKolicina" prefWidth="68.0" style="-fx-alignment: CENTER;" text="kolicina" />
-                                        <TableColumn fx:id="tblRowJedinicaMere" prefWidth="97.0" style="-fx-alignment: CENTER;" text="jedinicaMere" />
-                                        <TableColumn fx:id="tblRowPopust" prefWidth="75.0" style="-fx-alignment: CENTER;" text="popust" />
-                                        <TableColumn fx:id="tblRowButton" prefWidth="75.0" style="-fx-alignment: CENTER;" text="button" />
+                                        <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" style="-fx-alignment: CENTER;" text="idPosaoArtikli" visible="false" />
+                                        <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" style="-fx-alignment: CENTER;" text="idRacuna" visible="false" />
+                                        <TableColumn fx:id="tblRowidArtikla" prefWidth="81.0" style="-fx-alignment: CENTER;" text="idArtikla" visible="false" />
+                                        <TableColumn fx:id="tblRowNazivArtikla" prefWidth="190.0" style="-fx-alignment: CENTER;" text="Naziv Artikla" />
+                                        <TableColumn fx:id="tblRowOpisArtikla" prefWidth="166.0" style="-fx-alignment: CENTER;" text="Opis" />
+                                        <TableColumn fx:id="tblRowCena" prefWidth="120.0" style="-fx-alignment: CENTER;" text="cena" />
+                                        <TableColumn fx:id="tblRowNabavnaCena" prefWidth="90.0" style="-fx-alignment: CENTER;" text="nabavnaCena" />
+                                        <TableColumn fx:id="tblRowKolicina" prefWidth="51.0" style="-fx-alignment: CENTER;" text="kolicina" />
+                                        <TableColumn fx:id="tblRowJedinicaMere" prefWidth="87.0" style="-fx-alignment: CENTER;" text="jedinicaMere" />
+                                        <TableColumn fx:id="tblRowPopust" prefWidth="59.0" style="-fx-alignment: CENTER;" text="popust" />
+                              <TableColumn fx:id="tblRowDetaljiPosaoArtikl" prefWidth="187.0" text="Detalji" />
+                                        <TableColumn fx:id="tblRowButton" prefWidth="58.0" style="-fx-alignment: CENTER;" />
                                     </columns>
                                 </TableView>
                             </children>

@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
@@ -84,6 +85,7 @@ public class FakturaController implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
     @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowDetaljiPosaoArtikl;
     @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
 
     //INIT GUI FIELDS
@@ -113,8 +115,15 @@ public class FakturaController implements Initializable {
         this.noviRacun = noviRacun;
     }
 
+    /**
+     * Bitna promenjiva jer se sve bazira na Broju fakture ili ti ID RACUNU
+     */
     private int brojFakture;
 
+    /**
+     * Seter za {@link #brojFakture} koji se inicijalizuje {@link AutomobiliController#btnOpenFakturaUi()}
+     * @param brojFakture ID RACUNA
+     */
     public void setBrojFakture(int brojFakture) {
         this.brojFakture = brojFakture;
     }
@@ -123,7 +132,6 @@ public class FakturaController implements Initializable {
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
 
-    private Stage stagePrint;
 
     /**
      * Empty Constructor if we need in some case
@@ -180,26 +188,29 @@ public class FakturaController implements Initializable {
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
 
-            //Postavljenje dugmica ADD u Tabeli ARTIKLI
-            tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", (PosaoArtikli p) -> {
+            //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI TODO: SREDITI CONFIRMATION DIALOG
+            tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", p -> {
                 try {
-                    posaoArtikliDAO.deletePosaoArtikliDao(p);
-                    GeneralUiUtility.alertDialogBox(
-                            Alert.AlertType.CONFIRMATION,
-                            "BRISANJE ARTIKLA",
-                            "ARTIKL: " + p.getIdArtikla(),
-                            "Uspesno obrisan artikl.");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("BRISANJE ARTIKLA");
+                    alert.setHeaderText("ARTIKL: " + p.getNazivArtikla());
+                    alert.setContentText("Da li želite da obrišete stavku sa računa?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent()) {
+                        if (result.get() == ButtonType.OK) {
+                            posaoArtikliDAO.deletePosaoArtikliDao(p);
+                            tblPosaoArtikli.getItems().remove(p); //Brisi Artikl i tabele "tblPosaoArtikli"
+                        }
+                    }
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
-                tblPosaoArtikli.getItems().remove(p); //Brisi Artikl i tabele "tblPosaoArtikli"
                 return p;
             }));
 
             // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
             if (automobiliController.isRacunInEditMode()) { //TRUE
-                System.out.println("DA LI JE RACUN U EDIT MODU: " + automobiliController.isRacunInEditMode());
-                System.out.println("ID RACUNA U EDIT MODU JE: " + brojFakture);
                 newOrEditRacun(true);
                 try { // Nadji sve PosaoArtikle po Broju Fakture i popuni tabelu jer smo u EDIT MODU
                     posaoArtikli = FXCollections.observableArrayList(
@@ -300,7 +311,7 @@ public class FakturaController implements Initializable {
      * {@link PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)} jer se ovde trazi ID Posao Artikla i koju
      * vrednsot menjamo.
      *
-     * @see #setTableData(ObservableList<PosaoArtikli>)  OBAVEZNO !!!
+     * @see #setTableData(ObservableList PosaoArtikli)  OBAVEZNO !!!
      * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
      */
     PosaoArtikli posaoArtikliTemp;
@@ -465,6 +476,29 @@ public class FakturaController implements Initializable {
                 }
             }
         });
+
+        //DETALJI POSAO ARTIKL
+        tblRowDetaljiPosaoArtikl.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDetaljiPosaoArtikli()));
+        tblRowDetaljiPosaoArtikl.setCellFactory(TextFieldTableCell.forTableColumn());
+        tblRowDetaljiPosaoArtikl.setOnEditCommit(t -> {
+            if (t.getNewValue().equals("")) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                t.getRowValue().setDetaljiPosaoArtikli(t.getNewValue());
+                try {
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setDetaljiPosaoArtikli(t.getRowValue().getDetaljiPosaoArtikli());
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
         tblPosaoArtikli.setItems(posaoArtikli);
     }
 
@@ -613,6 +647,11 @@ public class FakturaController implements Initializable {
     }
 
     /**
+     * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link UiPrintRacuniControler}
+     */
+    private Stage stagePrint;
+
+    /**
      * Inicijalizacija {@link UiPrintRacuniControler}, a implementira se {@link #initialize}
      *
      * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
@@ -634,7 +673,6 @@ public class FakturaController implements Initializable {
      */
     @FXML
     private void btnPrintAction() {
-        System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
             stagePrint = new Stage();
