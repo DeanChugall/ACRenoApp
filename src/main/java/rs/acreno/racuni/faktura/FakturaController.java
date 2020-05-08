@@ -12,13 +12,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.converter.NumberStringConverter;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
@@ -205,6 +206,7 @@ public class FakturaController implements Initializable {
                             posaoArtikliDAO.findPosaoArtikliByPropertyDao(
                                     PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture)
                     );
+
                     popuniTabeluRacuni(); //popuni tabelu PosaoArtikli za Editovanje jer smo u EDIT MODU
 
                 } catch (AcrenoException | SQLException e) {
@@ -291,6 +293,19 @@ public class FakturaController implements Initializable {
     }
 
     /**
+     * Promenjiva koja nam je potrebna za update PosaoArtikl podataka u celijama tablele {@link #tblPosaoArtikli}
+     * <p>
+     * Kada ubacimo Artikl u Tabelu {@link #tblPosaoArtikli} i hocemo da uradimo update nekih podataka(cene, kolicine)
+     * moramo iammo temo promenjuvu "posaoArtikliTemp" jer pratimo koje vrednosti ubacujemo, a to sve zbog
+     * {@link PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)} jer se ovde trazi ID Posao Artikla i koju
+     * vrednsot menjamo.
+     *
+     * @see #setTableData(ObservableList<PosaoArtikli>)  OBAVEZNO !!!
+     * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
+     */
+    PosaoArtikli posaoArtikliTemp;
+
+    /**
      * EDIT MODE (TRUE) pa je potrebno popuniti tabelu sa {@link PosaoArtikli}-ma koji su
      * filtrirani po IDu preko {@link PosaoArtikliDaoSearchType#ID_RACUNA_POSAO_ARTIKLI_DAO}
      * u {@link #initialize} metodi {@link FakturaController}-a.
@@ -299,26 +314,157 @@ public class FakturaController implements Initializable {
      * @see PosaoArtikliDaoSearchType#ID_RACUNA_POSAO_ARTIKLI_DAO
      */
     private void popuniTabeluRacuni() {
-        tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
-        tblRowidPosaoArtikli.setStyle("-fx-alignment: CENTER;");
-        tblRowidRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
-        tblRowidRacuna.setStyle("-fx-alignment: CENTER;");
-        tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
-        tblRowidArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowNazivArtikla.setCellValueFactory(new PropertyValueFactory<>("nazivArtikla"));
-        tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowOpisArtikla.setCellValueFactory(new PropertyValueFactory<>("opisPosaoArtiklli"));
-        tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cena"));
-        tblRowCena.setStyle("-fx-alignment: CENTER;");
-        tblRowNabavnaCena.setCellValueFactory(new PropertyValueFactory<>("nabavnaCena"));
-        tblRowNabavnaCena.setStyle("-fx-alignment: CENTER;");
-        tblRowKolicina.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
-        tblRowKolicina.setStyle("-fx-alignment: CENTER;");
-        tblRowJedinicaMere.setCellValueFactory(new PropertyValueFactory<>("jedinicaMere"));
-        tblRowJedinicaMere.setStyle("-fx-alignment: CENTER;");
-        tblRowPopust.setCellValueFactory(new PropertyValueFactory<>("popust"));
-        tblRowPopust.setStyle("-fx-alignment: CENTER;");
+        setTableData(posaoArtikli);
+    }
+
+    /**
+     * Pomocna metoda za omogucavanje EDIT ćelija u {@link #tblPosaoArtikli}
+     * <p>
+     * Posto nam je kod za omogucavanje editovanja celija u tabeli {@link #tblPosaoArtikli} potreban na dva mesta
+     * a to su: {@link #popuniTabeluRacuni()} i {@link #btnDodajArtiklRacunMouseClick(MouseEvent)}, da se ne bi
+     * ponavljali koristimo ovu pomocnu metodu.
+     * <p>
+     * Parametar metode {@code ObservableList<PosaoArtikli> posaoArtikli} je potreban
+     * jer u {@link #btnDodajArtiklRacunMouseClick(MouseEvent)} koristimo jos jednu filter observable listu
+     * pa je u tom delu i prosledjujemo.
+     * <p>
+     * OVA METODA OMOGUCAVA ISTO TAKO I UPDATE U DB CIM SE KLIKNE ENTER SA IZMENJENOM VREDNOSCU.
+     *
+     * @param posaoArtikli ObservableList {@link PosaoArtikli}
+     * @see #popuniTabeluRacuni()
+     * @see #btnDodajArtiklRacunMouseClick(MouseEvent)
+     * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
+     */
+    private void setTableData(ObservableList<PosaoArtikli> posaoArtikli) {
+        tblPosaoArtikli.getSelectionModel().setCellSelectionEnabled(true);
+        tblPosaoArtikli.setEditable(true);
+        //ID POSAO ARTIKLA
+        tblRowidPosaoArtikli.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdPosaoArtikli()));
+
+        //ID RACUNA
+        tblRowidRacuna.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdRacuna()));
+
+        //ID ARTIKLA
+        tblRowidArtikla.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
+
+        // NAZIV ARTIKLA
+        tblRowNazivArtikla.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
+
+        //OPIS ARTIKLA
+        tblRowOpisArtikla.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
+
+        // CENA
+        tblRowCena.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getCena()));
+        tblRowCena.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        tblRowCena.setOnEditCommit(t -> {
+            if (t.getNewValue() == null) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                t.getRowValue().setCena(t.getNewValue().doubleValue());
+                try {
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setCena(t.getRowValue().getCena());
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+
+        });
+
+        //NABAVNA CENA
+        tblRowNabavnaCena.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getNabavnaCena()));
+        tblRowNabavnaCena.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        tblRowNabavnaCena.setOnEditCommit((TableColumn.CellEditEvent<PosaoArtikli, Number> t) -> {
+            if (t.getNewValue() == null) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                try {
+                    t.getRowValue().setNabavnaCena(t.getNewValue().doubleValue());
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setNabavnaCena(t.getRowValue().getNabavnaCena());
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        //KOLICINA
+        tblRowKolicina.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getKolicina()));
+        tblRowKolicina.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        tblRowKolicina.setOnEditCommit((TableColumn.CellEditEvent<PosaoArtikli, Number> t) -> {
+            if (t.getNewValue() == null) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                try {
+                    t.getRowValue().setKolicina(t.getNewValue().intValue());
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setKolicina(t.getRowValue().getKolicina());
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+        //JEIDNICA MERE
+        tblRowJedinicaMere.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getJedinicaMere()));
+        tblRowJedinicaMere.setCellFactory(TextFieldTableCell.forTableColumn());
+        tblRowJedinicaMere.setOnEditCommit(t -> {
+            if (t.getNewValue().equals("")) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                t.getRowValue().setJedinicaMere(t.getNewValue());
+                try {
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setJedinicaMere(t.getRowValue().getJedinicaMere());
+
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+
+        //POPUST
+        tblRowPopust.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getPopust()));
+        tblRowPopust.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        tblRowPopust.setOnEditCommit((TableColumn.CellEditEvent<PosaoArtikli, Number> t) -> {
+            if (t.getNewValue() == null) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GRESKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                try {
+                    t.getRowValue().setPopust(t.getNewValue().intValue());
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setKolicina(t.getRowValue().getPopust());
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
         tblPosaoArtikli.setItems(posaoArtikli);
     }
 
@@ -423,7 +569,9 @@ public class FakturaController implements Initializable {
      * <p> Kreiranje objekta {@link PosaoArtikli} i popunjavanje sa podacima </p>
      * <p>
      * {@code  posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject);} // SQL Staff {@link PosaoArtikliDAO}
-     * </p>
+     * <p>
+     * {@code setTableData(posaoArtiklovi)} Omogucava editovanje ćelija u tabeli pomocu pomocne metode
+     * deklarisane u {@link #setTableData(ObservableList posaoArtikli)}
      * <p>
      * Popunjavanje tabele {@link #tblPosaoArtikli}
      * </p>
@@ -431,6 +579,7 @@ public class FakturaController implements Initializable {
      * @param mouseEvent in case if we need
      * @see PosaoArtikli
      * @see PosaoArtikliDAO#insertPosaoArtikliDao(PosaoArtikli)
+     * @see #setTableData(ObservableList posaoArtikli)
      */
     private void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
 
@@ -451,31 +600,11 @@ public class FakturaController implements Initializable {
             posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
 
             //Create ObservableList<PosaoArtikli> and insert in table for print and preview
-            ObservableList<PosaoArtikli> test = FXCollections.observableArrayList(
+            ObservableList<PosaoArtikli> posaoArtiklovi = FXCollections.observableArrayList(
                     posaoArtikliDAO.findPosaoArtikliByPropertyDao(
                             PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture));
-            // Insert in table "tblPosaoArtikli"
-            tblRowidPosaoArtikli.setCellValueFactory(cellData ->
-                    new SimpleIntegerProperty(cellData.getValue().getIdPosaoArtikli()));
-            tblRowidRacuna.setCellValueFactory(cellData ->
-                    new SimpleIntegerProperty(cellData.getValue().getIdRacuna()));
-            tblRowidArtikla.setCellValueFactory(cellData ->
-                    new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
-            tblRowNazivArtikla.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
-            tblRowOpisArtikla.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
-            tblRowCena.setCellValueFactory(cellData ->
-                    new SimpleDoubleProperty(cellData.getValue().getCena()));
-            tblRowNabavnaCena.setCellValueFactory(cellData ->
-                    new SimpleDoubleProperty(cellData.getValue().getNabavnaCena()));
-            tblRowKolicina.setCellValueFactory(cellData ->
-                    new SimpleDoubleProperty(cellData.getValue().getKolicina()));
-            tblRowJedinicaMere.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getJedinicaMere()));
-            tblRowPopust.setCellValueFactory(cellData ->
-                    new SimpleDoubleProperty(cellData.getValue().getPopust()));
-            tblPosaoArtikli.setItems(test);
+
+            setTableData(posaoArtiklovi); // Popunjavanje i omogucavanje EDITA u Tabeli
 
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
@@ -526,6 +655,7 @@ public class FakturaController implements Initializable {
      * <p>
      * Setuju se svi podaci za izmenjen racun pokupljeni iz TF-ova
      * Zatim se radi update sa {@link RacuniDAO#updateRacun(Racun)}
+     *
      * @see RacuniDAO#updateRacun(Racun)
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
      */
