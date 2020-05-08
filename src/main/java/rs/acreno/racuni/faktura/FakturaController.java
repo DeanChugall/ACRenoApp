@@ -10,14 +10,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
@@ -47,11 +48,15 @@ import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
 
+    public Button btnCloseFakture;
     @FXML private TextField txtFidRacuna;
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
     @FXML private TextField txtFieldPretragaArtikla;
     @FXML private DatePicker datePickerDatumRacuna;
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private TextArea txtAreaNapomenaRacuna;
+
 
     //ARTICLES FIELDS in Faktura
     @FXML private ListView<Artikl> listViewPretragaArtikli;
@@ -62,12 +67,8 @@ public class FakturaController implements Initializable {
     @FXML private TextField txtFjedinicaMereArtikla;
     @FXML private TextField txtFpopustArtikla;
     @FXML private Button btnDodajArtiklRacun;
-    @FXML private TextArea txtAreaNapomenaRacuna;
-    @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtFopisArtikla;
     @FXML private TextArea txtAreaDetaljiOpisArtikla;
-
-    @FXML private Button btnCloseFakture;
 
     //Pretraga Artikala Tabela
     @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
@@ -83,7 +84,6 @@ public class FakturaController implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
     @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
 
-
     //INIT GUI FIELDS
     private int idAutomobila;
     private String regOznakaAutomobila;
@@ -98,8 +98,24 @@ public class FakturaController implements Initializable {
     private ObservableList<PosaoArtikli> posaoArtikli;
 
     //RACUN STAFF OBJECT
-    private int brojFakture;
     private Racun noviRacun;
+
+    /**
+     * Posto smo u EDIT modu ne treba da se pravi novi racun nego se RACUN objekat prosledjuje
+     * iz #{@link AutomobiliController#btnOpenFakturaUi()}
+     *
+     * @param noviRacun racun koji se EDITUJE
+     * @see AutomobiliController#btnOpenFakturaUi()
+     */
+    public void setEditRacun(Racun noviRacun) {
+        this.noviRacun = noviRacun;
+    }
+
+    private int brojFakture;
+
+    public void setBrojFakture(int brojFakture) {
+        this.brojFakture = brojFakture;
+    }
 
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
@@ -114,6 +130,7 @@ public class FakturaController implements Initializable {
     }
 
     private AutomobiliController automobiliController;
+    private Stage automobilStage;
 
     /**
      * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
@@ -126,11 +143,38 @@ public class FakturaController implements Initializable {
      */
     public void setAutmobilController(AutomobiliController autmobilController, Stage automobilStage) {
         this.automobiliController = autmobilController;
+        this.automobilStage = automobilStage;
     }
 
+    /**
+     * Inicijalizacija {@link FakturaController}-a sa potrebni podacima
+     * <p>
+     * Posatvljanje "delete" dugmica u {@link #tblPosaoArtikli}, za brisanje artikla u racunu i obavestenje po brisanju
+     * Brisemo poreko #{@link PosaoArtikliDAO#deletePosaoArtikliDao(PosaoArtikli)}.
+     * {@code tblPosaoArtikli.getItems().remove(p)} Brise Artikl iz Table {@link #tblPosaoArtikli}
+     * <p>
+     * {@code automobiliController.isRacunInEditMode()} Provera da li smo u EDIT MODU.
+     * Ako je EDIT MODE onda prosledjujemo TRUE {@link #newOrEditRacun(boolean)}. Tu nam je objekat RACUN
+     * prosledjen iz {@link AutomobiliController#btnOpenFakturaUi()}, pa nakon toga da bi popunili
+     * tabelu {@link #tblPosaoArtikli} nalazimo sve objekte {@link PosaoArtikli}-e filtrirane po IDu
+     * preko {@link PosaoArtikliDaoSearchType#ID_RACUNA_POSAO_ARTIKLI_DAO}.
+     * <p>
+     * Popunjavamo {@link #tblPosaoArtikli} taelu sa {@link PosaoArtikli} objektima.
+     * <p>
+     * Ako nismo u edit modu prosledjujemo FALSE u {@link #newOrEditRacun(boolean)} i pravimo novi {@link Racun} obj.
+     *
+     * @param url            loaction if we need in some case
+     * @param resourceBundle resource if we need in some case
+     * @see PosaoArtikli
+     * @see PosaoArtikliDAO
+     * @see AutomobiliController#btnOpenFakturaUi()
+     * @see #newOrEditRacun(boolean)
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         Platform.runLater(() -> {
+
 
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
@@ -148,19 +192,42 @@ public class FakturaController implements Initializable {
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
-                tblPosaoArtikli.getItems().remove(p);
+                tblPosaoArtikli.getItems().remove(p); //Brisi Artikl i tabele "tblPosaoArtikli"
                 return p;
             }));
-            //Datum
-            LocalDate now = LocalDate.now();
-            datePickerDatumRacuna.setValue(now);
 
-            napraviNoviRacun();
+            // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
+            if (automobiliController.isRacunInEditMode()) { //TRUE
+                System.out.println("DA LI JE RACUN U EDIT MODU: " + automobiliController.isRacunInEditMode());
+                System.out.println("ID RACUNA U EDIT MODU JE: " + brojFakture);
+                newOrEditRacun(true);
+                try { // Nadji sve PosaoArtikle po Broju Fakture i popuni tabelu jer smo u EDIT MODU
+                    posaoArtikli = FXCollections.observableArrayList(
+                            posaoArtikliDAO.findPosaoArtikliByPropertyDao(
+                                    PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture)
+                    );
+                    popuniTabeluRacuni(); //popuni tabelu PosaoArtikli za Editovanje jer smo u EDIT MODU
+
+                } catch (AcrenoException | SQLException e) {
+                    e.printStackTrace();
+                }
+
+            } else { //Nismo u Edit Modu (FALSE)
+                //Datum
+                LocalDate now = LocalDate.now();
+                datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
+                newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
+            }
+
         });
     }
 
     /**
-     * Inicijalizacija TODO: Zavrsiti ovo sranje sa JAVA DOC-om
+     * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
+     * <p>
+     * {@code .get(0)} Moze jer je samo jedan objkat Klijent ili Automobil prisutan u datom trenutku !
+     *
+     * @see AutomobiliController
      */
     private void initGUI() {
         //Inicijalizacija podataka
@@ -176,25 +243,84 @@ public class FakturaController implements Initializable {
         txtFpopustRacuna.setText(String.valueOf(0));
     }
 
-    public void napraviNoviRacun() {
-        initGUI(); //Inicijalizacija podataka za novi racun
-        noviRacun = new Racun();
-        noviRacun.setIdRacuna(brojFakture);
-        noviRacun.setIdAutomobila(idAutomobila);
-        noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
-        noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
-        if (!txtFpopustRacuna.getText().isEmpty())
-            noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
-        try {
-            racuniDAO.insertRacun(noviRacun);
-            //Inicijalizacija broja fakture MORA DA IDE OVDE
-            racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
-            brojFakture = racuniDAO.findAllRacune().get(racuni.size() - 1).getIdRacuna();
-            txtFidRacuna.setText(String.valueOf(brojFakture));
+    /**
+     * Pravljenje ili Editovanje {@link Racun} i DB FK {@link PosaoArtikli} objekata
+     * <p>
+     * Prvo inicijalizujemo GUI {@link #initGUI()} bez obzira da li je EDIT mode ili ne.
+     * <p>
+     * EDIT MODE STATUS DOBIJAMO IZ {@link AutomobiliController#btnOpenFakturaUi()}
+     * <p>
+     * Ako smo u EDIT modu(TRUE) {@code if (isInEditMode)} ne treba da pravimo {@link Racun} objekat
+     * nego smo ga prosledili iz {@link AutomobiliController#btnOpenFakturaUi()}
+     * u kodu {@code fakturaController.setEditRacun(racun)}, a u seteru {@link #setEditRacun(Racun)}
+     * <p>
+     * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link Racun} i bitno da se odredi koji
+     * je sledeci {@link #brojFakture}. Ovde je bio problem jer kada se obrise Racun ID se pomera za jedan
+     * iako je obrisan.
+     *
+     * @param isInEditMode da li smo u Edit Modu
+     * @see AutomobiliController#btnOpenFakturaUi()
+     */
+    private void newOrEditRacun(boolean isInEditMode) {
+        initGUI(); //Inicijalizacija podataka za novi racun bez obzira na edit mode
+        if (isInEditMode) {
+            System.out.println("TRUE WE ARE IN EDIT MODE");
+            txtFidRacuna.setText(String.valueOf(noviRacun.getIdRacuna()));
+            datePickerDatumRacuna.setValue(LocalDate.parse(noviRacun.getDatum()));
+            txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
+            txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
 
-        } catch (AcrenoException | SQLException e) {
-            e.printStackTrace();
+        } else {
+            noviRacun = new Racun();
+            noviRacun.setIdRacuna(brojFakture);
+            noviRacun.setIdAutomobila(idAutomobila);
+            noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
+            noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
+            if (!txtFpopustRacuna.getText().isEmpty())
+                noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
+            try {
+                racuniDAO.insertRacun(noviRacun);
+                //Inicijalizacija broja fakture MORA DA IDE OVDE
+                racuni = FXCollections.observableArrayList(racuniDAO.findAllRacune());
+                brojFakture = racuniDAO.findAllRacune().get(racuni.size() - 1).getIdRacuna();
+                txtFidRacuna.setText(String.valueOf(brojFakture));
+
+            } catch (AcrenoException | SQLException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    /**
+     * EDIT MODE (TRUE) pa je potrebno popuniti tabelu sa {@link PosaoArtikli}-ma koji su
+     * filtrirani po IDu preko {@link PosaoArtikliDaoSearchType#ID_RACUNA_POSAO_ARTIKLI_DAO}
+     * u {@link #initialize} metodi {@link FakturaController}-a.
+     *
+     * @see PosaoArtikli
+     * @see PosaoArtikliDaoSearchType#ID_RACUNA_POSAO_ARTIKLI_DAO
+     */
+    private void popuniTabeluRacuni() {
+        tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
+        tblRowidPosaoArtikli.setStyle("-fx-alignment: CENTER;");
+        tblRowidRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
+        tblRowidRacuna.setStyle("-fx-alignment: CENTER;");
+        tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
+        tblRowidArtikla.setStyle("-fx-alignment: CENTER;");
+        tblRowNazivArtikla.setCellValueFactory(new PropertyValueFactory<>("nazivArtikla"));
+        tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
+        tblRowOpisArtikla.setCellValueFactory(new PropertyValueFactory<>("opisPosaoArtiklli"));
+        tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
+        tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cena"));
+        tblRowCena.setStyle("-fx-alignment: CENTER;");
+        tblRowNabavnaCena.setCellValueFactory(new PropertyValueFactory<>("nabavnaCena"));
+        tblRowNabavnaCena.setStyle("-fx-alignment: CENTER;");
+        tblRowKolicina.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+        tblRowKolicina.setStyle("-fx-alignment: CENTER;");
+        tblRowJedinicaMere.setCellValueFactory(new PropertyValueFactory<>("jedinicaMere"));
+        tblRowJedinicaMere.setStyle("-fx-alignment: CENTER;");
+        tblRowPopust.setCellValueFactory(new PropertyValueFactory<>("popust"));
+        tblRowPopust.setStyle("-fx-alignment: CENTER;");
+        tblPosaoArtikli.setItems(posaoArtikli);
     }
 
     private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
@@ -209,7 +335,7 @@ public class FakturaController implements Initializable {
      * @see #zatvoriListViewSearchArtikli(MouseEvent)
      * @see #listViewPretragaArtikli
      */
-    public void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
+    private void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
                 listViewPretragaArtikli.setItems(artikli);
@@ -261,7 +387,7 @@ public class FakturaController implements Initializable {
      * @see PosaoArtikli
      * @see PosaoArtikliDAO
      */
-    public void zatvoriListViewSearchArtikli(@NotNull MouseEvent mouseEvent) {
+    private void zatvoriListViewSearchArtikli(@NotNull MouseEvent mouseEvent) {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             // Popunjavanje TF polja sa podacima Artikla
@@ -306,7 +432,7 @@ public class FakturaController implements Initializable {
      * @see PosaoArtikli
      * @see PosaoArtikliDAO#insertPosaoArtikliDao(PosaoArtikli)
      */
-    public void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
+    private void btnDodajArtiklRacunMouseClick(MouseEvent mouseEvent) {
 
         // Create Posao Artikli Object and populate with data
         PosaoArtikli posaoArtikliObject = new PosaoArtikli();
@@ -378,7 +504,7 @@ public class FakturaController implements Initializable {
      * @see UiPrintRacuniControler
      */
     @FXML
-    public void btnPrintAction() {
+    private void btnPrintAction() {
         System.out.println("OTVORI PRINT FXML **UiProntControler !!!!");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
@@ -396,7 +522,7 @@ public class FakturaController implements Initializable {
     }
 
     @FXML
-    public void btnSacuvajRacunAction() {
+    private void btnSacuvajRacunAction() {
         try {
             //UPDATE NOVO RACUNA SA NOVIM VREDNOSTIMA ZATO OVDE REDEFINISEMO NOVI RACUN
             noviRacun.setIdRacuna(brojFakture);
@@ -412,12 +538,19 @@ public class FakturaController implements Initializable {
                     "Uspesno ste sacuvali racun br." + brojFakture
             );
         } catch (SQLException | AcrenoException throwables) {
-            throwables.printStackTrace(); //TODO: Ubaciti ALERT  za gresku
+            throwables.printStackTrace();
+            GeneralUiUtility.alertDialogBox(
+                    Alert.AlertType.CONFIRMATION,
+                    "GRESKA U CUVANJU RACUNA",
+                    "EDITOVANJE RACUNA",
+                    "Niste sacuvali  racun br." + brojFakture + ", Kontatiraj Administratora sa porukom: \n"
+                            + throwables.getMessage()
+            );
         }
     }
 
     @FXML
-    public void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
+    private void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
         try {
             racuniDAO.deleteRacun(brojFakture);
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
@@ -426,10 +559,22 @@ public class FakturaController implements Initializable {
         }
     }
 
+    /**
+     * Zatvaranje FAKTURA UIa i refresh tabele RAcuni u {@link AutomobiliController}-u
+     * <p>
+     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
+     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenFakturaUi}
+     *
+     * @param actionEvent event for hide scene {@link FakturaController}
+     * @see AutomobiliController#btnOpenFakturaUi
+     */
     @FXML
-    public void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
+    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
         //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
+        btnCloseFakture.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
+
+
 }
 

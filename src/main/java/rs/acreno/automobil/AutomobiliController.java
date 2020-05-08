@@ -38,6 +38,8 @@ public class AutomobiliController implements Initializable {
 
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtFieldImeKlijenta;
+    private int brojFakture;
+    private Racun racun;
 
     //TABELA FAKTURE
     @FXML private TableView<Racun> tblFakture;
@@ -47,6 +49,18 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
+
+    /**
+     * TODO: Napisati javadoc o edit modu raduna posto koristimo isti UI i za EDIT i za NOVI RACUN
+     */
+    boolean isRacunInEditMode; // Da li je recun u Edit Modu
+
+    /**
+     * TODO: Napisati javadoc o edit modu raduna posto koristimo isti UI i za EDIT i za NOVI RACUN
+     */
+    public boolean isRacunInEditMode() {
+        return isRacunInEditMode;
+    }
 
     /**
      * Empty AutomobilController Constructor
@@ -132,9 +146,10 @@ public class AutomobiliController implements Initializable {
 
 
     /**
+     * <p>
      * Inicijalizacija {@link AutomobiliController}-a
      * {@code tblRowBtnIzmeniRacun.setCellFactory} postavlje dugmice u {@link #tblFakture} tabelu Racuna.
-     * Dugmici otvaraju {@link #btnOpenEditRacunUiAction(Racun)}
+     * Dugmici pokrecu {@link #btnOpenFakturaUi()} btn koji vraca vrednost {@link #isRacunInEditMode}
      * <p>
      * Setuje se REG. TABLICA{@code txtFieldRegOznaka} i IME KLIJENTA{@code txtFieldImeKlijenta}
      * {@code  txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka())} Moze jer je samo jedan Automobil
@@ -150,10 +165,18 @@ public class AutomobiliController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-
-            //Inicijalizacija i Postavljenje dugmeta u tabeli racuni
+            //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli racuni
             tblRowBtnIzmeniRacun.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (Racun p) -> {
-                btnOpenEditRacunUiAction(p);
+                // btnOpenEditRacunUiAction(p);
+                try {
+                    isRacunInEditMode = true; // U edit modu RACUNA smo
+                    brojFakture = p.getIdRacuna(); // Setuj broj fakture jer je EDIT MODE
+                    racun = p;
+                    btnOpenFakturaUi(); //Otvori Fakturu UI u EDIT MODU...Provera je u FAKTURA CONTROLORU
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 //tblPosaoArtikli.getItems().remove(p);
                 return p;
             }));
@@ -197,33 +220,54 @@ public class AutomobiliController implements Initializable {
         tblRowPopustRacuna.setStyle("-fx-alignment: CENTER;");
         tblRowNapomeneRacuna.setCellValueFactory(new PropertyValueFactory<>("napomeneRacuna"));
         tblRowNapomeneRacuna.setStyle("-fx-alignment: CENTER;");
+
         tblFakture.setItems(racuni);
+
     }
 
     /**
      * Otvaranje {@link FakturaController} UI-a i komunikacija izmedju ova dva kontrolora. {@code onMouseClick}
+     * <p>
      * Komunikacija se implemetira {@link FakturaController#setAutmobilController(AutomobiliController, Stage)}
+     * <p>
      * Takodje se prosledjuje i STAGE u slucaju da zatreba.
+     * <p>
      * Nakon toga se incijalizuje Title preko {@code stageFaktura.setTitle }
+     * <p>
+     * Vraca vrednost da li je u edit modu ili ne... Ovde nije, jer je kliknuto direktno dugme "NAPRAVI NOVI RACUN"
+     * U edit modu se postavlja na true {@link #initialize(URL, ResourceBundle)}
+     * <p>
+     * {@code windowEvent -> {tblFakture.refresh()} Refresuje tabelu u povratku u Automobil UI da se vide izmene
+     * koji se takodje poziva iz {@link FakturaController #btnCloseFaktureAction(ActionEvent)}, a sve zbog
+     * refresha tabele po zavrsetku EDITa.
      *
+     * @return boolean isRacunInEditMode //
      * @throws IOException ako nije nadjen .fxml {@link Constants#FAKTURA_UI_VIEW_URI}
      * @see FakturaController#setAutmobilController(AutomobiliController, Stage)
+     * @see #initialize(URL, ResourceBundle)
      */
     @FXML
-    public void btnOpenFakturaUi() throws IOException {
+    public boolean btnOpenFakturaUi() throws IOException {
         FXMLLoader fxmlLoaderFaktura = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
         Stage stageFaktura = new Stage();
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
         stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
-
+        stageFaktura.setOnCloseRequest(windowEvent -> {
+            tblFakture.refresh(); //Uradi refresh tabele da se vide izmene
+        });
         //Inicijalizacija FakturaController-a i setovanje naslova
         FakturaController fakturaController = fxmlLoaderFaktura.getController();
         fakturaController.setAutmobilController(this, stageFaktura);
+
         //Postavi Title u stageu FakturaController
         stageFaktura.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
+        fakturaController.setBrojFakture(brojFakture);//Prosledi u FakturaView broj fakture (EDIT MODE)
+        fakturaController.setEditRacun(racun); //Prosledi u RACUN Objekat broj fakture (EDIT MODE)
         stageFaktura.showAndWait();
+
+        return isRacunInEditMode = false; //Nije u Edit Modu jer je kliknuto direktno dugme NOVI RACUN
     }
 
     /**

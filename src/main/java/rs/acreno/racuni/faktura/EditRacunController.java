@@ -12,8 +12,10 @@ import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
+import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
+import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniSearchType;
 import rs.acreno.system.exeption.AcrenoException;
@@ -28,6 +30,11 @@ public class EditRacunController implements Initializable {
 
     // Anchore Pane Top
     @FXML private TextField txtFIdRacuna;
+    @FXML private TextField txtFklijentImePrezime;
+    @FXML private TextField txtFregTablica;
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private TextField txtFieldPretragaArtikla;
+    @FXML private DatePicker datePickerDatumRacuna;
 
     //Pretraga Artikala Tabela
     @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
@@ -59,9 +66,34 @@ public class EditRacunController implements Initializable {
         txtFIdRacuna.setText(String.valueOf(idRacuna));
     }
 
+    //INIT GUI FIELDS
+    private int idAutomobila;
+    private String regOznakaAutomobila;
+    private int idKlijenta;
+    private String imePrezimeKlijenta;
+
+    //INIT ObservableList-s
+    private ObservableList<Automobil> automobili;
+    private ObservableList<Klijent> klijenti;
+    private ObservableList<Racun> racuni;
+
 
     private AutomobiliController automobiliController;
     private Stage stageEditRacun;
+    /**
+     * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
+     * Preko nje mozemo da prosledimo Klijent i Automobil Objekat ovde,
+     * a iz {@link AutoServisController #showAutomobiliUi()}-a
+     *
+     * @param automobiliController referenca ka auto servis kontroloru
+     * @param stageEditRacun       refereca ka Stage-u auto servisu
+     * @see AutoServisController
+     */
+    public void setAutomobiliController(AutomobiliController automobiliController, Stage stageEditRacun) {
+        this.automobiliController = automobiliController;
+        this.stageEditRacun = stageEditRacun;
+    }
+
 
     /**
      * Empty "EditRacunUiController" if we need in some case
@@ -121,27 +153,31 @@ public class EditRacunController implements Initializable {
             }
 
             popuniTabeluRacuni(); //Popunjavanje Tabele Posao Artikli
+            initGUI();
         });
     }
 
-    /**
-     * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
-     * Preko nje mozemo da prosledimo Klijent i Automobil Objekat ovde,
-     * a iz {@link AutoServisController #showAutomobiliUi()}-a
-     *
-     * @param automobiliController referenca ka auto servis kontroloru
-     * @param stageEditRacun       refereca ka Stage-u auto servisu
-     * @see AutoServisController
-     */
-    public void setAutomobiliController(AutomobiliController automobiliController, Stage stageEditRacun) {
-        this.automobiliController = automobiliController;
-        this.stageEditRacun = stageEditRacun;
+    private void initGUI() {
+        //Inicijalizacija podataka
+        automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
+        klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
+        idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
+        regOznakaAutomobila = automobili.get(0).getRegOznaka();//Moze jer je samo jedan Automobil
+        idKlijenta = klijenti.get(0).getIdKlijenta();//Moze jer je samo jedan Klijent
+        imePrezimeKlijenta = klijenti.get(0).getImePrezime();//Moze jer je samo jedan Klijent
+        //Popunjavanje GUIa
+        txtFklijentImePrezime.setText(imePrezimeKlijenta);
+        txtFregTablica.setText(regOznakaAutomobila);
+        txtFpopustRacuna.setText(String.valueOf(0));
     }
 
-    private void popuniTabeluRacuni() {
 
+
+    private void popuniTabeluRacuni() {
         tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
         tblRowidPosaoArtikli.setStyle("-fx-alignment: CENTER;");
+        tblRowidRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
+        tblRowidRacuna.setStyle("-fx-alignment: CENTER;");
         tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
         tblRowidArtikla.setStyle("-fx-alignment: CENTER;");
         tblRowNazivArtikla.setCellValueFactory(new PropertyValueFactory<>("nazivArtikla"));
@@ -160,6 +196,4 @@ public class EditRacunController implements Initializable {
         tblRowPopust.setStyle("-fx-alignment: CENTER;");
         tblPosaoArtikli.setItems(posaoArtikliList);
     }
-
-
 }
