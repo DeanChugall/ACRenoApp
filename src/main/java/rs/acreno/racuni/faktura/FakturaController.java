@@ -1,6 +1,7 @@
 package rs.acreno.racuni.faktura;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -50,8 +51,8 @@ import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
 
-    public Button btnCloseFakture;
-    public Button btnOdustaniObrisiRacun;
+    @FXML private Button btnCloseFakture;
+    @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
@@ -59,6 +60,7 @@ public class FakturaController implements Initializable {
     @FXML private DatePicker datePickerDatumRacuna;
     @FXML private TextField txtFpopustRacuna;
     @FXML private TextArea txtAreaNapomenaRacuna;
+    @FXML private TextField txtfGrandTotal;
 
 
     //ARTICLES FIELDS in Faktura
@@ -86,6 +88,7 @@ public class FakturaController implements Initializable {
     @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
     @FXML private TableColumn<PosaoArtikli, String> tblRowDetaljiPosaoArtikl;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
     @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
 
     //INIT GUI FIELDS
@@ -122,6 +125,7 @@ public class FakturaController implements Initializable {
 
     /**
      * Seter za {@link #brojFakture} koji se inicijalizuje {@link AutomobiliController#btnOpenFakturaUi()}
+     *
      * @param brojFakture ID RACUNA
      */
     public void setBrojFakture(int brojFakture) {
@@ -161,7 +165,10 @@ public class FakturaController implements Initializable {
      * <p>
      * Posatvljanje "delete" dugmica u {@link #tblPosaoArtikli}, za brisanje artikla u racunu i obavestenje po brisanju
      * Brisemo poreko #{@link PosaoArtikliDAO#deletePosaoArtikliDao(PosaoArtikli)}.
-     * {@code tblPosaoArtikli.getItems().remove(p)} Brise Artikl iz Table {@link #tblPosaoArtikli}
+     * {@code tblPosaoArtikli.getItems().remove(p)} Brise Artikl iz Table {@link #tblPosaoArtikli}.
+     * <p>
+     * Posale izracunavamo TOTAL SUMU u koloni {@link #tblRowTotal} zajedno sa popustom i
+     * ubacujemo u TF ili LABEL zbog GRAND TOTALA.
      * <p>
      * {@code automobiliController.isRacunInEditMode()} Provera da li smo u EDIT MODU.
      * Ako je EDIT MODE onda prosledjujemo TRUE {@link #newOrEditRacun(boolean)}. Tu nam je objekat RACUN
@@ -184,6 +191,7 @@ public class FakturaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Platform.runLater(() -> {
+
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
@@ -206,8 +214,29 @@ public class FakturaController implements Initializable {
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
+                txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
                 return p;
             }));
+
+            //Izracunavanje TOTAL sume u tabeli
+            tblRowTotal.setCellValueFactory(cellData -> {
+                PosaoArtikli data = cellData.getValue();
+                return Bindings.createDoubleBinding(
+                        () -> {
+                            try {
+                                double price = Double.parseDouble(String.valueOf(data.getCena()));
+                                double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
+                                double popust = Integer.parseInt(String.valueOf(data.getPopust()));
+                                double total = price * quantity;
+                                return total - ((total * popust) / 100);
+
+                            } catch (NumberFormatException nfe) {
+                                return (double) 0;
+                            }
+                        }
+
+                );
+            });
 
             // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
             if (automobiliController.isRacunInEditMode()) { //TRUE
@@ -230,7 +259,6 @@ public class FakturaController implements Initializable {
                 datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
                 newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
             }
-
         });
     }
 
@@ -301,6 +329,7 @@ public class FakturaController implements Initializable {
                 e.printStackTrace();
             }
         }
+
     }
 
     /**
@@ -314,7 +343,7 @@ public class FakturaController implements Initializable {
      * @see #setTableData(ObservableList PosaoArtikli)  OBAVEZNO !!!
      * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
      */
-    PosaoArtikli posaoArtikliTemp;
+    private PosaoArtikli posaoArtikliTemp;
 
     /**
      * EDIT MODE (TRUE) pa je potrebno popuniti tabelu sa {@link PosaoArtikli}-ma koji su
@@ -339,12 +368,18 @@ public class FakturaController implements Initializable {
      * jer u {@link #btnDodajArtiklRacunMouseClick(MouseEvent)} koristimo jos jednu filter observable listu
      * pa je u tom delu i prosledjujemo.
      * <p>
+     * {@code tblPosaoArtikli.refresh()} Nam je potreban zbo izracunavanja TOTAL SUME u tabeli, a
+     * implementira se i {@link #initialize(URL, ResourceBundle)}
+     * <p>
      * OVA METODA OMOGUCAVA ISTO TAKO I UPDATE U DB CIM SE KLIKNE ENTER SA IZMENJENOM VREDNOSCU.
+     * <p>
+     * Na kraju se izracunava GRAND TOTAL SUMA u {@link #izracunajTotal()} i posatvlja u TF {@link #txtfGrandTotal}
      *
      * @param posaoArtikli ObservableList {@link PosaoArtikli}
      * @see #popuniTabeluRacuni()
      * @see #btnDodajArtiklRacunMouseClick(MouseEvent)
      * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
+     * @see #initialize
      */
     private void setTableData(ObservableList<PosaoArtikli> posaoArtikli) {
         tblPosaoArtikli.getSelectionModel().setCellSelectionEnabled(true);
@@ -388,7 +423,8 @@ public class FakturaController implements Initializable {
                     throwables.printStackTrace();
                 }
             }
-
+            tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
+            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
         });
 
         //NABAVNA CENA
@@ -410,6 +446,8 @@ public class FakturaController implements Initializable {
                     throwables.printStackTrace();
                 }
             }
+            tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
+            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
         });
 
         //KOLICINA
@@ -431,6 +469,8 @@ public class FakturaController implements Initializable {
                     throwables.printStackTrace();
                 }
             }
+            tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
+            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
         });
         //JEIDNICA MERE
         tblRowJedinicaMere.setCellValueFactory(cellData ->
@@ -469,12 +509,14 @@ public class FakturaController implements Initializable {
                     t.getRowValue().setPopust(t.getNewValue().intValue());
                     posaoArtikliTemp = t.getRowValue();
                     posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
-                    posaoArtikliTemp.setKolicina(t.getRowValue().getPopust());
+                    posaoArtikliTemp.setPopust(t.getRowValue().getPopust());
                     posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
                 } catch (SQLException | AcrenoException throwables) {
                     throwables.printStackTrace();
                 }
             }
+            tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
+            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
         });
 
         //DETALJI POSAO ARTIKL
@@ -500,6 +542,24 @@ public class FakturaController implements Initializable {
         });
 
         tblPosaoArtikli.setItems(posaoArtikli);
+
+        txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+    }
+
+    /**
+     * Izracunavanje GRAND TOTAL SUME racuna.
+     * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
+     * koji se menja da bi se uradio update GRAND TOTAL sume.
+     *
+     * @return (double) GRAND TOTAL RACUNA
+     * @see #setTableData
+     * @see #initialize
+     */
+    private double izracunajTotal() {
+        return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
+                tblRowTotal.getCellData(o).doubleValue()).sum();
+
+
     }
 
     /**
@@ -764,6 +824,7 @@ public class FakturaController implements Initializable {
         btnCloseFakture.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
+
 
 }
 
