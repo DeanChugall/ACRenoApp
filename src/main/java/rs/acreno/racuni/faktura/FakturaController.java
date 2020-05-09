@@ -157,6 +157,11 @@ public class FakturaController implements Initializable {
     //INIT ObservableList-s
     private ObservableList<Automobil> automobili;
     private ObservableList<Klijent> klijenti;
+
+    public Klijent getKlijent() {
+        return klijenti.get(0);
+    }
+
     private ObservableList<Racun> racuni;
     private ObservableList<Artikl> artikli;
     private ObservableList<PosaoArtikli> posaoArtikli;

@@ -46,7 +46,9 @@
       <TextField fx:id="txtfTotalBezPopusta" layoutX="487.0" layoutY="487.0" />
       <Label layoutX="172.0" layoutY="88.0" text="POPUST NA RACUNU" />
       <TextField fx:id="txtFpopustRacuna" layoutX="163.0" layoutY="105.0" />
-      <Label layoutX="361.0" layoutY="595.0" text="GRAND TOTAL:" />
-      <TextField fx:id="txtfGrandTotal" layoutX="474.0" layoutY="591.0" />
+      <Label layoutX="362.0" layoutY="628.0" text="GRAND TOTAL:" />
+      <TextField fx:id="txtfGrandTotal" layoutX="475.0" layoutY="624.0" />
+      <Label layoutX="371.0" layoutY="592.0" text="Popust %" />
+      <TextField fx:id="txtfPopustDoleNaRacunu" layoutX="465.0" layoutY="588.0" />
    </children>
 </AnchorPane>

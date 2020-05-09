@@ -28,8 +28,8 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private Label lblGrandTotal;
     @FXML private TextField txtfTotalBezPopusta;
     @FXML private TextField txtFpopustRacuna;
+    @FXML private TextField txtfPopustDoleNaRacunu;
     @FXML private TextField txtfGrandTotal;
-
 
 
     private ObservableList<PosaoArtikli> posaoArtikli;
@@ -73,6 +73,7 @@ public class UiPrintRacuniControler implements Initializable {
             lblGrandTotal.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
             txtfTotalBezPopusta.setText(fakturaController.getTotalBezPopustaSuma()); // Set Total bez popusta form Faktura Controller
             txtFpopustRacuna.setText(fakturaController.getPopustRacuna()); // Set Popust RACUNA TF
+            txtfPopustDoleNaRacunu.setText(txtFpopustRacuna.getText());
             txtfGrandTotal.setText(fakturaController.getGrandTotalSumaSuma()); // Grand Total suma sa popustom
             popuniTabeluPosaoArtikli(); // Popuni tabelu Posao Artikli
             DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //Rearagne table rows if need in print Racun/Faktura
