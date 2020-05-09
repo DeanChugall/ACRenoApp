@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="595.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.UiPrintRacuniControler">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.UiPrintRacuniControler">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
          <font>
@@ -18,18 +18,19 @@
          </font>
       </Label>
       <Button fx:id="btnPrint" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
-      <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="574.0" tableMenuButtonVisible="true">
+      <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="659.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <columns>
             <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
             <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
             <TableColumn fx:id="tblRowidArtikla" prefWidth="62.0" text="idArtikla" visible="false" />
-            <TableColumn fx:id="tblRowNazivArtikla" prefWidth="91.0" text="Naziv Artikla" />
-            <TableColumn fx:id="tblRowOpisArtikla" prefWidth="209.0" text="Opis" />
-            <TableColumn fx:id="tblRowKolicina" prefWidth="45.0" text="kolicina" />
-            <TableColumn fx:id="tblRowJedinicaMere" prefWidth="54.0" text="J.Mere" />
-            <TableColumn fx:id="tblRowCena" prefWidth="95.0" text="cena" />
-            <TableColumn fx:id="tblRowPopust" prefWidth="77.0" text="popust" />
+            <TableColumn fx:id="tblRowNazivArtikla" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Naziv Artikla" />
+            <TableColumn fx:id="tblRowOpisArtikla" prefWidth="182.0" style="-fx-alignment: CENTER;" text="Opis" />
+            <TableColumn fx:id="tblRowJedinicaMere" prefWidth="54.0" style="-fx-alignment: CENTER;" text="j.mere" />
+            <TableColumn fx:id="tblRowKolicina" prefWidth="45.0" style="-fx-alignment: CENTER;" text="kol." />
+            <TableColumn fx:id="tblRowCena" prefWidth="95.0" style="-fx-alignment: CENTER;" text="cena" />
+            <TableColumn fx:id="tblRowPopust" prefWidth="77.0" style="-fx-alignment: CENTER;" text="popust %" />
             <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" visible="false" />
+            <TableColumn fx:id="tblRowTotal" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Total" />
          </columns>
       </TableView>
       <TextField fx:id="txtFidRacuna" layoutX="14.0" layoutY="105.0" prefHeight="25.0" prefWidth="99.0" />
@@ -39,5 +40,13 @@
             <Image url="file:\C:\Users\Dean VM\Desktop\ACrenoApp\src\main\resources\images\faktura\log-acreno.jpg" />
          </image>
       </ImageView>
+      <Label layoutX="290.0" layoutY="542.0" text="UKUPNO SA POPUSTOM Na DELOVE" />
+      <Label fx:id="lblGrandTotal" alignment="CENTER" contentDisplay="CENTER" layoutX="503.0" layoutY="534.0" prefHeight="33.0" prefWidth="117.0" style="-fx-border-color: #2d2d2d;" text="0" textAlignment="CENTER" />
+      <Label layoutX="339.0" layoutY="491.0" text="UKUPNO BEZ POPUSTA" />
+      <TextField fx:id="txtfTotalBezPopusta" layoutX="487.0" layoutY="487.0" />
+      <Label layoutX="172.0" layoutY="88.0" text="POPUST NA RACUNU" />
+      <TextField fx:id="txtFpopustRacuna" layoutX="163.0" layoutY="105.0" />
+      <Label layoutX="361.0" layoutY="595.0" text="GRAND TOTAL:" />
+      <TextField fx:id="txtfGrandTotal" layoutX="474.0" layoutY="591.0" />
    </children>
 </AnchorPane>

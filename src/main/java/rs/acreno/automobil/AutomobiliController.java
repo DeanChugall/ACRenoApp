@@ -22,7 +22,6 @@ import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
 import rs.acreno.racuni.SQLRacuniDAO;
-import rs.acreno.racuni.faktura.EditRacunController;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
@@ -144,9 +143,7 @@ public class AutomobiliController implements Initializable {
         this.stageAutoSerivs.set(stageAutoServis);
     }
 
-
     /**
-     * <p>
      * Inicijalizacija {@link AutomobiliController}-a
      * {@code tblRowBtnIzmeniRacun.setCellFactory} postavlje dugmice u {@link #tblFakture} tabelu Racuna.
      * Dugmici pokrecu {@link #btnOpenFakturaUi()} btn koji vraca vrednost {@link #isRacunInEditMode}
@@ -159,7 +156,6 @@ public class AutomobiliController implements Initializable {
      *
      * @param location  gde da ucitamo
      * @param resources da li ima nesto u resource
-     * @see #btnOpenEditRacunUiAction(Racun)
      * @see #popuniTabeluRacuni()
      */
     @Override
@@ -270,35 +266,6 @@ public class AutomobiliController implements Initializable {
 
         return isRacunInEditMode = false; //Nije u Edit Modu jer je kliknuto direktno dugme NOVI RACUN
     }
-
-    /**
-     * Metoda koja otvara Editovanje racuna {@link EditRacunController} UI
-     * i prosledjuje CONTROLLER i STAGE u {@link AutomobiliController}.
-     * Implementirana je u {@link #initialize(URL, ResourceBundle)} {@code tblRowBtnIzmeniRacun.setCellFactory} delu.
-     *
-     * @author Dejan Cugalj
-     * @see EditRacunController
-     * @see AutomobiliController
-     */
-    public void btnOpenEditRacunUiAction(@NotNull Racun racun) {
-        FXMLLoader fxmlLoaderEditRacun = new FXMLLoader(getClass().getResource(Constants.EDIT_RACUN_UI_VIEW));
-        Stage stageEditRacun = new Stage();
-        stageEditRacun.initModality(Modality.APPLICATION_MODAL);
-        try {
-            stageEditRacun.setScene(new Scene(fxmlLoaderEditRacun.load()));
-
-            //Inicijalizacija EDIT RACUN Kontrolora
-            EditRacunController editRacunController = fxmlLoaderEditRacun.getController();
-            editRacunController.setAutomobiliController(this, stageEditRacun);
-            stageEditRacun.setTitle("TEST ID RACUNA: " + racun.getIdRacuna());
-            editRacunController.setIdRacuna(racun.getIdRacuna());
-            stageEditRacun.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /**
      * Zatvori prozor Automobili

@@ -74,8 +74,14 @@
                                 </TableView>
                             </children>
                         </Pane>
-                  <Label layoutX="741.0" layoutY="596.0" prefHeight="23.0" prefWidth="89.0" text="Grand TOTAL:" textFill="#d3d3d3" />
-                  <TextField fx:id="txtfGrandTotal" layoutX="831.0" layoutY="595.0" />
+                  <Label layoutX="875.0" layoutY="567.0" prefHeight="23.0" prefWidth="171.0" text="Total Sa Popustom na Delove" textFill="#d3d3d3" />
+                  <TextField fx:id="txtfTotalSaPopustomNaDelove" layoutX="879.0" layoutY="596.0" />
+                  <Label alignment="CENTER" layoutX="530.0" layoutY="567.0" prefHeight="23.0" prefWidth="78.0" text="TOTAL Cene:" textFill="#d3d3d3" />
+                  <TextField fx:id="txtfTotalPoCenama" layoutX="498.0" layoutY="596.0" />
+                  <Label alignment="CENTER" layoutX="679.0" layoutY="567.0" prefHeight="23.0" prefWidth="139.0" text="TOTAL  Nabavne Cene:" textFill="#d3d3d3" />
+                  <TextField fx:id="txtfTotalPoNabavnimCenama" layoutX="677.0" layoutY="596.0" />
+                  <Label layoutX="1074.0" layoutY="567.0" prefHeight="23.0" prefWidth="171.0" text="GRAND TOTAL:" textFill="#d3d3d3" />
+                  <TextField fx:id="txtfGrandTotal" layoutX="1074.0" layoutY="596.0" />
                     </children>
                 </AnchorPane>
             </items>

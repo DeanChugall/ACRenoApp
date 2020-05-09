@@ -54,14 +54,71 @@ public class FakturaController implements Initializable {
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
+
+    public String getIdRacuna() {
+        return txtFidRacuna.getText();
+    }
+
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
     @FXML private TextField txtFieldPretragaArtikla;
     @FXML private DatePicker datePickerDatumRacuna;
-    @FXML private TextField txtFpopustRacuna;
     @FXML private TextArea txtAreaNapomenaRacuna;
+    //Kalkulacije TFa
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private TextField txtfTotalPoCenama;
+    @FXML private TextField txtfTotalPoNabavnimCenama;
+    @FXML private TextField txtfTotalSaPopustomNaDelove;
     @FXML private TextField txtfGrandTotal;
 
+    /**
+     * Geter za {@link #txtFpopustRacuna} {@link UiPrintRacuniControler#initialize} polje koje popunjava popust na racunu.
+     *
+     * @return popust na celom racunu
+     * @see #izracunajGrandTotalSaPopustomNaCeoRacun()
+     * @see UiPrintRacuniControler#initialize
+     */
+    public String getPopustRacuna() {
+        return txtFpopustRacuna.getText();
+    }
+
+    /**
+     * Geter za {@link #txtfTotalSaPopustomNaDelove} total sumu sa popustom na delove u {@link UiPrintRacuniControler#initialize}.
+     * Implementira se u {@link #izracunajTotalSumaSaPopustomNaDelove()} ()}
+     *
+     * @return suma sa popustom na delove
+     * @see #izracunajTotalSumaSaPopustomNaDelove()
+     * @see UiPrintRacuniControler#initialize
+     */
+    public String getTotalSumaSaPopustomNaDelove() {
+        return txtfTotalSaPopustomNaDelove.getText();
+    }
+
+    /**
+     * Geter za {@link #txtfTotalPoCenama} koji se koristu u  {@link UiPrintRacuniControler#initialize}
+     * Popunjavanje polja za total sa popustom na delove.
+     * Implementira se u {@link #izracunajTotalSumaSaPopustomNaDelove()} ()} ()}
+     *
+     * @return popust na delovima
+     * @see #izracunajTotalSumaSaPopustomNaDelove()
+     * @see UiPrintRacuniControler#initialize
+     */
+    public String getTotalBezPopustaSuma() {
+        return txtfTotalPoCenama.getText();
+    }
+
+    /**
+     * Geter za {@link #txtfGrandTotal} koji se koristu u  {@link UiPrintRacuniControler#initialize}
+     * Popunjavanje polja za GRAND TOTAL u Print racunu, on racuna sve i uzima u obzir popust na ceo racun.
+     * Implementira se u {@link #izracunajGrandTotalSaPopustomNaCeoRacun()} ()}
+     *
+     * @return popust na celom racunu
+     * @see #izracunajGrandTotalSaPopustomNaCeoRacun()
+     * @see UiPrintRacuniControler#initialize
+     */
+    public String getGrandTotalSumaSuma() {
+        return txtfGrandTotal.getText();
+    }
 
     //ARTICLES FIELDS in Faktura
     @FXML private ListView<Artikl> listViewPretragaArtikli;
@@ -103,6 +160,10 @@ public class FakturaController implements Initializable {
     private ObservableList<Racun> racuni;
     private ObservableList<Artikl> artikli;
     private ObservableList<PosaoArtikli> posaoArtikli;
+
+    public ObservableList<PosaoArtikli> getPosaoArtikli() {
+        return posaoArtikli;
+    }
 
     //RACUN STAFF OBJECT
     private Racun noviRacun;
@@ -214,29 +275,20 @@ public class FakturaController implements Initializable {
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
-                txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+                // Izracunavanje TOTAL SUME Sa Popustom na delove
+                txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+                // Izracunavanje TOTAL SUME CENE
+                txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+                // Izracunavanje TOTAL SUME NABAVNE CENE
+                txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+                // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+                txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+
                 return p;
             }));
 
             //Izracunavanje TOTAL sume u tabeli
-            tblRowTotal.setCellValueFactory(cellData -> {
-                PosaoArtikli data = cellData.getValue();
-                return Bindings.createDoubleBinding(
-                        () -> {
-                            try {
-                                double price = Double.parseDouble(String.valueOf(data.getCena()));
-                                double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
-                                double popust = Integer.parseInt(String.valueOf(data.getPopust()));
-                                double total = price * quantity;
-                                return total - ((total * popust) / 100);
-
-                            } catch (NumberFormatException nfe) {
-                                return (double) 0;
-                            }
-                        }
-
-                );
-            });
+            setGrandTotalSuma(tblRowTotal);
 
             // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
             if (automobiliController.isRacunInEditMode()) { //TRUE
@@ -252,13 +304,41 @@ public class FakturaController implements Initializable {
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
-
             } else { //Nismo u Edit Modu (FALSE)
                 //Datum
                 LocalDate now = LocalDate.now();
                 datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
                 newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
             }
+        });
+    }
+
+    /**
+     * Izracunavanje GRAND TOTAL SUME
+     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
+     *
+     * @param tblRowTotal ciljna kolona u tabeli
+     * @see UiPrintRacuniControler
+     * @see #initUiPrintControler(FXMLLoader)
+     */
+    public static void setGrandTotalSuma(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
+        tblRowTotal.setCellValueFactory(cellData -> {
+            PosaoArtikli data = cellData.getValue();
+            return Bindings.createDoubleBinding(
+                    () -> {
+                        try {
+                            double price = Double.parseDouble(String.valueOf(data.getCena()));
+                            double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
+                            double popust = Integer.parseInt(String.valueOf(data.getPopust()));
+                            double total = price * quantity;
+                            return total - ((total * popust) / 100);
+
+                        } catch (NumberFormatException nfe) {
+                            return (double) 0;
+                        }
+                    }
+            );
         });
     }
 
@@ -373,7 +453,7 @@ public class FakturaController implements Initializable {
      * <p>
      * OVA METODA OMOGUCAVA ISTO TAKO I UPDATE U DB CIM SE KLIKNE ENTER SA IZMENJENOM VREDNOSCU.
      * <p>
-     * Na kraju se izracunava GRAND TOTAL SUMA u {@link #izracunajTotal()} i posatvlja u TF {@link #txtfGrandTotal}
+     * Na kraju se izracunava GRAND TOTAL SUMA u {@link #izracunajTotalSumaSaPopustomNaDelove()} i posatvlja u TF {@link #txtfTotalSaPopustomNaDelove}
      *
      * @param posaoArtikli ObservableList {@link PosaoArtikli}
      * @see #popuniTabeluRacuni()
@@ -424,7 +504,15 @@ public class FakturaController implements Initializable {
                 }
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
-            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+
+            // Izracunavanje TOTAL SUME Sa Popustom na delove
+            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+            // Izracunavanje TOTAL SUME CENE
+            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+            // Izracunavanje TOTAL SUME NABAVNE CENE
+            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         });
 
         //NABAVNA CENA
@@ -447,7 +535,15 @@ public class FakturaController implements Initializable {
                 }
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
-            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+
+            // Izracunavanje TOTAL SUME Sa Popustom na delove
+            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+            // Izracunavanje TOTAL SUME CENE
+            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+            // Izracunavanje TOTAL SUME NABAVNE CENE
+            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         });
 
         //KOLICINA
@@ -470,7 +566,15 @@ public class FakturaController implements Initializable {
                 }
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
-            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+
+            // Izracunavanje TOTAL SUME Sa Popustom na delove
+            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+            // Izracunavanje TOTAL SUME CENE
+            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+            // Izracunavanje TOTAL SUME NABAVNE CENE
+            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         });
         //JEIDNICA MERE
         tblRowJedinicaMere.setCellValueFactory(cellData ->
@@ -516,7 +620,14 @@ public class FakturaController implements Initializable {
                 }
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
-            txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+            // Izracunavanje TOTAL SUME Sa Popustom na delove
+            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+            // Izracunavanje TOTAL SUME CENE
+            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+            // Izracunavanje TOTAL SUME NABAVNE CENE
+            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         });
 
         //DETALJI POSAO ARTIKL
@@ -543,11 +654,18 @@ public class FakturaController implements Initializable {
 
         tblPosaoArtikli.setItems(posaoArtikli);
 
-        txtfGrandTotal.setText(String.valueOf(izracunajTotal())); // Izracunavanje GRAND TOTAL SUME
+        // Izracunavanje TOTAL SUME Sa Popustom na delove
+        txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
+        // Izracunavanje TOTAL SUME CENE
+        txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
+        // Izracunavanje TOTAL SUME NABAVNE CENE
+        txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
+        // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+        txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
     }
 
     /**
-     * Izracunavanje GRAND TOTAL SUME racuna.
+     * Izracunavanje  SUME SA POPUSTOM NA DELOVE racuna sa popustom i to po regularnim cenama.
      * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
      * koji se menja da bi se uradio update GRAND TOTAL sume.
      *
@@ -555,11 +673,54 @@ public class FakturaController implements Initializable {
      * @see #setTableData
      * @see #initialize
      */
-    private double izracunajTotal() {
+    private double izracunajTotalSumaSaPopustomNaDelove() {
         return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
                 tblRowTotal.getCellData(o).doubleValue()).sum();
+    }
 
+    /**
+     * Izracunavanje  SUME PO NABAVNIM CENAMA DELOVA sa popustom i to po regularnim cenama.
+     * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
+     * koji se menja da bi se uradio update GRAND TOTAL sume.
+     *
+     * @return (double) GRAND TOTAL RACUNA
+     * @see #setTableData
+     * @see #initialize
+     */
+    private double izracunajTotalNabavneCene() {
+        return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
+                tblRowNabavnaCena.getCellData(o).doubleValue()).sum();
+    }
 
+    /**
+     * Izracunavanje  SUME PO REGULARNIM CENAMA DELOVA bez popustom.
+     * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
+     * koji se menja da bi se uradio update GRAND TOTAL sume.
+     *
+     * @return (double) GRAND TOTAL RACUNA
+     * @see #setTableData
+     * @see #initialize
+     */
+    private double izracunajTotalRegularneCene() {
+        return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
+                tblRowCena.getCellData(o).doubleValue()).sum();
+    }
+
+    /**
+     * Izracunavanje  GRAND TOTAL SUME SA POPUSTOM CELOG RACUNA.
+     * Posto imamo opciju da pored popusta na delove stavimo i popust na CEO RACUN, ovde radimo kalkulaciju.
+     * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
+     * koji se menja da bi se uradio update GRAND TOTAL sume.
+     *
+     * @return (double) GRAND TOTAL RACUNA
+     * @see #setTableData
+     * @see #initialize
+     */
+    private double izracunajGrandTotalSaPopustomNaCeoRacun() {
+        double totalsaPopustomNaDelove = Double.parseDouble(txtfTotalSaPopustomNaDelove.getText());
+        double popustNaCelomRacunu = Double.parseDouble(txtFpopustRacuna.getText());
+
+        return totalsaPopustomNaDelove - ((totalsaPopustomNaDelove * popustNaCelomRacunu) / 100);
     }
 
     /**
@@ -720,7 +881,7 @@ public class FakturaController implements Initializable {
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
         UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
         uiPrintRacuniControler.setFakturaController(this, stagePrint);
-        uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
+        //uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 
     /**
@@ -753,6 +914,7 @@ public class FakturaController implements Initializable {
      * <p>
      * Setuju se svi podaci za izmenjen racun pokupljeni iz TF-ova
      * Zatim se radi update sa {@link RacuniDAO#updateRacun(Racun)}
+     * Nakon toga se radi update GRAND TOTAL SUME SA POPUSTOM NA CEO RACUN {@link #izracunajGrandTotalSaPopustomNaCeoRacun()}
      *
      * @see RacuniDAO#updateRacun(Racun)
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
@@ -773,6 +935,8 @@ public class FakturaController implements Initializable {
                     "EDITOVANJE RACUNA",
                     "Uspesno ste sacuvali racun br." + brojFakture
             );
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
+            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         } catch (SQLException | AcrenoException throwables) {
             throwables.printStackTrace();
             GeneralUiUtility.alertDialogBox(

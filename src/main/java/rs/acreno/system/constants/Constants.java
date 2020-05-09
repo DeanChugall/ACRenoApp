@@ -20,7 +20,6 @@ public class Constants {
     public static final String AUTOMOBILI_UI_VIEW_URI = "/automobili.fxml";
     public static final String FAKTURA_UI_VIEW_URI = "/faktura_ui.fxml";
     public static final String PRINT_FAKTURA_UI_VIEW_URI = "/ui_print_racun.fxml";
-    public static final String EDIT_RACUN_UI_VIEW = "/edit_racun_ui.fxml";
 
 
     public static final String RADNI_NALOZI_UI_VIEW_URI = "/radni_nalozi_ui.fxml";

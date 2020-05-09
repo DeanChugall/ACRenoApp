@@ -1,55 +1,53 @@
 package rs.acreno.racuni.print_racun;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
-import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
-import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
-import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
 import rs.acreno.racuni.faktura.FakturaController;
-import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.DragAndDropTable;
 import rs.acreno.system.util.GeneralUiUtility;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UiPrintRacuniControler implements Initializable {
 
 
-    public Button btnPrint;
-    public AnchorPane ancorPanePrint;
-    public TextField txtFidRacuna;
+    @FXML private Button btnPrint;
+    @FXML private AnchorPane ancorPanePrint;
+    @FXML private TextField txtFidRacuna;
+    @FXML private Label lblGrandTotal;
+    @FXML private TextField txtfTotalBezPopusta;
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private TextField txtfGrandTotal;
 
-    private int idRacuna;
+
+
+    private ObservableList<PosaoArtikli> posaoArtikli;
 
     //Pretraga Artikala Tabela
-    public TableView<PosaoArtikli> tblPosaoArtikli;
-    public TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
-    public TableColumn<PosaoArtikli, Number> tblRowidRacuna;
-    public TableColumn<PosaoArtikli, Number> tblRowidArtikla;
-    public TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
-    public TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
-    public TableColumn<PosaoArtikli, Number> tblRowCena;
-    public TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
-    public TableColumn<PosaoArtikli, Number> tblRowKolicina;
-    public TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
-    public TableColumn<PosaoArtikli, Number> tblRowPopust;
+    @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidRacuna;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
+
 
     public UiPrintRacuniControler() {
     }
@@ -65,23 +63,23 @@ public class UiPrintRacuniControler implements Initializable {
         this.fakturaStage = fakturaStage;
     }
 
-    public int getIdRacuna() {
-        return idRacuna;
-    }
-
-    public void setIdRacuna(int idRacuna) {
-        this.idRacuna = idRacuna;
-    }
-
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            txtFidRacuna.setText(String.valueOf(getIdRacuna()));
-            initPosaoArtikliDbTable(getIdRacuna()); // inicijalizuj PosaoArtikl Objekat
-            popuniTabeluPosaoArtikli();
-            DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //rearagne table rows if need in print Racun
+            posaoArtikli = fakturaController.getPosaoArtikli(); //Inicijalizacija POSAO ARTIKL form Faktura Controller
+            txtFidRacuna.setText(fakturaController.getIdRacuna()); // SET ID RACUNA/FAKTURE form Faktura Controller
+            lblGrandTotal.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
+            txtfTotalBezPopusta.setText(fakturaController.getTotalBezPopustaSuma()); // Set Total bez popusta form Faktura Controller
+            txtFpopustRacuna.setText(fakturaController.getPopustRacuna()); // Set Popust RACUNA TF
+            txtfGrandTotal.setText(fakturaController.getGrandTotalSumaSuma()); // Grand Total suma sa popustom
+            popuniTabeluPosaoArtikli(); // Popuni tabelu Posao Artikli
+            DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //Rearagne table rows if need in print Racun/Faktura
+
+            //Izracunavanje TOTAL sume u tabeli
+            FakturaController.setGrandTotalSuma(tblRowTotal);
+
         });
     }
 
@@ -104,7 +102,7 @@ public class UiPrintRacuniControler implements Initializable {
             boolean success = job.printPage(pageLayout, ancorPanePrint);
             if (success) {
                 job.endJob();
-                GeneralUiUtility.alertDialogBox(Alert.AlertType.CONFIRMATION
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.INFORMATION
                         , "USPESAN PRINT"
                         , "PRINT"
                         , "Uspesno isprintan racuna" + job.getJobStatus());
@@ -120,7 +118,7 @@ public class UiPrintRacuniControler implements Initializable {
     }
 
     private void popuniTabeluPosaoArtikli() {
-        ObservableList<PosaoArtikli> posaoArtikli = initPosaoArtikliDbTable(getIdRacuna());
+       // ObservableList<PosaoArtikli> posaoArtikli = initPosaoArtikliDbTable(Integer.parseInt(fakturaController.getIdRacuna()));
         tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
         tblRowidPosaoArtikli.setStyle("-fx-alignment: CENTER;");
         tblRowidRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
@@ -143,30 +141,4 @@ public class UiPrintRacuniControler implements Initializable {
         tblPosaoArtikli.setItems(posaoArtikli);
 
     }
-
-    /**
-     * Prilikom ulaza u UiPrintControler potrebno je naci sve artikle iz vezne tabele koji su u korelaciji
-     * sa ovim ID Racunom. Korisi se {@link #initialize}
-     *
-     * @param idRacuna id racuna kao parametar pretrage u bazi za Posao Artikle veznu Tabelu
-     * @return ObservableList<PosaoArtikli>
-     */
-    private ObservableList<PosaoArtikli> initPosaoArtikliDbTable(int idRacuna) {
-        PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
-        ObservableList<PosaoArtikli> posaoArtikli = null;
-        try {
-            posaoArtikli = FXCollections.observableArrayList(
-                    posaoArtikliDAO.findPosaoArtikliByPropertyDao(
-                            PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, idRacuna));
-
-            for (PosaoArtikli posaoArtikli1 : posaoArtikli) {
-                System.out.println(posaoArtikli1.getNazivArtikla());
-            }
-
-        } catch (AcrenoException | SQLException e) {
-            e.printStackTrace();
-        }
-        return posaoArtikli;
-    }
-
 }
