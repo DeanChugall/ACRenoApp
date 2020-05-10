@@ -45,7 +45,7 @@
                         <Label layoutX="627.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna" textFill="#d3d3d3" />
                         <Label layoutX="764.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Popust Racuna" textFill="#d3d3d3" />
                         <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="618.0" layoutY="46.0" prefHeight="54.0" prefWidth="122.0" wrapText="true" />
-                        <TextField fx:id="txtFpopustRacuna" layoutX="764.0" layoutY="46.0" prefHeight="25.0" prefWidth="100.0" />
+                        <TextField fx:id="txtFpopustRacuna" layoutX="764.0" layoutY="46.0" prefHeight="25.0" prefWidth="100.0" text="0" />
                         <Button fx:id="btnOdustaniObrisiRacun" layoutX="1026.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnOdustaniObrisiRacunAction" prefHeight="60.0" prefWidth="106.0" text="ODUSTANI" />
                         <Button fx:id="btnSacuvajRacun" layoutX="908.0" layoutY="33.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="55.0" prefWidth="104.0" text="SACUVAJ" />
                         <TextField fx:id="txtFopisArtikla" layoutX="930.0" layoutY="132.0" prefHeight="25.0" prefWidth="183.0" />
@@ -75,13 +75,13 @@
                             </children>
                         </Pane>
                   <Label layoutX="875.0" layoutY="567.0" prefHeight="23.0" prefWidth="171.0" text="Total Sa Popustom na Delove" textFill="#d3d3d3" />
-                  <TextField fx:id="txtfTotalSaPopustomNaDelove" layoutX="879.0" layoutY="596.0" />
+                  <TextField fx:id="txtfTotalSaPopustomNaDelove" layoutX="879.0" layoutY="596.0" text="0" />
                   <Label alignment="CENTER" layoutX="530.0" layoutY="567.0" prefHeight="23.0" prefWidth="78.0" text="TOTAL Cene:" textFill="#d3d3d3" />
-                  <TextField fx:id="txtfTotalPoCenama" layoutX="498.0" layoutY="596.0" />
+                  <TextField fx:id="txtfTotalPoCenama" layoutX="498.0" layoutY="596.0" text="0" />
                   <Label alignment="CENTER" layoutX="679.0" layoutY="567.0" prefHeight="23.0" prefWidth="139.0" text="TOTAL  Nabavne Cene:" textFill="#d3d3d3" />
-                  <TextField fx:id="txtfTotalPoNabavnimCenama" layoutX="677.0" layoutY="596.0" />
+                  <TextField fx:id="txtfTotalPoNabavnimCenama" layoutX="677.0" layoutY="596.0" text="0" />
                   <Label layoutX="1074.0" layoutY="567.0" prefHeight="23.0" prefWidth="171.0" text="GRAND TOTAL:" textFill="#d3d3d3" />
-                  <TextField fx:id="txtfGrandTotal" layoutX="1074.0" layoutY="596.0" />
+                  <TextField fx:id="txtfGrandTotal" layoutX="1074.0" layoutY="596.0" text="0" />
                     </children>
                 </AnchorPane>
             </items>
