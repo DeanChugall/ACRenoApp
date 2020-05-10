@@ -59,11 +59,13 @@
             <version>3.2.4</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.13.1</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>14</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -77,6 +79,9 @@
     </dependencies>
     <build>
         <resources>
+            <resource>
+                <directory>src\main\java\rs\acreno\autoservis\splash\splash_screen\ui</directory>
+            </resource>
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\ui_autoservis</directory>
             </resource>

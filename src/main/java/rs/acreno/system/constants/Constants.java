@@ -16,6 +16,7 @@ public class Constants {
     public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + ABSOLUTE_PATH + IME_BAZE;
 
     //FX UIs Path
+    public static final String SPLASH_SCREEN_URI = "/splash_screen.fxml";
     public static final String HOME_UI_VIEW_URI = "/auto_servis_ui.fxml";
     public static final String AUTOMOBILI_UI_VIEW_URI = "/automobili.fxml";
     public static final String FAKTURA_UI_VIEW_URI = "/faktura_ui.fxml";
