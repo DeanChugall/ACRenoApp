@@ -29,7 +29,6 @@ public class AutoServisApp extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(AutoServisController.class.getResource(Constants.SPLASH_SCREEN_URI));
-        // loader.setControllerFactory(t -> buildAppControler());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
 
