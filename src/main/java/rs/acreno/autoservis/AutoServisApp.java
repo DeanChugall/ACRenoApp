@@ -75,6 +75,7 @@ public class AutoServisApp extends Application {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    stage.setTitle("ACR Informacioni Sistem || ACReno auto Servis");
                     stage.show();
                     tt.cancel();
                     t.purge();

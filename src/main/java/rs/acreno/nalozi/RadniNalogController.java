@@ -20,6 +20,8 @@ import rs.acreno.system.util.GeneralUiUtility;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class RadniNalogController implements Initializable {
@@ -94,6 +96,9 @@ public class RadniNalogController implements Initializable {
         //Popunjavanje GUIa
         txtfKlijent.setText(imePrezimeKlijenta);
         txtfRegOznaka.setText(regOznakaAutomobila);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        txtfVreme.setText(dtf.format(now));
 
     }
 

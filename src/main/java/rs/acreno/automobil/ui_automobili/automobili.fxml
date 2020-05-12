@@ -21,9 +21,9 @@
                     <columns>
                         <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
                         <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
-                        <TableColumn fx:id="tblRowDatumRacuna" prefWidth="61.0" text="Datum" />
+                        <TableColumn fx:id="tblRowDatumRacuna" prefWidth="85.0" text="Datum" />
                   <TableColumn fx:id="tblRowIdKilometraza" prefWidth="90.0" text="Kilometraza" />
-                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="84.0" text="Popust" />
+                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="60.0" text="Popust" />
                         <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="217.0" text="Napomene" />
                   <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="62.0" />
                     </columns>
