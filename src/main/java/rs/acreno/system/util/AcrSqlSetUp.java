@@ -11,9 +11,10 @@ public class AcrSqlSetUp {
 
     static Connection conn = null;
 
-    public static Connection connect() throws SQLException, AcrenoException {
+    public static Connection connect()  {
         try {
             // db parameters
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver"); //BITNOOOO JER NECE DA RADI U JARu ako nije tu
             String url = Constants.MSACCESS_STRING_URL;
 
             // create a connection to the database
@@ -21,8 +22,9 @@ public class AcrSqlSetUp {
 
             System.out.println("Connection to SQLite has been established.");
 
-        } catch (SQLException e) {
-            throw new AcrenoException("Konekcija DB Problem: " + e);
+
+    } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
         }
         return conn;
     }

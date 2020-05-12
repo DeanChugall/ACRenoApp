@@ -1,19 +1,21 @@
 package rs.acreno.system.constants;
 
+import rs.acreno.autoservis.splash.SplashScreenController;
+import rs.acreno.system.util.properties.ApplicationProperties;
+
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Constants {
 
     //DB Staf SQLite
-    public static final String IME_BAZE = "Database-ACReo-APP.accdb";
-    //private static final Path RESOURCE_DIRECTORY = Paths.get("src", "main", "resources", "db");
-    private static final String RESOURCE_DIRECTORY = "src\\main\\resources\\AcrDB\\";
+    public static final String IME_BAZE = ApplicationProperties.getInstance().getProperty("database.name");
+    private static final String RESOURCE_DIRECTORY = ApplicationProperties.getInstance().getProperty("database.dir");
+    private static final String RESOURCE_DIRECTORY_DEVELOP = ApplicationProperties.getInstance().getProperty("database.dir.develop");
 
-    public static final String ABSOLUTE_PATH = RESOURCE_DIRECTORY;
-
-    public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + ABSOLUTE_PATH + IME_BAZE;
+    public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + RESOURCE_DIRECTORY_DEVELOP + IME_BAZE;
 
     //FX UIs Path
     public static final String SPLASH_SCREEN_URI = "/splash_screen.fxml";

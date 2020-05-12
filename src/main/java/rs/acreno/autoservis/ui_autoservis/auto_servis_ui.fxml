@@ -18,9 +18,9 @@
         <AnchorPane prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
                 <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="file:/C:/Users/Dean%20VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
-                    </image>
+               <image>
+                  <Image url="file:/C:/Users/Dean%20VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
+               </image>
                 </ImageView>
                 <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="99.0" layoutY="37.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" prefHeight="74.0" prefWidth="369.0" text="ns">
                     <font>

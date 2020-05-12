@@ -3,13 +3,11 @@ package rs.acreno.klijent;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.jetbrains.annotations.NotNull;
-import org.sqlite.SQLiteDataSource;
 import rs.acreno.system.DAO.SqlQuerys;
-import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.util.AcrSqlSetUp;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,21 +18,13 @@ public class SQLKlijnetDAO implements KlijentDAO {
     private List<Klijent> klijents = null;
 
     @Override
-    public Connection connect() throws AcrenoException, SQLException {
-        SQLiteDataSource ds = new SQLiteDataSource();
-        ds.setUrl(Constants.MSACCESS_STRING_URL);
-        connection = ds.getConnection();
-        return connection = DriverManager.getConnection(Constants.MSACCESS_STRING_URL);
+    public Connection connect() {
+        return connection = AcrSqlSetUp.connect();
     }
 
     @Override
-    public void close() throws AcrenoException, SQLException {
+    public void close() throws SQLException {
         connection.close();
-        try {
-            DriverManager.getConnection(Constants.MSACCESS_STRING_URL);
-        } catch (Exception e) {
-            throw new AcrenoException("Greska u DB close KLIJENTA",  e);
-        }
     }
 
     @Override
@@ -60,10 +50,13 @@ public class SQLKlijnetDAO implements KlijentDAO {
             pstmt.setString(13, klijent.getBanka());
             pstmt.executeUpdate();
             System.out.println("FROM : insertKlijnet");
-        } catch (SQLException | AcrenoException e) {
-            throw new AcrenoException("Greska u DB insertKlijnet KLIJENTA",  e);
+        } catch (SQLException e) {
+            throw new AcrenoException("Greska u DB UPDATE KLIJENTA", e);
+        } finally {
+            if (connection != null) {
+                close();
+            }
         }
-        close();
     }
 
     @Override
@@ -86,7 +79,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
                     klijent.getBanka(),
                     klijent.getIdKlijenta());
         } catch (SQLException e) {
-            throw new AcrenoException("Greska u DB UPDATE KLIJENTA",  e);
+            throw new AcrenoException("Greska u DB UPDATE KLIJENTA", e);
         } finally {
             if (connection != null) {
                 close();
@@ -100,7 +93,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
             connect();
             dbAccess.update(connection, "DELETE FROM Klijenti WHERE IdKlijenta=?", klijent.getIdKlijenta());
         } catch (Exception e) {
-            throw new AcrenoException("Greska u DB DELETE KLIJENTA",  e);
+            throw new AcrenoException("Greska u DB DELETE KLIJENTA", e);
         } finally {
             if (connection != null) {
                 close();
@@ -137,7 +130,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
             klijents = dbAccess.query(connection, "SELECT * FROM Klijenti WHERE " +
                     whereClause, new BeanListHandler<>(Klijent.class), valueClause);
         } catch (Exception e) {
-            throw new AcrenoException("Greska u DB findKlijentByProperty KLIJENTA",  e);
+            throw new AcrenoException("Greska u DB findKlijentByProperty KLIJENTA", e);
         } finally {
             if (connection != null) {
                 close();
@@ -152,7 +145,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
             connect();
             klijents = dbAccess.query(connection, SqlQuerys.FIND_ALL_KLIJENTS, new BeanListHandler<>(Klijent.class));
         } catch (SQLException e) {
-            throw new AcrenoException("Greska u DB findAll KLIJENTA",  e);
+            throw new AcrenoException("Greska u DB findAll KLIJENTA", e);
         } finally {
             if (connection != null) {
                 close();

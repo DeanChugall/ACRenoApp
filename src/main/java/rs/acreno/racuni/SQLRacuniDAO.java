@@ -3,13 +3,11 @@ package rs.acreno.racuni;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.jetbrains.annotations.NotNull;
-import org.sqlite.SQLiteDataSource;
 import rs.acreno.system.DAO.SqlQuerys;
-import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.util.AcrSqlSetUp;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,21 +17,13 @@ public class SQLRacuniDAO implements RacuniDAO {
     private List<Racun> racunList = null;
 
     @Override
-    public Connection connect() throws SQLException {
-        SQLiteDataSource ds = new SQLiteDataSource();
-        ds.setUrl(Constants.MSACCESS_STRING_URL);
-        connection = ds.getConnection();
-        return connection = DriverManager.getConnection(Constants.MSACCESS_STRING_URL);
+    public Connection connect() {
+        return connection = AcrSqlSetUp.connect();
     }
 
     @Override
     public void close() throws AcrenoException, SQLException {
         connection.close();
-        try {
-            DriverManager.getConnection(Constants.MSACCESS_STRING_URL);
-        } catch (Exception e) {
-            throw new AcrenoException("Greska u DB close RACUNI", e);
-        }
     }
 
     @Override
@@ -50,8 +40,11 @@ public class SQLRacuniDAO implements RacuniDAO {
 
         } catch (SQLException e) {
             throw new AcrenoException("Greska u DB insertRacun RACUNI", e);
+        } finally {
+            if (connection != null) {
+                close();
+            }
         }
-        close();
         return -1L;
     }
 
