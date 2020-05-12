@@ -75,7 +75,7 @@
                     </menus>
                 </MenuBar>
             <Button layoutX="38.0" layoutY="30.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="124.0" text="NOVI AUTOMOBIL" />
-            <Button layoutX="172.0" layoutY="30.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="124.0" text="NOVI AUTOMOBIL" />
+            <Button layoutX="172.0" layoutY="30.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="124.0" text="NOVI KLIJENT" />
          </children>
       </AnchorPane>
    </top>
