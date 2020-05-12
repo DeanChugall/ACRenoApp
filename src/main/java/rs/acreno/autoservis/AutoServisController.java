@@ -151,7 +151,6 @@ public class AutoServisController implements Initializable {
                 }
             }
         });
-
     }
 
     /**

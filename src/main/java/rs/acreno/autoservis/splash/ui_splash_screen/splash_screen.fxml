@@ -13,12 +13,12 @@
              <Image url="file:\C:\Users\Dean VM\Desktop\ACrenoApp\src\main\resources\images\splash_screen\splash_screen_logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="97.0" text="Verzija Programa:" textFill="#b8b8b8">
+      <Label layoutX="14.0" layoutY="231.0" prefHeight="17.0" prefWidth="97.0" text="Verzija Programa:" textFill="#b8b8b8">
          <font>
             <Font name="Segoe UI" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lblAppVersion" layoutX="111.0" layoutY="250.0" prefHeight="17.0" prefWidth="97.0" text="Alpha 1.0" textFill="#b8b8b8">
+      <Label fx:id="lblAppVersion" layoutX="111.0" layoutY="231.0" prefHeight="17.0" prefWidth="97.0" text="Alpha 1.0" textFill="#b8b8b8">
          <font>
             <Font name="Segoe UI Black" size="12.0" />
          </font>
@@ -26,6 +26,16 @@
       <Label layoutX="14.0" layoutY="273.0" prefHeight="17.0" prefWidth="283.0" text="Copyright @ 2020 ACReno Inc. All rights reserved" textFill="#9e9e9e">
          <font>
             <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="88.0" text="Release Date: " textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblReleaseDate" layoutX="111.0" layoutY="250.0" prefHeight="17.0" prefWidth="97.0" text="1.1.2020" textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI Black" size="12.0" />
          </font>
       </Label>
    </children>

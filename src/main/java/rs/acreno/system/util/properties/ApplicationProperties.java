@@ -39,4 +39,18 @@ public class ApplicationProperties {
     public boolean containsKey(String key) {
         return configProp.containsKey(key);
     }
+
+    /**
+     * ApplicationProperties cache = ApplicationProperties.getInstance();
+     * if(cache.containsKey("country") == false){
+     *  cache.setProperty("country", "INDIA");
+     * }
+     * //Verify property
+     * System.out.println(cache.getProperty("country"));
+     * @param key
+     * @param value
+     */
+    public void setProperty(String key, String value){
+        configProp.setProperty(key, value);
+    }
 }

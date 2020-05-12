@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class SplashScreenController implements Initializable {
 
 
+    @FXML private  Label lblReleaseDate;
     @FXML private  Label lblAppVersion;
     @FXML private AnchorPane aPaneSplashScreen;
 
@@ -24,6 +25,7 @@ public class SplashScreenController implements Initializable {
             aPaneSplashScreen.setBackground(Background.EMPTY);
             //Get individual properties
             lblAppVersion.setText(ApplicationProperties.getInstance().getProperty("app.version"));
+            lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
             System.out.println(ApplicationProperties.getInstance().getProperty("app.date"));
             System.out.println(ApplicationProperties.getInstance().getProperty("app.name"));
 
