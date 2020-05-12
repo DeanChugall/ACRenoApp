@@ -34,6 +34,7 @@ public class SQLRacuniDAO implements RacuniDAO {
                     SqlQuerys.INSERT_RACUN_IN_TABLE
                     , racun.getIdRacuna()
                     , racun.getIdAutomobila()
+                    , racun.getKilometraza()
                     , racun.getDatum()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna());
@@ -54,6 +55,7 @@ public class SQLRacuniDAO implements RacuniDAO {
             connect();
             dbAccess.update(connection, SqlQuerys.UPDATE_RACUN_TABLE
                     , racun.getIdAutomobila()
+                    , racun.getKilometraza()
                     , racun.getDatum()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna()

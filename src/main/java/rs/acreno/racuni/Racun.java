@@ -6,6 +6,7 @@ public class Racun {
 
     private int idRacuna;
     private int IdAutomobila;
+    private String kilometraza;
     private String datum;
     private int popust;
     private String napomeneRacuna;
@@ -27,6 +28,14 @@ public class Racun {
 
     public void setIdAutomobila(int idAutomobila) {
         IdAutomobila = idAutomobila;
+    }
+
+    public String getKilometraza() {
+        return kilometraza;
+    }
+
+    public void setKilometraza(String kilometraza) {
+        this.kilometraza = kilometraza;
     }
 
     public String getDatum() {
@@ -53,11 +62,11 @@ public class Racun {
         this.napomeneRacuna = napomeneRacuna;
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "Racun{" +
                 "idRacuna=" + idRacuna +
                 ", IdAutomobila=" + IdAutomobila +
+                ", kilometraza='" + kilometraza + '\'' +
                 ", datum='" + datum + '\'' +
                 ", popust=" + popust +
                 ", napomeneRacuna='" + napomeneRacuna + '\'' +

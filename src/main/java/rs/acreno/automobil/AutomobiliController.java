@@ -44,6 +44,8 @@ public class AutomobiliController implements Initializable {
     @FXML private TableView<Racun> tblFakture;
     @FXML private TableColumn<Racun, Integer> tblRowIdRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowIdAutomobila;
+    @FXML private TableColumn<Racun, String> tblRowIdKilometraza;
+
     @FXML private TableColumn<Racun, String> tblRowDatumRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
@@ -208,6 +210,8 @@ public class AutomobiliController implements Initializable {
         }
         tblRowIdRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
         tblRowIdRacuna.setStyle("-fx-alignment: CENTER;");
+        tblRowIdKilometraza.setCellValueFactory(new PropertyValueFactory<>("kilometraza"));
+        tblRowIdKilometraza.setStyle("-fx-alignment: CENTER;");
         tblRowIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
         tblRowIdAutomobila.setStyle("-fx-alignment: CENTER;");
         tblRowDatumRacuna.setCellValueFactory(new PropertyValueFactory<>("datum"));

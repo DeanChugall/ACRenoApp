@@ -61,6 +61,7 @@ public class FakturaController implements Initializable {
 
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
+    @FXML private TextField txtfKilometraza;
     @FXML private TextField txtFieldPretragaArtikla;
     @FXML private DatePicker datePickerDatumRacuna;
     @FXML private TextArea txtAreaNapomenaRacuna;
@@ -201,7 +202,6 @@ public class FakturaController implements Initializable {
     //Inicijalizacija Racuni Objekta
     private final RacuniDAO racuniDAO = new SQLRacuniDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
-
 
     /**
      * Empty Constructor if we need in some case
@@ -366,6 +366,7 @@ public class FakturaController implements Initializable {
         txtFklijentImePrezime.setText(imePrezimeKlijenta);
         txtFregTablica.setText(regOznakaAutomobila);
         txtFpopustRacuna.setText(String.valueOf(0));
+        txtfKilometraza.setText(noviRacun.getKilometraza());
     }
 
     /**
@@ -394,11 +395,13 @@ public class FakturaController implements Initializable {
             datePickerDatumRacuna.setValue(LocalDate.parse(noviRacun.getDatum()));
             txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
             txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
+            txtfKilometraza.setText(noviRacun.getKilometraza());
 
         } else {
             noviRacun = new Racun();
             noviRacun.setIdRacuna(brojFakture);
             noviRacun.setIdAutomobila(idAutomobila);
+            noviRacun.setKilometraza(txtfKilometraza.getText());
             noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             if (!txtFpopustRacuna.getText().isEmpty())
@@ -581,6 +584,7 @@ public class FakturaController implements Initializable {
             // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
             txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
         });
+
         //JEIDNICA MERE
         tblRowJedinicaMere.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getJedinicaMere()));
@@ -603,7 +607,6 @@ public class FakturaController implements Initializable {
                 }
             }
         });
-
 
         //POPUST
         tblRowPopust.setCellValueFactory(cellData ->
@@ -930,6 +933,7 @@ public class FakturaController implements Initializable {
             //UPDATE NOVO RACUNA SA NOVIM VREDNOSTIMA ZATO OVDE REDEFINISEMO NOVI RACUN
             noviRacun.setIdRacuna(brojFakture);
             noviRacun.setIdAutomobila(idAutomobila);
+            noviRacun.setKilometraza(txtfKilometraza.getText());
             noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));

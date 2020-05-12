@@ -262,15 +262,17 @@ public class SqlQuerys {
             "INSERT INTO Racuni(" +
                     "  idRacuna" +
                     ", IdAutomobila" +
+                    ", kilometraza" +
                     ", datum" +
                     ", popust" +
                     ", napomeneRacuna)\n" +
-                    "VALUES(?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_RACUN_TABLE = "" +
             "UPDATE Racuni\n" +
             "SET " +
             "IdAutomobila = ?" +
+            ", kilometraza = ?" +
             ", datum = ?" +
             ", popust = ?" +
             ", napomeneRacuna = ?" +
