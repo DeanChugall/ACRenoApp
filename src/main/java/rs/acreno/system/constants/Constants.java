@@ -24,6 +24,7 @@ public class Constants {
     public static final String FAKTURA_UI_VIEW_URI = "/faktura_ui.fxml";
     public static final String PRINT_FAKTURA_UI_VIEW_URI = "/ui_print_racun.fxml";
     public static final String RADNI_NALOZI_UI_VIEW_URI = "/radni_nalozi_ui.fxml";
+    public static final String PRINT_RADNI_NALOG_UI_VIEW_URI = "/ui_print_nalozi.fxml";
 
 
 

@@ -86,6 +86,9 @@
                 <directory>src\main\java\rs\acreno\nalozi\ui_radni_nalozi</directory>
             </resource>
             <resource>
+                <directory>src\main\java\rs\acreno\nalozi\print_nalozi\ui_print_nalozi</directory>
+            </resource>
+            <resource>
                 <directory>src\main\resources\AcrDB</directory>
                 <excludes>
                     <exclude>*.laccdb</exclude>

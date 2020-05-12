@@ -16,6 +16,7 @@ import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
+import rs.acreno.nalozi.print_nalozi.PrintNaloziController;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.DragAndDropTable;
@@ -51,7 +52,6 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
 
-
     public UiPrintRacuniControler() {
     }
 
@@ -65,8 +65,6 @@ public class UiPrintRacuniControler implements Initializable {
         this.fakturaController = fakturaController;
         this.fakturaStage = fakturaStage;
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,33 +89,7 @@ public class UiPrintRacuniControler implements Initializable {
         ancorPanePrint.requestFocus(); // remove focus from table for print
         tblPosaoArtikli.getSelectionModel().clearSelection(); // clear selection from table for print
 
-        PrinterJob job = PrinterJob.createPrinterJob();
-
-        if (job != null && job.showPrintDialog(ancorPanePrint.getScene().getWindow())) {
-            btnPrint.setVisible(false);
-            Printer printer = job.getPrinter();
-            job.getJobSettings().setPrintQuality(PrintQuality.HIGH);
-            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
-
-            double scaleX = pageLayout.getPrintableWidth() / ancorPanePrint.getBoundsInParent().getWidth();
-            ancorPanePrint.getTransforms().add(new Scale(scaleX, scaleX));
-
-            boolean success = job.printPage(pageLayout, ancorPanePrint);
-            if (success) {
-                job.endJob();
-                GeneralUiUtility.alertDialogBox(Alert.AlertType.INFORMATION
-                        , "USPESAN PRINT"
-                        , "PRINT"
-                        , "Uspesno isprintan racuna" + job.getJobStatus());
-            } else {
-                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR
-                        , "GRESKA PRINT"
-                        , "PRINT"
-                        , "GRESKA U PRINTU racuna" + job.getJobStatus());
-            }
-            btnPrint.setVisible(true);
-
-        }
+        GeneralUiUtility.printStaff(ancorPanePrint, btnPrint);
     }
 
     private void popuniTabeluPosaoArtikli() {
@@ -142,7 +114,6 @@ public class UiPrintRacuniControler implements Initializable {
         tblRowPopust.setStyle("-fx-alignment: CENTER;");
 
         tblPosaoArtikli.setItems(posaoArtikli);
-
     }
 
     /**

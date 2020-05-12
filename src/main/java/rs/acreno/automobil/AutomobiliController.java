@@ -419,7 +419,7 @@ public class AutomobiliController implements Initializable {
         stageRadniNalog.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
-        radniNalogController.setBrojFakture(brojRadnogNaloga);//Prosledi u RadniNalogView broj RN (EDIT MODE)
+        radniNalogController.setBrojRadnogNaloga(brojRadnogNaloga);//Prosledi u RadniNalogView broj RN (EDIT MODE)
         radniNalogController.setEditRadniNalog(radniNalog); //Prosledi u R.Nalog Objekat broj Radnog Naloga (EDIT MODE)
         stageRadniNalog.showAndWait();
         return isRadniNalogInEditMode = false;
