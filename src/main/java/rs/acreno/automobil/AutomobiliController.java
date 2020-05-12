@@ -13,13 +13,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.nalozi.RadniNalogController;
+import rs.acreno.nalozi.*;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
@@ -37,6 +38,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AutomobiliController implements Initializable {
 
+
     //MENU
     @FXML private Button btnNoviRadniNalog;
 
@@ -44,17 +46,28 @@ public class AutomobiliController implements Initializable {
     @FXML private TextField txtFieldImeKlijenta;
     private int brojFakture;
     private Racun racun;
+    private RadniNalog radniNalog;
 
     //TABELA FAKTURE
     @FXML private TableView<Racun> tblFakture;
     @FXML private TableColumn<Racun, Integer> tblRowIdRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowIdAutomobila;
     @FXML private TableColumn<Racun, String> tblRowIdKilometraza;
-
     @FXML private TableColumn<Racun, String> tblRowDatumRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
+
+    //TABELA RADNI NALOZI
+    @FXML private  TableView<RadniNalog> tblRadniNalozi;
+    @FXML private  TableColumn<RadniNalog, Integer> tblColIdRadniNaloga;
+    @FXML private  TableColumn<RadniNalog, Integer> tblColRadniNalogIdAutomobila;
+    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDatum;
+    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogVreme;
+    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogKilometraza;
+    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDetaljiStranke;
+    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDetaljiServisera;
+    @FXML private  TableColumn<RadniNalog, Button> tblColRadniNalogBtnIzmeni;
 
     /**
      * Posto koristimo isti UI za EDIT I NEW {@link Racun}, potrebno je da pratimo da li smo
@@ -183,7 +196,7 @@ public class AutomobiliController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-            //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli racuni
+            //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli RACUNI
             tblRowBtnIzmeniRacun.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (Racun p) -> {
                 // btnOpenEditRacunUiAction(p);
                 try {
@@ -199,14 +212,37 @@ public class AutomobiliController implements Initializable {
                 return p;
             }));
 
+            //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli RADNI NALOZI
+            tblColRadniNalogBtnIzmeni.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (RadniNalog p) -> {
+                // btnOpenEditRacunUiAction(p);
+                try {
+                    isRadniNalogInEditMode = true; // U edit modu RADNOG NALOGA smo
+                    //brojFakture = p.getIdRacuna(); // Setuj broj Radnog Naloga jer je EDIT MODE
+                    radniNalog = p;
+                    btnOpenNoviRadniNalog(); //Otvori RADNO NALOG UI u EDIT MODU...Provera je u RADNI NALOG CONTROLORU
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //tblPosaoArtikli.getItems().remove(p);
+                return p;
+            }));
+
             txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());// Moze jer je samo jedan Automobil
             txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
 
-            popuniTabeluRacuni(); // Popuni tabelu Racuni sa podacima
+            popuniTabeluRacuni(); // Popuni tabelu RACUNI sa podacima
+            popuniTabeluRadniNalozi(); // Popuni tabelu RADNI NALOZI sa podacima
 
         });
     }
 
+
+    /*
+     ************************************************************
+     *************** FAKTURE / RACUNI ***************************
+     ************************************************************
+     */
     /**
      * Inicijalizacija Racuni Objekta iz DBa {@link SQLRacuniDAO}
      */
@@ -242,7 +278,6 @@ public class AutomobiliController implements Initializable {
         tblRowNapomeneRacuna.setStyle("-fx-alignment: CENTER;");
 
         tblFakture.setItems(racuni);
-
     }
 
     /**
@@ -292,23 +327,71 @@ public class AutomobiliController implements Initializable {
     }
 
 
+    /*
+     ********************************************************
+     *************** RADNI NALOZI ***************************
+     ********************************************************
+     */
+    /**
+     * Inicijalizacija Racuni Objekta iz DBa {@link SQLRacuniDAO}
+     */
+    private final RadniNalogDAO radniNalogDAO = new SQLRadniNalogDAO();
+
+    /**
+     * ObservableList racuni koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link RacuniSearchType#ID_AUTOMOBILA}
+     */
+    private ObservableList<RadniNalog> radniNalozi;
+    /**
+     * Popunjavanje tabele {@link #tblRadniNalozi} sa Radnim Nalozima filtriranim po ID AUTOMOBILU.
+     * {@code getAutomobil().get(0).getIdAuta()} moze jer ima samo jedan auto sa tom REG. TABLICOM.
+     */
+    private void popuniTabeluRadniNalozi() {
+        try {
+            radniNalozi = FXCollections.observableArrayList(
+                    radniNalogDAO.findRadniNalogByProperty(RadniNalogSearchType.ID_AUTOMOBILA, getAutomobil().get(0).getIdAuta()));
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        tblColIdRadniNaloga.setCellValueFactory(new PropertyValueFactory<>("IdRadnogNaloga"));
+        tblColIdRadniNaloga.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
+        tblColRadniNalogIdAutomobila.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogDatum.setCellValueFactory(new PropertyValueFactory<>("Datum"));
+        tblColRadniNalogDatum.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogVreme.setCellValueFactory(new PropertyValueFactory<>("Vreme"));
+        tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogKilometraza.setCellValueFactory(new PropertyValueFactory<>("Kilometraza"));
+        tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogDetaljiStranke.setCellValueFactory(new PropertyValueFactory<>("DetaljiStranke"));
+        tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
+        tblColRadniNalogDetaljiServisera.setCellValueFactory(new PropertyValueFactory<>("DetaljiServisera"));
+        tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
+
+        tblRadniNalozi.setItems(radniNalozi);
+    }
+
+
+
     private boolean isRadniNalogInEditMode;
     /**
      * Otvaranje Prozora {@link rs.acreno.nalozi.RadniNalogController}
      *
-     * @param mouseEvent not used for now
      * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
      */
     @FXML
-    public boolean btnOpenNoviRadniNalog(MouseEvent mouseEvent) throws IOException {
+    public boolean btnOpenNoviRadniNalog() throws IOException {
         FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.RADNI_NALOZI_UI_VIEW_URI));
         Stage stageRadniNalog = new Stage();
         stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
         stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
 
         //Inicijalizacija FakturaController-a i setovanje naslova
-        RadniNalogController fakturaController = fxmlLoaderRadniNalog.getController();
-        fakturaController.setAutmobilController(this, stageRadniNalog);
+        RadniNalogController radniNalogController = fxmlLoaderRadniNalog.getController();
+        radniNalogController.setAutmobilController(this, stageRadniNalog);
+
+        //Postavi Title u stageu FakturaController
+        stageRadniNalog.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
+                + " || Klijent: " + txtFieldImeKlijenta.getText());
 
         stageRadniNalog.showAndWait();
         return isRadniNalogInEditMode = false;
