@@ -365,8 +365,7 @@ public class FakturaController implements Initializable {
         //Popunjavanje GUIa
         txtFklijentImePrezime.setText(imePrezimeKlijenta);
         txtFregTablica.setText(regOznakaAutomobila);
-        txtFpopustRacuna.setText(String.valueOf(0));
-        txtfKilometraza.setText(noviRacun.getKilometraza());
+        //txtFpopustRacuna.setText(String.valueOf(0));
     }
 
     /**
@@ -396,7 +395,6 @@ public class FakturaController implements Initializable {
             txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
             txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
             txtfKilometraza.setText(noviRacun.getKilometraza());
-
         } else {
             noviRacun = new Racun();
             noviRacun.setIdRacuna(brojFakture);
@@ -417,7 +415,6 @@ public class FakturaController implements Initializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -997,7 +994,6 @@ public class FakturaController implements Initializable {
         btnCloseFakture.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
-
 
 }
 

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
@@ -16,26 +17,31 @@
                 <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka" textFill="#e8e8e8" />
                 <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta" textFill="#e8e8e8" />
                 <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0" />
-                <TableView fx:id="tblFakture" layoutX="504.0" layoutY="148.0" prefHeight="484.0" prefWidth="691.0">
+                <TableView fx:id="tblFakture" layoutX="781.0" layoutY="146.0" prefHeight="484.0" prefWidth="520.0">
                     <columns>
-                        <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" />
-                        <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" />
+                        <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
+                        <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
                         <TableColumn fx:id="tblRowDatumRacuna" prefWidth="61.0" text="Datum" />
                   <TableColumn fx:id="tblRowIdKilometraza" prefWidth="90.0" text="Kilometraza" />
                         <TableColumn fx:id="tblRowPopustRacuna" prefWidth="84.0" text="Popust" />
-                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="227.0" text="Napomene" />
-                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="61.0" />
+                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="217.0" text="Napomene" />
+                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="62.0" />
                     </columns>
                 </TableView>
+            <Label layoutX="810.0" layoutY="87.0" prefHeight="17.0" prefWidth="204.0" text="Računi" textFill="#e1e1e1">
+               <font>
+                  <Font name="Segoe UI" size="36.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </center>
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="40.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Radni Nalog" />
                 <Button layoutX="152.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Defektaža" />
                 <Button fx:id="btnNoviRacun" layoutX="265.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="53.0" prefWidth="95.0" text="Novi Račun" />
+                <Button fx:id="btnNoviRadniNalog" layoutX="40.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="53.0" prefWidth="95.0" text="Radni Nalog" />
                 <Button layoutX="377.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Izmeni Klijenta" />
                 <Button layoutX="482.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0" text="Izmena Automobia" />
                 <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1197.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="46.0" prefWidth="108.0" text="Zatvori Prozor" />

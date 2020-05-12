@@ -20,7 +20,7 @@ public class PosaoArtikliDaoTests {
     //private final DefektazaDAO defektazaDAO = new SQLiteDefektazaDAO();
     //private final UslugeDAO uslugeDAO = new SQLiteUslugeDAO();
     //private final ArtikliDAO artikliDAO = new SQLiteArtikliDAO();
-    //private final RadniNalogDAO radniNalogDAO = new SQLiteRadniNalogDAO();
+    //private final RadniNalogDAO radniNalogDAO = new SQLRadniNalogDAO();
     private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
 
     public PosaoArtikliDaoTests() {

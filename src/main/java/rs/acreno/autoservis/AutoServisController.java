@@ -202,7 +202,9 @@ public class AutoServisController implements Initializable {
             FXMLLoader fxmlLoaderAutomobil = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
             Stage stageAutomobil = new Stage();
             stageAutomobil.initModality(Modality.APPLICATION_MODAL);
-            stageAutomobil.setScene(new Scene(fxmlLoaderAutomobil.load()));
+            Scene scene = new Scene(fxmlLoaderAutomobil.load());
+            stageAutomobil.setScene(scene);
+            stageAutomobil.setTitle("Automobil: " + txtFieldRegOznaka.getText());
 
             //Set AutoServisController u AutomobiliController UI
             AutomobiliController automobiliController = fxmlLoaderAutomobil.getController();

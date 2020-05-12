@@ -91,7 +91,7 @@ public class SQLAutomobilDAO implements AutomobilDAO {
     public void deleteAutomobil(Automobil auto) throws AcrenoException, SQLException {
         try {
             connect();
-            dbAccess.update(connection, "DELETE FROM Automobil WHERE idAuta=?", auto.getIdAuta());
+            dbAccess.update(connection, SqlQuerys.DELETE_FROM_AUTOMOBILI, auto.getIdAuta());
         } catch (Exception e) {
             throw new AcrenoException("Greska u DB DELETE deleteAutomobil AUTA", e);
         } finally {
@@ -126,7 +126,7 @@ public class SQLAutomobilDAO implements AutomobilDAO {
         }
         try {
             connect();
-            automobili = dbAccess.query(connection, "SELECT * FROM Automobil WHERE " +
+            automobili = dbAccess.query(connection, SqlQuerys.FIND_ALL_AUTOMOBILI_BY_PROPERTY +
                     whereClause, new BeanListHandler<>(Automobil.class), valueClause);
         } catch (Exception e) {
             throw new AcrenoException("Greska u DB findAutomobilByProperty AUTA", e);

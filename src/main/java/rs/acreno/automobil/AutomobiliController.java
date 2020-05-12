@@ -13,11 +13,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
+import rs.acreno.nalozi.RadniNalogController;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.RacuniSearchType;
@@ -34,6 +36,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AutomobiliController implements Initializable {
+
+    //MENU
+    @FXML private Button btnNoviRadniNalog;
 
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtFieldImeKlijenta;
@@ -52,12 +57,24 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
 
     /**
-     * TODO: Napisati javadoc o edit modu raduna posto koristimo isti UI i za EDIT i za NOVI RACUN
+     * Posto koristimo isti UI za EDIT I NEW {@link Racun}, potrebno je da pratimo da li smo
+     * u EDIT modu ili u NEW modu.
+     * Edit mode dobijamo kada se klikne na dugmic u tabeli {@link #popuniTabeluRacuni()}, a koji je inicijalizovan
+     * u {@link #initialize(URL, ResourceBundle)}.
+     *
+     * @see #initialize(URL, ResourceBundle)
+     * @see #btnOpenFakturaUi()
      */
-    boolean isRacunInEditMode; // Da li je recun u Edit Modu
+    private boolean isRacunInEditMode; // Da li je recun u Edit Modu
 
     /**
-     * TODO: Napisati javadoc o edit modu raduna posto koristimo isti UI i za EDIT i za NOVI RACUN
+     * Geter za {@link #isRacunInEditMode} koji se koristi u {@link FakturaController#initialize(URL, ResourceBundle)}
+     * U inicijalnoj metodi {@link FakturaController} proveravamo da li smo u EDIT MODU ili u NEW MODU.
+     * Ako smo u EDITu onda se ne pravi novi Objekat {@link Racun}, a ako smo u NEW pravimo novi objekat {@link Racun}.
+     *
+     * @see FakturaController #newOrEditRacun(boolean)
+     * @see FakturaController#initialize(URL, ResourceBundle)
+     * @see Racun
      */
     public boolean isRacunInEditMode() {
         return isRacunInEditMode;
@@ -148,7 +165,10 @@ public class AutomobiliController implements Initializable {
     /**
      * Inicijalizacija {@link AutomobiliController}-a
      * {@code tblRowBtnIzmeniRacun.setCellFactory} postavlje dugmice u {@link #tblFakture} tabelu Racuna.
-     * Dugmici pokrecu {@link #btnOpenFakturaUi()} btn koji vraca vrednost {@link #isRacunInEditMode}
+     * Dugmici pokrecu {@link #btnOpenFakturaUi()} btn koji vraca vrednost {@link #isRacunInEditMode}. Ako je
+     * EDIT mode prosledjujemo {@code isRacunInEditMode = true;} i brojFakture u {@link FakturaController}.
+     * Prilikom klika na Edit dugme u tabeli setujemo {@code racun = rac;} koji se dalje prosledjuje u
+     * {@link #btnOpenFakturaUi()}
      * <p>
      * Setuje se REG. TABLICA{@code txtFieldRegOznaka} i IME KLIJENTA{@code txtFieldImeKlijenta}
      * {@code  txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka())} Moze jer je samo jedan Automobil
@@ -269,6 +289,29 @@ public class AutomobiliController implements Initializable {
         stageFaktura.showAndWait();
 
         return isRacunInEditMode = false; //Nije u Edit Modu jer je kliknuto direktno dugme NOVI RACUN
+    }
+
+
+    private boolean isRadniNalogInEditMode;
+    /**
+     * Otvaranje Prozora {@link rs.acreno.nalozi.RadniNalogController}
+     *
+     * @param mouseEvent not used for now
+     * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
+     */
+    @FXML
+    public boolean btnOpenNoviRadniNalog(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.RADNI_NALOZI_UI_VIEW_URI));
+        Stage stageRadniNalog = new Stage();
+        stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
+        stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
+
+        //Inicijalizacija FakturaController-a i setovanje naslova
+        RadniNalogController fakturaController = fxmlLoaderRadniNalog.getController();
+        fakturaController.setAutmobilController(this, stageRadniNalog);
+
+        stageRadniNalog.showAndWait();
+        return isRadniNalogInEditMode = false;
     }
 
     /**
