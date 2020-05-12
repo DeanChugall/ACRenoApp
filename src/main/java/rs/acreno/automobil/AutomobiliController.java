@@ -13,8 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +44,7 @@ public class AutomobiliController implements Initializable {
     @FXML private TextField txtFieldImeKlijenta;
     private int brojFakture;
     private Racun racun;
+    private int brojRadnogNaloga;
     private RadniNalog radniNalog;
 
     //TABELA FAKTURE
@@ -91,6 +90,30 @@ public class AutomobiliController implements Initializable {
      */
     public boolean isRacunInEditMode() {
         return isRacunInEditMode;
+    }
+
+    /**
+     * Posto koristimo isti UI za EDIT I NEW {@link RadniNalog}, potrebno je da pratimo da li smo
+     * u EDIT modu ili u NEW modu.
+     * Edit mode dobijamo kada se klikne na dugmic u tabeli {@link #popuniTabeluRacuni()}, a koji je inicijalizovan
+     * u {@link #initialize(URL, ResourceBundle)}.
+     *
+     * @see #initialize(URL, ResourceBundle)
+     * @see #btnOpenNoviRadniNalog()
+     */
+    private boolean isRadniNalogInEditMode; // Da li je recun u Edit Modu
+    /**
+     * Geter za {@link #isRacunInEditMode} koji se koristi u {@link RadniNalogController#initialize(URL, ResourceBundle)}
+     * U inicijalnoj metodi {@link RadniNalogController} proveravamo da li smo u EDIT MODU ili u NEW MODU.
+     * Ako smo u EDITu onda se ne pravi novi Objekat {@link RadniNalog},
+     * a ako smo u NEW pravimo novi objekat {@link RadniNalog}.
+     *
+     * @see RadniNalogController #newOrEditRAdniNalog(boolean)
+     * @see RadniNalogController#initialize(URL, ResourceBundle)
+     * @see RadniNalog
+     */
+    public boolean isRadniNalogInEditMode() {
+        return isRadniNalogInEditMode;
     }
 
     /**
@@ -217,7 +240,7 @@ public class AutomobiliController implements Initializable {
                 // btnOpenEditRacunUiAction(p);
                 try {
                     isRadniNalogInEditMode = true; // U edit modu RADNOG NALOGA smo
-                    //brojFakture = p.getIdRacuna(); // Setuj broj Radnog Naloga jer je EDIT MODE
+                    brojRadnogNaloga = p.getIdRadnogNaloga(); // Setuj broj Radnog Naloga jer je EDIT MODE
                     radniNalog = p;
                     btnOpenNoviRadniNalog(); //Otvori RADNO NALOG UI u EDIT MODU...Provera je u RADNI NALOG CONTROLORU
 
@@ -371,8 +394,6 @@ public class AutomobiliController implements Initializable {
     }
 
 
-
-    private boolean isRadniNalogInEditMode;
     /**
      * Otvaranje Prozora {@link rs.acreno.nalozi.RadniNalogController}
      *
@@ -385,6 +406,11 @@ public class AutomobiliController implements Initializable {
         stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
         stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
 
+        stageRadniNalog.setOnCloseRequest(windowEvent -> {
+            popuniTabeluRadniNalozi(); //Popuni tabelu jer kada se pravi novi Radni nalog nece da se refresuje
+            tblRadniNalozi.refresh(); //Uradi refresh tabele da se vide izmene
+        });
+
         //Inicijalizacija FakturaController-a i setovanje naslova
         RadniNalogController radniNalogController = fxmlLoaderRadniNalog.getController();
         radniNalogController.setAutmobilController(this, stageRadniNalog);
@@ -393,6 +419,8 @@ public class AutomobiliController implements Initializable {
         stageRadniNalog.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
+        radniNalogController.setBrojFakture(brojRadnogNaloga);//Prosledi u RadniNalogView broj RN (EDIT MODE)
+        radniNalogController.setEditRadniNalog(radniNalog); //Prosledi u R.Nalog Objekat broj Radnog Naloga (EDIT MODE)
         stageRadniNalog.showAndWait();
         return isRadniNalogInEditMode = false;
     }

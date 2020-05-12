@@ -225,7 +225,11 @@ public class FakturaController implements Initializable {
         this.automobiliController = autmobilController;
         this.automobilStage = automobilStage;
     }
-
+    /*
+     ************************************************************
+     *************** INICIJALIZACIJA ***************************
+     ************************************************************
+     */
     /**
      * Inicijalizacija {@link FakturaController}-a sa potrebni podacima
      * <p>
@@ -319,35 +323,6 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     * Izracunavanje GRAND TOTAL SUME
-     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
-     * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
-     *
-     * @param tblRowTotal ciljna kolona u tabeli
-     * @see UiPrintRacuniControler
-     * @see #initUiPrintControler(FXMLLoader)
-     */
-    public static void setGrandTotalSuma(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
-        tblRowTotal.setCellValueFactory(cellData -> {
-            PosaoArtikli data = cellData.getValue();
-            return Bindings.createDoubleBinding(
-                    () -> {
-                        try {
-                            double price = Double.parseDouble(String.valueOf(data.getCena()));
-                            double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
-                            double popust = Integer.parseInt(String.valueOf(data.getPopust()));
-                            double total = price * quantity;
-                            return total - ((total * popust) / 100);
-
-                        } catch (NumberFormatException nfe) {
-                            return (double) 0;
-                        }
-                    }
-            );
-        });
-    }
-
-    /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
      * <p>
      * {@code .get(0)} Moze jer je samo jedan objkat Klijent ili Automobil prisutan u datom trenutku !
@@ -377,7 +352,7 @@ public class FakturaController implements Initializable {
      * <p>
      * Ako smo u EDIT modu(TRUE) {@code if (isInEditMode)} ne treba da pravimo {@link Racun} objekat
      * nego smo ga prosledili iz {@link AutomobiliController#btnOpenFakturaUi()}
-     * u kodu {@code fakturaController.setEditRacun(racun)}, a u seteru {@link #setEditRacun(Racun)}
+     * u kodu {@code fakturaController.setEditRadniNalog(racun)}, a u seteru {@link #setEditRacun(Racun)}
      * <p>
      * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link Racun} i bitno da se odredi koji
      * je sledeci {@link #brojFakture}. Ovde je bio problem jer kada se obrise Racun ID se pomera za jedan
@@ -669,6 +644,11 @@ public class FakturaController implements Initializable {
         txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
     }
 
+    /*
+     ************************************************************
+     ******************** KALKULACIJA ***************************
+     ************************************************************
+     */
     /**
      * Izracunavanje  SUME SA POPUSTOM NA DELOVE racuna sa popustom i to po regularnim cenama.
      * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
@@ -728,6 +708,41 @@ public class FakturaController implements Initializable {
         return totalsaPopustomNaDelove - ((totalsaPopustomNaDelove * popustNaCelomRacunu) / 100);
     }
 
+    /**
+     * Izracunavanje GRAND TOTAL SUME
+     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
+     *
+     * @param tblRowTotal ciljna kolona u tabeli
+     * @see UiPrintRacuniControler
+     * @see #initUiPrintControler(FXMLLoader)
+     */
+    public static void setGrandTotalSuma(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
+        tblRowTotal.setCellValueFactory(cellData -> {
+            PosaoArtikli data = cellData.getValue();
+            return Bindings.createDoubleBinding(
+                    () -> {
+                        try {
+                            double price = Double.parseDouble(String.valueOf(data.getCena()));
+                            double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
+                            double popust = Integer.parseInt(String.valueOf(data.getPopust()));
+                            double total = price * quantity;
+                            return total - ((total * popust) / 100);
+
+                        } catch (NumberFormatException nfe) {
+                            return (double) 0;
+                        }
+                    }
+            );
+        });
+    }
+
+
+    /*
+     ************************************************************
+     ****************** LIST VIEW STAFF  ************************
+     ************************************************************
+     */
     /**
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
      * <p>
@@ -872,6 +887,11 @@ public class FakturaController implements Initializable {
         btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
     }
 
+    /*
+     ************************************************************
+     ******************* PRINT INICIJALIZACIJA*******************
+     ************************************************************
+     */
     /**
      * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link UiPrintRacuniControler}
      */
@@ -914,6 +934,11 @@ public class FakturaController implements Initializable {
         }
     }
 
+    /*
+     ************************************************************
+     ******************* BUTTON ACTION STAFF*********************
+     ************************************************************
+     */
     /**
      * UPDATE Racuna kada se nesto promeni u njemu...(Datum...Napomena...Popust)
      * <p>

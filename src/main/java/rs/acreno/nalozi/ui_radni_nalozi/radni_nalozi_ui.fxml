@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.RadniNalogController">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="txtAreaDetaljiStranke" layoutX="92.0" layoutY="160.0" prefHeight="409.0" prefWidth="400.0" />
+            <TextArea fx:id="txtAreDetaljiServisera" layoutX="570.0" layoutY="160.0" prefHeight="409.0" prefWidth="400.0" />
+            <Label layoutX="110.0" layoutY="127.0" prefHeight="17.0" prefWidth="132.0" text="Detalji Stranke:" textFill="#e1e1e1" />
+            <Label layoutX="570.0" layoutY="127.0" prefHeight="17.0" prefWidth="132.0" text="Detalji Servisera:" textFill="#e1e1e1" />
+            <Button layoutX="1177.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="41.0" prefWidth="131.0" text="Sačuvaj" />
+            <Button fx:id="btnObrisiRadniNalogAction" layoutX="1177.0" layoutY="123.0" mnemonicParsing="false" onAction="#btnObrisiRadniNalogAction" prefHeight="77.0" prefWidth="150.0" text="Obrisi RN" />
+         </children></AnchorPane>
    </center>
+   <top>
+      <AnchorPane prefHeight="96.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="192.0" layoutY="18.0" prefHeight="17.0" prefWidth="132.0" text="Registarska Oznaka:" textFill="#e1e1e1" />
+            <Label layoutX="355.0" layoutY="18.0" prefHeight="17.0" prefWidth="132.0" text="Klijent" textFill="#e1e1e1" />
+            <Label layoutX="529.0" layoutY="16.0" prefHeight="17.0" prefWidth="132.0" text="Datum:" textFill="#e1e1e1" />
+            <Label layoutX="780.0" layoutY="18.0" prefHeight="17.0" prefWidth="132.0" text="Vreme:" textFill="#e1e1e1" />
+            <Label layoutX="951.0" layoutY="19.0" prefHeight="17.0" prefWidth="132.0" text="Kilometraža:" textFill="#e1e1e1" />
+            <Button fx:id="btnCloseRadniNalog" layoutX="1255.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnCloseFaktureAction" prefHeight="41.0" prefWidth="131.0" text="Zatvori" />
+            <TextField fx:id="txtfRegOznaka" layoutX="184.0" layoutY="40.0" />
+            <TextField fx:id="txtfKlijent" layoutX="347.0" layoutY="40.0" />
+            <DatePicker fx:id="datePickerDatum" layoutX="522.0" layoutY="39.0" />
+            <TextField fx:id="txtfVreme" layoutX="733.0" layoutY="41.0" />
+            <TextField fx:id="txtfKilometraza" layoutX="951.0" layoutY="41.0" />
+            <Label layoutX="29.0" layoutY="19.0" prefHeight="17.0" prefWidth="132.0" text="ID RADNOG NALOGA" textFill="#e1e1e1" />
+            <TextField fx:id="txtfIdRadnogNaloga" layoutX="14.0" layoutY="40.0" />
+         </children>
+      </AnchorPane>
+   </top>
 </BorderPane>
