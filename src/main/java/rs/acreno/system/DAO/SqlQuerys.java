@@ -187,14 +187,16 @@ public class SqlQuerys {
             "INSERT INTO Defektaza(" +
                     "idDefektaze" +
                     ", idAuta" +
-                    ", opisDefektaze" +
+                    ", kilometraza" +
                     ", datumDefektaze" +
+                    ", vreme" +
+                    ", opisDefektaze" +
                     ", ostaliDetaljiDefektaze)\n" +
-                    "VALUES(?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_DEFEKTAZA_TABLE = "" +
             "UPDATE Defektaza\n" +
-            "SET idAuta = ?, opisDefektaze = ?, datumDefektaze = ?, ostaliDetaljiDefektaze = ?\n" +
+            "SET idAuta = ?, kilometraza = ?, datumDefektaze = ?, vreme = ?, opisDefektaze = ?,  ostaliDetaljiDefektaze = ?\n" +
             "WHERE idDefektaze=?";
 
     public static final String FIND_ALL_DEFEKTAZE = "SELECT * FROM Defektaza";

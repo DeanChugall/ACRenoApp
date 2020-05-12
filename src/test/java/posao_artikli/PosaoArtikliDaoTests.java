@@ -17,7 +17,7 @@ public class PosaoArtikliDaoTests {
 
     //private final KlijentDAO klijentDAO = new SQLiteKlijnetDAO();
     //private final AutomobilDAO automobilDAO = new SQLiteAutomobilDAO();
-    //private final DefektazaDAO defektazaDAO = new SQLiteDefektazaDAO();
+    //private final DefektazaDAO defektazaDAO = new SQLDefektazaDAO();
     //private final UslugeDAO uslugeDAO = new SQLiteUslugeDAO();
     //private final ArtikliDAO artikliDAO = new SQLiteArtikliDAO();
     //private final RadniNalogDAO radniNalogDAO = new SQLRadniNalogDAO();

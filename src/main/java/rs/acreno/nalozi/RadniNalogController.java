@@ -130,15 +130,15 @@ public class RadniNalogController implements Initializable {
         Platform.runLater(() -> {
             System.out.println(automobiliController.getAutomobil().get(0).getRegOznaka());
             System.out.println(automobiliController.getKlijenti().get(0).getImePrezime());
-            // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
+            // Ako je Radni Nalog u edit modu nemoj praviti novi Radni Nalog nego prosledi RN koji je za izmenu
             if (automobiliController.isRadniNalogInEditMode()) { //TRUE
                 newOrEditRadniNalog(true);
 
             } else { //Nismo u Edit Modu (FALSE)
                 //Datum
                 LocalDate now = LocalDate.now();
-                datePickerDatum.setValue(now); //Postavi danasnji datum Racuna u datePiceru
-                newOrEditRadniNalog(false); // Nismo u edit modu pa napravi novi racun
+                datePickerDatum.setValue(now); //Postavi danasnji datum RNa u datePiceru
+                newOrEditRadniNalog(false); // Nismo u edit modu pa napravi novi RN
             }
         });
     }
@@ -188,21 +188,7 @@ public class RadniNalogController implements Initializable {
         }
     }
 
-    /**
-     * Zatvaranje RADNI NALOG UIa i refresh tabele RADNI NALOG u {@link AutomobiliController}-u
-     * <p>
-     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
-     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenNoviRadniNalog()}
-     *
-     * @param actionEvent event for hide scene {@link RadniNalogController}
-     * @see AutomobiliController#btnOpenNoviRadniNalog
-     */
-    @FXML
-    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
-        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
-        btnCloseRadniNalog.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-    }
+
 
     /*
      ************************************************************
@@ -220,7 +206,7 @@ public class RadniNalogController implements Initializable {
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
      */
     @FXML
-    private void btnSacuvajRacunAction() {
+    private void btnSacuvajRadniNalogAction() {
         try {
             //UPDATE NOVOG RNa SA NOVIM VREDNOSTIMA ZATO OVDE REDEFINISEMO NOVI RADNI NALOG
             noviRadniNalog.setIdRadnogNaloga(brojRadnogNaloga);
@@ -308,5 +294,21 @@ public class RadniNalogController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Zatvaranje RADNI NALOG UIa i refresh tabele RADNI NALOG u {@link AutomobiliController}-u
+     * <p>
+     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
+     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenNoviRadniNalog()}
+     *
+     * @param actionEvent event for hide scene {@link RadniNalogController}
+     * @see AutomobiliController#btnOpenNoviRadniNalog
+     */
+    @FXML
+    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
+        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
+        btnCloseRadniNalog.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

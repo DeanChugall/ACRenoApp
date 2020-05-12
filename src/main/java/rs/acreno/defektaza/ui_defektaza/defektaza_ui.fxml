@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="defektazaUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.DefektazaController">
+    <top>
+      <AnchorPane prefHeight="74.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+         <children>
+              <Label text="DEFEKTAZA UI" textFill="WHITE">
+                  <font>
+                      <Font size="32.0" />
+                  </font>
+              </Label>
+            <Button fx:id="btnCloseDefektaza" layoutX="1182.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseDefektazaAction" prefHeight="39.0" prefWidth="128.0" text="Zatvori" />
+         </children>
+      </AnchorPane>
+    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <DatePicker fx:id="datePickerDatum" layoutX="96.0" layoutY="59.0" />
+            <Label layoutX="587.0" layoutY="34.0" text="KILOMETRAZA" textFill="#dddddd" />
+            <Label layoutX="384.0" layoutY="35.0" text="ID DEFEKTAZE" textFill="#dddddd" />
+            <Label layoutX="843.0" layoutY="34.0" text="VREME" textFill="#dddddd" />
+            <Label layoutX="148.0" layoutY="188.0" text="OPIS DEFEKTAZE" textFill="#dddddd" />
+            <Label layoutX="634.0" layoutY="188.0" text="OSTALI DETALJI DEFELTAZE" textFill="#dddddd" />
+            <TextField fx:id="txtfIdDefektaze" layoutX="356.0" layoutY="58.0" />
+            <TextField fx:id="txtfKilometraza" layoutX="560.0" layoutY="58.0" />
+            <TextField fx:id="txtfVreme" layoutX="799.0" layoutY="58.0" />
+            <Label layoutX="96.0" layoutY="38.0" text="DATUM" textFill="#dddddd" />
+            <TextArea fx:id="txtAreaOpisDefektaze" layoutX="96.0" layoutY="236.0" prefHeight="203.0" prefWidth="388.0" />
+            <TextArea fx:id="txtAreOstaliDetaljiDefektaze" layoutX="613.0" layoutY="236.0" prefHeight="203.0" prefWidth="388.0" />
+            <Button layoutX="1025.0" layoutY="41.0" mnemonicParsing="false" onAction="#btnSacuvajDefektazuAction" prefHeight="61.0" prefWidth="128.0" text="SACUVAJ" />
+            <Button fx:id="btnObrisiDefektazu" layoutX="1192.0" layoutY="41.0" mnemonicParsing="false" onAction="#btnObrisiDefektazuAction" prefHeight="61.0" prefWidth="128.0" text="OBRISI" />
+            <Label layoutX="79.0" layoutY="110.0" text="TABLICA" textFill="#dddddd" />
+            <Label layoutX="362.0" layoutY="102.0" text="KLIJENT" textFill="#dddddd" />
+            <TextField fx:id="txtfRegOznaka" layoutX="74.0" layoutY="134.0" />
+            <TextField fx:id="txtfKlijent" layoutX="348.0" layoutY="134.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

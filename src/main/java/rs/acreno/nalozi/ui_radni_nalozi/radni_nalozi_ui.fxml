@@ -16,7 +16,7 @@
             <TextArea fx:id="txtAreDetaljiServisera" layoutX="570.0" layoutY="160.0" prefHeight="409.0" prefWidth="400.0" />
             <Label layoutX="110.0" layoutY="127.0" prefHeight="17.0" prefWidth="132.0" text="Detalji Stranke:" textFill="#e1e1e1" />
             <Label layoutX="570.0" layoutY="127.0" prefHeight="17.0" prefWidth="132.0" text="Detalji Servisera:" textFill="#e1e1e1" />
-            <Button layoutX="1177.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="41.0" prefWidth="131.0" text="Sačuvaj" />
+            <Button layoutX="1177.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnSacuvajRadniNalogAction" prefHeight="41.0" prefWidth="131.0" text="Sačuvaj" />
             <Button fx:id="btnObrisiRadniNalogAction" layoutX="1177.0" layoutY="123.0" mnemonicParsing="false" onAction="#btnObrisiRadniNalogAction" prefHeight="77.0" prefWidth="150.0" text="Obrisi RN" />
             <Button fx:id="btnPrint" layoutX="1008.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="51.0" prefWidth="101.0" text="PRINT PREGLED" />
          </children></AnchorPane>

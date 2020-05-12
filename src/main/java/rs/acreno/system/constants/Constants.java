@@ -25,12 +25,12 @@ public class Constants {
     public static final String PRINT_FAKTURA_UI_VIEW_URI = "/ui_print_racun.fxml";
     public static final String RADNI_NALOZI_UI_VIEW_URI = "/radni_nalozi_ui.fxml";
     public static final String PRINT_RADNI_NALOG_UI_VIEW_URI = "/ui_print_nalozi.fxml";
+    public static final String DEFEKTAZA_UI_VIEW_URI = "/defektaza_ui.fxml";
 
 
 
     public static final String KLIJENT_UI_VIEW_URI = "/klijent_ui.fxml";
     public static final String RADNI_NALOZI_EDIT_URI = "/radni_nalozi_edit_ui.fxml";
-    public static final String DEFEKTAZA_UI_VIEW_URI = "/defektaza_ui.fxml";
     public static final String USLUGE_UI_VIEW_URI = "/usluge_ui.fxml";
     public static final String ARTIKLI_UI_VIEW_URI = "/artikli_ui.fxml";
 }

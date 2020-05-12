@@ -17,7 +17,7 @@
                 <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka" textFill="#e8e8e8" />
                 <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta" textFill="#e8e8e8" />
                 <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0" />
-                <TableView fx:id="tblFakture" layoutX="781.0" layoutY="146.0" prefHeight="484.0" prefWidth="520.0">
+                <TableView fx:id="tblFakture" layoutX="781.0" layoutY="146.0" prefHeight="308.0" prefWidth="520.0">
                     <columns>
                         <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
                         <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
@@ -50,13 +50,30 @@
                   <Font name="Segoe UI" size="36.0" />
                </font>
             </Label>
+            <Label layoutX="43.0" layoutY="441.0" prefHeight="43.0" prefWidth="218.0" text="Defektaže" textFill="#e1e1e1">
+               <font>
+                  <Font name="Segoe UI" size="36.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblDefektaza" layoutX="43.0" layoutY="487.0" prefHeight="200.0" prefWidth="790.0">
+              <columns>
+                <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" />
+                <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" />
+                  <TableColumn fx:id="tblColKilometraza" prefWidth="75.0" text="Kilometraza" />
+                  <TableColumn fx:id="tblColDatumDefektaze" prefWidth="112.0" text="datumDefektaze" />
+                  <TableColumn fx:id="tblColVreme" prefWidth="75.0" text="Vreme" />
+                  <TableColumn fx:id="tblColOpisDefektaze" prefWidth="149.0" text="opisDefektaze" />
+                  <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="146.0" text="ostaliDetaljiDefektaze" />
+                  <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="75.0" text="Izmena" />
+              </columns>
+            </TableView>
             </children>
         </AnchorPane>
     </center>
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="152.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Defektaža" />
+                <Button fx:id="btnDefektaza" layoutX="152.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="53.0" prefWidth="95.0" text="Defektaža" />
                 <Button fx:id="btnNoviRacun" layoutX="265.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="53.0" prefWidth="95.0" text="Novi Račun" />
                 <Button fx:id="btnNoviRadniNalog" layoutX="40.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="53.0" prefWidth="95.0" text="Radni Nalog" />
                 <Button layoutX="377.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Izmeni Klijenta" />

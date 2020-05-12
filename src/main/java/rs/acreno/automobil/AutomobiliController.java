@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.autoservis.AutoServisController;
+import rs.acreno.defektaza.*;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.nalozi.*;
 import rs.acreno.racuni.Racun;
@@ -42,10 +43,13 @@ public class AutomobiliController implements Initializable {
 
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtFieldImeKlijenta;
+
     private int brojFakture;
     private Racun racun;
     private int brojRadnogNaloga;
     private RadniNalog radniNalog;
+    private int brojDefektaze;
+    private Defektaza defektaza;
 
     //TABELA FAKTURE
     @FXML private TableView<Racun> tblFakture;
@@ -58,15 +62,26 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
 
     //TABELA RADNI NALOZI
-    @FXML private  TableView<RadniNalog> tblRadniNalozi;
-    @FXML private  TableColumn<RadniNalog, Integer> tblColIdRadniNaloga;
-    @FXML private  TableColumn<RadniNalog, Integer> tblColRadniNalogIdAutomobila;
-    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDatum;
-    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogVreme;
-    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogKilometraza;
-    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDetaljiStranke;
-    @FXML private  TableColumn<RadniNalog, String> tblColRadniNalogDetaljiServisera;
-    @FXML private  TableColumn<RadniNalog, Button> tblColRadniNalogBtnIzmeni;
+    @FXML private TableView<RadniNalog> tblRadniNalozi;
+    @FXML private TableColumn<RadniNalog, Integer> tblColIdRadniNaloga;
+    @FXML private TableColumn<RadniNalog, Integer> tblColRadniNalogIdAutomobila;
+    @FXML private TableColumn<RadniNalog, String> tblColRadniNalogDatum;
+    @FXML private TableColumn<RadniNalog, String> tblColRadniNalogVreme;
+    @FXML private TableColumn<RadniNalog, String> tblColRadniNalogKilometraza;
+    @FXML private TableColumn<RadniNalog, String> tblColRadniNalogDetaljiStranke;
+    @FXML private TableColumn<RadniNalog, String> tblColRadniNalogDetaljiServisera;
+    @FXML private TableColumn<RadniNalog, Button> tblColRadniNalogBtnIzmeni;
+
+    //TABELA DEFEKTAZE
+    @FXML private TableView<Defektaza> tblDefektaza;
+    @FXML private TableColumn<Defektaza, Integer> tblColIdDefektaze;
+    @FXML private TableColumn<Defektaza, Integer> tblColIdAutaDefektaze;
+    @FXML private TableColumn<Defektaza, String> tblColKilometraza;
+    @FXML private TableColumn<Defektaza, String> tblColDatumDefektaze;
+    @FXML private TableColumn<Defektaza, String> tblColVreme;
+    @FXML private TableColumn<Defektaza, String> tblColOpisDefektaze;
+    @FXML private TableColumn<Defektaza, String> tblColOstaliDetaljiDefektaze;
+    @FXML private TableColumn<Defektaza, Button> tblColBtnIzmeniDefektazu;
 
     /**
      * Posto koristimo isti UI za EDIT I NEW {@link Racun}, potrebno je da pratimo da li smo
@@ -101,7 +116,8 @@ public class AutomobiliController implements Initializable {
      * @see #initialize(URL, ResourceBundle)
      * @see #btnOpenNoviRadniNalog()
      */
-    private boolean isRadniNalogInEditMode; // Da li je recun u Edit Modu
+    private boolean isRadniNalogInEditMode; // Da li je Radni Nalog u Edit Modu
+
     /**
      * Geter za {@link #isRacunInEditMode} koji se koristi u {@link RadniNalogController#initialize(URL, ResourceBundle)}
      * U inicijalnoj metodi {@link RadniNalogController} proveravamo da li smo u EDIT MODU ili u NEW MODU.
@@ -115,6 +131,24 @@ public class AutomobiliController implements Initializable {
     public boolean isRadniNalogInEditMode() {
         return isRadniNalogInEditMode;
     }
+
+    private boolean isDefektazaInEditMode; // Da li je Defektaza u Edit Modu
+
+    /**
+     * Geter za {@link #isDefektazaInEditMode} koji se koristi u
+     * {@link DefektazaController#initialize(URL, ResourceBundle)}
+     * U inicijalnoj metodi {@link DefektazaController} proveravamo da li smo u EDIT MODU ili u NEW MODU.
+     * Ako smo u EDITu onda se ne pravi novi Objekat {@link Defektaza},
+     * a ako smo u NEW pravimo novi objekat {@link Defektaza}.
+     *
+     * @see DefektazaController #newOrEditRAdniNalog(boolean)
+     * @see DefektazaController#initialize(URL, ResourceBundle)
+     * @see Defektaza
+     */
+    public boolean isDefektazaInEditMode() {
+        return isDefektazaInEditMode;
+    }
+
 
     /**
      * Empty AutomobilController Constructor
@@ -247,8 +281,24 @@ public class AutomobiliController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //tblPosaoArtikli.getItems().remove(p);
+                //tblRadniNalozi.getItems().remove(p);
                 return p;
+            }));
+
+            //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli DEFEKTAZA
+            tblColBtnIzmeniDefektazu.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (Defektaza defektaza) -> {
+                // btnOpenEditRacunUiAction(p);
+                try {
+                    isDefektazaInEditMode = true; // U edit modu DEFEKTAZE smo
+                    brojDefektaze = defektaza.getIdDefektaze(); // Setuj broj DEFEKTAZE jer je EDIT MODE
+                    this.defektaza = defektaza;
+                    btnOpenDefektaza(); //Otvori DEFEKTAZU UI u EDIT MODU...Provera je u DEFEKTAZA CONTROLORU
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //tblDefektaza.getItems().remove(p);
+                return defektaza;
             }));
 
             txtFieldRegOznaka.setText(getAutomobil().get(0).getRegOznaka());// Moze jer je samo jedan Automobil
@@ -256,6 +306,7 @@ public class AutomobiliController implements Initializable {
 
             popuniTabeluRacuni(); // Popuni tabelu RACUNI sa podacima
             popuniTabeluRadniNalozi(); // Popuni tabelu RADNI NALOZI sa podacima
+            popuniTabeluDefektaza(); // Popuni tabelu DEFEKTAZE sa podacima
 
         });
     }
@@ -356,14 +407,15 @@ public class AutomobiliController implements Initializable {
      ********************************************************
      */
     /**
-     * Inicijalizacija Racuni Objekta iz DBa {@link SQLRacuniDAO}
+     * Inicijalizacija Radni Nalog Objekta iz DBa {@link SQLRadniNalogDAO}
      */
     private final RadniNalogDAO radniNalogDAO = new SQLRadniNalogDAO();
 
     /**
-     * ObservableList racuni koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link RacuniSearchType#ID_AUTOMOBILA}
+     * ObservableList racuni koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link RadniNalogSearchType#ID_AUTOMOBILA}
      */
     private ObservableList<RadniNalog> radniNalozi;
+
     /**
      * Popunjavanje tabele {@link #tblRadniNalozi} sa Radnim Nalozima filtriranim po ID AUTOMOBILU.
      * {@code getAutomobil().get(0).getIdAuta()} moze jer ima samo jedan auto sa tom REG. TABLICOM.
@@ -395,7 +447,7 @@ public class AutomobiliController implements Initializable {
 
 
     /**
-     * Otvaranje Prozora {@link rs.acreno.nalozi.RadniNalogController}
+     * Otvaranje Prozora {@link RadniNalogController}
      *
      * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
      */
@@ -425,6 +477,82 @@ public class AutomobiliController implements Initializable {
         return isRadniNalogInEditMode = false;
     }
 
+
+    /*
+     ********************************************************
+     *************** DEFEKTAZA ***************************
+     ********************************************************
+     */
+    /**
+     * Inicijalizacija Defektaza Objekta iz DBa {@link SQLDefektazaDAO}
+     */
+    private final DefektazaDAO defektazaDAO = new SQLDefektazaDAO();
+
+    /**
+     * ObservableList Defektaza koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link DefektazaSearchType#ID_AUTA}
+     */
+    private ObservableList<Defektaza> defektaze;
+
+
+    /**
+     * Popunjavanje tabele {@link #tblDefektaza} sa Defektaza filtriranim po ID AUTOMOBILU.
+     * {@code getAutomobil().get(0).getIdAuta()} moze jer ima samo jedan auto sa tom REG. TABLICOM.
+     */
+    private void popuniTabeluDefektaza() {
+        try {
+            defektaze = FXCollections.observableArrayList(
+                    defektazaDAO.findDefektazaByProperty(DefektazaSearchType.ID_AUTA, getAutomobil().get(0).getIdAuta()));
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        tblColIdDefektaze.setCellValueFactory(new PropertyValueFactory<>("idDefektaze"));
+        tblColIdDefektaze.setStyle("-fx-alignment: CENTER;");
+        tblColIdAutaDefektaze.setCellValueFactory(new PropertyValueFactory<>("idAuta"));
+        tblColIdAutaDefektaze.setStyle("-fx-alignment: CENTER;");
+        tblColKilometraza.setCellValueFactory(new PropertyValueFactory<>("kilometraza"));
+        tblColKilometraza.setStyle("-fx-alignment: CENTER;");
+        tblColDatumDefektaze.setCellValueFactory(new PropertyValueFactory<>("datumDefektaze"));
+        tblColDatumDefektaze.setStyle("-fx-alignment: CENTER;");
+        tblColVreme.setCellValueFactory(new PropertyValueFactory<>("vreme"));
+        tblColVreme.setStyle("-fx-alignment: CENTER;");
+        tblColOpisDefektaze.setCellValueFactory(new PropertyValueFactory<>("opisDefektaze"));
+        tblColOpisDefektaze.setStyle("-fx-alignment: CENTER;");
+        tblColOstaliDetaljiDefektaze.setCellValueFactory(new PropertyValueFactory<>("ostaliDetaljiDefektaze"));
+        tblColOstaliDetaljiDefektaze.setStyle("-fx-alignment: CENTER;");
+
+        tblDefektaza.setItems(defektaze);
+    }
+
+    @FXML
+    public boolean btnOpenDefektaza() throws IOException {
+
+        FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.DEFEKTAZA_UI_VIEW_URI));
+        Stage stageDefektaza = new Stage();
+        stageDefektaza.initModality(Modality.APPLICATION_MODAL);
+        stageDefektaza.setScene(new Scene(fxmlLoaderDefektaza.load()));
+
+        stageDefektaza.setOnCloseRequest(windowEvent -> {
+            popuniTabeluDefektaza(); //Popuni tabelu jer kada se pravi nova Defektaza nece da se refresuje.
+            tblDefektaza.refresh(); //Uradi refresh tabele Defektaza da se vide izmene.
+        });
+
+        //Inicijalizacija Defektaza Controllora-a i setovanje naslova
+        DefektazaController defektazaController = fxmlLoaderDefektaza.getController();
+        defektazaController.setAutmobilController(this, stageDefektaza);
+
+        //Postavi Title u stageu FakturaController
+        stageDefektaza.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
+                + " || Klijent: " + txtFieldImeKlijenta.getText());
+
+        defektazaController.setBrojDefektaze(brojDefektaze);//Prosledi u DefektazaView broj DF (EDIT MODE)
+        defektazaController.setEditDefektaza(defektaza); //Prosledi u Defektaza Objekat broj Defektaze (EDIT MODE)
+
+        stageDefektaza.showAndWait();
+        return isDefektazaInEditMode = false;
+    }
+
+
     /**
      * Zatvori prozor Automobili
      *
@@ -434,6 +562,7 @@ public class AutomobiliController implements Initializable {
     public void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
+
 
 }
 
