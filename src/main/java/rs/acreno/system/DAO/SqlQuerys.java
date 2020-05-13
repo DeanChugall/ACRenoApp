@@ -73,9 +73,10 @@ public class SqlQuerys {
                     ", kilometraza" +
                     ", datum" +
                     ", datumPrometa" +
+                    ", datumValute" +
                     ", popust" +
                     ", napomeneRacuna)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?);";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_RACUN_TABLE = "" +
             "UPDATE Racuni\n" +
@@ -84,6 +85,7 @@ public class SqlQuerys {
             ", kilometraza = ?" +
             ", datum = ?" +
             ", datumPrometa = ?" +
+            ", datumValute = ?" +
             ", popust = ?" +
             ", napomeneRacuna = ?" +
             "WHERE idRacuna=?";

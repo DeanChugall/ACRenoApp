@@ -5,12 +5,8 @@
 *.ear
 bin/
 
-# Eclipse #
-.classpath
-.project
-.settings/
-bin/
-target/
+# DB
+*.laccdb
 
 # IntelliJ IDEA
 .idea/

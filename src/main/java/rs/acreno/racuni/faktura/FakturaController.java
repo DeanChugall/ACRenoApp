@@ -52,7 +52,6 @@ import java.util.ResourceBundle;
 public class FakturaController implements Initializable {
 
 
-
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
@@ -67,6 +66,7 @@ public class FakturaController implements Initializable {
     @FXML private TextField txtFieldPretragaArtikla;
     @FXML private DatePicker datePickerDatumRacuna;
     @FXML private DatePicker datePickerDatumPrometa;
+    @FXML private DatePicker datePickerDatumValute;
     @FXML private TextArea txtAreaNapomenaRacuna;
     //Kalkulacije TFa
     @FXML private TextField txtFpopustRacuna;
@@ -326,6 +326,7 @@ public class FakturaController implements Initializable {
                 LocalDate now = LocalDate.now();
                 datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
                 datePickerDatumPrometa.setValue(now); //Postavi danasnji datum Prometa u datePiceru
+                datePickerDatumValute.setValue(now); //Postavi danasnji datum Prometa u datePiceru
                 newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
             }
         });
@@ -379,6 +380,7 @@ public class FakturaController implements Initializable {
             txtFidRacuna.setText(String.valueOf(noviRacun.getIdRacuna()));
             datePickerDatumRacuna.setValue(LocalDate.parse(noviRacun.getDatum()));
             datePickerDatumPrometa.setValue(LocalDate.parse(noviRacun.getDatumPrometa()));
+            datePickerDatumValute.setValue(LocalDate.parse(noviRacun.getDatumValute()));
             txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
             txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
             txtfKilometraza.setText(noviRacun.getKilometraza());
@@ -389,6 +391,7 @@ public class FakturaController implements Initializable {
             noviRacun.setKilometraza(txtfKilometraza.getText());
             noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
             noviRacun.setDatumPrometa(datePickerDatumPrometa.getValue().toString());
+            noviRacun.setDatumValute(datePickerDatumValute.getValue().toString());
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             if (!txtFpopustRacuna.getText().isEmpty())
                 noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
@@ -1024,6 +1027,7 @@ public class FakturaController implements Initializable {
             noviRacun.setKilometraza(txtfKilometraza.getText());
             noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
             noviRacun.setDatumPrometa(datePickerDatumPrometa.getValue().toString());
+            noviRacun.setDatumValute(datePickerDatumValute.getValue().toString());
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
             racuniDAO.updateRacun(noviRacun);

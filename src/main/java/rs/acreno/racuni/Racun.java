@@ -9,6 +9,7 @@ public class Racun {
     private String kilometraza;
     private String datum;
     private String datumPrometa;
+    private String datumValute;
     private int popust;
     private String napomeneRacuna;
 
@@ -55,6 +56,14 @@ public class Racun {
         this.datumPrometa = datumPrometa;
     }
 
+    public String getDatumValute() {
+        return datumValute;
+    }
+
+    public void setDatumValute(String datumValute) {
+        this.datumValute = datumValute;
+    }
+
     public int getPopust() {
         return popust;
     }
@@ -78,6 +87,7 @@ public class Racun {
                 ", kilometraza='" + kilometraza + '\'' +
                 ", datum='" + datum + '\'' +
                 ", datumPrometa='" + datumPrometa + '\'' +
+                ", datumValute='" + datumValute + '\'' +
                 ", popust=" + popust +
                 ", napomeneRacuna='" + napomeneRacuna + '\'' +
                 '}';

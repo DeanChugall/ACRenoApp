@@ -37,6 +37,7 @@ public class SQLRacuniDAO implements RacuniDAO {
                     , racun.getKilometraza()
                     , racun.getDatum()
                     , racun.getDatumPrometa()
+                    , racun.getDatumValute()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna());
 
@@ -59,6 +60,7 @@ public class SQLRacuniDAO implements RacuniDAO {
                     , racun.getKilometraza()
                     , racun.getDatum()
                     , racun.getDatumPrometa()
+                    , racun.getDatumValute()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna()
                     , racun.getIdRacuna());
