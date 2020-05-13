@@ -59,6 +59,4 @@ public class PrintNaloziController implements Initializable {
         GeneralUiUtility.printStaff(ancorPanePrint, btnPrint);
 
     }
-
-
 }

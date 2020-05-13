@@ -5,24 +5,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
+import rs.acreno.defektaza.print_defektaza.PrintDefektazaController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.nalozi.RadniNalog;
-import rs.acreno.nalozi.RadniNalogController;
-import rs.acreno.nalozi.RadniNalogDAO;
-import rs.acreno.nalozi.SQLRadniNalogDAO;
-import rs.acreno.nalozi.print_nalozi.PrintNaloziController;
+import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -32,19 +33,18 @@ import java.util.ResourceBundle;
 
 public class DefektazaController implements Initializable {
 
-
     @FXML private Button btnCloseDefektaza;
     @FXML private TextField txtfRegOznaka;
     @FXML private TextField txtfKlijent;
     @FXML private Button btnObrisiDefektazu;
-    @FXML private  TextField txtfIdDefektaze;
-    @FXML private  TextField txtfKilometraza;
-    @FXML private  TextField txtfVreme;
-    @FXML private  TextArea txtAreaOpisDefektaze;
-    @FXML private  TextArea txtAreOstaliDetaljiDefektaze;
+    @FXML private TextField txtfIdDefektaze;
+    @FXML private TextField txtfKilometraza;
+    @FXML private TextField txtfVreme;
+    @FXML private TextArea txtAreaOpisDefektaze;
+    @FXML private TextArea txtAreOstaliDetaljiDefektaze;
 
     @FXML private BorderPane defektazaUiBorderPane;
-    @FXML private  DatePicker datePickerDatum;
+    @FXML private DatePicker datePickerDatum;
 
     private AutomobiliController automobiliController;
     private Stage stageDefektaza;
@@ -60,11 +60,42 @@ public class DefektazaController implements Initializable {
     //INIT GUI FIELDS
     private int idAutomobila;
 
-    //RADNI NALOG STAFF OBJECT
-    private Defektaza defektaza;
 
     //RADNI NALOG STAFF OBJECT
     private Defektaza novaDefektaza;
+
+
+    public TextField getTxtfKlijent() {
+        return txtfKlijent;
+    }
+
+    public TextField getTxtfRegOznaka() {
+        return txtfRegOznaka;
+    }
+
+    public DatePicker getDatePickerDatum() {
+        return datePickerDatum;
+    }
+
+    public TextField getTxtfIdDefektaze() {
+        return txtfIdDefektaze;
+    }
+
+    public TextField getTxtfKilometraza() {
+        return txtfKilometraza;
+    }
+
+    public TextField getTxtfVreme() {
+        return txtfVreme;
+    }
+
+    public TextArea getTxtAreaOpisDefektaze() {
+        return txtAreaOpisDefektaze;
+    }
+
+    public TextArea getTxtAreOstaliDetaljiDefektaze() {
+        return txtAreOstaliDetaljiDefektaze;
+    }
 
 
     /**
@@ -201,6 +232,7 @@ public class DefektazaController implements Initializable {
             );
         }
     }
+
     /**
      * Brisanje {@link Defektaza} Objekta jer smo odustali i li vise necemo ovau Defektazu
      * <p>
@@ -239,5 +271,33 @@ public class DefektazaController implements Initializable {
         //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
         btnCloseDefektaza.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    }
+
+    /**
+     * Inicijalizacija {@link PrintDefektazaController}, a implementira se {@link #initialize}
+     *
+     * @param fxmlLoader prosledjivanje FXMLoadera {@link PrintDefektazaController} - u
+     * @see PrintDefektazaController
+     */
+    private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
+        PrintDefektazaController printDefektazaController = fxmlLoader.getController();
+        printDefektazaController.setDefektazaController(this, stageDefektaza);
+        //uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
+    }
+
+    public void btnPrintPregledDefektaza(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_DEFEKTAZA_UI_VIEW_URI));
+            stageDefektaza = new Stage();
+            stageDefektaza.initModality(Modality.APPLICATION_MODAL);
+            stageDefektaza.setScene(new Scene(loader.load()));
+
+            initUiPrintControler(loader); //Inicijalizacija Porint Controlora i prosledjivanje id Racuna
+
+            stageDefektaza.showAndWait();//Open Stage and wait
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

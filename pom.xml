@@ -92,6 +92,9 @@
                 <directory>src\main\java\rs\acreno\defektaza\ui_defektaza</directory>
             </resource>
             <resource>
+                <directory>src\main\java\rs\acreno\defektaza\print_defektaza\ui_print_defektaza</directory>
+            </resource>
+            <resource>
                 <directory>src\main\resources\AcrDB</directory>
                 <excludes>
                     <exclude>*.laccdb</exclude>

@@ -26,6 +26,7 @@ public class Constants {
     public static final String RADNI_NALOZI_UI_VIEW_URI = "/radni_nalozi_ui.fxml";
     public static final String PRINT_RADNI_NALOG_UI_VIEW_URI = "/ui_print_nalozi.fxml";
     public static final String DEFEKTAZA_UI_VIEW_URI = "/defektaza_ui.fxml";
+    public static final String PRINT_DEFEKTAZA_UI_VIEW_URI = "/ui_print_defektaza.fxml";
 
 
 

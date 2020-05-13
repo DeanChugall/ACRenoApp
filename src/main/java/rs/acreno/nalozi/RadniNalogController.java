@@ -188,8 +188,6 @@ public class RadniNalogController implements Initializable {
         }
     }
 
-
-
     /*
      ************************************************************
      ******************* BUTTON ACTION STAFF*********************
