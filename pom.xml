@@ -94,6 +94,11 @@
             <resource>
                 <directory>src\main\java\rs\acreno\defektaza\print_defektaza\ui_print_defektaza</directory>
             </resource>
+            <!--FX CSS-->
+            <resource>
+                <directory>src/main/resources/fx-css/</directory>
+            </resource>
+            <!--APP DATABASE-->
             <resource>
                 <directory>src\main\resources\AcrDB</directory>
                 <excludes>

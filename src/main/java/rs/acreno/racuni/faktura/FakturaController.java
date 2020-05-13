@@ -51,6 +51,7 @@ import java.util.ResourceBundle;
 
 public class FakturaController implements Initializable {
 
+
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
@@ -147,6 +148,8 @@ public class FakturaController implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
     @FXML private TableColumn<PosaoArtikli, String> tblRowDetaljiPosaoArtikl;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalCene;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalNabavneCene;
     @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
 
     //INIT GUI FIELDS
@@ -296,9 +299,12 @@ public class FakturaController implements Initializable {
                 return p;
             }));
 
-            //Izracunavanje TOTAL sume u tabeli
+            //Izracunavanje GRAND TOTAL sume u tabeli Posao Artikli
             setGrandTotalSuma(tblRowTotal);
-
+            //Izracunavanje CENE TOTAL sume u tabeli Posao Artikli
+            setTotalSumaCene(tblRowTotalCene);
+            //Izracunavanje NABAVNE CENE TOTAL sume u tabeli Posao Artikli
+            setTotalSumaNabavneCene(tblRowTotalNabavneCene);
             // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
             if (automobiliController.isRacunInEditMode()) { //TRUE
                 newOrEditRacun(true);
@@ -321,6 +327,8 @@ public class FakturaController implements Initializable {
             }
         });
     }
+
+
 
     /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
@@ -674,7 +682,7 @@ public class FakturaController implements Initializable {
      */
     private double izracunajTotalNabavneCene() {
         return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
-                tblRowNabavnaCena.getCellData(o).doubleValue()).sum();
+                tblRowTotalNabavneCene.getCellData(o).doubleValue()).sum();
     }
 
     /**
@@ -688,7 +696,7 @@ public class FakturaController implements Initializable {
      */
     private double izracunajTotalRegularneCene() {
         return tblPosaoArtikli.getItems().stream().mapToDouble(o ->
-                tblRowCena.getCellData(o).doubleValue()).sum();
+                tblRowTotalCene.getCellData(o).doubleValue()).sum();
     }
 
     /**
@@ -709,7 +717,7 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     * Izracunavanje GRAND TOTAL SUME
+     * Izracunavanje GRAND TOTAL SUME sa svim popustima i na Artikle(Delove) i na popust ceo racun
      * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
@@ -719,13 +727,13 @@ public class FakturaController implements Initializable {
      */
     public static void setGrandTotalSuma(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
         tblRowTotal.setCellValueFactory(cellData -> {
-            PosaoArtikli data = cellData.getValue();
+            PosaoArtikli posaoArtikli = cellData.getValue();
             return Bindings.createDoubleBinding(
                     () -> {
                         try {
-                            double price = Double.parseDouble(String.valueOf(data.getCena()));
-                            double quantity = Integer.parseInt(String.valueOf(data.getKolicina()));
-                            double popust = Integer.parseInt(String.valueOf(data.getPopust()));
+                            double price = Double.parseDouble(String.valueOf(posaoArtikli.getCena()));
+                            double quantity = Integer.parseInt(String.valueOf(posaoArtikli.getKolicina()));
+                            double popust = Integer.parseInt(String.valueOf(posaoArtikli.getPopust()));
                             double total = price * quantity;
                             return total - ((total * popust) / 100);
 
@@ -737,6 +745,59 @@ public class FakturaController implements Initializable {
         });
     }
 
+    /**
+     * Izracunavanje TOTAL SUME CENA bez popusta na racuni ili na artiklima
+     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
+     *
+     * @param tblRowTotal ciljna kolona u tabeli
+     * @see UiPrintRacuniControler
+     * @see #initUiPrintControler(FXMLLoader)
+     */
+    private void setTotalSumaCene(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
+        tblRowTotal.setCellValueFactory(cellData -> {
+            PosaoArtikli posaoArtikli = cellData.getValue();
+            return Bindings.createDoubleBinding(
+                    () -> {
+                        try {
+                            double price = Double.parseDouble(String.valueOf(posaoArtikli.getCena()));
+                            double quantity = Integer.parseInt(String.valueOf(posaoArtikli.getKolicina()));
+                            return price * quantity;
+
+                        } catch (NumberFormatException nfe) {
+                            return (double) 0;
+                        }
+                    }
+            );
+        });
+    }
+
+    /**
+     * Izracunavanje TOTAL SUME NABAVNA CENA bez popusta na racuni ili na artiklima
+     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
+     *
+     * @param tblRowTotal ciljna kolona u tabeli
+     * @see UiPrintRacuniControler
+     * @see #initUiPrintControler(FXMLLoader)
+     */
+    private void setTotalSumaNabavneCene(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
+        tblRowTotal.setCellValueFactory(cellData -> {
+            PosaoArtikli posaoArtikli = cellData.getValue();
+            return Bindings.createDoubleBinding(
+                    () -> {
+                        try {
+                            double price = Double.parseDouble(String.valueOf(posaoArtikli.getNabavnaCena()));
+                            double quantity = Integer.parseInt(String.valueOf(posaoArtikli.getKolicina()));
+                            return price * quantity;
+
+                        } catch (NumberFormatException nfe) {
+                            return (double) 0;
+                        }
+                    }
+            );
+        });
+    }
 
     /*
      ************************************************************

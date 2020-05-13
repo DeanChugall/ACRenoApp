@@ -173,8 +173,6 @@ public class DefektazaController implements Initializable {
             novaDefektaza.setIdAuta(idAutomobila);
             novaDefektaza.setKilometraza(txtfKilometraza.getText());
             novaDefektaza.setDatumDefektaze(datePickerDatum.getValue().toString());
-
-
             try {
                 defektazaDAO.insertDefektaza(novaDefektaza);
                 //Inicijalizacija broja fakture MORA DA IDE OVDE
