@@ -86,6 +86,8 @@
                   <TextField fx:id="txtfGrandTotal" layoutX="1074.0" layoutY="596.0" text="0" />
                   <Label layoutX="875.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Kilometraza" textFill="#d3d3d3" />
                   <TextField fx:id="txtfKilometraza" layoutX="869.0" layoutY="47.0" prefHeight="25.0" prefWidth="125.0" promptText="Unesite Kilometražu" />
+                  <Label layoutX="190.0" layoutY="77.0" prefHeight="23.0" prefWidth="111.0" text="Datum Prometa" textFill="#d3d3d3" />
+                  <DatePicker fx:id="datePickerDatumPrometa" layoutX="190.0" layoutY="98.0" />
                     </children>
                 </AnchorPane>
             </items>

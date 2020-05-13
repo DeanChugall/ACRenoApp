@@ -12,13 +12,13 @@
 
 <AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.UiPrintRacuniControler">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="405.0" layoutY="72.0" prefHeight="33.0" prefWidth="247.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="405.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="72.0">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnPrint" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
-      <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="8.0" layoutY="221.0" prefHeight="200.0" prefWidth="659.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <Button fx:id="btnPrint" layoutX="625.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintAct" text="Print" />
+      <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="10.0" layoutY="319.0" prefHeight="283.0" prefWidth="657.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <columns>
             <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
             <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
@@ -33,22 +33,32 @@
             <TableColumn fx:id="tblRowTotal" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Total" />
          </columns>
       </TableView>
-      <TextField fx:id="txtFidRacuna" layoutX="14.0" layoutY="105.0" prefHeight="25.0" prefWidth="99.0" />
-      <Label layoutX="14.0" layoutY="88.0" text="ID Racuna" />
+      <TextField fx:id="txtFidRacuna" layoutX="311.0" layoutY="39.0" prefHeight="25.0" prefWidth="99.0" />
+      <Label layoutX="324.0" layoutY="15.0" text="ID Racuna" />
       <ImageView fitHeight="74.0" fitWidth="141.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:\C:\Users\Dean VM\Desktop\ACrenoApp\src\main\resources\images\faktura\logo-acreno.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="290.0" layoutY="542.0" text="UKUPNO SA POPUSTOM Na DELOVE" />
-      <Label fx:id="lblGrandTotal" alignment="CENTER" contentDisplay="CENTER" layoutX="503.0" layoutY="534.0" prefHeight="33.0" prefWidth="117.0" style="-fx-border-color: #2d2d2d;" text="0" textAlignment="CENTER" />
-      <Label layoutX="339.0" layoutY="491.0" text="UKUPNO BEZ POPUSTA" />
-      <TextField fx:id="txtfTotalBezPopusta" layoutX="487.0" layoutY="487.0" />
-      <Label layoutX="172.0" layoutY="88.0" text="POPUST NA RACUNU" />
-      <TextField fx:id="txtFpopustRacuna" layoutX="163.0" layoutY="105.0" />
-      <Label layoutX="362.0" layoutY="628.0" text="GRAND TOTAL:" />
-      <TextField fx:id="txtfGrandTotal" layoutX="475.0" layoutY="624.0" />
-      <Label layoutX="371.0" layoutY="592.0" text="Popust %" />
-      <TextField fx:id="txtfPopustDoleNaRacunu" layoutX="465.0" layoutY="588.0" />
+      <Label layoutX="279.0" layoutY="692.0" text="UKUPNO SA POPUSTOM Na DELOVE" />
+      <Label fx:id="lblGrandTotal" alignment="CENTER" contentDisplay="CENTER" layoutX="492.0" layoutY="684.0" prefHeight="33.0" prefWidth="117.0" style="-fx-border-color: #2d2d2d;" text="0" textAlignment="CENTER" />
+      <Label layoutX="328.0" layoutY="641.0" text="UKUPNO BEZ POPUSTA" />
+      <TextField fx:id="txtfTotalBezPopusta" layoutX="476.0" layoutY="637.0" />
+      <Label layoutX="34.0" layoutY="242.0" text="POPUST NA RACUNU" />
+      <TextField fx:id="txtFpopustRacuna" layoutX="25.0" layoutY="259.0" />
+      <Label layoutX="351.0" layoutY="778.0" text="GRAND TOTAL:" />
+      <TextField fx:id="txtfGrandTotal" layoutX="464.0" layoutY="774.0" />
+      <Label layoutX="360.0" layoutY="742.0" text="Popust %" />
+      <TextField fx:id="txtfPopustDoleNaRacunu" layoutX="454.0" layoutY="738.0" />
+      <Label layoutX="149.0" layoutY="88.0" text="Datum Računa" />
+      <Label layoutX="25.0" layoutY="203.0" text="Reg. Oznaka" />
+      <Label layoutX="26.0" layoutY="171.0" text="VIN Vizila" />
+      <Label layoutX="25.0" layoutY="142.0" text="Klijent" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="33.0" prefWidth="141.0" text="Račun br.">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="302.0" layoutY="163.0" text="Datum Prometa" />
    </children>
 </AnchorPane>

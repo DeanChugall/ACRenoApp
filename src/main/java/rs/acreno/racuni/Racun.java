@@ -8,6 +8,7 @@ public class Racun {
     private int IdAutomobila;
     private String kilometraza;
     private String datum;
+    private String datumPrometa;
     private int popust;
     private String napomeneRacuna;
 
@@ -46,6 +47,14 @@ public class Racun {
         this.datum = datum;
     }
 
+    public String getDatumPrometa() {
+        return datumPrometa;
+    }
+
+    public void setDatumPrometa(String datumPrometa) {
+        this.datumPrometa = datumPrometa;
+    }
+
     public int getPopust() {
         return popust;
     }
@@ -68,6 +77,7 @@ public class Racun {
                 ", IdAutomobila=" + IdAutomobila +
                 ", kilometraza='" + kilometraza + '\'' +
                 ", datum='" + datum + '\'' +
+                ", datumPrometa='" + datumPrometa + '\'' +
                 ", popust=" + popust +
                 ", napomeneRacuna='" + napomeneRacuna + '\'' +
                 '}';

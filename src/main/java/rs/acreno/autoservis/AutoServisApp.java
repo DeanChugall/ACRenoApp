@@ -39,7 +39,7 @@ public class AutoServisApp extends Application {
         stage.setResizable(false);
         stage.show();
         //Load splash screen with fade in effect
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(3), stage.getScene().getRoot());
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), stage.getScene().getRoot());
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.setCycleCount(1);
@@ -65,7 +65,7 @@ public class AutoServisApp extends Application {
                     }
                 }
             };
-            t.schedule(tt, 3000, 10000);
+            t.schedule(tt, 500, 5000);
         });
 
         fadeOut.setOnFinished((e) -> Platform.runLater(new Runnable() {
