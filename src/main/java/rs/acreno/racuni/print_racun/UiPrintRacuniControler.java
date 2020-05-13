@@ -32,7 +32,7 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private Button btnPrint;
     @FXML private AnchorPane ancorPanePrint;
     @FXML private TextField txtFidRacuna;
-    @FXML private Label lblGrandTotal;
+    @FXML private TextField txtfUkupnoSadPopustomNaDelove;
     @FXML private TextField txtfTotalBezPopusta;
     @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtfPopustDoleNaRacunu;
@@ -70,7 +70,7 @@ public class UiPrintRacuniControler implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             txtFidRacuna.setText(fakturaController.getIdRacuna()); // SET ID RACUNA/FAKTURE form Faktura Controller
-            lblGrandTotal.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
+            txtfUkupnoSadPopustomNaDelove.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
             txtfTotalBezPopusta.setText(fakturaController.getTotalBezPopustaSuma()); // Set Total bez popusta form Faktura Controller
             txtFpopustRacuna.setText(fakturaController.getPopustRacuna()); // Set Popust RACUNA TF
             txtfPopustDoleNaRacunu.setText(txtFpopustRacuna.getText());
