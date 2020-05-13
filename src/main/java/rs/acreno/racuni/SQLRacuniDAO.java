@@ -36,6 +36,7 @@ public class SQLRacuniDAO implements RacuniDAO {
                     , racun.getIdAutomobila()
                     , racun.getKilometraza()
                     , racun.getDatum()
+                    , racun.getDatumPrometa()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna());
 
