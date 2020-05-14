@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
@@ -34,6 +35,7 @@ public class UiPrintRacuniControler implements Initializable {
     //HEADER
     @FXML private AnchorPane ancorPanePrint;
     @FXML private Button btnPrint;
+    @FXML private Button btnPrintClose;
 
     //RACUN FIELDS IN PRINT
     private Racun racun;
@@ -118,7 +120,6 @@ public class UiPrintRacuniControler implements Initializable {
             initKlijentsFields();//INIT KLIJENT FIELDS
             initAutomobil();//INIT AUTOMOBIL FIELDS
 
-
             //INIT KALKULACIJE
             txtfUkupnoSadPopustomNaDelove.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
             txtfTotalBezPopusta.setText(fakturaController.getTotalBezPopustaSuma()); // Set Total bez popusta form Faktura Controller
@@ -134,13 +135,10 @@ public class UiPrintRacuniControler implements Initializable {
         });
     }
 
-
     public void btnPrintAct(ActionEvent actionEvent) {
-
         ancorPanePrint.requestFocus(); // remove focus from table for print
         tblPosaoArtikli.getSelectionModel().clearSelection(); // clear selection from table for print
-
-        GeneralUiUtility.printStaff(ancorPanePrint, btnPrint);
+        GeneralUiUtility.printStaff(ancorPanePrint, btnPrint, btnPrintClose);
     }
 
     private void popuniTabeluPosaoArtikli() {
@@ -253,7 +251,12 @@ public class UiPrintRacuniControler implements Initializable {
         txtfSnagaAutomobila.setText(String.valueOf(automobil.getSnagaVozila()));
     }
 
-    public void btnPrintActClose(ActionEvent actionEvent) {
+    /**
+     * TODO: Napisati JAVA DOC
+     *
+     * @param actionEvent
+     */
+    @FXML private void btnPrintActClose(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

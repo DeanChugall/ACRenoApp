@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -74,6 +75,7 @@ public class AutoServisApp extends Application {
                     Parent root = FXMLLoader.load(getClass().getResource(Constants.HOME_UI_VIEW_URI));
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
+                    stage.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
                     stage.setScene(scene);
                     stage.setTitle("ACR Informacioni Sistem || ACReno auto Servis");
                     stage.show();

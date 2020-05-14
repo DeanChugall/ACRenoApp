@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.defektaza.DefektazaController;
 import rs.acreno.system.util.GeneralUiUtility;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PrintDefektazaController implements Initializable {
 
+    @FXML private Button btnZatvoriPrintDefektaza;
     @FXML private AnchorPane ancorPanePrint;
     @FXML private Button btnPrintDefektaza;
 
@@ -54,8 +56,22 @@ public class PrintDefektazaController implements Initializable {
         });
     }
 
+    /**
+     * TODO: Napisati JAVA DOC
+     *
+     * @param actionEvent
+     */
     public void btnPrintActDefektazaAct(ActionEvent actionEvent) {
         ancorPanePrint.requestFocus(); // remove focus from table for print
-        GeneralUiUtility.printStaff(ancorPanePrint, btnPrintDefektaza);
+        GeneralUiUtility.printStaff(ancorPanePrint, btnPrintDefektaza, btnZatvoriPrintDefektaza);
+    }
+
+    /**
+     * TODO: Napisati JAVA DOC
+     *
+     * @param actionEvent
+     */
+    @FXML private void btnZatvoriPrintDefektazaActtion(@NotNull ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.Automobil;
@@ -283,6 +284,7 @@ public class RadniNalogController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_RADNI_NALOG_UI_VIEW_URI));
             stagePrintRadniNalog = new Stage();
             stagePrintRadniNalog.initModality(Modality.APPLICATION_MODAL);
+            stagePrintRadniNalog.initStyle(StageStyle.UNDECORATED);
             stagePrintRadniNalog.setScene(new Scene(loader.load()));
 
             initUiPrintControler(loader); //Inicijalizacija Porint Controlora i prosledjivanje id Racuna

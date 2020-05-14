@@ -16,7 +16,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnPrintDefektaza" layoutX="528.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnPrintActDefektazaAct" text="Print" />
+      <Button fx:id="btnPrintDefektaza" layoutX="466.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPrintActDefektazaAct" prefHeight="55.0" prefWidth="105.0" text="Print" />
 
       <TextField fx:id="txtFidDefektaze" layoutX="134.0" layoutY="88.0" prefHeight="39.0" prefWidth="192.0">
          <font>
@@ -61,6 +61,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </TextField>
+      <Button fx:id="btnZatvoriPrintDefektaza" layoutX="580.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnZatvoriPrintDefektazaActtion" prefHeight="39.0" prefWidth="70.0" text="Zatvori" />
 
    </children>
 </AnchorPane>

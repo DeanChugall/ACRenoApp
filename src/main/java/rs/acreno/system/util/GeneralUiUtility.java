@@ -56,11 +56,19 @@ public class GeneralUiUtility {
         return alert;
     }
 
-    public static void printStaff(AnchorPane ancorPanePrint, Button btnPrint) {
+    /**
+     * TODO: Napisati Java Doc
+     *
+     * @param ancorPanePrint
+     * @param btnPrint
+     * @param closePrint
+     */
+    public static void printStaff(AnchorPane ancorPanePrint, Button btnPrint, Button closePrint) {
         PrinterJob printJobRadniNalog = PrinterJob.createPrinterJob();
 
         if (printJobRadniNalog != null && printJobRadniNalog.showPrintDialog(ancorPanePrint.getScene().getWindow())) {
             btnPrint.setVisible(false);
+            closePrint.setVisible(false);
             Printer printer = printJobRadniNalog.getPrinter();
             printJobRadniNalog.getJobSettings().setPrintQuality(PrintQuality.HIGH);
             PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
@@ -82,6 +90,7 @@ public class GeneralUiUtility {
                         , "GREŠKA U PRINTU" + printJobRadniNalog.getJobStatus());
             }
             btnPrint.setVisible(true);
+            closePrint.setVisible(true);
         }
     }
 
@@ -90,6 +99,7 @@ public class GeneralUiUtility {
      * Koristimo svuda gde treba da se postavi datum...npr. iz DatePckera u bazu pa jedna od koriscenja je
      * {@link rs.acreno.racuni.faktura.FakturaController #newOrEditRacun} i u
      * {@link FakturaController #btnSacuvajRacunAction()}
+     *
      * @param date uzima LocalDate i vraca Formatiran String
      */
     public static @NotNull String formatDateForUs(@NotNull LocalDate date) {
@@ -102,6 +112,7 @@ public class GeneralUiUtility {
      * Koristimo svuda gde treba da se postavi datum...npr. iz DatePckera u bazu pa jedna od koriscenja je
      * {@link rs.acreno.racuni.faktura.FakturaController #newOrEditRacun} i u
      * {@link FakturaController #btnSacuvajRacunAction()}
+     *
      * @param string Uzima String i vraca formatiran LocalDate
      */
     public static @Nullable LocalDate fromStringDate(String string) {
@@ -109,8 +120,14 @@ public class GeneralUiUtility {
         return LocalDate.parse(string, formatter);
     }
 
+    /**
+     * //TODO: Napisati DOC
+     *
+     * @param sum double koji se formatra
+     * @return String pa se posle radi parse to Double
+     */
     public static String formatDecimalPlaces(double sum) {
-        return  new DecimalFormat("###,###.00").format(sum);
+        return new DecimalFormat("###,###.00").format(sum);
     }
 }
 

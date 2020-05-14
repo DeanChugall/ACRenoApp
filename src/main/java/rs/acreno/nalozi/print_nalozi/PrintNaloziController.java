@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.nalozi.RadniNalogController;
 import rs.acreno.system.util.GeneralUiUtility;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PrintNaloziController implements Initializable {
 
+    @FXML private Button btnPrintZatvori;
     @FXML private TextField txtfKlijent;
     @FXML private TextArea txtAreaDetaljiKlijenta;
     @FXML private TextArea txtAreaDetaljiServisera;
@@ -56,7 +58,11 @@ public class PrintNaloziController implements Initializable {
     public void btnPrintAct(ActionEvent actionEvent) {
         ancorPanePrint.requestFocus(); // remove focus from table for print
 
-        GeneralUiUtility.printStaff(ancorPanePrint, btnPrint);
+        GeneralUiUtility.printStaff(ancorPanePrint, btnPrint, btnPrintZatvori);
 
+    }
+
+    @FXML private void btnZatvoriPrintAct(@NotNull ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

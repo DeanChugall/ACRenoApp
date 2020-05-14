@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -377,6 +378,7 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderFaktura = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
         Stage stageFaktura = new Stage();
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
+        stageFaktura.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
         stageFaktura.setOnCloseRequest(windowEvent -> {
             popuniTabeluRacuni(); //Popuni tabelu jer kada se pravi novi racun nece da se refresuje
@@ -451,6 +453,7 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.RADNI_NALOZI_UI_VIEW_URI));
         Stage stageRadniNalog = new Stage();
         stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
+        stageRadniNalog.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
 
         stageRadniNalog.setOnCloseRequest(windowEvent -> {
@@ -522,6 +525,7 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.DEFEKTAZA_UI_VIEW_URI));
         Stage stageDefektaza = new Stage();
         stageDefektaza.initModality(Modality.APPLICATION_MODAL);
+        stageDefektaza.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageDefektaza.setScene(new Scene(fxmlLoaderDefektaza.load()));
 
         stageDefektaza.setOnCloseRequest(windowEvent -> {

@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -23,6 +24,7 @@ import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.URL;
@@ -201,6 +203,7 @@ public class AutoServisController implements Initializable {
             // Standart FX load UI
             FXMLLoader fxmlLoaderAutomobil = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
             Stage stageAutomobil = new Stage();
+            stageAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
             stageAutomobil.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(fxmlLoaderAutomobil.load());
             stageAutomobil.setScene(scene);

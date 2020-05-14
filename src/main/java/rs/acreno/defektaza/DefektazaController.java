@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.Automobil;
@@ -288,6 +289,7 @@ public class DefektazaController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_DEFEKTAZA_UI_VIEW_URI));
             stageDefektaza = new Stage();
             stageDefektaza.initModality(Modality.APPLICATION_MODAL);
+            stageDefektaza.initStyle(StageStyle.UNDECORATED);
             stageDefektaza.setScene(new Scene(loader.load()));
 
             initUiPrintControler(loader); //Inicijalizacija Porint Controlora i prosledjivanje id Racuna
