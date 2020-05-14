@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="936.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.UiPrintRacuniControler">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="936.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.PrintRacuniControler">
     <children>
         <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="555.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
             <image>

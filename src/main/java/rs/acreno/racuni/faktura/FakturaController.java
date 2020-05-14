@@ -37,7 +37,7 @@ import rs.acreno.klijent.Klijent;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
-import rs.acreno.racuni.print_racun.UiPrintRacuniControler;
+import rs.acreno.racuni.print_racun.PrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
@@ -154,49 +154,49 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     * Geter za {@link #txtFpopustRacuna} {@link UiPrintRacuniControler#initialize} polje koje popunjava popust na racunu.
+     * Geter za {@link #txtFpopustRacuna} {@link PrintRacuniControler#initialize} polje koje popunjava popust na racunu.
      *
      * @return popust na celom racunu
      * @see #izracunajGrandTotalSaPopustomNaCeoRacun()
-     * @see UiPrintRacuniControler#initialize
+     * @see PrintRacuniControler#initialize
      */
     public String getPopustRacuna() {
         return txtFpopustRacuna.getText();
     }
 
     /**
-     * Geter za {@link #txtfTotalSaPopustomNaDelove} total sumu sa popustom na delove u {@link UiPrintRacuniControler#initialize}.
+     * Geter za {@link #txtfTotalSaPopustomNaDelove} total sumu sa popustom na delove u {@link PrintRacuniControler#initialize}.
      * Implementira se u {@link #izracunajTotalSumaSaPopustomNaDelove()} ()}
      *
      * @return suma sa popustom na delove
      * @see #izracunajTotalSumaSaPopustomNaDelove()
-     * @see UiPrintRacuniControler#initialize
+     * @see PrintRacuniControler#initialize
      */
     public String getTotalSumaSaPopustomNaDelove() {
         return txtfTotalSaPopustomNaDelove.getText();
     }
 
     /**
-     * Geter za {@link #txtfTotalPoCenama} koji se koristu u  {@link UiPrintRacuniControler#initialize}
+     * Geter za {@link #txtfTotalPoCenama} koji se koristu u  {@link PrintRacuniControler#initialize}
      * Popunjavanje polja za total sa popustom na delove.
      * Implementira se u {@link #izracunajTotalSumaSaPopustomNaDelove()} ()} ()}
      *
      * @return popust na delovima
      * @see #izracunajTotalSumaSaPopustomNaDelove()
-     * @see UiPrintRacuniControler#initialize
+     * @see PrintRacuniControler#initialize
      */
     public String getTotalBezPopustaSuma() {
         return txtfTotalPoCenama.getText();
     }
 
     /**
-     * Geter za {@link #txtfGrandTotal} koji se koristu u  {@link UiPrintRacuniControler#initialize}
+     * Geter za {@link #txtfGrandTotal} koji se koristu u  {@link PrintRacuniControler#initialize}
      * Popunjavanje polja za GRAND TOTAL u Print racunu, on racuna sve i uzima u obzir popust na ceo racun.
      * Implementira se u {@link #izracunajGrandTotalSaPopustomNaCeoRacun()} ()}
      *
      * @return popust na celom racunu
      * @see #izracunajGrandTotalSaPopustomNaCeoRacun()
-     * @see UiPrintRacuniControler#initialize
+     * @see PrintRacuniControler#initialize
      */
     public String getGrandTotalSumaSuma() {
         return txtfGrandTotal.getText();
@@ -760,11 +760,11 @@ public class FakturaController implements Initializable {
 
     /**
      * Izracunavanje GRAND TOTAL SUME sa svim popustima i na Artikle(Delove) i na popust ceo racun
-     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * Koristimo je i u {@link PrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
-     * @see UiPrintRacuniControler
+     * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
     public static void setGrandTotalSuma(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
@@ -789,11 +789,11 @@ public class FakturaController implements Initializable {
 
     /**
      * Izracunavanje TOTAL SUME CENA bez popusta na racuni ili na artiklima
-     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * Koristimo je i u {@link PrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
-     * @see UiPrintRacuniControler
+     * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
     private void setTotalSumaCene(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
@@ -816,11 +816,11 @@ public class FakturaController implements Initializable {
 
     /**
      * Izracunavanje TOTAL SUME NABAVNA CENA bez popusta na racuni ili na artiklima
-     * Koristimo je i u {@link UiPrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
+     * Koristimo je i u {@link PrintRacuniControler#initialize(URL, ResourceBundle)} preko setovanog
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
-     * @see UiPrintRacuniControler
+     * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
     private void setTotalSumaNabavneCene(@NotNull TableColumn<PosaoArtikli, Number> tblRowTotal) {
@@ -992,23 +992,23 @@ public class FakturaController implements Initializable {
     //******************* PRINT INICIJALIZACIJA*******************
 
     /**
-     * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link UiPrintRacuniControler}
+     * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link PrintRacuniControler}
      */
     private Stage stagePrint;
 
     /**
-     * Inicijalizacija {@link UiPrintRacuniControler}, a implementira se {@link #initialize}
+     * Inicijalizacija {@link PrintRacuniControler}, a implementira se {@link #initialize}
      *
-     * @param fxmlLoader prosledjivanje FXMLoadera {@link UiPrintRacuniControler} - u
-     * @see UiPrintRacuniControler
+     * @param fxmlLoader prosledjivanje FXMLoadera {@link PrintRacuniControler} - u
+     * @see PrintRacuniControler
      */
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
-        UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
-        uiPrintRacuniControler.setFakturaController(this, stagePrint);
+        PrintRacuniControler printRacuniControler = fxmlLoader.getController();
+        printRacuniControler.setFakturaController(this, stagePrint);
     }
 
     /**
-     * Otvaranje Print Fakture {@link UiPrintRacuniControler}
+     * Otvaranje Print Fakture {@link PrintRacuniControler}
      * <p>
      * Posto je moguce da se doda napomena racuna u {@link #txtAreaNapomenaRacuna} i da se klikne odmah na PRINT
      * moramo da sacuvamo izmene u racunu a u {@link #btnSacuvajRacunAction()}. U ovoj metodi imamo obavestenje da je
@@ -1019,7 +1019,7 @@ public class FakturaController implements Initializable {
      * Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
      *
      * @see #initUiPrintControler(FXMLLoader)
-     * @see UiPrintRacuniControler
+     * @see PrintRacuniControler
      * @see #btnSacuvajRacunAction()
      */
     @FXML

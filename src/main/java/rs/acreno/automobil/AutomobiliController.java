@@ -70,8 +70,8 @@ public class AutomobiliController implements Initializable {
 
     //FXMLs TABELA DEFEKTAZE
     @FXML private TableView<Defektaza> tblDefektaza;
-    @FXML private TableColumn<Defektaza, Integer> tblColIdDefektaze;
-    @FXML private TableColumn<Defektaza, Integer> tblColIdAutaDefektaze;
+    @FXML private TableColumn<Defektaza, Number> tblColIdDefektaze;
+    @FXML private TableColumn<Defektaza, Number> tblColIdAutaDefektaze;
     @FXML private TableColumn<Defektaza, String> tblColKilometraza;
     @FXML private TableColumn<Defektaza, String> tblColDatumDefektaze;
     @FXML private TableColumn<Defektaza, String> tblColVreme;
@@ -443,35 +443,27 @@ public class AutomobiliController implements Initializable {
         tblColRadniNalogDatum.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDatum()));
         tblColRadniNalogDatum.setStyle("-fx-alignment: CENTER;");
-        //tblColRadniNalogDatum.setCellValueFactory(new PropertyValueFactory<>("Datum"));
 
         //tblCol VREME RADNOG NALOGA
         tblColRadniNalogVreme.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getVreme()));
         tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
-        // tblColRadniNalogVreme.setCellValueFactory(new PropertyValueFactory<>("Vreme"));
-        //tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
 
         //tblCol KILOMETRAZA RADNOG NALOGA
         tblColRadniNalogKilometraza.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getKilometraza()));
         tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
-        //tblColRadniNalogKilometraza.setCellValueFactory(new PropertyValueFactory<>("Kilometraza"));
-        //tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
 
         //tblCol DETALJI STRANKE RADNOG NALOGA
         tblColRadniNalogDetaljiStranke.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDetaljiStranke()));
         tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
-        //tblColRadniNalogDetaljiStranke.setCellValueFactory(new PropertyValueFactory<>("DetaljiStranke"));
         //tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
 
         //tblCol DETALJI SERVISERA RADNOG NALOGA
         tblColRadniNalogDetaljiServisera.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDetaljiServisera()));
         tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
-        //tblColRadniNalogDetaljiServisera.setCellValueFactory(new PropertyValueFactory<>("DetaljiServisera"));
-        //tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
 
         //Set Table "Radni Nalozi" Data
         tblRadniNalozi.setItems(radniNalozi);
@@ -479,7 +471,7 @@ public class AutomobiliController implements Initializable {
 
     /**
      * Otvaranje Prozora {@link RadniNalogController}
-     *
+     * //TODO NAPISATI JAVA DOC
      * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
      */
     @FXML
@@ -536,21 +528,53 @@ public class AutomobiliController implements Initializable {
             e.printStackTrace();
         }
 
-        tblColIdDefektaze.setCellValueFactory(new PropertyValueFactory<>("idDefektaze"));
-        tblColIdDefektaze.setStyle("-fx-alignment: CENTER;");
-        tblColIdAutaDefektaze.setCellValueFactory(new PropertyValueFactory<>("idAuta"));
+        //tblCol ID DEFEKTAZE
+        tblColIdDefektaze.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdDefektaze()));
+        tblColIdRadniNaloga.setStyle("-fx-alignment: CENTER;");
+        //tblColIdDefektaze.setCellValueFactory(new PropertyValueFactory<>("idDefektaze"));
+        //tblColIdDefektaze.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol ID AUTOMOBILA
+        tblColIdAutaDefektaze.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdAuta()));
         tblColIdAutaDefektaze.setStyle("-fx-alignment: CENTER;");
-        tblColKilometraza.setCellValueFactory(new PropertyValueFactory<>("kilometraza"));
+        //tblColIdAutaDefektaze.setCellValueFactory(new PropertyValueFactory<>("idAuta"));
+        //tblColIdAutaDefektaze.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol KILOMETRAZA DEFEKTAZE
+        tblColKilometraza.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getKilometraza()));
         tblColKilometraza.setStyle("-fx-alignment: CENTER;");
-        tblColDatumDefektaze.setCellValueFactory(new PropertyValueFactory<>("datumDefektaze"));
+        //tblColKilometraza.setCellValueFactory(new PropertyValueFactory<>("kilometraza"));
+        //tblColKilometraza.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol Datum  DEFEKTAZE
+        tblColDatumDefektaze.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDatumDefektaze()));
         tblColDatumDefektaze.setStyle("-fx-alignment: CENTER;");
-        tblColVreme.setCellValueFactory(new PropertyValueFactory<>("vreme"));
+        //tblColDatumDefektaze.setCellValueFactory(new PropertyValueFactory<>("datumDefektaze"));
+        //tblColDatumDefektaze.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol VEME  DEFEKTAZE
+        tblColVreme.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getVreme()));
         tblColVreme.setStyle("-fx-alignment: CENTER;");
-        tblColOpisDefektaze.setCellValueFactory(new PropertyValueFactory<>("opisDefektaze"));
+        //tblColVreme.setCellValueFactory(new PropertyValueFactory<>("vreme"));
+        //tblColVreme.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol OPIS  DEFEKTAZE
+        tblColOpisDefektaze.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getOpisDefektaze()));
         tblColOpisDefektaze.setStyle("-fx-alignment: CENTER;");
+        //tblColOpisDefektaze.setCellValueFactory(new PropertyValueFactory<>("opisDefektaze"));
+        //tblColOpisDefektaze.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol OSTALI DETALJI  DEFEKTAZE
         tblColOstaliDetaljiDefektaze.setCellValueFactory(new PropertyValueFactory<>("ostaliDetaljiDefektaze"));
         tblColOstaliDetaljiDefektaze.setStyle("-fx-alignment: CENTER;");
 
+        //Set Table "Defektaza" Data
         tblDefektaza.setItems(defektaze);
     }
 

@@ -121,26 +121,36 @@ public class DefektazaController implements Initializable {
         this.novaDefektaza = defektaza;
     }
 
+    /**
+     * Inicijalizacija {@link DefektazaController}-a i provera da li smo u EDIT MODU ili ne
+     * Postavljanje danasnjeg datuma u datePickeru
+     *
+     * @param location  Location if we nee in some case
+     * @param resources resource if we nee in some case
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-
-            System.out.println(automobiliController.getAutomobil().get(0).getRegOznaka());
-            System.out.println(automobiliController.getKlijenti().get(0).getImePrezime());
-
+            // Ako je DEFEKTAZA u edit modu nemoj praviti novu DEFEKTAZU nego prosledi DF koji je za izmenu
             if (automobiliController.isDefektazaInEditMode()) { //TRUE
                 newOrEditDefektaza(true);
 
             } else { //Nismo u Edit Modu (FALSE)
                 //Datum
                 LocalDate now = LocalDate.now();
-                datePickerDatum.setValue(now); //Postavi danasnji datum Racuna u datePiceru
+                datePickerDatum.setValue(now); //Postavi danasnji datum Defektaze u datePiceru
                 newOrEditDefektaza(false); // Nismo u edit modu pa napravi novi racun
             }
-
         });
     }
 
+    /**
+     * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
+     * <p>
+     * {@code .get(0)} Moze jer je samo jedan objkat Klijent ili Automobil prisutan u datom trenutku !
+     *
+     * @see AutomobiliController
+     */
     private void initGUI() {
         //Inicijalizacija podataka
         ObservableList<Automobil> automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
@@ -153,18 +163,39 @@ public class DefektazaController implements Initializable {
         //Popunjavanje GUIa
         txtfKlijent.setText(imePrezimeKlijenta);
         txtfRegOznaka.setText(regOznakaAutomobila);
+        //Formatiranje Vremena
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         txtfVreme.setText(dtf.format(now));
     }
 
+    /**
+     * Pravljenje ili Editovanje {@link Defektaza}-a sa FKom {@link Automobil} objekata
+     * <p>
+     * Prvo inicijalizujemo GUI {@link #initGUI()} bez obzira da li je EDIT mode ili ne.
+     * <p>
+     * EDIT MODE STATUS DOBIJAMO IZ {@link AutomobiliController#btnOpenNoviRadniNalog()} u {@code isDefektazaInEditMode}
+     * <p>
+     * Ako smo u EDIT modu(TRUE) {@code if (isInEditMode)} ne treba da pravimo {@link Defektaza} objekat
+     * nego smo ga prosledili iz {@link AutomobiliController#btnOpenDefektaza()}
+     * <p>
+     * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link Defektaza} i bitno da se odredi koji
+     * je sledeci {@link #brojDefektaze}. Ovde je bio problem jer kada se obrise DEFEKTAZA ID se pomera za jedan
+     * iako je obrisan u bazi.
+     * <p>
+     * {@code GeneralUiUtility.fromStringDate} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#fromStringDate}
+     *
+     * @param isInEditMode da li smo u Edit Modu
+     * @see AutomobiliController#btnOpenNoviRadniNalog()
+     * @see GeneralUiUtility#fromStringDate(String)
+     */
     private void newOrEditDefektaza(boolean isInEditMode) {
         initGUI(); //Inicijalizacija podataka za novu DEFEKTAZU bez obzira na edit mode
 
         if (isInEditMode) {
             txtfIdDefektaze.setText(String.valueOf(novaDefektaza.getIdDefektaze()));
             txtfKilometraza.setText(novaDefektaza.getKilometraza());
-            datePickerDatum.setValue(LocalDate.parse(novaDefektaza.getDatumDefektaze()));
+            datePickerDatum.setValue(GeneralUiUtility.fromStringDate(novaDefektaza.getDatumDefektaze()));
             txtfVreme.setText(novaDefektaza.getVreme());
             txtAreaOpisDefektaze.setText(novaDefektaza.getOpisDefektaze());
             txtAreOstaliDetaljiDefektaze.setText(novaDefektaza.getOstaliDetaljiDefektaze());
@@ -187,20 +218,18 @@ public class DefektazaController implements Initializable {
         }
     }
 
-    /*
-     ************************************************************
-     ******************* BUTTON ACTION STAFF*********************
-     ************************************************************
-     */
+    // ******************* BUTTON ACTION STAFF*********************
 
     /**
      * UPDATE Defektaze kada se nesto promeni u njemu...(Datum...Vreme...Detalji...)
      * <p>
-     * Setuju se svi podaci za izmenjena Defektaza pokupljeni iz TF-ova
+     * Setuju se svi podaci za izmenjena Defektaza pokupljeni iz TF-ova u pobjekat {@link #novaDefektaza}
      * Zatim se radi update sa {@link DefektazaDAO#updateDefektaza(Defektaza)}
+     * {@code GeneralUiUtility.formatDateForUs} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#formatDateForUs}
      *
      * @see DefektazaDAO#updateDefektaza(Defektaza)
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
+     * @see GeneralUiUtility#formatDateForUs
      */
     @FXML
     private void btnSacuvajDefektazuAction() {
@@ -209,7 +238,7 @@ public class DefektazaController implements Initializable {
             novaDefektaza.setIdDefektaze(brojDefektaze);
             novaDefektaza.setIdAuta(idAutomobila);
             novaDefektaza.setKilometraza(txtfKilometraza.getText());
-            novaDefektaza.setDatumDefektaze(datePickerDatum.getValue().toString());
+            novaDefektaza.setDatumDefektaze(GeneralUiUtility.formatDateForUs(datePickerDatum.getValue()));
             novaDefektaza.setVreme(txtfVreme.getText());
             novaDefektaza.setOpisDefektaze(txtAreaOpisDefektaze.getText());
             novaDefektaza.setOstaliDetaljiDefektaze(txtAreOstaliDetaljiDefektaze.getText());
@@ -284,6 +313,15 @@ public class DefektazaController implements Initializable {
         //uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 
+    /**
+     * Otvaranje Print Fakture {@link PrintDefektazaController}
+     * Inicijalizacija Print Defektaza Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
+     * Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Defektaza Cotrolora
+     *
+     * @param actionEvent if we need in some case
+     * @see #initUiPrintControler(FXMLLoader)
+     * @see PrintDefektazaController
+     */
     public void btnPrintPregledDefektaza(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_DEFEKTAZA_UI_VIEW_URI));

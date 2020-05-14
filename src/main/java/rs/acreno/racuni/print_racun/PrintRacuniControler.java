@@ -29,8 +29,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class UiPrintRacuniControler implements Initializable {
-
+public class PrintRacuniControler implements Initializable {
 
     //HEADER
     @FXML private AnchorPane ancorPanePrint;
@@ -50,7 +49,6 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private TextField txtfGradFirmeNaRacunu;
     @FXML private TextField txtfZiroRacunFirmeNaRacunu;
     @FXML private TextArea txtfNapomeneServiseraNaRacunu;
-
 
     //KLIJENT FIELDS IN PRINT
     private Klijent klijent;
@@ -93,7 +91,7 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
 
-    public UiPrintRacuniControler() {
+    public PrintRacuniControler() {
         Platform.runLater(() -> {
             this.racun = fakturaController.getRacun(); // Inicijaizacija RACUN objekta
             this.klijent = fakturaController.getKlijent();
@@ -129,7 +127,7 @@ public class UiPrintRacuniControler implements Initializable {
 
             //INIT TABLE STAFF
             popuniTabeluPosaoArtikli(); // Popuni tabelu Posao Artikli
-            DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //Rearagne table rows if need in print Racun/Faktura
+            DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //Rearrange table rows with mouse if need in print Racun/Faktura
             FakturaController.setGrandTotalSuma(tblRowTotal); //Izracunavanje TOTAL sume u tabeli
 
         });
@@ -140,7 +138,7 @@ public class UiPrintRacuniControler implements Initializable {
         tblPosaoArtikli.getSelectionModel().clearSelection(); // clear selection from table for print
         GeneralUiUtility.printStaff(ancorPanePrint, btnPrint, btnPrintClose);
     }
-
+    //TODO: PROMENUTI OVO KAO U OSTALIM KLASAMA
     private void popuniTabeluPosaoArtikli() {
         ObservableList<PosaoArtikli> posaoArtikli = initPosaoArtikliDbTable(Integer.parseInt(fakturaController.getIdRacuna()));
         tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
@@ -186,11 +184,7 @@ public class UiPrintRacuniControler implements Initializable {
         return posaoArtikli;
     }
 
-    /*
-     ************************************************************
-     ******************** INICIJALIZACIJA POLJA *****************
-     ************************************************************
-     */
+     // ******************** INICIJALIZACIJA POLJA *****************
 
     /**
      * Init {@link Racun} Polja u racunu. Sekcija gde su polja vezana za racun se ovde popunjavaju, a

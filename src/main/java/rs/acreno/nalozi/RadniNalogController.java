@@ -81,7 +81,7 @@ public class RadniNalogController implements Initializable {
     }
 
     public String getDatum() {
-        return datePickerDatum.getValue().toString();
+        return GeneralUiUtility.formatDateForUs(datePickerDatum.getValue());
     }
 
     public String getVreme() {
@@ -122,10 +122,15 @@ public class RadniNalogController implements Initializable {
         this.automobilStage = automobilStage;
     }
 
-    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
+    /**
+     * Inicijalizacija {@link RadniNalogController}-a i provera da li smo u EDIT MODU ili ne
+     * Postavljanje danasnjeg datuma u datePickeru
+     *
+     * @param location Location if we nee in some case
+     * @param resource resource if we nee in some case
+     */
+    @Override public void initialize(URL location, ResourceBundle resource) {
         Platform.runLater(() -> {
-            System.out.println(automobiliController.getAutomobil().get(0).getRegOznaka());
-            System.out.println(automobiliController.getKlijenti().get(0).getImePrezime());
             // Ako je Radni Nalog u edit modu nemoj praviti novi Radni Nalog nego prosledi RN koji je za izmenu
             if (automobiliController.isRadniNalogInEditMode()) { //TRUE
                 newOrEditRadniNalog(true);
@@ -138,6 +143,7 @@ public class RadniNalogController implements Initializable {
             }
         });
     }
+
     /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
      * <p>
@@ -170,17 +176,16 @@ public class RadniNalogController implements Initializable {
      * <p>
      * Ako smo u EDIT modu(TRUE) {@code if (isInEditMode)} ne treba da pravimo {@link RadniNalog} objekat
      * nego smo ga prosledili iz {@link AutomobiliController#btnOpenNoviRadniNalog()}
-     * u kodu {@code fakturaController.setEditRadniNalog(racun)}, a u seteru {@link #setEditRadniNalog(RadniNalog)}
      * <p>
      * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link RadniNalog} i bitno da se odredi koji
-     * je sledeci {@link #brojRadnogNaloga}. Ovde je bio problem jer kada se obrise Racun ID se pomera za jedan
-     * iako je obrisan.
+     * je sledeci {@link #brojRadnogNaloga}. Ovde je bio problem jer kada se obrise RADNI NALOG ID se pomera za jedan
+     * iako je obrisan u bazi.
      * <p>
      * {@code GeneralUiUtility.fromStringDate} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#fromStringDate}
      *
      * @param isInEditMode da li smo u Edit Modu
      * @see AutomobiliController#btnOpenNoviRadniNalog()
-     * * @see GeneralUiUtility#fromStringDate(String)
+     * @see GeneralUiUtility#fromStringDate(String)
      */
     private void newOrEditRadniNalog(boolean isInEditMode) {
         initGUI(); //Inicijalizacija podataka za novi radni nalog bez obzira na edit mode
@@ -210,11 +215,8 @@ public class RadniNalogController implements Initializable {
         }
     }
 
-    /*
-     ************************************************************
-     ******************* BUTTON ACTION STAFF*********************
-     ************************************************************
-     */
+
+    // ******************* BUTTON ACTION STAFF*********************
 
     /**
      * UPDATE Radnog Naloga kada se nesto promeni u njemu...(Datum...Vreme...Detalji...)

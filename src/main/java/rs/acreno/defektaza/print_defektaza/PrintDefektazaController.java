@@ -49,7 +49,7 @@ public class PrintDefektazaController implements Initializable {
             txtfKlijent.setText(defektazaController.getTxtfKlijent().getText());
             txtRegTablica.setText(defektazaController.getTxtfRegOznaka().getText());
             txtfKilometraza.setText(defektazaController.getTxtfKilometraza().getText());
-            txtfDatumDefektaze.setText(String.valueOf(defektazaController.getDatePickerDatum().getValue()));
+            txtfDatumDefektaze.setText(GeneralUiUtility.formatDateForUs(defektazaController.getDatePickerDatum().getValue()));
             txtfVreme.setText(defektazaController.getTxtfVreme().getText());
             txtAreaopisDefektaze.setText(defektazaController.getTxtAreaOpisDefektaze().getText());
             txtAreaDetaljiDefektaze.setText(defektazaController.getTxtAreOstaliDetaljiDefektaze().getText());
