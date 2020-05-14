@@ -24,7 +24,6 @@ public class GeneralUiUtility {
      * Ovde se koristi:
      *
      * @param pane Pane u kom se nalaze TextField polja.
-     *             TODO: Prebaciti u klasu Utility
      */
     public static void clearTextFieldsInPane(@NotNull Pane pane) {
         for (Node node : pane.getChildren()) {

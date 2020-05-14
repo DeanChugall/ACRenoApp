@@ -9,9 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,12 +19,10 @@ import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.nalozi.print_nalozi.PrintNaloziController;
-import rs.acreno.racuni.print_racun.UiPrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -143,7 +138,13 @@ public class RadniNalogController implements Initializable {
             }
         });
     }
-
+    /**
+     * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
+     * <p>
+     * {@code .get(0)} Moze jer je samo jedan objkat Klijent ili Automobil prisutan u datom trenutku !
+     *
+     * @see AutomobiliController
+     */
     private void initGUI() {
         //Inicijalizacija podataka
         ObservableList<Automobil> automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
@@ -154,17 +155,38 @@ public class RadniNalogController implements Initializable {
         //Popunjavanje GUIa
         txtfKlijent.setText(imePrezimeKlijenta);
         txtfRegOznaka.setText(regOznakaAutomobila);
+        //Formatiranje Vremena
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         txtfVreme.setText(dtf.format(now));
-
     }
 
+    /**
+     * Pravljenje ili Editovanje {@link RadniNalog}-a sa FKom {@link Automobil} objekata
+     * <p>
+     * Prvo inicijalizujemo GUI {@link #initGUI()} bez obzira da li je EDIT mode ili ne.
+     * <p>
+     * EDIT MODE STATUS DOBIJAMO IZ {@link AutomobiliController#btnOpenNoviRadniNalog()} u {@code isRadniNalogInEditMode}
+     * <p>
+     * Ako smo u EDIT modu(TRUE) {@code if (isInEditMode)} ne treba da pravimo {@link RadniNalog} objekat
+     * nego smo ga prosledili iz {@link AutomobiliController#btnOpenNoviRadniNalog()}
+     * u kodu {@code fakturaController.setEditRadniNalog(racun)}, a u seteru {@link #setEditRadniNalog(RadniNalog)}
+     * <p>
+     * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link RadniNalog} i bitno da se odredi koji
+     * je sledeci {@link #brojRadnogNaloga}. Ovde je bio problem jer kada se obrise Racun ID se pomera za jedan
+     * iako je obrisan.
+     * <p>
+     * {@code GeneralUiUtility.fromStringDate} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#fromStringDate}
+     *
+     * @param isInEditMode da li smo u Edit Modu
+     * @see AutomobiliController#btnOpenNoviRadniNalog()
+     * * @see GeneralUiUtility#fromStringDate(String)
+     */
     private void newOrEditRadniNalog(boolean isInEditMode) {
         initGUI(); //Inicijalizacija podataka za novi radni nalog bez obzira na edit mode
         if (isInEditMode) {
             txtfIdRadnogNaloga.setText(String.valueOf(noviRadniNalog.getIdRadnogNaloga()));
-            datePickerDatum.setValue(LocalDate.parse(noviRadniNalog.getDatum()));
+            datePickerDatum.setValue(GeneralUiUtility.fromStringDate(noviRadniNalog.getDatum()));
             txtfVreme.setText(noviRadniNalog.getVreme());
             txtfKilometraza.setText(noviRadniNalog.getKilometraza());
             txtAreaDetaljiStranke.setText(noviRadniNalog.getDetaljiStranke());
@@ -175,7 +197,6 @@ public class RadniNalogController implements Initializable {
             noviRadniNalog.setIdAutomobila(idAutomobila);
             noviRadniNalog.setKilometraza(txtfKilometraza.getText());
             noviRadniNalog.setDatum(datePickerDatum.getValue().toString());
-
             try {
                 radniNalogDAO.insertRadniNalog(noviRadniNalog);
                 //Inicijalizacija broja fakture MORA DA IDE OVDE
@@ -200,9 +221,12 @@ public class RadniNalogController implements Initializable {
      * <p>
      * Setuju se svi podaci za izmenjen Radn Nalog pokupljeni iz TF-ova
      * Zatim se radi update sa {@link RadniNalogDAO#updateRadniNalog(RadniNalog)}
+     * <p>
+     * {@code GeneralUiUtility.formatDateForUs} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#formatDateForUs}
      *
      * @see RadniNalogDAO#updateRadniNalog(RadniNalog)
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
+     * @see GeneralUiUtility#formatDateForUs
      */
     @FXML
     private void btnSacuvajRadniNalogAction() {
@@ -211,7 +235,7 @@ public class RadniNalogController implements Initializable {
             noviRadniNalog.setIdRadnogNaloga(brojRadnogNaloga);
             noviRadniNalog.setIdAutomobila(idAutomobila);
             noviRadniNalog.setKilometraza(txtfKilometraza.getText());
-            noviRadniNalog.setDatum(datePickerDatum.getValue().toString());
+            noviRadniNalog.setDatum(GeneralUiUtility.formatDateForUs(datePickerDatum.getValue()));
             noviRadniNalog.setVreme(txtfVreme.getText());
             noviRadniNalog.setDetaljiStranke(txtAreaDetaljiStranke.getText());
             noviRadniNalog.setDetaljiServisera(txtAreDetaljiServisera.getText());

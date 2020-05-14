@@ -1,6 +1,8 @@
 package rs.acreno.automobil;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,8 +59,8 @@ public class AutomobiliController implements Initializable {
 
     //FXMLs TABELA RADNI NALOZI
     @FXML private TableView<RadniNalog> tblRadniNalozi;
-    @FXML private TableColumn<RadniNalog, Integer> tblColIdRadniNaloga;
-    @FXML private TableColumn<RadniNalog, Integer> tblColRadniNalogIdAutomobila;
+    @FXML private TableColumn<RadniNalog, Number> tblColIdRadniNaloga;
+    @FXML private TableColumn<RadniNalog, Number> tblColRadniNalogIdAutomobila;
     @FXML private TableColumn<RadniNalog, String> tblColRadniNalogDatum;
     @FXML private TableColumn<RadniNalog, String> tblColRadniNalogVreme;
     @FXML private TableColumn<RadniNalog, String> tblColRadniNalogKilometraza;
@@ -425,21 +427,53 @@ public class AutomobiliController implements Initializable {
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
-        tblColIdRadniNaloga.setCellValueFactory(new PropertyValueFactory<>("IdRadnogNaloga"));
+        //tblCol ID RADNOG NALOGA
+        tblColIdRadniNaloga.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdRadnogNaloga()));
         tblColIdRadniNaloga.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
-        tblColRadniNalogIdAutomobila.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogDatum.setCellValueFactory(new PropertyValueFactory<>("Datum"));
-        tblColRadniNalogDatum.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogVreme.setCellValueFactory(new PropertyValueFactory<>("Vreme"));
-        tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogKilometraza.setCellValueFactory(new PropertyValueFactory<>("Kilometraza"));
-        tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogDetaljiStranke.setCellValueFactory(new PropertyValueFactory<>("DetaljiStranke"));
-        tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
-        tblColRadniNalogDetaljiServisera.setCellValueFactory(new PropertyValueFactory<>("DetaljiServisera"));
-        tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
+        //tblColIdRadniNaloga.setCellValueFactory(new PropertyValueFactory<>("IdRadnogNaloga"));
 
+        //tblCol ID AUTOMOBILA
+        tblColRadniNalogIdAutomobila.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdAutomobila()));
+        tblColRadniNalogIdAutomobila.setStyle("-fx-alignment: CENTER;");
+        // tblColRadniNalogIdAutomobila.setCellValueFactory(new PropertyValueFactory<>("IdAutomobila"));
+
+        //tblCol DATUM RADNOG NALOGA
+        tblColRadniNalogDatum.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDatum()));
+        tblColRadniNalogDatum.setStyle("-fx-alignment: CENTER;");
+        //tblColRadniNalogDatum.setCellValueFactory(new PropertyValueFactory<>("Datum"));
+
+        //tblCol VREME RADNOG NALOGA
+        tblColRadniNalogVreme.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getVreme()));
+        tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
+        // tblColRadniNalogVreme.setCellValueFactory(new PropertyValueFactory<>("Vreme"));
+        //tblColRadniNalogVreme.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol KILOMETRAZA RADNOG NALOGA
+        tblColRadniNalogKilometraza.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getKilometraza()));
+        tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
+        //tblColRadniNalogKilometraza.setCellValueFactory(new PropertyValueFactory<>("Kilometraza"));
+        //tblColRadniNalogKilometraza.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol DETALJI STRANKE RADNOG NALOGA
+        tblColRadniNalogDetaljiStranke.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDetaljiStranke()));
+        tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
+        //tblColRadniNalogDetaljiStranke.setCellValueFactory(new PropertyValueFactory<>("DetaljiStranke"));
+        //tblColRadniNalogDetaljiStranke.setStyle("-fx-alignment: CENTER;");
+
+        //tblCol DETALJI SERVISERA RADNOG NALOGA
+        tblColRadniNalogDetaljiServisera.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDetaljiServisera()));
+        tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
+        //tblColRadniNalogDetaljiServisera.setCellValueFactory(new PropertyValueFactory<>("DetaljiServisera"));
+        //tblColRadniNalogDetaljiServisera.setStyle("-fx-alignment: CENTER;");
+
+        //Set Table "Radni Nalozi" Data
         tblRadniNalozi.setItems(radniNalozi);
     }
 

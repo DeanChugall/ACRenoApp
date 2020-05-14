@@ -50,16 +50,13 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static rs.acreno.system.util.GeneralUiUtility.formatDateForUs;
 
 public class FakturaController implements Initializable {
-
 
     @FXML private Button btnSacuvajRacun;
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
-
 
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
@@ -251,11 +248,8 @@ public class FakturaController implements Initializable {
     public FakturaController() {
     }
 
-    /*
-     ************************************************************
-     *************** INICIJALIZACIJA ***************************
-     ************************************************************
-     */
+
+    // *************** INICIJALIZACIJA ***************************
 
     /**
      * Inicijalizacija {@link FakturaController}-a sa potrebni podacima
@@ -393,14 +387,16 @@ public class FakturaController implements Initializable {
      * Ako nismo u EDIT MODU(FALSE), pravimo novi objekat {@link Racun} i bitno da se odredi koji
      * je sledeci {@link #brojFakture}. Ovde je bio problem jer kada se obrise Racun ID se pomera za jedan
      * iako je obrisan.
+     * <p>
+     * {@code GeneralUiUtility.fromStringDate} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#fromStringDate}
      *
      * @param isInEditMode da li smo u Edit Modu
      * @see AutomobiliController#btnOpenFakturaUi()
+     * @see GeneralUiUtility#fromStringDate(String)
      */
     private void newOrEditRacun(boolean isInEditMode) {
         initGUI(); //Inicijalizacija podataka za novi racun bez obzira na edit mode
         if (isInEditMode) {
-            System.out.println("TRUE WE ARE IN EDIT MODE");
             txtFidRacuna.setText(String.valueOf(noviRacun.getIdRacuna()));
             datePickerDatumRacuna.setValue(GeneralUiUtility.fromStringDate(noviRacun.getDatum()));
             datePickerDatumPrometa.setValue(GeneralUiUtility.fromStringDate(noviRacun.getDatumPrometa()));
@@ -413,9 +409,9 @@ public class FakturaController implements Initializable {
             noviRacun.setIdRacuna(brojFakture);
             noviRacun.setIdAutomobila(idAutomobila);
             noviRacun.setKilometraza(txtfKilometraza.getText());
-            noviRacun.setDatum(formatDateForUs(datePickerDatumRacuna.getValue()));
-            noviRacun.setDatumPrometa(formatDateForUs(datePickerDatumPrometa.getValue()));
-            noviRacun.setDatumValute(formatDateForUs(datePickerDatumValute.getValue()));
+            noviRacun.setDatum(GeneralUiUtility.formatDateForUs(datePickerDatumRacuna.getValue()));
+            noviRacun.setDatumPrometa(GeneralUiUtility.formatDateForUs(datePickerDatumPrometa.getValue()));
+            noviRacun.setDatumValute(GeneralUiUtility.formatDateForUs(datePickerDatumValute.getValue()));
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             if (!txtFpopustRacuna.getText().isEmpty())
                 noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
@@ -700,11 +696,8 @@ public class FakturaController implements Initializable {
         txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
     }
 
-    /*
-     ************************************************************
-     ******************** KALKULACIJA ***************************
-     ************************************************************
-     */
+
+    // ******************** KALKULACIJA ***************************
 
     /**
      * Izracunavanje  SUME SA POPUSTOM NA DELOVE racuna sa popustom i to po regularnim cenama.
@@ -848,11 +841,8 @@ public class FakturaController implements Initializable {
         });
     }
 
-    /*
-     ************************************************************
-     ****************** LIST VIEW STAFF  ************************
-     ************************************************************
-     */
+
+    //****************** LIST VIEW STAFF  ************************
 
     /**
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
@@ -998,11 +988,9 @@ public class FakturaController implements Initializable {
         btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
     }
 
-    /*
-     ************************************************************
-     ******************* PRINT INICIJALIZACIJA*******************
-     ************************************************************
-     */
+
+    //******************* PRINT INICIJALIZACIJA*******************
+
     /**
      * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link UiPrintRacuniControler}
      */
@@ -1055,11 +1043,8 @@ public class FakturaController implements Initializable {
         }
     }
 
-    /*
-     ************************************************************
-     ******************* BUTTON ACTION STAFF*********************
-     ************************************************************
-     */
+
+    //******************* BUTTON ACTION STAFF*********************
 
     /**
      * UPDATE Racuna kada se nesto promeni u njemu...(Datum...Napomena...Popust)
@@ -1067,6 +1052,8 @@ public class FakturaController implements Initializable {
      * Setuju se svi podaci za izmenjen racun pokupljeni iz TF-ova
      * Zatim se radi update sa {@link RacuniDAO#updateRacun(Racun)}
      * Nakon toga se radi update GRAND TOTAL SUME SA POPUSTOM NA CEO RACUN {@link #izracunajGrandTotalSaPopustomNaCeoRacun()}
+     * <p>
+     * {@code GeneralUiUtility.formatDateForUs} Sredjuje Datum za Serbiu, a u {@link GeneralUiUtility#formatDateForUs}
      * <p>
      * {@code  ifWeAreFromBtnSacuvajRacun = true} regulise da se ne pojavljuje Dijalog kada se klikne odmah na print
      * dugme {@see btnPrintAction} objasnjenje za detalje.
