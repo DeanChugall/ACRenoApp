@@ -252,4 +252,8 @@ public class UiPrintRacuniControler implements Initializable {
         txtfVrstaGorivaAutomobila.setText(automobil.getVrstaGorivaVozila());
         txtfSnagaAutomobila.setText(String.valueOf(automobil.getSnagaVozila()));
     }
+
+    public void btnPrintActClose(ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    }
 }

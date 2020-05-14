@@ -19,6 +19,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
 import org.jetbrains.annotations.NotNull;
@@ -1042,6 +1043,7 @@ public class FakturaController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
             stagePrint = new Stage();
             stagePrint.initModality(Modality.APPLICATION_MODAL);
+            stagePrint.initStyle(StageStyle.UNDECORATED);
             stagePrint.setScene(new Scene(loader.load()));
 
             initUiPrintControler(loader); //Inicijalizacija Print Controlora i prosledjivanje id Racuna

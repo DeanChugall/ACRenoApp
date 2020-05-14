@@ -5,6 +5,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -13,73 +16,85 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="txtFieldRegOznaka" layoutX="54.0" layoutY="54.0" />
-                <Label layoutX="54.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Registarska Oznaka" textFill="#e8e8e8" />
-                <Label layoutX="247.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" text="Ime Klijenta" textFill="#e8e8e8" />
-                <TextField fx:id="txtFieldImeKlijenta" layoutX="247.0" layoutY="54.0" />
-                <TableView fx:id="tblFakture" layoutX="781.0" layoutY="146.0" prefHeight="308.0" prefWidth="520.0">
+                <TableView fx:id="tblFakture" layoutX="23.0" layoutY="70.0" prefHeight="318.0" prefWidth="626.0">
                     <columns>
                         <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
                         <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
                         <TableColumn fx:id="tblRowDatumRacuna" prefWidth="85.0" text="Datum" />
-                  <TableColumn fx:id="tblRowIdKilometraza" prefWidth="66.0" text="Kilometraza" />
-                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="84.0" text="Popust" />
-                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="217.0" text="Napomene" />
-                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="62.0" />
+                  <TableColumn fx:id="tblRowIdKilometraza" prefWidth="78.0" text="Kilometraza" />
+                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="91.0" text="Popust" />
+                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="301.0" text="Napomene" />
+                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="69.0" />
                     </columns>
                 </TableView>
-            <Label layoutX="810.0" layoutY="87.0" prefHeight="17.0" prefWidth="204.0" text="Računi" textFill="#e1e1e1">
+            <Label layoutX="23.0" layoutY="27.0" prefHeight="17.0" prefWidth="204.0" text="Računi" textFill="#e1e1e1">
                <font>
                   <Font name="Segoe UI" size="36.0" />
                </font>
             </Label>
-            <TableView fx:id="tblRadniNalozi" layoutX="47.0" layoutY="172.0" prefHeight="252.0" prefWidth="623.0">
+            <TableView fx:id="tblRadniNalozi" layoutX="673.0" layoutY="74.0" prefHeight="318.0" prefWidth="712.0">
               <columns>
-                <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" />
-                <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" />
+                <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
+                <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" visible="false" />
                   <TableColumn fx:id="tblColRadniNalogDatum" prefWidth="75.0" text="Datum" />
                   <TableColumn fx:id="tblColRadniNalogVreme" prefWidth="75.0" text="Vreme" />
                   <TableColumn fx:id="tblColRadniNalogKilometraza" prefWidth="75.0" text="Kilometraza" />
-                  <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="75.0" text="DetaljiStranke" />
-                  <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="75.0" text="DetaljiServisera" />
-                  <TableColumn fx:id="tblColRadniNalogBtnIzmeni" prefWidth="75.0" text="izmeni" />
+                  <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="257.0" text="DetaljiStranke" />
+                  <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="166.0" text="DetaljiServisera" />
+                  <TableColumn fx:id="tblColRadniNalogBtnIzmeni" prefWidth="60.0" />
               </columns>
             </TableView>
-            <Label layoutX="43.0" layoutY="125.0" prefHeight="43.0" prefWidth="218.0" text="Radni Nalozi" textFill="#e1e1e1">
+            <Label layoutX="673.0" layoutY="31.0" prefHeight="43.0" prefWidth="218.0" text="Radni Nalozi" textFill="#e1e1e1">
                <font>
                   <Font name="Segoe UI" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="43.0" layoutY="441.0" prefHeight="43.0" prefWidth="218.0" text="Defektaže" textFill="#e1e1e1">
+            <Label layoutX="672.0" layoutY="409.0" prefHeight="43.0" prefWidth="218.0" text="Defektaže" textFill="#e1e1e1">
                <font>
                   <Font name="Segoe UI" size="36.0" />
                </font>
             </Label>
-            <TableView fx:id="tblDefektaza" layoutX="43.0" layoutY="487.0" prefHeight="200.0" prefWidth="790.0">
+            <TableView fx:id="tblDefektaza" layoutX="672.0" layoutY="452.0" prefHeight="248.0" prefWidth="713.0">
               <columns>
-                <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" />
-                <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" />
                   <TableColumn fx:id="tblColKilometraza" prefWidth="75.0" text="Kilometraza" />
+                <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
+                <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" visible="false" />
                   <TableColumn fx:id="tblColDatumDefektaze" prefWidth="112.0" text="datumDefektaze" />
                   <TableColumn fx:id="tblColVreme" prefWidth="75.0" text="Vreme" />
                   <TableColumn fx:id="tblColOpisDefektaze" prefWidth="149.0" text="opisDefektaze" />
-                  <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="146.0" text="ostaliDetaljiDefektaze" />
-                  <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="75.0" text="Izmena" />
+                  <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="229.0" text="ostaliDetaljiDefektaze" />
+                  <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="69.0" />
               </columns>
             </TableView>
+                <Button fx:id="btnNoviRadniNalog" layoutX="1229.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="38.0" prefWidth="156.0" text="Novi Radni Nalog" />
+                <Button fx:id="btnNoviRacun" layoutX="492.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="36.0" prefWidth="157.0" text="Novi Račun" />
+                <Button fx:id="btnDefektaza" layoutX="1235.0" layoutY="410.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="40.0" prefWidth="151.0" text="Nova Defektaža" />
             </children>
         </AnchorPane>
     </center>
     <top>
-        <AnchorPane prefHeight="94.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="94.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnDefektaza" layoutX="152.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="53.0" prefWidth="95.0" text="Defektaža" />
-                <Button fx:id="btnNoviRacun" layoutX="265.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="53.0" prefWidth="95.0" text="Novi Račun" />
-                <Button fx:id="btnNoviRadniNalog" layoutX="40.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="53.0" prefWidth="95.0" text="Radni Nalog" />
-                <Button layoutX="377.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="95.0" text="Izmeni Klijenta" />
-                <Button layoutX="482.0" layoutY="21.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0" text="Izmena Automobia" />
-                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1197.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="46.0" prefWidth="108.0" text="Zatvori Prozor" />
+                <Button layoutX="911.0" layoutY="17.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="126.0" text="Izmeni Klijenta" />
+                <Button layoutX="326.0" layoutY="17.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0" text="Izmena Automobia" />
+                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1178.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="70.0" prefWidth="199.0" text="Zatvori Prozor" />
+            <ImageView fitHeight="67.0" fitWidth="270.0" layoutX="29.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/Dean%20VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
+               </image>
+            </ImageView>
+                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" editable="false" focusTraversable="false" layoutX="56.0" layoutY="19.0" minHeight="-Infinity" prefHeight="49.0" prefWidth="237.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="26.0" />
+               </font></TextField>
+                <TextField fx:id="txtFieldImeKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="499.0" layoutY="18.0" prefHeight="55.0" prefWidth="393.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="26.0" />
+               </font></TextField>
             </children>
+         <effect>
+            <DropShadow />
+         </effect>
         </AnchorPane>
     </top>
 </BorderPane>

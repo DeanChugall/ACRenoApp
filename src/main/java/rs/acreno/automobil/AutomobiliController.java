@@ -44,14 +44,7 @@ public class AutomobiliController implements Initializable {
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtFieldImeKlijenta;
 
-    private int brojFakture;
-    private Racun racun;
-    private int brojRadnogNaloga;
-    private RadniNalog radniNalog;
-    private int brojDefektaze;
-    private Defektaza defektaza;
-
-    //TABELA FAKTURE
+    //FXMLs TABELA FAKTURE
     @FXML private TableView<Racun> tblFakture;
     @FXML private TableColumn<Racun, Integer> tblRowIdRacuna;
     @FXML private TableColumn<Racun, Integer> tblRowIdAutomobila;
@@ -61,7 +54,7 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
 
-    //TABELA RADNI NALOZI
+    //FXMLs TABELA RADNI NALOZI
     @FXML private TableView<RadniNalog> tblRadniNalozi;
     @FXML private TableColumn<RadniNalog, Integer> tblColIdRadniNaloga;
     @FXML private TableColumn<RadniNalog, Integer> tblColRadniNalogIdAutomobila;
@@ -72,7 +65,7 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<RadniNalog, String> tblColRadniNalogDetaljiServisera;
     @FXML private TableColumn<RadniNalog, Button> tblColRadniNalogBtnIzmeni;
 
-    //TABELA DEFEKTAZE
+    //FXMLs TABELA DEFEKTAZE
     @FXML private TableView<Defektaza> tblDefektaza;
     @FXML private TableColumn<Defektaza, Integer> tblColIdDefektaze;
     @FXML private TableColumn<Defektaza, Integer> tblColIdAutaDefektaze;
@@ -82,6 +75,13 @@ public class AutomobiliController implements Initializable {
     @FXML private TableColumn<Defektaza, String> tblColOpisDefektaze;
     @FXML private TableColumn<Defektaza, String> tblColOstaliDetaljiDefektaze;
     @FXML private TableColumn<Defektaza, Button> tblColBtnIzmeniDefektazu;
+
+    private int brojFakture;
+    private Racun racun;
+    private int brojRadnogNaloga;
+    private RadniNalog radniNalog;
+    private int brojDefektaze;
+    private Defektaza defektaza;
 
     /**
      * Posto koristimo isti UI za EDIT I NEW {@link Racun}, potrebno je da pratimo da li smo
@@ -148,7 +148,6 @@ public class AutomobiliController implements Initializable {
     public boolean isDefektazaInEditMode() {
         return isDefektazaInEditMode;
     }
-
 
     /**
      * Empty AutomobilController Constructor
@@ -307,10 +306,8 @@ public class AutomobiliController implements Initializable {
             popuniTabeluRacuni(); // Popuni tabelu RACUNI sa podacima
             popuniTabeluRadniNalozi(); // Popuni tabelu RADNI NALOZI sa podacima
             popuniTabeluDefektaza(); // Popuni tabelu DEFEKTAZE sa podacima
-
         });
     }
-
 
     /*
      ************************************************************
@@ -400,7 +397,6 @@ public class AutomobiliController implements Initializable {
         return isRacunInEditMode = false; //Nije u Edit Modu jer je kliknuto direktno dugme NOVI RACUN
     }
 
-
     /*
      ********************************************************
      *************** RADNI NALOZI ***************************
@@ -445,7 +441,6 @@ public class AutomobiliController implements Initializable {
         tblRadniNalozi.setItems(radniNalozi);
     }
 
-
     /**
      * Otvaranje Prozora {@link RadniNalogController}
      *
@@ -477,7 +472,6 @@ public class AutomobiliController implements Initializable {
         return isRadniNalogInEditMode = false;
     }
 
-
     /*
      ********************************************************
      *************** DEFEKTAZA ***************************
@@ -492,7 +486,6 @@ public class AutomobiliController implements Initializable {
      * ObservableList Defektaza koja cuva sve filtrirane objemte po ID AUTOMOBILA {@link DefektazaSearchType#ID_AUTA}
      */
     private ObservableList<Defektaza> defektaze;
-
 
     /**
      * Popunjavanje tabele {@link #tblDefektaza} sa Defektaza filtriranim po ID AUTOMOBILU.
@@ -526,7 +519,6 @@ public class AutomobiliController implements Initializable {
 
     @FXML
     public boolean btnOpenDefektaza() throws IOException {
-
         FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.DEFEKTAZA_UI_VIEW_URI));
         Stage stageDefektaza = new Stage();
         stageDefektaza.initModality(Modality.APPLICATION_MODAL);
@@ -552,7 +544,6 @@ public class AutomobiliController implements Initializable {
         return isDefektazaInEditMode = false;
     }
 
-
     /**
      * Zatvori prozor Automobili
      *
@@ -562,7 +553,5 @@ public class AutomobiliController implements Initializable {
     public void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
-
-
 }
 

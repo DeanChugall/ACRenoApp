@@ -380,5 +380,6 @@
             <Font name="Segoe UI Bold" size="19.0" />
          </font>
       </TextField>
+      <Button fx:id="btnPrintClose" layoutX="402.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintActClose" prefHeight="33.0" prefWidth="116.0" text="Zatvori" />
     </children>
 </AnchorPane>
