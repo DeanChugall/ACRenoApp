@@ -10,6 +10,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import rs.acreno.racuni.faktura.FakturaController;
+
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class GeneralUiUtility {
 
@@ -76,8 +82,35 @@ public class GeneralUiUtility {
                         , "GREŠKA U PRINTU" + printJobRadniNalog.getJobStatus());
             }
             btnPrint.setVisible(true);
-
         }
+    }
+
+    /**
+     * Promena datum a u ono sto nama treba za Srbiju. FORMAT "dd.MM.yyyy"
+     * Koristimo svuda gde treba da se postavi datum...npr. iz DatePckera u bazu pa jedna od koriscenja je
+     * {@link rs.acreno.racuni.faktura.FakturaController #newOrEditRacun} i u
+     * {@link FakturaController #btnSacuvajRacunAction()}
+     * @param date uzima LocalDate i vraca Formatiran String
+     */
+    public static @NotNull String formatDateForUs(@NotNull LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return date.format(formatter);
+    }
+
+    /**
+     * Promena datum a u ono sto nama treba za Srbiju. FORMAT "dd.MM.yyyy"
+     * Koristimo svuda gde treba da se postavi datum...npr. iz DatePckera u bazu pa jedna od koriscenja je
+     * {@link rs.acreno.racuni.faktura.FakturaController #newOrEditRacun} i u
+     * {@link FakturaController #btnSacuvajRacunAction()}
+     * @param string Uzima String i vraca formatiran LocalDate
+     */
+    public static @Nullable LocalDate fromStringDate(String string) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return LocalDate.parse(string, formatter);
+    }
+
+    public static String formatDecimalPlaces(double sum) {
+        return  new DecimalFormat("###,###.00").format(sum);
     }
 }
 

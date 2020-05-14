@@ -42,16 +42,16 @@
                         <TextField fx:id="txtFpopustArtikla" layoutX="833.0" layoutY="132.0" prefHeight="25.0" prefWidth="72.0" />
                         <Button fx:id="btnDodajArtiklRacun" disable="true" layoutX="88.0" layoutY="180.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN" />
                         <ListView fx:id="listViewPretragaArtikli" layoutX="86.0" layoutY="158.0" prefHeight="200.0" prefWidth="332.0" visible="false" />
-                        <Label layoutX="627.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna" textFill="#d3d3d3" />
+                        <Label layoutX="63.0" layoutY="567.0" prefHeight="23.0" prefWidth="111.0" text="Napomene Racuna" textFill="#d3d3d3" />
                         <Label layoutX="764.0" layoutY="27.0" prefHeight="23.0" prefWidth="111.0" text="Popust Racuna" textFill="#d3d3d3" />
-                        <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="618.0" layoutY="46.0" prefHeight="54.0" prefWidth="137.0" promptText="Napomena u računu..." wrapText="true" />
+                        <TextArea fx:id="txtAreaNapomenaRacuna" layoutX="57.0" layoutY="590.0" prefHeight="72.0" prefWidth="364.0" promptText="Napomena u računu..." wrapText="true" />
                         <TextField fx:id="txtFpopustRacuna" layoutX="764.0" layoutY="46.0" prefHeight="25.0" prefWidth="100.0" text="0" />
                         <Button fx:id="btnOdustaniObrisiRacun" layoutX="1140.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnOdustaniObrisiRacunAction" prefHeight="60.0" prefWidth="106.0" text="ODUSTANI" />
                         <Button fx:id="btnSacuvajRacun" layoutX="1022.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="55.0" prefWidth="104.0" text="SACUVAJ" />
                         <TextField fx:id="txtFopisArtikla" layoutX="930.0" layoutY="132.0" prefHeight="25.0" prefWidth="183.0" />
                         <Label layoutX="934.0" layoutY="110.0" prefHeight="23.0" prefWidth="104.0" text="OPIS ARTIKLA" textFill="#d3d3d3" />
                         <TextArea fx:id="txtAreaDetaljiOpisArtikla" layoutX="640.0" layoutY="181.0" prefHeight="57.0" prefWidth="313.0" />
-                        <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0" text="DETALJI ARTIKLA KAO NEKI OPIS AKO TREBA" textFill="#d3d3d3" />
+                        <Label layoutX="640.0" layoutY="158.0" prefHeight="23.0" prefWidth="266.0" text="Interni detalj na artiklu" textFill="#d3d3d3" />
                         <Button fx:id="btnPrint" layoutX="1101.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="33.0" prefWidth="94.0" text="Print" />
                         <Pane fx:id="panePrint" layoutX="14.0" layoutY="266.0" prefHeight="301.0" prefWidth="1358.0">
                             <children>

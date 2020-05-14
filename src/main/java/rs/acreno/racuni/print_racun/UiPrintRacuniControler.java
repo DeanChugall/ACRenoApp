@@ -6,35 +6,74 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.print.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDaoSearchType;
 import rs.acreno.artikli.posao_artikli_dao.SQLPosaoArtikliDAO;
-import rs.acreno.nalozi.print_nalozi.PrintNaloziController;
+import rs.acreno.automobil.Automobil;
+import rs.acreno.klijent.Klijent;
+import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.DragAndDropTable;
 import rs.acreno.system.util.GeneralUiUtility;
+import rs.acreno.system.util.properties.AcrenoProperties;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class UiPrintRacuniControler implements Initializable {
 
 
-    @FXML private Button btnPrint;
+    //HEADER
     @FXML private AnchorPane ancorPanePrint;
+    @FXML private Button btnPrint;
+
+    //RACUN FIELDS IN PRINT
+    private Racun racun;
     @FXML private TextField txtFidRacuna;
+    @FXML private Label lblDatumRacuna;
+    @FXML private Label lblDatumPrometa;
+    @FXML private Label lblDatumValute;
+    @FXML private TextField txtFpopustRacuna;
+    @FXML private TextField txtfGrandTotaluRacunu;
+    @FXML private TextField txtfImeFirmeNaRaacunu;
+    @FXML private TextField txtfAdresaFirmeNaRacunu;
+    @FXML private TextField txtfGradFirmeNaRacunu;
+    @FXML private TextField txtfZiroRacunFirmeNaRacunu;
+    @FXML private TextArea txtfNapomeneServiseraNaRacunu;
+
+
+    //KLIJENT FIELDS IN PRINT
+    private Klijent klijent;
+    @FXML private TextField txtFidKlijenta;
+    @FXML private TextField txtfImePrezimeKllijenta;
+    @FXML private TextField txtfTelefonKlijenta;
+    @FXML private TextField txtfEmailKlijenta;
+    @FXML private TextField txtfAdresaKlijenta;
+    @FXML private TextField txtfGradKlijenta;
+
+    //AUTOMOBIL FIELDS IN PRINT
+    private Automobil automobil;
+    @FXML private TextField txtfIdAutomobila;
+    @FXML private TextField txtfRegTablicaAutomobila;
+    @FXML private TextField txtfKilometraza;
+    @FXML private TextField txtfVinAutomobila;
+    @FXML private TextField txtfModelAutomobila;
+    @FXML private TextField txtfMarkaAutomobila;
+    @FXML private TextField txtfGodisteAutomobila;
+    @FXML private TextField txtfVrstaGorivaAutomobila;
+    @FXML private TextField txtfSnagaAutomobila;
+
+    //KALKULACIJE
     @FXML private TextField txtfUkupnoSadPopustomNaDelove;
     @FXML private TextField txtfTotalBezPopusta;
-    @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtfPopustDoleNaRacunu;
     @FXML private TextField txtfGrandTotal;
 
@@ -53,36 +92,48 @@ public class UiPrintRacuniControler implements Initializable {
     @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
 
     public UiPrintRacuniControler() {
+        Platform.runLater(() -> {
+            this.racun = fakturaController.getRacun(); // Inicijaizacija RACUN objekta
+            this.klijent = fakturaController.getKlijent();
+            this.automobil = fakturaController.getAutomobil();
+        });
     }
 
     /**
      * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
      */
-    private Stage fakturaStage;
+    private final AtomicReference<Stage> fakturaStage = new AtomicReference<>();
     private FakturaController fakturaController;
 
     public void setFakturaController(FakturaController fakturaController, Stage fakturaStage) {
         this.fakturaController = fakturaController;
-        this.fakturaStage = fakturaStage;
+        this.fakturaStage.set(fakturaStage);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            txtFidRacuna.setText(fakturaController.getIdRacuna()); // SET ID RACUNA/FAKTURE form Faktura Controller
+
+            initRacunFields(); //INIT RACUN FIELDS
+            initKlijentsFields();//INIT KLIJENT FIELDS
+            initAutomobil();//INIT AUTOMOBIL FIELDS
+
+
+            //INIT KALKULACIJE
             txtfUkupnoSadPopustomNaDelove.setText(fakturaController.getTotalSumaSaPopustomNaDelove()); // Set total sa popustom na delove form Faktura Controller
             txtfTotalBezPopusta.setText(fakturaController.getTotalBezPopustaSuma()); // Set Total bez popusta form Faktura Controller
             txtFpopustRacuna.setText(fakturaController.getPopustRacuna()); // Set Popust RACUNA TF
             txtfPopustDoleNaRacunu.setText(txtFpopustRacuna.getText());
             txtfGrandTotal.setText(fakturaController.getGrandTotalSumaSuma()); // Grand Total suma sa popustom
+
+            //INIT TABLE STAFF
             popuniTabeluPosaoArtikli(); // Popuni tabelu Posao Artikli
             DragAndDropTable.dragAndDropTbl(tblPosaoArtikli); //Rearagne table rows if need in print Racun/Faktura
-
-            //Izracunavanje TOTAL sume u tabeli
-            FakturaController.setGrandTotalSuma(tblRowTotal);
+            FakturaController.setGrandTotalSuma(tblRowTotal); //Izracunavanje TOTAL sume u tabeli
 
         });
     }
+
 
     public void btnPrintAct(ActionEvent actionEvent) {
 
@@ -135,5 +186,70 @@ public class UiPrintRacuniControler implements Initializable {
             e.printStackTrace();
         }
         return posaoArtikli;
+    }
+
+    /*
+     ************************************************************
+     ******************** INICIJALIZACIJA POLJA *****************
+     ************************************************************
+     */
+
+    /**
+     * Init {@link Racun} Polja u racunu. Sekcija gde su polja vezana za racun se ovde popunjavaju, a
+     * koristi se u {@link #initialize(URL, ResourceBundle)}
+     * {@link Racun} objekat smo dobili iz {@link FakturaController}-a
+     *
+     * @see Racun
+     * @see FakturaController
+     */
+    private void initRacunFields() {
+        //INIT RACUN FIELDS
+        txtFidRacuna.setText(fakturaController.getIdRacuna()); // SET ID RACUNA/FAKTURE form Faktura Controller
+        lblDatumRacuna.setText(racun.getDatum());
+        lblDatumPrometa.setText(racun.getDatumPrometa());
+        lblDatumValute.setText(racun.getDatumValute());
+        txtfGrandTotaluRacunu.setText(fakturaController.getGrandTotalSumaSuma());
+        txtfImeFirmeNaRaacunu.setText(AcrenoProperties.getInstance().getProperty("ime.firme"));
+        txtfAdresaFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("adresa.firme"));
+        txtfGradFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("grad.firme"));
+        txtfZiroRacunFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("ziro.racun"));
+        txtfNapomeneServiseraNaRacunu.setText(racun.getNapomeneRacuna());
+    }
+
+    /**
+     * Init {@link Klijent} Polja u racunu. Sekcija gde su polja vezana za Klijenta se ovde popunjavaju, a
+     * koristi se u {@link #initialize(URL, ResourceBundle)}
+     * {@link Klijent} objekat smo dobili iz {@link FakturaController}-a
+     *
+     * @see Klijent
+     * @see FakturaController
+     */
+    private void initKlijentsFields() {
+        txtFidKlijenta.setText(String.valueOf(klijent.getIdKlijenta()));
+        txtfImePrezimeKllijenta.setText(klijent.getImePrezime());
+        txtfTelefonKlijenta.setText(klijent.getTelefonMobilni());
+        txtfEmailKlijenta.setText(klijent.getEmail());
+        txtfAdresaKlijenta.setText(klijent.getUlicaBroj());
+        txtfGradKlijenta.setText(klijent.getMesto());
+    }
+
+    /**
+     * Init {@link Automobil} Polja u racunu. Sekcija gde su polja vezana za Klijenta se ovde popunjavaju, a
+     * koristi se u {@link #initialize(URL, ResourceBundle)}
+     * {@link Automobil} objekat smo dobili iz {@link FakturaController}-a
+     *
+     * @see Automobil
+     * @see FakturaController
+     */
+    private void initAutomobil() {
+        txtfIdAutomobila.setText(String.valueOf(automobil.getIdAuta()));
+        txtfRegTablicaAutomobila.setText(automobil.getRegOznaka());
+        txtfKilometraza.setText(automobil.getKilomteraza());
+        txtfVinAutomobila.setText(automobil.getVinVozila());
+        txtfModelAutomobila.setText(automobil.getModelVozila());
+        txtfMarkaAutomobila.setText(automobil.getMarkaVozila());
+        txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
+        txtfVrstaGorivaAutomobila.setText(automobil.getVrstaGorivaVozila());
+        txtfSnagaAutomobila.setText(String.valueOf(automobil.getSnagaVozila()));
     }
 }

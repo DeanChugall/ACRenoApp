@@ -67,7 +67,7 @@ public class AutoServisApp extends Application {
             };
             t.schedule(tt, 500, 5000);
         });
-
+//TODO: SAKRITI SPLASH SCREEN AFTER FADE OUT IS FINISH
         fadeOut.setOnFinished((e) -> Platform.runLater(new Runnable() {
             @Override public void run() {
                 try {
@@ -79,6 +79,7 @@ public class AutoServisApp extends Application {
                     stage.show();
                     tt.cancel();
                     t.purge();
+
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();

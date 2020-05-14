@@ -49,16 +49,16 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static rs.acreno.system.util.GeneralUiUtility.formatDateForUs;
+
 public class FakturaController implements Initializable {
 
 
+    @FXML private Button btnSacuvajRacun;
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
 
-    public String getIdRacuna() {
-        return txtFidRacuna.getText();
-    }
 
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
@@ -68,12 +68,92 @@ public class FakturaController implements Initializable {
     @FXML private DatePicker datePickerDatumPrometa;
     @FXML private DatePicker datePickerDatumValute;
     @FXML private TextArea txtAreaNapomenaRacuna;
-    //Kalkulacije TFa
+
+    //FXMLs KALKULACIJE TFa
     @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtfTotalPoCenama;
     @FXML private TextField txtfTotalPoNabavnimCenama;
     @FXML private TextField txtfTotalSaPopustomNaDelove;
     @FXML private TextField txtfGrandTotal;
+
+    // FXMLs ARTICLES FIELDS in Faktura
+    @FXML private ListView<Artikl> listViewPretragaArtikli;
+    @FXML private TextField txtFidArtikla;
+    @FXML private TextField txtFcenaArtikla;
+    @FXML private TextField txtFnabavnaCenaArtikla;
+    @FXML private TextField txtFKolicinaArtikla;
+    @FXML private TextField txtFjedinicaMereArtikla;
+    @FXML private TextField txtFpopustArtikla;
+    @FXML private Button btnDodajArtiklRacun;
+    @FXML private TextField txtFopisArtikla;
+    @FXML private TextArea txtAreaDetaljiOpisArtikla;
+
+    //FXMLs Pretraga Artikala Tabela
+    @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidRacuna;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowidArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
+    @FXML private TableColumn<PosaoArtikli, String> tblRowDetaljiPosaoArtikl;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalCene;
+    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalNabavneCene;
+    @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
+
+    /**
+     * Bitna promenjiva jer se sve bazira na Broju fakture ili ti ID RACUNU
+     */
+    private int brojFakture;
+
+
+    //INIT GUI FIELDS
+    private int idAutomobila;
+
+    //INIT ObservableList-s
+    private ObservableList<Automobil> automobili;
+    private ObservableList<Klijent> klijenti;
+
+    //RACUN STAFF OBJECT
+    private Racun noviRacun;
+
+    /**
+     * Promenjiva koja odredjuje da li ce se pojaviti dijalog o uspesnom cuvanju {@link Racun} jer ga cuvamo i kada se
+     * direktno klikne na {@link #btnPrintAction()}. Za Detaljno objasnjenje {@link #btnSacuvajRacunAction()}
+     *
+     * @see #btnSacuvajRacunAction()
+     * @see #btnPrintAction()
+     */
+    private boolean ifWeAreFromBtnSacuvajRacun = true;
+
+    private ObservableList<Racun> racuni;
+    private ObservableList<Artikl> artikli;
+    private ObservableList<PosaoArtikli> posaoArtikli;
+
+    //Inicijalizacija Racuni Objekta
+    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
+    private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
+    private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
+
+    private AutomobiliController automobiliController;
+    private Stage automobilStage;
+
+    public Automobil getAutomobil() {
+        return automobili.get(0);
+    }
+
+    public Klijent getKlijent() {
+        return klijenti.get(0);
+    }
+
+    public String getIdRacuna() {
+        return txtFidRacuna.getText();
+    }
 
     /**
      * Geter za {@link #txtFpopustRacuna} {@link UiPrintRacuniControler#initialize} polje koje popunjava popust na racunu.
@@ -124,61 +204,6 @@ public class FakturaController implements Initializable {
         return txtfGrandTotal.getText();
     }
 
-    //ARTICLES FIELDS in Faktura
-    @FXML private ListView<Artikl> listViewPretragaArtikli;
-    @FXML private TextField txtFidArtikla;
-    @FXML private TextField txtFcenaArtikla;
-    @FXML private TextField txtFnabavnaCenaArtikla;
-    @FXML private TextField txtFKolicinaArtikla;
-    @FXML private TextField txtFjedinicaMereArtikla;
-    @FXML private TextField txtFpopustArtikla;
-    @FXML private Button btnDodajArtiklRacun;
-    @FXML private TextField txtFopisArtikla;
-    @FXML private TextArea txtAreaDetaljiOpisArtikla;
-
-    //Pretraga Artikala Tabela
-    @FXML private TableView<PosaoArtikli> tblPosaoArtikli;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowidPosaoArtikli;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowidRacuna;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowidArtikla;
-    @FXML private TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
-    @FXML private TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowCena;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
-    @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
-    @FXML private TableColumn<PosaoArtikli, String> tblRowDetaljiPosaoArtikl;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotal;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalCene;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowTotalNabavneCene;
-    @FXML private TableColumn<PosaoArtikli, Button> tblRowButton;
-
-    //INIT GUI FIELDS
-    private int idAutomobila;
-    private String regOznakaAutomobila;
-    private int idKlijenta;
-    private String imePrezimeKlijenta;
-
-    //INIT ObservableList-s
-    private ObservableList<Automobil> automobili;
-    private ObservableList<Klijent> klijenti;
-
-    public Klijent getKlijent() {
-        return klijenti.get(0);
-    }
-
-    private ObservableList<Racun> racuni;
-    private ObservableList<Artikl> artikli;
-    private ObservableList<PosaoArtikli> posaoArtikli;
-
-    public ObservableList<PosaoArtikli> getPosaoArtikli() {
-        return posaoArtikli;
-    }
-
-    //RACUN STAFF OBJECT
-    private Racun noviRacun;
-
     /**
      * Posto smo u EDIT modu ne treba da se pravi novi racun nego se RACUN objekat prosledjuje
      * iz #{@link AutomobiliController#btnOpenFakturaUi()}
@@ -190,10 +215,9 @@ public class FakturaController implements Initializable {
         this.noviRacun = noviRacun;
     }
 
-    /**
-     * Bitna promenjiva jer se sve bazira na Broju fakture ili ti ID RACUNU
-     */
-    private int brojFakture;
+    public Racun getRacun() {
+        return noviRacun;
+    }
 
     /**
      * Seter za {@link #brojFakture} koji se inicijalizuje {@link AutomobiliController#btnOpenFakturaUi()}
@@ -204,19 +228,6 @@ public class FakturaController implements Initializable {
         this.brojFakture = brojFakture;
     }
 
-    //Inicijalizacija Racuni Objekta
-    private final RacuniDAO racuniDAO = new SQLRacuniDAO();
-    private final PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
-
-    /**
-     * Empty Constructor if we need in some case
-     */
-    public FakturaController() {
-    }
-
-    private AutomobiliController automobiliController;
-    private Stage automobilStage;
-
     /**
      * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
      * Takodje se prosledjuje i STAGE ako bude zatrebalo, a iz {@link AutomobiliController #btnOpenFakturaUi()}-a
@@ -225,16 +236,26 @@ public class FakturaController implements Initializable {
      * @param autmobilController referenca ka automobil kontroloru
      * @param automobilStage     refereca ka automobil Stage-u
      * @see AutomobiliController
+     * @see #automobiliController
+     * @see #automobilStage
      */
     public void setAutmobilController(AutomobiliController autmobilController, Stage automobilStage) {
         this.automobiliController = autmobilController;
         this.automobilStage = automobilStage;
     }
+
+    /**
+     * Empty Constructor if we need in some case
+     */
+    public FakturaController() {
+    }
+
     /*
      ************************************************************
      *************** INICIJALIZACIJA ***************************
      ************************************************************
      */
+
     /**
      * Inicijalizacija {@link FakturaController}-a sa potrebni podacima
      * <p>
@@ -266,7 +287,11 @@ public class FakturaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Platform.runLater(() -> {
-
+            try {
+                artikli = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
+            } catch (AcrenoException | SQLException e) {
+                e.printStackTrace();
+            }
             txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
@@ -289,14 +314,18 @@ public class FakturaController implements Initializable {
                 } catch (AcrenoException | SQLException e) {
                     e.printStackTrace();
                 }
-                // Izracunavanje TOTAL SUME Sa Popustom na delove
-                txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-                // Izracunavanje TOTAL SUME CENE
-                txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-                // Izracunavanje TOTAL SUME NABAVNE CENE
-                txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-                // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-                txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+                // Izracunavanje TOTAL SUME Sa Popustom na delove i srednjivanje decimala
+                double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+                txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+                // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+                double totalSumCene = izracunajTotalRegularneCene();
+                txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+                // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+                double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+                txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+                // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+                double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+                txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
 
                 return p;
             }));
@@ -332,8 +361,6 @@ public class FakturaController implements Initializable {
         });
     }
 
-
-
     /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
      * <p>
@@ -346,13 +373,9 @@ public class FakturaController implements Initializable {
         automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
         klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
         idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
-        regOznakaAutomobila = automobili.get(0).getRegOznaka();//Moze jer je samo jedan Automobil
-        idKlijenta = klijenti.get(0).getIdKlijenta();//Moze jer je samo jedan Klijent
-        imePrezimeKlijenta = klijenti.get(0).getImePrezime();//Moze jer je samo jedan Klijent
         //Popunjavanje GUIa
-        txtFklijentImePrezime.setText(imePrezimeKlijenta);
-        txtFregTablica.setText(regOznakaAutomobila);
-        //txtFpopustRacuna.setText(String.valueOf(0));
+        txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime()); //Moze jer je samo jedan Klijent
+        txtFregTablica.setText(automobili.get(0).getRegOznaka()); //Moze jer je samo jedan Automobil
     }
 
     /**
@@ -378,9 +401,9 @@ public class FakturaController implements Initializable {
         if (isInEditMode) {
             System.out.println("TRUE WE ARE IN EDIT MODE");
             txtFidRacuna.setText(String.valueOf(noviRacun.getIdRacuna()));
-            datePickerDatumRacuna.setValue(LocalDate.parse(noviRacun.getDatum()));
-            datePickerDatumPrometa.setValue(LocalDate.parse(noviRacun.getDatumPrometa()));
-            datePickerDatumValute.setValue(LocalDate.parse(noviRacun.getDatumValute()));
+            datePickerDatumRacuna.setValue(GeneralUiUtility.fromStringDate(noviRacun.getDatum()));
+            datePickerDatumPrometa.setValue(GeneralUiUtility.fromStringDate(noviRacun.getDatumPrometa()));
+            datePickerDatumValute.setValue(GeneralUiUtility.fromStringDate(noviRacun.getDatumValute()));
             txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
             txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
             txtfKilometraza.setText(noviRacun.getKilometraza());
@@ -389,9 +412,9 @@ public class FakturaController implements Initializable {
             noviRacun.setIdRacuna(brojFakture);
             noviRacun.setIdAutomobila(idAutomobila);
             noviRacun.setKilometraza(txtfKilometraza.getText());
-            noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
-            noviRacun.setDatumPrometa(datePickerDatumPrometa.getValue().toString());
-            noviRacun.setDatumValute(datePickerDatumValute.getValue().toString());
+            noviRacun.setDatum(formatDateForUs(datePickerDatumRacuna.getValue()));
+            noviRacun.setDatumPrometa(formatDateForUs(datePickerDatumPrometa.getValue()));
+            noviRacun.setDatumValute(formatDateForUs(datePickerDatumValute.getValue()));
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             if (!txtFpopustRacuna.getText().isEmpty())
                 noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
@@ -501,14 +524,17 @@ public class FakturaController implements Initializable {
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
 
-            // Izracunavanje TOTAL SUME Sa Popustom na delove
-            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-            // Izracunavanje TOTAL SUME CENE
-            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-            // Izracunavanje TOTAL SUME NABAVNE CENE
-            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+            double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+            txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+            // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+            double totalSumCene = izracunajTotalRegularneCene();
+            txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+            // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+            double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+            txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+            double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+            txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
         });
 
         //NABAVNA CENA
@@ -532,14 +558,17 @@ public class FakturaController implements Initializable {
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
 
-            // Izracunavanje TOTAL SUME Sa Popustom na delove
-            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-            // Izracunavanje TOTAL SUME CENE
-            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-            // Izracunavanje TOTAL SUME NABAVNE CENE
-            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+            double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+            txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+            // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+            double totalSumCene = izracunajTotalRegularneCene();
+            txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+            // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+            double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+            txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+            double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+            txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
         });
 
         //KOLICINA
@@ -563,14 +592,17 @@ public class FakturaController implements Initializable {
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
 
-            // Izracunavanje TOTAL SUME Sa Popustom na delove
-            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-            // Izracunavanje TOTAL SUME CENE
-            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-            // Izracunavanje TOTAL SUME NABAVNE CENE
-            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+            double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+            txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+            // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+            double totalSumCene = izracunajTotalRegularneCene();
+            txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+            // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+            double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+            txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+            double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+            txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
         });
 
         //JEIDNICA MERE
@@ -616,14 +648,18 @@ public class FakturaController implements Initializable {
                 }
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
-            // Izracunavanje TOTAL SUME Sa Popustom na delove
-            txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-            // Izracunavanje TOTAL SUME CENE
-            txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-            // Izracunavanje TOTAL SUME NABAVNE CENE
-            txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+
+            double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+            txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+            // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+            double totalSumCene = izracunajTotalRegularneCene();
+            txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+            // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+            double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+            txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+            double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+            txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
         });
 
         //DETALJI POSAO ARTIKL
@@ -650,14 +686,17 @@ public class FakturaController implements Initializable {
 
         tblPosaoArtikli.setItems(posaoArtikli);
 
-        // Izracunavanje TOTAL SUME Sa Popustom na delove
-        txtfTotalSaPopustomNaDelove.setText(String.valueOf(izracunajTotalSumaSaPopustomNaDelove()));
-        // Izracunavanje TOTAL SUME CENE
-        txtfTotalPoCenama.setText(String.valueOf(izracunajTotalRegularneCene()));
-        // Izracunavanje TOTAL SUME NABAVNE CENE
-        txtfTotalPoNabavnimCenama.setText(String.valueOf(izracunajTotalNabavneCene()));
-        // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-        txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+        double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
+        txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+        // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
+        double totalSumCene = izracunajTotalRegularneCene();
+        txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+        // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
+        double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
+        txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+        // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+        double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+        txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
     }
 
     /*
@@ -665,6 +704,7 @@ public class FakturaController implements Initializable {
      ******************** KALKULACIJA ***************************
      ************************************************************
      */
+
     /**
      * Izracunavanje  SUME SA POPUSTOM NA DELOVE racuna sa popustom i to po regularnim cenama.
      * Koristi se u {@link #initialize}, i u svakom polju tabele u {@link #setTableData(ObservableList)}
@@ -718,9 +758,9 @@ public class FakturaController implements Initializable {
      * @see #initialize
      */
     private double izracunajGrandTotalSaPopustomNaCeoRacun() {
-        double totalsaPopustomNaDelove = Double.parseDouble(txtfTotalSaPopustomNaDelove.getText());
+        double totalsaPopustomNaDelove = tblPosaoArtikli.getItems().stream().mapToDouble(o ->
+                tblRowTotal.getCellData(o).doubleValue()).sum();
         double popustNaCelomRacunu = Double.parseDouble(txtFpopustRacuna.getText());
-
         return totalsaPopustomNaDelove - ((totalsaPopustomNaDelove * popustNaCelomRacunu) / 100);
     }
 
@@ -812,6 +852,7 @@ public class FakturaController implements Initializable {
      ****************** LIST VIEW STAFF  ************************
      ************************************************************
      */
+
     /**
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
      * <p>
@@ -975,26 +1016,35 @@ public class FakturaController implements Initializable {
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
         UiPrintRacuniControler uiPrintRacuniControler = fxmlLoader.getController();
         uiPrintRacuniControler.setFakturaController(this, stagePrint);
-        //uiPrintRacuniControler.setIdRacuna(Integer.parseInt(txtFidRacuna.getText()));
     }
 
     /**
      * Otvaranje Print Fakture {@link UiPrintRacuniControler}
+     * <p>
+     * Posto je moguce da se doda napomena racuna u {@link #txtAreaNapomenaRacuna} i da se klikne odmah na PRINT
+     * moramo da sacuvamo izmene u racunu a u {@link #btnSacuvajRacunAction()}. U ovoj metodi imamo obavestenje da je
+     * Racun uspesno sacuvan, pa kada se klikne na Print dugme i otvori se GUI za print iza ostane Dialog.
+     * Promenjivom {@link #ifWeAreFromBtnSacuvajRacun} regulisemo da se ono ne pojavljujekadase klikne na print.
+     * <p>
      * Inicijalizacija Print Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
      * Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
      *
      * @see #initUiPrintControler(FXMLLoader)
      * @see UiPrintRacuniControler
+     * @see #btnSacuvajRacunAction()
      */
     @FXML
     private void btnPrintAction() {
         try {
+            ifWeAreFromBtnSacuvajRacun = false; //Obavesti da ne cuvamo racun iz dugmeta btnSacuvajRacun
+            btnSacuvajRacun.fire(); // Fire dugme za cuvanje bez dijaloga
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
             stagePrint = new Stage();
             stagePrint.initModality(Modality.APPLICATION_MODAL);
             stagePrint.setScene(new Scene(loader.load()));
 
-            initUiPrintControler(loader); //Inicijalizacija Porint Controlora i prosledjivanje id Racuna
+            initUiPrintControler(loader); //Inicijalizacija Print Controlora i prosledjivanje id Racuna
 
             stagePrint.showAndWait();//Open Stage and wait
 
@@ -1008,15 +1058,20 @@ public class FakturaController implements Initializable {
      ******************* BUTTON ACTION STAFF*********************
      ************************************************************
      */
+
     /**
      * UPDATE Racuna kada se nesto promeni u njemu...(Datum...Napomena...Popust)
      * <p>
      * Setuju se svi podaci za izmenjen racun pokupljeni iz TF-ova
      * Zatim se radi update sa {@link RacuniDAO#updateRacun(Racun)}
      * Nakon toga se radi update GRAND TOTAL SUME SA POPUSTOM NA CEO RACUN {@link #izracunajGrandTotalSaPopustomNaCeoRacun()}
+     * <p>
+     * {@code  ifWeAreFromBtnSacuvajRacun = true} regulise da se ne pojavljuje Dijalog kada se klikne odmah na print
+     * dugme {@see btnPrintAction} objasnjenje za detalje.
      *
      * @see RacuniDAO#updateRacun(Racun)
      * @see GeneralUiUtility#alertDialogBox(Alert.AlertType, String, String, String)
+     * @see GeneralUiUtility#formatDateForUs(LocalDate)
      */
     @FXML
     private void btnSacuvajRacunAction() {
@@ -1025,20 +1080,27 @@ public class FakturaController implements Initializable {
             noviRacun.setIdRacuna(brojFakture);
             noviRacun.setIdAutomobila(idAutomobila);
             noviRacun.setKilometraza(txtfKilometraza.getText());
-            noviRacun.setDatum(datePickerDatumRacuna.getValue().toString());
-            noviRacun.setDatumPrometa(datePickerDatumPrometa.getValue().toString());
-            noviRacun.setDatumValute(datePickerDatumValute.getValue().toString());
+            noviRacun.setDatum(GeneralUiUtility.formatDateForUs(datePickerDatumRacuna.getValue()));
+            noviRacun.setDatumPrometa(GeneralUiUtility.formatDateForUs(datePickerDatumPrometa.getValue()));
+            noviRacun.setDatumValute(GeneralUiUtility.formatDateForUs(datePickerDatumValute.getValue()));
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
             racuniDAO.updateRacun(noviRacun);
-            GeneralUiUtility.alertDialogBox(
-                    Alert.AlertType.CONFIRMATION,
-                    "USPESNO SACUVAN RACUN",
-                    "EDITOVANJE RACUNA",
-                    "Uspesno ste sacuvali racun br." + brojFakture
-            );
-            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun
-            txtfGrandTotal.setText(String.valueOf(izracunajGrandTotalSaPopustomNaCeoRacun()));
+            if (ifWeAreFromBtnSacuvajRacun) {
+                GeneralUiUtility.alertDialogBox(
+                        Alert.AlertType.CONFIRMATION,
+                        "USPESNO SACUVAN RACUN",
+                        "EDITOVANJE RACUNA",
+                        "Uspesno ste sacuvali racun br." + brojFakture
+                );
+            }
+
+            // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
+            double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
+            txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
+
+            ifWeAreFromBtnSacuvajRacun = true; //Obavesti da je racun sacuvan
+
         } catch (SQLException | AcrenoException throwables) {
             throwables.printStackTrace();
             GeneralUiUtility.alertDialogBox(
