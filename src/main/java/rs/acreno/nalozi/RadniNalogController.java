@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
@@ -34,6 +35,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RadniNalogController implements Initializable {
+
+    private static final Logger logger = Logger.getLogger(RadniNalogController.class);
+
 
     @FXML private Stage automobilStage;
 
@@ -335,18 +339,39 @@ public class RadniNalogController implements Initializable {
     }
 
     /**
-     * Zatvaranje RADNI NALOG UIa i refresh tabele RADNI NALOG u {@link AutomobiliController}-u
+     * Zatvaranje {@link RadniNalogController} UIa i cuvanje {@link RadniNalog} objekta.
      * <p>
-     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
-     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenNoviRadniNalog()}
+     * Ovde je implementiran i "SAMART CLOSE" jer ako se otvori novi Radni Nalog ona je odmah ubacena u DB,
+     * po ako se ne unese ni {@link #txtAreaDetaljiStranke} ili {@link #txtAreDetaljiServisera} txt, onda predpostavljamo
+     * da smo odustali i samim tim brisemo iz DBa!
      *
      * @param actionEvent event for hide scene {@link RadniNalogController}
-     * @see AutomobiliController#btnOpenNoviRadniNalog
+     * @throws AcrenoException malo bolje objasnjenje
+     * @throws SQLException    problem u DBu
+     * @author Dejan Cugalj
      */
     @FXML
-    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
-        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
-        btnCloseRadniNalog.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        // Pametno bisanje racuna ako je samo otvoren novi i nema Unosa u txtF
+        if (txtAreaDetaljiStranke.getText().equals("") || txtAreDetaljiServisera.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("SMART brisanja Radnog Naloga");
+            alert.setHeaderText("Niste uneli ''Detalje stranke'' ni ''Detalje Servisera'', da li možemo Radnog Naloga da obrišemo?");
+            alert.setContentText("Radnog Naloga je već napravljen u bazi, ali niste uneli ''Detalji Stranke''" +
+                    " niti ''Detalje Servisera'' pa predpostavljamo da " +
+                    "možemo da obrišemo ovaj RadnoiNalog?");
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    radniNalogDAO.deleteRadniNalog(brojRadnogNaloga);
+                    btnCloseRadniNalog.fireEvent(new WindowEvent(stagePrintRadniNalog, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
+        } else {
+            btnSacuvajRadniNalogAction(); //Cuvamo Radni Nalog ako ima nesto u TXTFu Detalji Servisera
+            btnCloseRadniNalog.fireEvent(new WindowEvent(stagePrintRadniNalog, WindowEvent.WINDOW_CLOSE_REQUEST));
+        }
     }
 }

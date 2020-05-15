@@ -21,6 +21,7 @@ import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.defektaza.print_defektaza.PrintDefektazaController;
 import rs.acreno.klijent.Klijent;
+import rs.acreno.nalozi.RadniNalogController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -306,12 +307,7 @@ public class DefektazaController implements Initializable {
      * @param actionEvent event for hide scene {@link DefektazaController}
      * @see AutomobiliController#btnOpenDefektaza()
      */
-    @FXML
-    private void btnCloseDefektazaAction(@NotNull ActionEvent actionEvent) {
-        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
-        btnCloseDefektaza.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-    }
+
 
     /**
      * Inicijalizacija {@link PrintDefektazaController}, a implementira se {@link #initialize}
@@ -348,6 +344,43 @@ public class DefektazaController implements Initializable {
 
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Zatvaranje {@link DefektazaController} UIa i cuvanje {@link Defektaza} objekta.
+     * <p>
+     * Ovde je implementiran i "SAMART CLOSE" jer ako se otvori nova Defektaza ona je odmah ubacena u DB,
+     * po ako se ne unese ni {@link #txtAreaOpisDefektaze} ili {@link #txtAreOstaliDetaljiDefektaze} txt,
+     * onda predpostavljamo da smo odustali i samim tim brisemo iz DBa!
+     *
+     * @param actionEvent event for hide scene {@link RadniNalogController}
+     * @throws AcrenoException malo bolje objasnjenje
+     * @throws SQLException    problem u DBu
+     * @author Dejan Cugalj
+     */
+    @FXML
+    private void btnCloseDefektazaAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        if (txtAreaOpisDefektaze.getText().equals("") || txtAreOstaliDetaljiDefektaze.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("SMART brisanja Defektaže");
+            alert.setHeaderText("Niste uneli ''OPIS DEFEKTAZE'' ni ''OSTALI DETALJI DEFELTAZE''," +
+                    " da li možemo da obrišemo ovu Defektažu?");
+            alert.setContentText("Defektaža je već napravljen u bazi, ali niste uneli ''Detalji Stranke''" +
+                    " niti ''Detalje Servisera'' pa predpostavljamo da " +
+                    "možemo da obrišemo ovau Defektažu?");
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    defektazaDAO.deleteDefektaza(brojDefektaze);
+                    btnCloseDefektaza.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
+        } else {
+            btnSacuvajDefektazuAction(); //Cuvamo Radni Nalog ako ima nesto u TXTFu Detalji Servisera
+            btnCloseDefektaza.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
 }

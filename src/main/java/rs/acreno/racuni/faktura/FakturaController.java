@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
@@ -53,6 +54,9 @@ import java.util.ResourceBundle;
 
 
 public class FakturaController implements Initializable {
+
+    private static final Logger logger = Logger.getLogger(FakturaController.class);
+
 
     @FXML private Button btnSacuvajRacun;
     @FXML private Button btnCloseFakture;
@@ -1146,9 +1150,9 @@ public class FakturaController implements Initializable {
     private void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Potvrda brisanja Računa: " + noviRacun.getIdRacuna());
-            alert.setHeaderText("Brisanje Računa sa IDom: " + noviRacun.getIdRacuna());
-            alert.setContentText("Da li ste sigurni da želite da obrišete račun br: " + noviRacun.getIdRacuna());
+            alert.setTitle("Potvrda brisanja Računa: " + brojFakture);
+            alert.setHeaderText("Brisanje Računa sa Brojem: " + brojFakture);
+            alert.setContentText("Da li ste sigurni da želite da obrišete račun br: " + brojFakture);
             ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
@@ -1164,20 +1168,44 @@ public class FakturaController implements Initializable {
     }
 
     /**
-     * Zatvaranje FAKTURA UIa i refresh tabele RAcuni u {@link AutomobiliController}-u
+     * Zatvaranje FAKTURA UIa i refresh tabele Racuni u {@link AutomobiliController}-u
      * <p>
      * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
      * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenFakturaUi}
+     * <p>
+     * Ovde je implementiran i "SAMART CLOSE" jer ako se otvori nova Faktura ona je odmah ubacena u DB,
+     * po ako se ne unese ni jedan {@link Artikl} onda predpostavljamo da smo odustali i samim tim brisemo iz DBa!
      *
      * @param actionEvent event for hide scene {@link FakturaController}
+     * @throws AcrenoException malo bolje objasnjenje
+     * @throws SQLException    problem u DBu
+     * @author Dejan Cugalj
      * @see AutomobiliController#btnOpenFakturaUi
      */
     @FXML
-    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) {
-        //TODO: pitati na zatvaranju da li hocemo da se sacuva RACUN ili da obrise
-        btnCloseFakture.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        // Pametno bisanje racuna ako je samo otvoren novi i nema artikala
+        if (tblPosaoArtikli.getItems().size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("SMART brisanja Računa");
+            alert.setHeaderText("Niste uneli nijedan Artikal, da li možemo Račun da obrišemo?");
+            alert.setContentText("Račun je već napravljen u bazi, ali niste uneli Artikal pa predpostavljamo da " +
+                    "možemo da obrišemo ovaj Račun?");
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    racuniDAO.deleteRacun(brojFakture);
+                    btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
+        } else {
+            btnSacuvajRacunAction(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
+            btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
+        }
     }
-
 }
+
+
 

@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
 import rs.acreno.autoservis.AutoServisController;
@@ -41,6 +42,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AutomobiliController implements Initializable {
+
+    private static final Logger logger = Logger.getLogger(AutomobiliController.class);
 
 
     //MENU
