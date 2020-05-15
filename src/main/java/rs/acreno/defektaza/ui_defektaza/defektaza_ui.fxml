@@ -29,7 +29,7 @@
             <Label layoutX="587.0" layoutY="34.0" text="KILOMETRAZA" textFill="#dddddd" />
             <Label layoutX="384.0" layoutY="35.0" text="ID DEFEKTAZE" textFill="#dddddd" />
             <Label layoutX="843.0" layoutY="34.0" text="VREME" textFill="#dddddd" />
-            <Label layoutX="148.0" layoutY="188.0" text="OPIS DEFEKTAZE" textFill="#dddddd" />
+            <Label layoutX="104.0" layoutY="210.0" text="OPIS DEFEKTAZE" textFill="#dddddd" />
             <Label layoutX="634.0" layoutY="188.0" text="OSTALI DETALJI DEFELTAZE" textFill="#dddddd" />
             <TextField fx:id="txtfIdDefektaze" layoutX="356.0" layoutY="58.0" />
             <TextField fx:id="txtfKilometraza" layoutX="560.0" layoutY="58.0" promptText="Kilometraža..." />

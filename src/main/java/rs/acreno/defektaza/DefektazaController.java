@@ -281,9 +281,9 @@ public class DefektazaController implements Initializable {
     private void btnObrisiDefektazuAction(@NotNull ActionEvent actionEvent) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Potvrda brisanja Defektaže: " + novaDefektaza.getIdDefektaze());
-            alert.setHeaderText("Brisanje Defektaže: " + novaDefektaza.getOpisDefektaze());
-            alert.setContentText("Da li ste sigurni da želite da obrišete Defektažu br: " + novaDefektaza.getOpisDefektaze());
+            alert.setTitle("Potvrda brisanja Defektaže: " + brojDefektaze);
+            alert.setHeaderText("Brisanje Defektaže: " + brojDefektaze);
+            alert.setContentText("Da li ste sigurni da želite da obrišete Defektažu br: " + brojDefektaze);
             ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {

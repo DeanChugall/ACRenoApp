@@ -283,9 +283,9 @@ public class RadniNalogController implements Initializable {
     private void btnObrisiRadniNalogAction(@NotNull ActionEvent actionEvent) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Potvrda brisanja Radnog Naloga: " + noviRadniNalog.getIdRadnogNaloga());
-            alert.setHeaderText("Brisanje Radnog Naloga sa ID brojem: " + noviRadniNalog.getIdRadnogNaloga());
-            alert.setContentText("Da li ste sigurni da želite da obrišete Radni Nalog br: " + noviRadniNalog.getIdRadnogNaloga());
+            alert.setTitle("Potvrda brisanja Radnog Naloga: " + brojRadnogNaloga);
+            alert.setHeaderText("Brisanje Radnog Naloga sa ID brojem: " + brojRadnogNaloga);
+            alert.setContentText("Da li ste sigurni da želite da obrišete Radni Nalog br: " + brojRadnogNaloga);
             ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
