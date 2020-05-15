@@ -6,12 +6,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.racuni.faktura.FakturaController;
+import rs.acreno.system.constants.Constants;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -51,6 +54,7 @@ public class GeneralUiUtility {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(poruka);
+        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
         alert.show();
         return alert;
     }

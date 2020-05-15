@@ -35,19 +35,20 @@ public class SQLKlijnetDAO implements KlijentDAO {
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, klijent.getImePrezime());
-            pstmt.setString(2, klijent.getMesto());
-            pstmt.setLong(3, klijent.getPostanskiBroj());
-            pstmt.setString(4, klijent.getUlicaBroj());
-            pstmt.setString(5, klijent.getBrLicneKarte());
-            pstmt.setLong(6, klijent.getMaticniBroj());
-            pstmt.setString(7, klijent.getOstaliDetalji());
-            pstmt.setString(8, klijent.getEmail());
-            pstmt.setString(9, klijent.getTelefonMobilni());
-            pstmt.setString(10, klijent.getTelefonFiksni());
-            pstmt.setString(11, klijent.getWeb());
-            pstmt.setString(12, klijent.getBrojRacuna());
-            pstmt.setString(13, klijent.getBanka());
+            pstmt.setInt(1, klijent.getIdKlijenta());
+            pstmt.setString(2, klijent.getImePrezime());
+            pstmt.setString(3, klijent.getMesto());
+            pstmt.setString(4, klijent.getPostanskiBroj());
+            pstmt.setString(5, klijent.getUlicaBroj());
+            pstmt.setString(6, klijent.getBrLicneKarte());
+            pstmt.setString(7, klijent.getMaticniBroj());
+            pstmt.setString(8, klijent.getOstaliDetalji());
+            pstmt.setString(9, klijent.getEmail());
+            pstmt.setString(10, klijent.getTelefonMobilni());
+            pstmt.setString(11, klijent.getTelefonFiksni());
+            pstmt.setString(12, klijent.getWeb());
+            pstmt.setString(13, klijent.getBrojRacuna());
+            pstmt.setString(14, klijent.getBanka());
             pstmt.executeUpdate();
             System.out.println("FROM : insertKlijnet");
         } catch (SQLException e) {
@@ -108,8 +109,8 @@ public class SQLKlijnetDAO implements KlijentDAO {
         String valueClause = "";
         switch (klijentSearchType) {
             case ID_KLIJENTA -> {
-                whereClause = "IdKlijenta LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "IdKlijenta = ?";
+                valueClause = value.toString();
             }
             case IME_PREZIME -> {
                 whereClause = "imePrezime LIKE ?";

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -149,6 +150,19 @@ public class FakturaController implements Initializable {
         return klijenti.get(0);
     }
 
+    /**
+     * Prosledjuje vrednost {@link #txtFidRacuna} koji se koristi u {@link PrintRacuniControler #popuniTabeluPosaoArtikli()}
+     * U toj metodi se inicijalizuje FILTRIRAN {@link PosaoArtikli} objekat po ID Racunu,
+     * a u metodi {@link PrintRacuniControler #initPosaoArtikliDbTable(int)}.
+     * <p>
+     * Takodje se koristi i jos u {@link PrintRacuniControler #initRacunFields()}
+     *
+     * @return String za TF polje u Print Racuna Controloru
+     * @see PrintRacuniControler
+     * @see PrintRacuniControler #initPosaoArtikliDbTable(int)
+     * @see PrintRacuniControler #popuniTabeluPosaoArtikli()
+     * @see PosaoArtikli
+     */
     public String getIdRacuna() {
         return txtFidRacuna.getText();
     }
@@ -291,13 +305,14 @@ public class FakturaController implements Initializable {
             listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
 
-            //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI TODO: SREDITI CONFIRMATION DIALOG
+            //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
             tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", p -> {
                 try {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("BRISANJE ARTIKLA");
                     alert.setHeaderText("ARTIKL: " + p.getNazivArtikla());
                     alert.setContentText("Da li želite da obrišete stavku sa računa?");
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent()) {
@@ -1077,10 +1092,10 @@ public class FakturaController implements Initializable {
             racuniDAO.updateRacun(noviRacun);
             if (ifWeAreFromBtnSacuvajRacun) {
                 GeneralUiUtility.alertDialogBox(
-                        Alert.AlertType.CONFIRMATION,
+                        Alert.AlertType.INFORMATION,
                         "USPESNO SACUVAN RACUN",
-                        "EDITOVANJE RACUNA",
-                        "Uspesno ste sacuvali racun br." + brojFakture
+                        "Uspešno ste sačuvali Račun Br: " + brojFakture,
+                        "Račun sa brojem: " +brojFakture + " je uspešno sačuvan!"
                 );
             }
 
@@ -1118,9 +1133,19 @@ public class FakturaController implements Initializable {
     @FXML
     private void btnOdustaniObrisiRacunAction(@NotNull ActionEvent actionEvent) {
         try {
-            racuniDAO.deleteRacun(brojFakture);
-            btnOdustaniObrisiRacun.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-            ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Potvrda brisanja Računa: " + noviRacun.getIdRacuna());
+            alert.setHeaderText("Brisanje Računa sa IDom: " + noviRacun.getIdRacuna());
+            alert.setContentText("Da li ste sigurni da želite da obrišete račun br: " + noviRacun.getIdRacuna());
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    racuniDAO.deleteRacun(brojFakture);
+                    btnOdustaniObrisiRacun.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
         } catch (AcrenoException | SQLException acrenoException) {
             acrenoException.printStackTrace();
         }

@@ -22,20 +22,19 @@ public class KlijentiAllTests {
     public KlijentiAllTests() {
         podaciKlijenta = new Klijent();
         //podaciKlijenta.setIdKlijenta(1);
-        podaciKlijenta.setImePrezime("Verica Povorka");
-        podaciKlijenta.setMesto("Beograd");
-        podaciKlijenta.setPostanskiBroj(11250);
-        podaciKlijenta.setUlicaBroj("Djordja Milovanovića 19");
-        podaciKlijenta.setBrLicneKarte("setBrLicneKarte");
-        podaciKlijenta.setMaticniBroj(241635436);
-        podaciKlijenta.setOstaliDetalji("setOstaliDetalji");
-        podaciKlijenta.setEmail("deanchugall@gmail.com");
-        podaciKlijenta.setEmail("deanchugall@gmail.com");
-        podaciKlijenta.setTelefonMobilni("+381631369098");
-        podaciKlijenta.setTelefonFiksni("+381631369098");
-        podaciKlijenta.setWeb("www.programiranje.club");
-        podaciKlijenta.setBrojRacuna("365465435465");
-        podaciKlijenta.setBanka("MOBI BANKA");
+        podaciKlijenta.setImePrezime("");
+        podaciKlijenta.setMesto("");
+        podaciKlijenta.setPostanskiBroj("");
+        podaciKlijenta.setUlicaBroj("");
+        podaciKlijenta.setBrLicneKarte("");
+        podaciKlijenta.setMaticniBroj("");
+        podaciKlijenta.setOstaliDetalji("");
+        podaciKlijenta.setEmail("");
+        podaciKlijenta.setTelefonMobilni("");
+        podaciKlijenta.setTelefonFiksni("");
+        podaciKlijenta.setWeb("");
+        podaciKlijenta.setBrojRacuna("");
+        podaciKlijenta.setBanka("");
 
     }
 
@@ -83,7 +82,7 @@ public class KlijentiAllTests {
     @Test
     public void updateKlijent() throws SQLException, AcrenoException {
 
-        podaciKlijenta.setIdKlijenta(1);
+        podaciKlijenta.setIdKlijenta(38);
         podaciKlijenta.setImePrezime("Dex Cugs");
         klijentDAO.updateKlijent(podaciKlijenta);
     }

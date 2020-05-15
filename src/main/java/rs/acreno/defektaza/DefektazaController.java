@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +31,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DefektazaController implements Initializable {
@@ -277,9 +279,19 @@ public class DefektazaController implements Initializable {
     @FXML
     private void btnObrisiDefektazuAction(@NotNull ActionEvent actionEvent) {
         try {
-            defektazaDAO.deleteDefektaza(brojDefektaze); //TODO PROVERITI OVO
-            btnObrisiDefektazu.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
-            ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Potvrda brisanja Defektaže: " + novaDefektaza.getIdDefektaze());
+            alert.setHeaderText("Brisanje Defektaže: " + novaDefektaza.getOpisDefektaze());
+            alert.setContentText("Da li ste sigurni da želite da obrišete Defektažu br: " + novaDefektaza.getOpisDefektaze());
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    defektazaDAO.deleteDefektaza(brojDefektaze); //TODO PROVERITI OVO
+                    btnObrisiDefektazu.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
         } catch (AcrenoException | SQLException acrenoException) {
             acrenoException.printStackTrace();
         }

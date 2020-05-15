@@ -7,7 +7,7 @@ public class SqlQuerys {
             "INSERT INTO Klijenti (" +
                     " IdKlijenta, imePrezime, Mesto, PostanskiBroj, UlicaBroj, BrLicneKarte, maticniBroj," +
                     " ostaliDetalji, email, telefonMobilni, telefonFiksni, web, brojRacuna, banka )" +
-                    "VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     public static final String UPDATE_KLIJENT_TABLE =
             "UPDATE Klijenti SET " +

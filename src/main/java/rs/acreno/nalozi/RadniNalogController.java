@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RadniNalogController implements Initializable {
@@ -276,9 +278,19 @@ public class RadniNalogController implements Initializable {
     @FXML
     private void btnObrisiRadniNalogAction(@NotNull ActionEvent actionEvent) {
         try {
-            radniNalogDAO.deleteRadniNalog(brojRadnogNaloga);
-            btnObrisiRadniNalogAction.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-            ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Potvrda brisanja Radnog Naloga: " + noviRadniNalog.getIdRadnogNaloga());
+            alert.setHeaderText("Brisanje Radnog Naloga sa ID brojem: " + noviRadniNalog.getIdRadnogNaloga());
+            alert.setContentText("Da li ste sigurni da želite da obrišete Radni Nalog br: " + noviRadniNalog.getIdRadnogNaloga());
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    radniNalogDAO.deleteRadniNalog(brojRadnogNaloga);
+                    btnObrisiRadniNalogAction.fireEvent(new WindowEvent(automobilStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+                }
+            }
         } catch (AcrenoException | SQLException acrenoException) {
             acrenoException.printStackTrace();
         }

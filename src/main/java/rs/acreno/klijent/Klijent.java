@@ -7,10 +7,10 @@ public class Klijent {
     private int IdKlijenta;
     private String imePrezime;
     private String mesto;
-    private long postanskiBroj;
+    private String postanskiBroj;
     private String ulicaBroj;
     private String brLicneKarte;
-    private long maticniBroj;
+    private String maticniBroj;
     private String ostaliDetalji;
     private String email;
     private String telefonMobilni;
@@ -52,11 +52,11 @@ public class Klijent {
         this.mesto = mesto;
     }
 
-    public long getPostanskiBroj() {
+    public String getPostanskiBroj() {
         return postanskiBroj;
     }
 
-    public void setPostanskiBroj(long postanskiBroj) {
+    public void setPostanskiBroj(String postanskiBroj) {
         this.postanskiBroj = postanskiBroj;
     }
 
@@ -76,11 +76,11 @@ public class Klijent {
         this.brLicneKarte = brLicneKarte;
     }
 
-    public long getMaticniBroj() {
+    public String getMaticniBroj() {
         return maticniBroj;
     }
 
-    public void setMaticniBroj(long maticniBroj) {
+    public void setMaticniBroj(String maticniBroj) {
         this.maticniBroj = maticniBroj;
     }
 

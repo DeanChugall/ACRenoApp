@@ -66,32 +66,41 @@
     </dependencies>
     <build>
         <resources>
+            <!--AUTO SERVIS-->
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\splash\ui_splash_screen</directory>
             </resource>
+            <!--AUTOMOBILI-->
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\ui_autoservis</directory>
             </resource>
             <resource>
                 <directory>src\main\java\rs\acreno\automobil\ui_automobili</directory>
             </resource>
+            <!--RACUNI-->
             <resource>
                 <directory>src\main\java\rs\acreno\racuni\faktura\ui_faktura</directory>
             </resource>
             <resource>
                 <directory>src\main\java\rs\acreno\racuni\print_racun\ui_print_racun</directory>
             </resource>
+            <!--RADNI NALOZI-->
             <resource>
                 <directory>src\main\java\rs\acreno\nalozi\ui_radni_nalozi</directory>
             </resource>
             <resource>
                 <directory>src\main\java\rs\acreno\nalozi\print_nalozi\ui_print_nalozi</directory>
             </resource>
+            <!--DEFEKTAZA-->
             <resource>
                 <directory>src\main\java\rs\acreno\defektaza\ui_defektaza</directory>
             </resource>
             <resource>
                 <directory>src\main\java\rs\acreno\defektaza\print_defektaza\ui_print_defektaza</directory>
+            </resource>
+            <!--KLIJENTI-->
+            <resource>
+                <directory>src\main\java\rs\acreno\klijent\ui_klijent</directory>
             </resource>
             <!--FX CSS-->
             <resource>
@@ -105,9 +114,14 @@
                     <exclude>*.accdb</exclude>
                 </excludes>
             </resource>
+            <!--APP IMAGES-->
             <resource>
                 <directory>src\main\resources\images</directory>
             </resource>
+            <resource>
+                <directory>src\main\resources\app_icons</directory>
+            </resource>
+            <!--APP PROPERTIES-->
             <resource>
                 <directory>src/main/resources/properties</directory>
             </resource>

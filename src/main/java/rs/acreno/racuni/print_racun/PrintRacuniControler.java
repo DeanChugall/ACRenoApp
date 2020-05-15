@@ -1,13 +1,15 @@
 package rs.acreno.racuni.print_racun;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -138,37 +140,83 @@ public class PrintRacuniControler implements Initializable {
         tblPosaoArtikli.getSelectionModel().clearSelection(); // clear selection from table for print
         GeneralUiUtility.printStaff(ancorPanePrint, btnPrint, btnPrintClose);
     }
-    //TODO: PROMENUTI OVO KAO U OSTALIM KLASAMA
+
+    /**
+     * Popunjavanje tabele {@link #tblPosaoArtikli} sa inicijalizovanim filtriranim {@link PosaoArtikli} Objektom.
+     * Inicijalizacija se radi u metodi {@link #initPosaoArtikliDbTable(int)}, tamo za vise detalja.
+     * <p>
+     * {@code fakturaController.getIdRacuna()} se dobija ID RACUNA iz {@link FakturaController}-a,
+     * u metodu {@link FakturaController#getIdRacuna()}. Id Racuna nam sluzi za dobijanje svih {@link PosaoArtikli}
+     * vredsnosti koji su vezani za taj ID RACUNA.
+     *
+     * @see #tblPosaoArtikli
+     * @see #initPosaoArtikliDbTable(int)
+     * @see FakturaController
+     * @see FakturaController#getIdRacuna()
+     * @see PosaoArtikli
+     */
     private void popuniTabeluPosaoArtikli() {
         ObservableList<PosaoArtikli> posaoArtikli = initPosaoArtikliDbTable(Integer.parseInt(fakturaController.getIdRacuna()));
-        tblRowidPosaoArtikli.setCellValueFactory(new PropertyValueFactory<>("idPosaoArtikli"));
+
+        //Tbl Coll ID POSAO ARTIKLA
+        tblRowidPosaoArtikli.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdPosaoArtikli()));
         tblRowidPosaoArtikli.setStyle("-fx-alignment: CENTER;");
-        tblRowidRacuna.setCellValueFactory(new PropertyValueFactory<>("idRacuna"));
+
+        //Tbl Coll ID RACUNA
+        tblRowidRacuna.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdRacuna()));
         tblRowidRacuna.setStyle("-fx-alignment: CENTER;");
-        tblRowidArtikla.setCellValueFactory(new PropertyValueFactory<>("idArtikla"));
+
+        //Tbl Coll ID ARTIKLA
+        tblRowidArtikla.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
         tblRowidArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowNazivArtikla.setCellValueFactory(new PropertyValueFactory<>("nazivArtikla"));
+
+        //Tbl Coll NAZIV ARTKLA
+        tblRowNazivArtikla.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
         tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowOpisArtikla.setCellValueFactory(new PropertyValueFactory<>("opisPosaoArtiklli"));
+
+        //Tbl Coll OPIS ARTIKLA
+        tblRowOpisArtikla.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
         tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
-        tblRowKolicina.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+
+        //Tbl Coll KOLICINA
+        tblRowKolicina.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getKolicina()));
         tblRowKolicina.setStyle("-fx-alignment: CENTER;");
-        tblRowJedinicaMere.setCellValueFactory(new PropertyValueFactory<>("jedinicaMere"));
+
+        //Tbl Coll JEDINICA MERE
+        tblRowJedinicaMere.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getJedinicaMere()));
         tblRowJedinicaMere.setStyle("-fx-alignment: CENTER;");
-        tblRowCena.setCellValueFactory(new PropertyValueFactory<>("cena"));
+
+        //Tbl Coll CENA
+        tblRowCena.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getCena()));
         tblRowCena.setStyle("-fx-alignment: CENTER;");
-        tblRowPopust.setCellValueFactory(new PropertyValueFactory<>("popust"));
+
+        //Tbl Coll POPUST
+        tblRowPopust.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getPopust()));
         tblRowPopust.setStyle("-fx-alignment: CENTER;");
 
         tblPosaoArtikli.setItems(posaoArtikli);
     }
 
     /**
-     * Prilikom ulaza u UiPrintControler potrebno je naci sve artikle iz vezne tabele koji su u korelaciji
-     * sa ovim ID Racunom. Korisi se {@link #initialize}
+     * Prilikom ulaza u {@link PrintRacuniControler} potrebno je naci sve artikle iz vezne tabele koji su u korelaciji
+     * sa ovim ID Racunom.
+     * Filtrira se preko ID RACUNA, a u {@link PosaoArtikliDAO#findPosaoArtikliByPropertyDao(PosaoArtikliDaoSearchType, Object)}
+     * <p>
+     * Ova metoda je pomocna metoda za {@link #popuniTabeluPosaoArtikli()}.
      *
      * @param idRacuna id racuna kao parametar pretrage u bazi za Posao Artikle veznu Tabelu
      * @return ObservableList<PosaoArtikli>
+     * @see PosaoArtikliDAO#findPosaoArtikliByPropertyDao
+     * @see #popuniTabeluPosaoArtikli()
      */
     private ObservableList<PosaoArtikli> initPosaoArtikliDbTable(int idRacuna) {
         PosaoArtikliDAO posaoArtikliDAO = new SQLPosaoArtikliDAO();
@@ -184,7 +232,7 @@ public class PrintRacuniControler implements Initializable {
         return posaoArtikli;
     }
 
-     // ******************** INICIJALIZACIJA POLJA *****************
+    // ******************** INICIJALIZACIJA POLJA *****************
 
     /**
      * Init {@link Racun} Polja u racunu. Sekcija gde su polja vezana za racun se ovde popunjavaju, a

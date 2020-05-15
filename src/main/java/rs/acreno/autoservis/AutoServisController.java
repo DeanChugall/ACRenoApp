@@ -2,6 +2,7 @@ package rs.acreno.autoservis;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +34,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AutoServisController implements Initializable {
+
+    public Button btnNoviAutomobil;
+    public Button btnNoviKlijent;
 
     /**
      * ListView koja cuva Listu Automobila u TxtF-u prilikom fil;tera u kucanju
@@ -233,11 +237,29 @@ public class AutoServisController implements Initializable {
         }
     }
 
+   // ************** BUTTONS STAFF **********************
+
+    public void btnOpenNoviKlijentGui(ActionEvent actionEvent) throws IOException {
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderNewKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
+        Stage stageNewKlijent = new Stage();
+        stageNewKlijent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewKlijent.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(fxmlLoaderNewKlijent.load());
+        stageNewKlijent.setScene(scene);
+        stageNewKlijent.setResizable(false);
+        stageNewKlijent.setTitle("Kreiraj Novog Klijenta");
+
+        stageNewKlijent.showAndWait();
+    }
+
+    public void btnOpenNoviAutomobilGui(ActionEvent actionEvent) {
+    }
+
     /**
      * Zatvori ACReno Aplikaciju
      */
     public void btnCloseApplication() {
         System.exit(0);
     }
-
 }
