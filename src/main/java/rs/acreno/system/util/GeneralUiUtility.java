@@ -1,16 +1,18 @@
 package rs.acreno.system.util;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.print.*;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.racuni.faktura.FakturaController;
@@ -18,6 +20,7 @@ import rs.acreno.system.constants.Constants;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class GeneralUiUtility {
@@ -131,6 +134,20 @@ public class GeneralUiUtility {
      */
     public static String formatDecimalPlaces(double sum) {
         return new DecimalFormat("###,###.00").format(sum);
+    }
+
+    /**
+     * Postavljenje stat koji se prikazuje u Labelu
+     * @param label gde prikazijemo sat
+     * @param formatter format sata
+     */
+    public static void initSat(Label label, DateTimeFormatter formatter) {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            label.setText(LocalDateTime.now().format(formatter));
+            label.setAlignment(Pos.CENTER);
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }
 
