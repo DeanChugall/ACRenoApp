@@ -77,6 +77,7 @@ public class AutoServisApp extends Application {
                     Stage stage = new Stage();
                     stage.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
                     stage.setScene(scene);
+                    stage.setResizable(false);
                     stage.setTitle("ACR Informacioni Sistem || ACReno auto Servis");
                     stage.show();
                     tt.cancel();

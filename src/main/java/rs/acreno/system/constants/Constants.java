@@ -1,5 +1,7 @@
 package rs.acreno.system.constants;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import rs.acreno.autoservis.splash.SplashScreenController;
 import rs.acreno.system.util.properties.ApplicationProperties;
 
@@ -10,14 +12,14 @@ import java.nio.file.Paths;
 
 public class Constants {
 
-    //DB Staf SQLite
+    // *******************  DB Staf SQLite ***************************
     public static final String IME_BAZE = ApplicationProperties.getInstance().getProperty("database.name");
     private static final String RESOURCE_DIRECTORY = ApplicationProperties.getInstance().getProperty("database.dir");
     private static final String RESOURCE_DIRECTORY_DEVELOP = ApplicationProperties.getInstance().getProperty("database.dir.develop");
 
     public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + RESOURCE_DIRECTORY_DEVELOP + IME_BAZE;
 
-    //FX UIs Path
+    // *******************  FX UIs Path ***************************
     public static final String SPLASH_SCREEN_URI = "/splash_screen.fxml";
     public static final String HOME_UI_VIEW_URI = "/auto_servis_ui.fxml";
     public static final String AUTOMOBILI_UI_VIEW_URI = "/automobili.fxml";
@@ -30,10 +32,17 @@ public class Constants {
     public static final String CREATE_KLIJENT_UI_VIEW_URI = "/create_klijent_ui.fxml";
     public static final String CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI = "/add_edit_automobil.fxml";
 
-    //public static final String APP_ICON = ApplicationProperties.getInstance().getProperty("app.icon");
-    public static final String APP_ICON = "/faktura/logo-acreno.jpg";
 
-    public static final String RADNI_NALOZI_EDIT_URI = "/radni_nalozi_edit_ui.fxml";
-    public static final String USLUGE_UI_VIEW_URI = "/usluge_ui.fxml";
-    public static final String ARTIKLI_UI_VIEW_URI = "/artikli_ui.fxml";
+    // *******************  KOMBINACIJE NA TASTERIMA ZA KEYBOARD SHORTCUT ***************************
+
+    //AUTOMOBIL U AUTO SERVIS UIa
+    public static final KeyCode OTVORI_AUTOMOBIL_KARTICU_KEYCODE = KeyCode.C;
+    public static final KeyCombination.Modifier OTVORI_AUTOMOBIL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+
+    //KLIJENT U AUTO SERVIS UIa
+    public static final KeyCode OTVORI_KLIJENT_KARTICU_KEYCODE = KeyCode.F;
+    public static final KeyCombination.Modifier OTVORI_KLIJENTL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+
+    // ******************* SYSTEM ***************************
+    public static final String APP_ICON = "/faktura/logo-acreno.jpg";
 }

@@ -406,6 +406,7 @@ public class FakturaController implements Initializable {
      * {@code GeneralUiUtility.fromStringDate} formatiramo datum za Serbiu, a u {@link GeneralUiUtility#fromStringDate}
      *
      * @param isInEditMode da li smo u Edit Modu
+     * @author Dejan Cugalj
      * @see AutomobiliController#btnOpenFakturaUi()
      * @see GeneralUiUtility#fromStringDate(String)
      */
@@ -451,6 +452,7 @@ public class FakturaController implements Initializable {
      * {@link PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)} jer se ovde trazi ID Posao Artikla i koju
      * vrednsot menjamo.
      *
+     * @author Dejan Cugalj
      * @see #setTableData(ObservableList PosaoArtikli)  OBAVEZNO !!!
      * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
      */
@@ -487,6 +489,7 @@ public class FakturaController implements Initializable {
      * Na kraju se izracunava GRAND TOTAL SUMA u {@link #izracunajTotalSumaSaPopustomNaDelove()} i posatvlja u TF {@link #txtfTotalSaPopustomNaDelove}
      *
      * @param posaoArtikli ObservableList {@link PosaoArtikli}
+     * @author Dejan Cugalj
      * @see #popuniTabeluRacuni()
      * @see #btnDodajArtiklRacunMouseClick(MouseEvent)
      * @see PosaoArtikliDAO#updatePosaoArtikliDao(PosaoArtikli)
@@ -720,6 +723,7 @@ public class FakturaController implements Initializable {
      * koji se menja da bi se uradio update GRAND TOTAL sume.
      *
      * @return (double) GRAND TOTAL RACUNA
+     * @author Dejan Cugalj
      * @see #setTableData
      * @see #initialize
      */
@@ -734,6 +738,7 @@ public class FakturaController implements Initializable {
      * koji se menja da bi se uradio update GRAND TOTAL sume.
      *
      * @return (double) GRAND TOTAL RACUNA
+     * @author Dejan Cugalj
      * @see #setTableData
      * @see #initialize
      */
@@ -748,6 +753,7 @@ public class FakturaController implements Initializable {
      * koji se menja da bi se uradio update GRAND TOTAL sume.
      *
      * @return (double) GRAND TOTAL RACUNA
+     * @author Dejan Cugalj
      * @see #setTableData
      * @see #initialize
      */
@@ -763,6 +769,7 @@ public class FakturaController implements Initializable {
      * koji se menja da bi se uradio update GRAND TOTAL sume.
      *
      * @return (double) GRAND TOTAL RACUNA
+     * @author Dejan Cugalj
      * @see #setTableData
      * @see #initialize
      */
@@ -779,6 +786,7 @@ public class FakturaController implements Initializable {
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
+     * @author Dejan Cugalj
      * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
@@ -808,6 +816,7 @@ public class FakturaController implements Initializable {
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
+     * @author Dejan Cugalj
      * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
@@ -835,6 +844,7 @@ public class FakturaController implements Initializable {
      * kontrolora u {@link #initUiPrintControler(FXMLLoader)}
      *
      * @param tblRowTotal ciljna kolona u tabeli
+     * @author Dejan Cugalj
      * @see PrintRacuniControler
      * @see #initUiPrintControler(FXMLLoader)
      */
@@ -860,6 +870,8 @@ public class FakturaController implements Initializable {
     //****************** LIST VIEW STAFF  ************************
 
     /**
+     * TODO: SREDITI OVO ISTO KAO I U {@link AutomobiliController #txtFieldRegTablicaSaerchKeyListener}
+     * TODO: IMPLEMENTIRATI I SHORCUTS ZA SVE
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
      * <p>
      * Prilikom kucanja u txtF pokazuju se filtrirani Artikl u ListView koji je inicijalno sakriven
@@ -875,40 +887,40 @@ public class FakturaController implements Initializable {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
                 listViewPretragaArtikli.setItems(artikli);
-                return;
-            }
-            ObservableList<Artikl> artikl = null;
-            ObservableList<Artikl> tempArtikl = null;
-            try {
-                ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
-                artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-                tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
-            } catch (AcrenoException | SQLException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
-
-                String nazivArtikla = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
-
-                if (nazivArtikla.contains(txtFieldPretragaArtikla.textProperty().get())) {
-                    tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
-                    listViewPretragaArtikli.setItems(tempArtikl); // Dodaje u FXlistView
-                    listViewPretragaArtikli.setCellFactory(param -> new ListCell<>() {
-                        @Override
-                        protected void updateItem(Artikl item, boolean empty) {
-                            super.updateItem(item, empty);
-                            listViewPretragaArtikli.setVisible(true); //Prikazuje listu vidljivom
-                            if (empty || item == null || item.getNazivArtikla() == null) {
-                                setText(null);
-                            } else {
-                                setText(item.getNazivArtikla());
-                            }
-                        }
-                    });
-                    //break;
-                }
             }
         });
+        ObservableList<Artikl> artikl = null;
+        ObservableList<Artikl> tempArtikl = null;
+        try {
+            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
+            artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
+            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
+
+            String nazivArtikla = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
+
+            if (nazivArtikla.contains(txtFieldPretragaArtikla.textProperty().get())) {
+                tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
+                listViewPretragaArtikli.setItems(tempArtikl); // Dodaje u FXlistView
+                listViewPretragaArtikli.setCellFactory(param -> new ListCell<>() {
+                    @Override
+                    protected void updateItem(Artikl item, boolean empty) {
+                        super.updateItem(item, empty);
+                        listViewPretragaArtikli.setVisible(true); //Prikazuje listu vidljivom
+                        if (empty || item == null || item.getNazivArtikla() == null) {
+                            setText(null);
+                        } else {
+                            setText(item.getNazivArtikla());
+                        }
+                    }
+                });
+                //break;
+            }
+        }
+
     }
 
     /**
@@ -1095,7 +1107,7 @@ public class FakturaController implements Initializable {
                         Alert.AlertType.INFORMATION,
                         "USPESNO SACUVAN RACUN",
                         "Uspešno ste sačuvali Račun Br: " + brojFakture,
-                        "Račun sa brojem: " +brojFakture + " je uspešno sačuvan!"
+                        "Račun sa brojem: " + brojFakture + " je uspešno sačuvan!"
                 );
             }
 

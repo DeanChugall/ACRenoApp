@@ -664,10 +664,10 @@ public class AutomobiliController implements Initializable {
         CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
         createNewKlijentUiController.setAutmobilController(this, stageKlijent);
         createNewKlijentUiController.setKlijent(klijenti.get(0));//Prosledi u  KLIJENT OBJEKAT (EDIT MODE)
+        createNewKlijentUiController.setWeAreInEditMode(true);
 
         //Postavi Title u stageu Klijent Controlloru
-        stageKlijent.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
-                + " || Klijent: " + txtFieldImeKlijenta.getText());
+        stageKlijent.setTitle("Uređivanje Klijenta: " + txtFieldImeKlijenta.getText());
 
         stageKlijent.showAndWait();
     }
@@ -677,7 +677,6 @@ public class AutomobiliController implements Initializable {
      *
      * @param actionEvent posto koristimo sakrivanje prozara
      */
-
     @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }

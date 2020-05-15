@@ -3,7 +3,6 @@ package rs.acreno.klijent.ui_klijent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -52,9 +51,22 @@ public class CreateNewKlijentUiController implements Initializable {
     private Stage stageCreateNewKlijent;
 
     /**
+     * Referenca ka {@link AutoServisController}-u
+     */
+    private final AtomicReference<AutoServisController> autoServisController = new AtomicReference<>();
+
+    /**
      * Objasnjeno u {@link #initialize(URL, ResourceBundle)}
      */
-    private boolean isWeAreInEditMode = false;
+    private boolean isWeAreInEditMode;
+
+    public boolean isWeAreInEditMode() {
+        return isWeAreInEditMode;
+    }
+
+    public void setWeAreInEditMode(boolean weAreInEditMode) {
+        isWeAreInEditMode = weAreInEditMode;
+    }
 
     /**
      * Objasnjenjo u {@link #btnZatvoriCreateKlijentUi()}
@@ -95,7 +107,7 @@ public class CreateNewKlijentUiController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
             try {
-                if (!isWeAreInEditMode) {
+                if (!isWeAreInEditMode()) {
                     klijent = new Klijent();
                     klijentDAO.insertKlijnet(klijent);
                     System.out.println("NOOO WE ARE NOT IN EDIT MODE");
@@ -125,7 +137,7 @@ public class CreateNewKlijentUiController implements Initializable {
      */
     private void initGUI() {
 
-        if (isWeAreInEditMode) { //U EDIT MODU SMO
+        if (isWeAreInEditMode()) { //U EDIT MODU SMO
             Platform.runLater(() -> {
                 lblKreateOrEditKlijenta.setText("UREĐIVANJE KLIJENTA:");
                 txtfIdKlijenta.setText(String.valueOf(klijent.getIdKlijenta()));
@@ -227,7 +239,20 @@ public class CreateNewKlijentUiController implements Initializable {
     public void setAutmobilController(AutomobiliController autmobilController, Stage stageCreateNewKlijent) {
         this.automobiliController.set(autmobilController);
         this.stageCreateNewKlijent = stageCreateNewKlijent;
-        isWeAreInEditMode = true;
+        //isWeAreInEditMode = true;
+    }
+
+    /**
+     * Seter metoda koja se koristi u {@link AutoServisController #openAddEditklijent()}-u
+     * {@code isWeAreInEditMode = true} nas obavestava da smo u EDIT MODU iz
+     * {@link AutoServisController #btnOpenNoviKlijentGui(ActionEvent)}
+     *
+     * @param autoServisController referenca ka {@link AutoServisController} kontroloru
+     * @see AutoServisController
+     */
+    public void setAutoServisController(AutoServisController autoServisController) {
+        this.autoServisController.set(autoServisController);
+        //isWeAreInEditMode = false;
     }
 
     /**
