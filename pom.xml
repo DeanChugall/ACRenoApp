@@ -70,12 +70,15 @@
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\splash\ui_splash_screen</directory>
             </resource>
-            <!--AUTOMOBILI-->
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\ui_autoservis</directory>
             </resource>
+            <!--AUTOMOBILI-->
             <resource>
                 <directory>src\main\java\rs\acreno\automobil\ui_automobili</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java/rs/acreno/automobil/ui_add_edit_automobil</directory>
             </resource>
             <!--RACUNI-->
             <resource>

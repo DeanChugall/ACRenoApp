@@ -18,23 +18,22 @@
     <center>
         <AnchorPane prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-                <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="38.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/Dean%20VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
                </image>
                 </ImageView>
-                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="99.0" layoutY="37.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" prefHeight="74.0" prefWidth="369.0" text="ns">
+                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="87.0" layoutY="37.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" prefHeight="74.0" prefWidth="369.0" text="ns">
                     <font>
                         <Font name="System Bold" size="34.0" />
                     </font>
                 </TextField>
-                <Button fx:id="btnCloseApplication" layoutX="1068.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="45.0" prefWidth="201.0" text="Button" />
                 <ListView fx:id="listViewAutmobiliSearch" layoutX="84.0" layoutY="121.0" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="388.0" visible="false" />
             </children>
         </AnchorPane>
     </center>
    <top>
-      <AnchorPane prefHeight="85.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="108.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
                 <MenuBar style="-fx-background-color: #C7C1C1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
@@ -75,8 +74,9 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            <Button fx:id="btnNoviAutomobil" layoutX="38.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="48.0" prefWidth="124.0" text="NOVI AUTOMOBIL" />
-            <Button fx:id="btnNoviKlijent" layoutX="172.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="48.0" prefWidth="124.0" text="NOVI KLIJENT" />
+            <Button fx:id="btnNoviAutomobil" layoutX="38.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="71.0" prefWidth="177.0" text="NOVI AUTOMOBIL" />
+            <Button fx:id="btnNoviKlijent" layoutX="228.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="72.0" prefWidth="202.0" text="NOVI KLIJENT" />
+                <Button fx:id="btnCloseApplication" layoutX="1141.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="72.0" prefWidth="245.0" text="ZATVORI" />
          </children>
          <effect>
             <DropShadow />

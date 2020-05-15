@@ -25,7 +25,6 @@ import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
-import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +57,7 @@ public class AutoServisController implements Initializable {
 
     /**
      * Zatvori Aplikaciju
+     *
      * @see #btnCloseApplication()
      */
     @FXML public Button btnCloseApplication;
@@ -119,8 +119,8 @@ public class AutoServisController implements Initializable {
      * @see #zatvoriListViewSearchAutomobil(MouseEvent)
      * @see AutomobiliController
      */
-    @FXML
-    private void txtFieldRegTablicaSaerchKeyListener() {
+
+    @FXML private void txtFieldRegTablicaSaerchKeyListener() {
         txtFieldRegOznaka.textProperty().addListener(observable -> {
             if (txtFieldRegOznaka.textProperty().get().isEmpty()) {
                 listViewAutmobiliSearch.setItems(automobili);
@@ -169,8 +169,8 @@ public class AutoServisController implements Initializable {
      * @author Dejan Cugalj
      * @see #openAutomobiliUi()
      */
-    @FXML
-    private void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
+
+    @FXML private void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
@@ -237,9 +237,9 @@ public class AutoServisController implements Initializable {
         }
     }
 
-   // ************** BUTTONS STAFF **********************
+    // ************** BUTTONS STAFF **********************
 
-    public void btnOpenNoviKlijentGui(ActionEvent actionEvent) throws IOException {
+    @FXML private void btnOpenNoviKlijentGui(ActionEvent actionEvent) throws IOException {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
         Stage stageNewKlijent = new Stage();
@@ -253,7 +253,20 @@ public class AutoServisController implements Initializable {
         stageNewKlijent.showAndWait();
     }
 
-    public void btnOpenNoviAutomobilGui(ActionEvent actionEvent) {
+    @FXML private void btnOpenNoviAutomobilGui(ActionEvent actionEvent) throws IOException {
+
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
+        Stage stageNewAutomobil = new Stage();
+        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
+        stageNewAutomobil.setScene(scene);
+        stageNewAutomobil.setResizable(false);
+        stageNewAutomobil.setTitle("Kreiraj Novoi Autmobil");
+
+        stageNewAutomobil.showAndWait();
+
     }
 
     /**

@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.defektaza.*;
 import rs.acreno.klijent.Klijent;
@@ -676,9 +677,40 @@ public class AutomobiliController implements Initializable {
      *
      * @param actionEvent posto koristimo sakrivanje prozara
      */
-    @FXML
-    private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
+
+    @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    }
+
+
+    @FXML public void btnOpenIzmeniAutomobilUi(ActionEvent actionEvent) throws IOException {
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
+        Stage stageNewAutomobil = new Stage();
+        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
+        stageNewAutomobil.setScene(scene);
+        stageNewAutomobil.setResizable(false);
+        stageNewAutomobil.setTitle("Kreiraj Novoi Autmobil");
+
+
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+           // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            System.out.println("FORM BUUTTON btnOpenIzmeniAutomobilUi --- YEAAAHHH");
+        });
+
+        //Inicijalizacija CREATE NEW KLIJENT Controllora-a
+        AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
+        addEditAutomobilController.setAutmobilController(this, stageNewAutomobil);
+        //addEditAutomobilController.setKlijent(klijenti.get(0));//Prosledi u  KLIJENT OBJEKAT (EDIT MODE)
+
+        //Postavi Title u stageu Klijent Controlloru
+        stageNewAutomobil.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
+                + " || Klijent: " + txtFieldImeKlijenta.getText());
+
+        stageNewAutomobil.showAndWait();
+
     }
 }
 

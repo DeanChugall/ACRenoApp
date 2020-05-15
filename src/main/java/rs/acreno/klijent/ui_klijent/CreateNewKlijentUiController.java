@@ -210,7 +210,7 @@ public class CreateNewKlijentUiController implements Initializable {
             );
             throw new AcrenoException("Greska iz CREATE NEW CLINET CONTROLORA\n" + e.getMessage());
         }
-
+        btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     /**
@@ -218,7 +218,7 @@ public class CreateNewKlijentUiController implements Initializable {
      * Takodje se prosledjuje i STAGE ako bude zatrebalo, a iz {@link AutomobiliController #btnOpenIzmeniKlijentaUi()}-a
      * <p>
      * {@code isWeAreInEditMode = true} nas obavestava da smo u EDIT MODU iz
-     * {@link AutoServisController#btnOpenNoviKlijentGui(ActionEvent)}
+     * {@link AutoServisController #btnOpenNoviKlijentGui(ActionEvent)}
      *
      * @param autmobilController    referenca ka automobil kontroloru
      * @param stageCreateNewKlijent refereca ka automobil Stage-u
