@@ -1,43 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
+<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
     <center>
         <AnchorPane fx:id="aPaneAutomobil" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-                <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="32.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="32.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/Dean%20VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
                </image>
                 </ImageView>
-                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="81.0" layoutY="128.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Pretrazi...">
+                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="81.0" layoutY="168.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Pretrazi...">
                     <font>
                         <Font name="System Bold" size="34.0" />
                     </font>
                 </TextField>
-                <ListView fx:id="listViewAutmobiliSearch" layoutX="84.0" layoutY="204.0" onKeyReleased="#listViewAutmobiliSearchKeyReleased" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="388.0" visible="false">
+                <ListView fx:id="listViewAutmobiliSearch" layoutX="84.0" layoutY="246.0" onKeyReleased="#listViewAutmobiliSearchKeyReleased" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="388.0" visible="false">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></ListView>
-            <Button fx:id="btnOtvoriAutomobilKarticu" focusTraversable="false" layoutX="473.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="71.0" prefWidth="177.0" text="OTVORI AUTOMOBIL" />
-            <Label layoutX="473.0" layoutY="111.0" prefHeight="17.0" prefWidth="87.0" text="CTRL + C" textFill="#c3c3c3" />
-            <Label layoutX="32.0" layoutY="83.0" prefHeight="17.0" prefWidth="426.0" text="TAB otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+C otvori karticu" textFill="#c3c3c3" />
-            <Label layoutX="108.0" layoutY="102.0" prefHeight="17.0" prefWidth="257.0" text="ILI DUPLI CLICK NA TRAZENU REGISTRACIJU" textFill="#c3c3c3" />
+            <Button fx:id="btnOtvoriAutomobilKarticu" disable="true" focusTraversable="false" layoutX="473.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="64.0" prefWidth="177.0" text="OTVORI AUTO KARTICU" />
+            <Label layoutX="473.0" layoutY="164.0" prefHeight="17.0" prefWidth="87.0" text="CTRL + C" textFill="#c3c3c3" />
+            <Label layoutX="16.0" layoutY="119.0" prefHeight="17.0" prefWidth="446.0" text="CTRL+C otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+C otvori karticu" textFill="#c3c3c3" />
+            <Label layoutX="99.0" layoutY="138.0" prefHeight="17.0" prefWidth="257.0" text="ILI DUPLI CLICK NA TRAZENU REGISTRACIJU" textFill="#c3c3c3" />
             <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="715.0" layoutY="128.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="433.0" promptText="Pretrazi...">
                <font>
                   <Font name="System Bold" size="34.0" />
@@ -48,8 +39,8 @@
                   <Insets />
                </opaqueInsets></ListView>
             <Button fx:id="btnOtvoriKlijentEditMode" focusTraversable="false" layoutX="1180.0" layoutY="130.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="71.0" prefWidth="177.0" text="OTVORI KLIJENTA" />
-            <Label layoutX="715.0" layoutY="103.0" prefHeight="17.0" prefWidth="426.0" text="TAB otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+F otvori karticu" textFill="#c3c3c3" />
-            <Label layoutX="32.0" layoutY="14.0" prefHeight="63.0" prefWidth="623.0" style="-fx-background-color: #252525;" text="AUTOMOBILI" textFill="#c3c3c3">
+            <Label layoutX="715.0" layoutY="103.0" prefHeight="17.0" prefWidth="441.0" text="CTRL+F otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+F otvori karticu" textFill="#c3c3c3" />
+            <Label focusTraversable="false" layoutX="32.0" layoutY="14.0" prefHeight="63.0" prefWidth="623.0" style="-fx-background-color: #252525;" text="AUTOMOBILI" textFill="#c3c3c3">
                <font>
                   <Font name="Segoe UI" size="48.0" />
                </font>
@@ -57,7 +48,7 @@
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Label layoutX="718.0" layoutY="14.0" prefHeight="63.0" prefWidth="645.0" style="-fx-background-color: #252525;" text="KLIJENTI" textFill="#c3c3c3">
+            <Label focusTraversable="false" layoutX="718.0" layoutY="14.0" prefHeight="63.0" prefWidth="645.0" style="-fx-background-color: #252525;" text="KLIJENTI" textFill="#c3c3c3">
                <font>
                   <Font name="Segoe UI" size="48.0" />
                </font>
@@ -66,8 +57,9 @@
                </padding>
             </Label>
             <Label layoutX="1180.0" layoutY="111.0" prefHeight="17.0" prefWidth="87.0" text="CTRL + F" textFill="#c3c3c3" />
-            <Button fx:id="btnNoviAutomobil" focusTraversable="false" layoutX="472.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="177.0" text="NOVI AUTOMOBIL" />
+            <Button fx:id="btnNoviAutomobil" disable="true" focusTraversable="false" layoutX="472.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="177.0" text="NOVI AUTOMOBIL" />
             <Button fx:id="btnNoviKlijent" focusTraversable="false" layoutX="1179.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT" />
+            <Button fx:id="btnUrediAutomobil" disable="true" focusTraversable="false" layoutX="473.0" layoutY="119.0" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="38.0" prefWidth="177.0" text="UREDI AUTOMOBIL" />
             </children>
         </AnchorPane>
     </center>
@@ -114,16 +106,21 @@
                     </menus>
                 </MenuBar>
                 <Button fx:id="btnCloseApplication" focusTraversable="false" layoutX="1141.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="72.0" prefWidth="245.0" text="ZATVORI" />
-            <Label fx:id="lblDate" alignment="CENTER" layoutX="23.0" layoutY="30.0" prefHeight="41.0" prefWidth="164.0" text="16.05.2020." textFill="#d3d3d3">
+            <Label fx:id="lblDate" alignment="CENTER" focusTraversable="false" layoutX="283.0" layoutY="30.0" prefHeight="41.0" prefWidth="164.0" text="16.05.2020." textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="lblTime" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="66.0" prefHeight="36.0" prefWidth="164.0" text="01:23:37" textAlignment="CENTER" textFill="#d3d3d3">
+            <Label fx:id="lblTime" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="283.0" layoutY="66.0" prefHeight="36.0" prefWidth="164.0" text="01:23:37" textAlignment="CENTER" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="27.0" />
                </font>
             </Label>
+             <ImageView fitHeight="90.0" fitWidth="247.0" layoutX="7.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@/acr_logo.png" />
+                 </image>
+             </ImageView>
          </children>
          <effect>
             <DropShadow />

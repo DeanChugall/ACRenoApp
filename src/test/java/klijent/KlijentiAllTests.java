@@ -24,25 +24,26 @@ public class KlijentiAllTests {
         //podaciKlijenta.setIdKlijenta(1);
         podaciKlijenta.setImePrezime("");
         podaciKlijenta.setMesto("");
-        podaciKlijenta.setPostanskiBroj("");
-        podaciKlijenta.setUlicaBroj("");
-        podaciKlijenta.setBrLicneKarte("");
-        podaciKlijenta.setMaticniBroj("");
-        podaciKlijenta.setOstaliDetalji("");
-        podaciKlijenta.setEmail("");
-        podaciKlijenta.setTelefonMobilni("");
-        podaciKlijenta.setTelefonFiksni("");
-        podaciKlijenta.setWeb("");
-        podaciKlijenta.setBrojRacuna("");
-        podaciKlijenta.setBanka("");
+        podaciKlijenta.setPostanskiBroj("21000");
+        podaciKlijenta.setUlicaBroj("Molomora testr");
+        podaciKlijenta.setBrLicneKarte("234235234");
+        podaciKlijenta.setMaticniBroj("43523246456465256");
+        podaciKlijenta.setOstaliDetalji("setOstaliDetalji");
+        podaciKlijenta.setEmail("setEmail");
+        podaciKlijenta.setTelefonMobilni("435345345");
+        podaciKlijenta.setTelefonFiksni("234234234");
+        podaciKlijenta.setWeb("www.google.com");
+        podaciKlijenta.setBrojRacuna("4353453455234");
+        podaciKlijenta.setBanka("MOBI BANKA");
+        podaciKlijenta.setDatumAcrRegistracijeKliljenta("11.10.2000");
 
     }
 
     @Test
     public void insertKlijent() throws AcrenoException, SQLException {
         // podaciKlijenta.setIdKlijenta(i);
-        podaciKlijenta.setImePrezime("-Dejan");
-        podaciKlijenta.setMesto(" -Novi Sad");
+        podaciKlijenta.setImePrezime("Miroljub Stanic");
+        podaciKlijenta.setMesto("Smederevo");
         klijentDAO.insertKlijnet(podaciKlijenta);
        /* for (int i = 0; i < 50; i++) {
             podaciKlijenta.setIdKlijenta(i);

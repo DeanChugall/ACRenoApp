@@ -20,6 +20,7 @@ import rs.acreno.system.util.GeneralUiUtility;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
@@ -43,6 +44,8 @@ public class CreateNewKlijentUiController implements Initializable {
     @FXML private TextField txtfBankaKlijenta;
     @FXML private TextField txtfWebSajtKlijenta;
     @FXML private Button btnCloseCreateEditKlijent;
+    @FXML private DatePicker datePicDatumAdregistracijeKlijenta;
+
 
     /**
      * Referenca ka {@link AutomobiliController}-u
@@ -110,7 +113,6 @@ public class CreateNewKlijentUiController implements Initializable {
                 if (!isWeAreInEditMode()) {
                     klijent = new Klijent();
                     klijentDAO.insertKlijnet(klijent);
-                    System.out.println("NOOO WE ARE NOT IN EDIT MODE");
                 }
             } catch (AcrenoException | SQLException e) {
                 e.printStackTrace();
@@ -136,7 +138,6 @@ public class CreateNewKlijentUiController implements Initializable {
      * @see Klijent
      */
     private void initGUI() {
-
         if (isWeAreInEditMode()) { //U EDIT MODU SMO
             Platform.runLater(() -> {
                 lblKreateOrEditKlijenta.setText("UREĐIVANJE KLIJENTA:");
@@ -154,8 +155,8 @@ public class CreateNewKlijentUiController implements Initializable {
                 txtfBrojZiroRacunaKlijenta.setText(klijent.getBrojRacuna());
                 txtfBankaKlijenta.setText(klijent.getBanka());
                 txtfWebSajtKlijenta.setText(klijent.getWeb());
+                datePicDatumAdregistracijeKlijenta.setValue(GeneralUiUtility.fromStringDate(klijent.getDatumAcrRegistracijeKliljenta()));
             });
-
         } else { // NISMO U EDIT MODU
             try {
                 ObservableList<Klijent> klijenti = FXCollections.observableArrayList(klijentDAO.findAllKlijents());
@@ -199,6 +200,8 @@ public class CreateNewKlijentUiController implements Initializable {
             klijent.setBrojRacuna(txtfBrojZiroRacunaKlijenta.getText());
             klijent.setBanka(txtfBankaKlijenta.getText());
             klijent.setWeb(txtfWebSajtKlijenta.getText());
+            klijent.setDatumAcrRegistracijeKliljenta(
+                    GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
 
             klijentDAO.updateKlijent(klijent);
 

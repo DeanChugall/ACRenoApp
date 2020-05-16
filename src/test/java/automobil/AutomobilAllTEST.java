@@ -46,16 +46,17 @@ public class AutomobilAllTEST {
         automobil.setBojaVozila("SADFSDG43534534534");
         automobil.setMasaVozila(2344);
         automobil.setNajvecaDozvoljenaMasaVozila(2344);
-        automobil.setDatumPrveRegistracijeVozila(null);
+        automobil.setDatumPrveRegistracijeVozila("6565");
         automobil.setBrojMestaZaSedenje(1);
         automobil.setBrojVrataVozila(5);
         automobil.setNapomeneAutomobila("setNapomeneAutomobila");
+        automobil.setDatumAcrRegistracijeAuta("15.5.2020");
     }
 
 
     @Test
     public void insertAutomobil() throws AcrenoException, SQLException {
-        automobil.setIdKlijenta(4);
+        //automobil.setIdKlijenta(4);
         automobil.setRegOznaka("NS-039-CC");
         automobilTest.insertAutomobil(automobil);
        /* for (int i = 1; i < 3; i++) {
@@ -82,7 +83,7 @@ public class AutomobilAllTEST {
             List<Automobil> automobils1 = automobilDAO.findAutomobilByProperty(AutoSearchType.KLIJNET_ID, 1);
             System.out.println(
                     " - ID AUTA: " + automobil.getIdAuta()
-                            + " - ID KLIJENTA: " + automobil.getIdKlijenta()
+                            + " - ID KLIJENTA: " + automobil.getDatumAcrRegistracijeAuta()
                     //  " || IME: " + automobils1.get(0).getRegOznaka()
                     // " || MESTO: " + findByPropKllijenti.get(0).getMesto()
                     // + " - REG. OZNAKA: " +automobil.getRegOznaka()
@@ -107,10 +108,10 @@ public class AutomobilAllTEST {
     @Test
     public void updateAutomobil() throws SQLException, AcrenoException {
         Automobil podaciAuto = new Automobil();
-        podaciAuto.setIdAuta(2);
-        podaciAuto.setIdKlijenta(3);
+        podaciAuto.setIdAuta(6);
+        podaciAuto.setIdKlijenta(65);
         podaciAuto.setRegOznaka("BG0435AA");
-        //podaciAuto.setKilomteraza("128.000");
+        podaciAuto.setKilomteraza("128.000");
         podaciAuto.setVrstaVozila("Golf");
         podaciAuto.setMarkaVozila("Reno");
         podaciAuto.setModelVozila("SCENIC");
@@ -123,9 +124,11 @@ public class AutomobilAllTEST {
         podaciAuto.setBojaVozila("SADFSDG43534534534");
         podaciAuto.setMasaVozila(2344);
         podaciAuto.setNajvecaDozvoljenaMasaVozila(2344);
-        podaciAuto.setDatumPrveRegistracijeVozila(null);
+        podaciAuto.setDatumPrveRegistracijeVozila("12.2.2020");
         podaciAuto.setBrojMestaZaSedenje(1);
         podaciAuto.setBrojVrataVozila(5);
+        podaciAuto.setDatumAcrRegistracijeAuta("15.2.2020");
+
         automobilDAO.updateAutomobil(podaciAuto);
     }
 

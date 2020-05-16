@@ -18,6 +18,7 @@ public class Klijent {
     private String web;
     private String brojRacuna;
     private String banka;
+    private String datumAcrRegistracijeKliljenta;
 
     public Klijent() {
     }
@@ -140,16 +141,23 @@ public class Klijent {
         this.banka = banka;
     }
 
-    @Override
-    public String toString() {
+    public String getDatumAcrRegistracijeKliljenta() {
+        return datumAcrRegistracijeKliljenta;
+    }
+
+    public void setDatumAcrRegistracijeKliljenta(String datumAcrRegistracijeKliljenta) {
+        this.datumAcrRegistracijeKliljenta = datumAcrRegistracijeKliljenta;
+    }
+
+    @Override public String toString() {
         return "Klijent{" +
                 "IdKlijenta=" + IdKlijenta +
                 ", imePrezime='" + imePrezime + '\'' +
                 ", mesto='" + mesto + '\'' +
-                ", postanskiBroj=" + postanskiBroj +
+                ", postanskiBroj='" + postanskiBroj + '\'' +
                 ", ulicaBroj='" + ulicaBroj + '\'' +
                 ", brLicneKarte='" + brLicneKarte + '\'' +
-                ", maticniBroj=" + maticniBroj +
+                ", maticniBroj='" + maticniBroj + '\'' +
                 ", ostaliDetalji='" + ostaliDetalji + '\'' +
                 ", email='" + email + '\'' +
                 ", telefonMobilni='" + telefonMobilni + '\'' +
@@ -157,6 +165,7 @@ public class Klijent {
                 ", web='" + web + '\'' +
                 ", brojRacuna='" + brojRacuna + '\'' +
                 ", banka='" + banka + '\'' +
+                ", datumAcrRegistracijeKliljenta='" + datumAcrRegistracijeKliljenta + '\'' +
                 '}';
     }
 

@@ -37,7 +37,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutoServisController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
+    @FXML private Button btnNoviAutomobil;
+    @FXML private Button btnNoviKlijent;
+    @FXML private Button btnUrediAutomobil;
 
+    // 1.0 *************** FXMLs **************************************
     @FXML private Label lblDate;
     @FXML private Label lblTime;
 
@@ -78,6 +82,9 @@ public class AutoServisController implements Initializable {
      */
     @FXML public Button btnCloseApplication;
 
+
+    // 2.0 *************** INICIJALIZACIJA **************************************
+
     /**
      * Inicijalizacija AUTOMOBIL Objekta
      * Da bi u samom startu imali sve objekte {@link Automobil}. Koristi se {@link AutomobilDAO} interfejs,
@@ -113,7 +120,6 @@ public class AutoServisController implements Initializable {
     public AutoServisController() throws AcrenoException, SQLException {
     }
 
-
     /**
      * Empty inicijalizaciona metoda ovog {@link AutoServisController}-a, if we need this for later use
      *
@@ -129,7 +135,7 @@ public class AutoServisController implements Initializable {
     }
 
 
-    // ***************  AUTOMOBILI STAFF ***************************
+    // 3.0 ***************  AUTOMOBILI STAFF ***************************
 
     /**
      * Pretraga i filtriranje Autmobila po REG. TABLICI u KeyListeneru TxtF-a
@@ -175,6 +181,9 @@ public class AutoServisController implements Initializable {
                         listViewAutmobiliSearch.setVisible(true); //Prikazuje listu vidljivom
                         if (empty || item == null || item.getRegOznaka() == null) {
                             setText(null);
+                            btnOtvoriAutomobilKarticu.setDisable(true);
+                            btnNoviAutomobil.setDisable(true);
+                            btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getRegOznaka());
                         }
@@ -214,14 +223,23 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
             String regOznaka = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0).getRegOznaka();
             txtFieldRegOznaka.setText(regOznaka); // Postavi REG. OZNAKU u TF
             listViewAutmobiliSearch.setVisible(false); // Zatvori listu
-            ((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-            openAutomobiliUi();
-            ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
+            btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
+            btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+
+            //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+            klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
+                    listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
+            txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+            btnNoviAutomobil.setDisable(false);
+
+            //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
+            //openAutomobiliUi();
+            //((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
         }
     }
 
@@ -231,7 +249,7 @@ public class AutoServisController implements Initializable {
      *
      * @param keyEvent for get Down Up  or Enter listener
      */
-    @FXML private void listViewAutmobiliSearchKeyReleased(@NotNull KeyEvent keyEvent) {
+    @FXML private void listViewAutmobiliSearchKeyReleased(@NotNull KeyEvent keyEvent) throws AcrenoException, SQLException {
         switch (keyEvent.getCode()) {
             case UP:
                 //System.out.println("UP");
@@ -243,7 +261,14 @@ public class AutoServisController implements Initializable {
                 String regOznaka = listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getRegOznaka();
                 txtFieldRegOznaka.setText(regOznaka);
                 txtFieldRegOznaka.requestFocus();
+                btnOtvoriAutomobilKarticu.setDisable(false);
+                btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
                 listViewAutmobiliSearch.setVisible(false);
+                //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+                klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
+                        listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
+                txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                btnNoviAutomobil.setDisable(false);
                 break;
             default:
                 break;
@@ -323,13 +348,17 @@ public class AutoServisController implements Initializable {
     }
 
     /**
-     * Otvaranje {@link AddEditAutomobilController}-a UI-a
-     * za INSERT {@link Automobil}-a
+     * Otvaranje {@link AddEditAutomobilController}-a UI-a za INSERT OR EDIT {@link Automobil}-a
+     * <p>
+     * Posale FXMLs staffa, inicijalizujemo {@link AddEditAutomobilController} i
+     * prosledjujemo {@link AddEditAutomobilController#setWeAreInEditMode(boolean)}da smo u INSERT MODU
+     * jer je direktno kliknuto na btnNoviAutomobil.
      *
      * @param actionEvent if we need in some case
      * @throws IOException not found {@link Constants#CREATE_KLIJENT_UI_VIEW_URI}
      * @autor Dejan Cugalj
      * @see AddEditAutomobilController
+     * @see AddEditAutomobilController#setWeAreInEditMode(boolean)
      * @see Automobil
      * @see Constants#CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI
      */
@@ -343,8 +372,18 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
         stageNewAutomobil.setTitle("Kreiraj Novi Autmobil");
+
+        //Set AutoServisController u AutomobiliController UI
+        AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
+        addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
+        addEditAutomobilController.setWeAreInEditMode(false); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
+        addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
+
         stageNewAutomobil.showAndWait();
     }
+
+
+    // 3.1 *************** EDIT AUTOMOBILI STAFF
 
     /**
      * Kada se klikne na {@link #txtFieldRegOznaka} da se zatvori {@link #listViewKlijentiSearch} jer ostaje otvoren.
@@ -354,10 +393,52 @@ public class AutoServisController implements Initializable {
      */
     public void txtFieldRegTablicaSaerchhOnMouseClick(MouseEvent mouseEvent) {
         listViewKlijentiSearch.setVisible(false);
+        btnOtvoriAutomobilKarticu.setDisable(true);
+        btnNoviAutomobil.setDisable(true);
+        btnUrediAutomobil.setDisable(true);
     }
 
+    /**
+     * Metoda koja se koristi za editovanje {@link Automobil} objekta, a dugme {@link #btnUrediAutomobil)}.
+     * <p>
+     * {@code listViewAutmobiliSearch.getSelectionModel().getSelectedItem()} se korristi za inicijalizaciju
+     * {@link Automobil} objekta koji se dobija selekcijom iz {@link #listViewAutmobiliSearch}.
+     * <p>
+     * Pristup {@link AddEditAutomobilController}-u i prosledjivanje {@link Automobil} dobijenog objekta.
+     *
+     * @param actionEvent not used here if we need in some case
+     * @throws IOException ULI Locatio is not fonu in {@link Constants#CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI}
+     * @bitno {@code listViewAutmobiliSearch.getSelectionModel().getSelectedItem()}
+     * @author Dejan Cugalj
+     * @see #btnUrediAutomobil
+     * @see Automobil
+     * @see AddEditAutomobilController
+     */
+    @FXML private void btnUrediAutomobilAct(ActionEvent actionEvent) throws IOException {
+        // Moze jer je samo jed izabran u "listViewAutmobiliSearch"
+        Automobil automobil = listViewAutmobiliSearch.getSelectionModel().getSelectedItem();
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
+        Stage stageNewAutomobil = new Stage();
+        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
+        stageNewAutomobil.setScene(scene);
+        stageNewAutomobil.setResizable(false);
+        stageNewAutomobil.setTitle("Uređivanje Autmobila: " + automobil.getRegOznaka());
 
-    // ***************  KLIJENTI STAFF ***************************
+        //Set AutoServisController u AutomobiliController UI
+        AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
+        addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
+        addEditAutomobilController.setWeAreInEditMode(true); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
+        addEditAutomobilController.setAutomobil(automobil); //Prosledi Automobil Obj
+        addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
+
+        stageNewAutomobil.showAndWait();
+
+    }
+
+    // 4.0 ***************  KLIJENTI STAFF ***************************
 
     /**
      * Pretraga i filtriranje Klijenta po IMENU I PREZIMENU u KeyListeneru TxtF-a
@@ -453,6 +534,7 @@ public class AutoServisController implements Initializable {
             klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
             txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
+            btnNoviAutomobil.setDisable(false);
             listViewKlijentiSearch.setVisible(false); // Zatvori listu
 
             //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
@@ -486,7 +568,7 @@ public class AutoServisController implements Initializable {
 
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
-
+                btnNoviAutomobil.setDisable(false);
                 listViewKlijentiSearch.setVisible(false);
                 break;
             default:
@@ -507,23 +589,29 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void openAddEditklijent() throws IOException {
         // Standart FX load UI
-        FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
-        Stage stageKljent = new Stage();
-        stageKljent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
-        stageKljent.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(fxmlLoaderKlijent.load());
-        stageKljent.setScene(scene);
-        stageKljent.setResizable(false);
-        stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
+        if (klijent.getImePrezime() != null) {
+            FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
+            Stage stageKljent = new Stage();
+            stageKljent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+            stageKljent.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(fxmlLoaderKlijent.load());
+            stageKljent.setScene(scene);
+            stageKljent.setResizable(false);
+            stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
 
-        //Set AutoServisController u CREATENEW KLIJEN TCONTROLORU  UI
-        CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
-        createNewKlijentUiController.setAutoServisController(this);
-        createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
-        createNewKlijentUiController.setWeAreInEditMode(true);
+            //Set AutoServisController u CREATE NEW KLIJENT CONTROLORU  UI
+            CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
+            createNewKlijentUiController.setAutoServisController(this);
+            createNewKlijentUiController.setWeAreInEditMode(true);
 
-        stageKljent.showAndWait();
+            createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
 
+            stageKljent.showAndWait();
+        } else {
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Nije izabran nijedan Klijent !"
+                    , "Greška !"
+                    , "Da bi ste ušli u Edit Mod Klijenta, morate izabrati nekog !");
+        }
     }
 
     /**
@@ -563,7 +651,7 @@ public class AutoServisController implements Initializable {
     }
 
 
-    // *************** BUTTONs STAFF ***************************
+    // 5.0 *************** BUTTONs STAFF ***************************
 
     /**
      * Kada se klikne na BORDER PANE da se zatvori {@link #listViewAutmobiliSearch}, {@link #listViewKlijentiSearch}

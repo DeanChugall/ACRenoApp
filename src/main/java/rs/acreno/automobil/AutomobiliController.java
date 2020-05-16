@@ -211,7 +211,7 @@ public class AutomobiliController implements Initializable {
         return klijenti;
     }
 
-    //******************* KOMUNIKACIJA SA AUTOSERVIS CONTROLLOROM ******************
+    // 1.0 ******************* KOMUNIKACIJA SA AUTOSERVIS CONTROLLOROM ******************
 
     /**
      * stageAutoSerivs referenca ako bude zatrebalo
@@ -239,7 +239,7 @@ public class AutomobiliController implements Initializable {
         this.stageAutoSerivs.set(stageAutoServis);
     }
 
-    //************* INICIJALIZACIJA *********************************
+    // 2.0 ************* INICIJALIZACIJA *********************************
 
     /**
      * Inicijalizacija {@link AutomobiliController}-a
@@ -320,7 +320,7 @@ public class AutomobiliController implements Initializable {
     }
 
 
-    // *************** FAKTURE / RACUNI ***************************
+    // 3.0 *************** FAKTURE / RACUNI ***************************
 
     /**
      * Inicijalizacija Racuni Objekta iz DBa {@link SQLRacuniDAO}
@@ -397,8 +397,7 @@ public class AutomobiliController implements Initializable {
      * @see {@link FakturaController#btnCloseFaktureAction(ActionEvent)}
      * @see #initialize(URL, ResourceBundle)
      */
-    @FXML
-    public boolean btnOpenFakturaUi() throws IOException {
+    @FXML public boolean btnOpenFakturaUi() throws IOException {
         FXMLLoader fxmlLoaderFaktura = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
         Stage stageFaktura = new Stage();
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
@@ -424,7 +423,7 @@ public class AutomobiliController implements Initializable {
     }
 
 
-    // *************** RADNI NALOZI ***************************
+    // 4.0 *************** RADNI NALOZI ***************************
 
     /**
      * Inicijalizacija Radni Nalog Objekta iz DBa {@link SQLRadniNalogDAO}
@@ -502,8 +501,7 @@ public class AutomobiliController implements Initializable {
      * @see RadniNalogController #newOrEditRadniNalog (boolean)
      * @see #popuniTabeluRadniNalozi()
      */
-    @FXML
-    public boolean btnOpenNoviRadniNalog() throws IOException {
+    @FXML public boolean btnOpenNoviRadniNalog() throws IOException {
         FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.RADNI_NALOZI_UI_VIEW_URI));
         Stage stageRadniNalog = new Stage();
         stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
@@ -530,7 +528,7 @@ public class AutomobiliController implements Initializable {
     }
 
 
-    // *************** DEFEKTAZA ***************************
+    // 5.0 *************** DEFEKTAZA ***************************
 
     /**
      * Inicijalizacija Defektaza Objekta iz DBa {@link SQLDefektazaDAO}
@@ -609,8 +607,7 @@ public class AutomobiliController implements Initializable {
      * @see DefektazaController #newOrEditDefektaza(boolean)
      * @see #popuniTabeluDefektaza()
      */
-    @FXML
-    public boolean btnOpenDefektaza() throws IOException {
+    @FXML public boolean btnOpenDefektaza() throws IOException {
         FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.DEFEKTAZA_UI_VIEW_URI));
         Stage stageDefektaza = new Stage();
         stageDefektaza.initModality(Modality.APPLICATION_MODAL);
@@ -637,7 +634,7 @@ public class AutomobiliController implements Initializable {
     }
 
 
-    // *************** KLIJENT ***************************
+    // 6.0 *************** KLIJENT ***************************
 
     /**
      * Otavranje {@link CreateNewKlijentUiController}-a UI-a, setovanje {@code OnCloseRequest(windowEvent} koji
@@ -650,8 +647,7 @@ public class AutomobiliController implements Initializable {
      * @see CreateNewKlijentUiController#setKlijent(Klijent)
      * @see Klijent
      */
-    @FXML
-    private void btnOpenIzmeniKlijentaUi() throws IOException {
+    @FXML private void btnOpenIzmeniKlijentaUi() throws IOException {
 
         FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
         Stage stageKlijent = new Stage();
@@ -675,17 +671,10 @@ public class AutomobiliController implements Initializable {
         stageKlijent.showAndWait();
     }
 
-    /**
-     * Zatvori prozor Automobili
-     *
-     * @param actionEvent posto koristimo sakrivanje prozara
-     */
-    @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-    }
 
+    // 7.0 *************** EDIT AUTOMOBILI ***************************
 
-    @FXML public void btnOpenIzmeniAutomobilUi(ActionEvent actionEvent) throws IOException {
+    @FXML private void btnOpenIzmeniAutomobilUi(ActionEvent actionEvent) throws IOException {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
@@ -698,21 +687,36 @@ public class AutomobiliController implements Initializable {
 
 
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
-           // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
             System.out.println("FORM BUUTTON btnOpenIzmeniAutomobilUi --- YEAAAHHH");
         });
 
         //Inicijalizacija CREATE NEW KLIJENT Controllora-a
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutmobilController(this, stageNewAutomobil);
-        //addEditAutomobilController.setKlijent(klijenti.get(0));//Prosledi u  KLIJENT OBJEKAT (EDIT MODE)
 
+        //Prosledi u  AUTOMOBIL OBJEKAT (EDIT MODE)...Moze automobil.get(0) jer je samo jedan Automobil Obj
+        addEditAutomobilController.setWeAreInEditMode(true);
+        addEditAutomobilController.setAutomobil(automobil.get(0));
+        addEditAutomobilController.setKlijent(klijenti.get(0));
         //Postavi Title u stageu Klijent Controlloru
         stageNewAutomobil.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
         stageNewAutomobil.showAndWait();
 
+    }
+
+
+    // 8.0 *************** BUTTON STAFF ***************************
+
+    /**
+     * Zatvori prozor Automobili
+     *
+     * @param actionEvent posto koristimo sakrivanje prozara
+     */
+    @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }
 

@@ -21,7 +21,6 @@ import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.defektaza.print_defektaza.PrintDefektazaController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.nalozi.RadniNalogController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -166,6 +165,7 @@ public class DefektazaController implements Initializable {
         //Popunjavanje GUIa
         txtfKlijent.setText(imePrezimeKlijenta);
         txtfRegOznaka.setText(regOznakaAutomobila);
+
         //Formatiranje Vremena
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -288,7 +288,7 @@ public class DefektazaController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
-                    defektazaDAO.deleteDefektaza(brojDefektaze); //TODO PROVERITI OVO
+                    defektazaDAO.deleteDefektaza(brojDefektaze);
                     btnObrisiDefektazu.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
                     ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
                 }
@@ -297,16 +297,6 @@ public class DefektazaController implements Initializable {
             acrenoException.printStackTrace();
         }
     }
-
-    /**
-     * Zatvaranje DEFEKTAZA UI UIa i refresh tabele Defektaza u {@link AutomobiliController}-u
-     * <p>
-     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
-     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenDefektaza()} ()}
-     *
-     * @param actionEvent event for hide scene {@link DefektazaController}
-     * @see AutomobiliController#btnOpenDefektaza()
-     */
 
 
     /**
@@ -353,11 +343,17 @@ public class DefektazaController implements Initializable {
      * Ovde je implementiran i "SAMART CLOSE" jer ako se otvori nova Defektaza ona je odmah ubacena u DB,
      * po ako se ne unese ni {@link #txtAreaOpisDefektaze} ili {@link #txtAreOstaliDetaljiDefektaze} txt,
      * onda predpostavljamo da smo odustali i samim tim brisemo iz DBa!
+     * <p>
+     * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
+     * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenDefektaza()} ()}
      *
-     * @param actionEvent event for hide scene {@link RadniNalogController}
+     * @param actionEvent event for hide scene {@link DefektazaController}
      * @throws AcrenoException malo bolje objasnjenje
      * @throws SQLException    problem u DBu
      * @author Dejan Cugalj
+     * @see AutomobiliController#btnOpenDefektaza()
+     * @see DefektazaController
+     * @see Defektaza
      */
     @FXML
     private void btnCloseDefektazaAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {

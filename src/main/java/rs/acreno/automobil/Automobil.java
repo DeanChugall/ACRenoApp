@@ -1,7 +1,5 @@
 package rs.acreno.automobil;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 public class Automobil {
@@ -26,8 +24,7 @@ public class Automobil {
     private int brojMestaZaSedenje;
     private int brojVrataVozila;
     private String napomeneAutomobila;
-
-    private AutomobilDAO automobilDAO;
+    private String datumAcrRegistracijeAuta;
 
     public Automobil() {
     }
@@ -38,7 +35,8 @@ public class Automobil {
     }
 
     public Automobil(int idKlijenta, String regOznaka, String kilometraza, String markaVozila,
-                     String modelVozila, int godisteVozila, String vinVozila, String napomeneAutomobila) {
+                     String modelVozila, int godisteVozila, String vinVozila,
+                     String napomeneAutomobila, String datumAcrRegistracije) {
         this.idKlijenta = idKlijenta;
         this.regOznaka = regOznaka;
         this.kilomteraza = kilometraza;
@@ -47,6 +45,7 @@ public class Automobil {
         this.godisteVozila = godisteVozila;
         this.vinVozila = vinVozila;
         this.napomeneAutomobila = napomeneAutomobila;
+        this.datumAcrRegistracijeAuta = datumAcrRegistracije;
     }
 
     public Automobil(String regOznaka, String markaVozila,
@@ -219,19 +218,26 @@ public class Automobil {
         this.napomeneAutomobila = napomeneAutomobila;
     }
 
-    @Override
-    public String toString() {
+    public String getDatumAcrRegistracijeAuta() {
+        return datumAcrRegistracijeAuta;
+    }
+
+    public void setDatumAcrRegistracijeAuta(String datumAcrRegistracijeAuta) {
+        this.datumAcrRegistracijeAuta = datumAcrRegistracijeAuta;
+    }
+
+    @Override public String toString() {
         return "Automobil{" +
                 "idAuta=" + idAuta +
                 ", idKlijenta=" + idKlijenta +
                 ", regOznaka='" + regOznaka + '\'' +
-                ", kilomteraza=" + kilomteraza +
+                ", kilomteraza='" + kilomteraza + '\'' +
                 ", vrstaVozila='" + vrstaVozila + '\'' +
                 ", markaVozila='" + markaVozila + '\'' +
                 ", modelVozila='" + modelVozila + '\'' +
-                ", godistelVozila=" + godisteVozila +
-                ", zapreminalVozila=" + zapreminaVozila +
-                ", snagalVozila=" + snagaVozila +
+                ", godisteVozila=" + godisteVozila +
+                ", zapreminaVozila=" + zapreminaVozila +
+                ", snagaVozila=" + snagaVozila +
                 ", vinVozila='" + vinVozila + '\'' +
                 ", brojMotoraVozila='" + brojMotoraVozila + '\'' +
                 ", vrstaGorivaVozila='" + vrstaGorivaVozila + '\'' +
@@ -242,6 +248,7 @@ public class Automobil {
                 ", brojMestaZaSedenje=" + brojMestaZaSedenje +
                 ", brojVrataVozila=" + brojVrataVozila +
                 ", napomeneAutomobila='" + napomeneAutomobila + '\'' +
+                ", datumAcrRegistracijeAuta='" + datumAcrRegistracijeAuta + '\'' +
                 '}';
     }
 

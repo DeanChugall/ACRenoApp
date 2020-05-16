@@ -49,6 +49,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
             pstmt.setString(12, klijent.getWeb());
             pstmt.setString(13, klijent.getBrojRacuna());
             pstmt.setString(14, klijent.getBanka());
+            pstmt.setString(15, klijent.getDatumAcrRegistracijeKliljenta());
             pstmt.executeUpdate();
             System.out.println("FROM : insertKlijnet");
         } catch (SQLException e) {
@@ -78,6 +79,7 @@ public class SQLKlijnetDAO implements KlijentDAO {
                     klijent.getWeb(),
                     klijent.getBrojRacuna(),
                     klijent.getBanka(),
+                    klijent.getDatumAcrRegistracijeKliljenta(),
                     klijent.getIdKlijenta());
         } catch (SQLException e) {
             throw new AcrenoException("Greska u DB UPDATE KLIJENTA", e);
