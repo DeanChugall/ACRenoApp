@@ -585,7 +585,8 @@ public class AutomobiliController implements Initializable {
         tblColOpisDefektaze.setStyle("-fx-alignment: CENTER;");
 
         //tblCol OSTALI DETALJI  DEFEKTAZE
-        tblColOstaliDetaljiDefektaze.setCellValueFactory(new PropertyValueFactory<>("ostaliDetaljiDefektaze"));
+        tblColOstaliDetaljiDefektaze.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getOstaliDetaljiDefektaze()));
         tblColOstaliDetaljiDefektaze.setStyle("-fx-alignment: CENTER;");
 
         //Set Table "Defektaza" Data

@@ -876,8 +876,6 @@ public class FakturaController implements Initializable {
     //****************** LIST VIEW STAFF  ************************
 
     /**
-     * TODO: SREDITI OVO ISTO KAO I U {@link AutomobiliController #txtFieldRegTablicaSaerchKeyListener}
-     * TODO: IMPLEMENTIRATI I SHORCUTS ZA SVE
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
      * <p>
      * Prilikom kucanja u txtF pokazuju se filtrirani Artikl u ListView koji je inicijalno sakriven
