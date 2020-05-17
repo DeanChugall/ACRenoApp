@@ -11,7 +11,6 @@ public class ApplicationProperties {
     private ApplicationProperties() {
         //Private constructor to restrict new instances
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("app.properties");
-        System.out.println("Read all properties from file");
         try {
             configProp.load(in);
         } catch (IOException e) {

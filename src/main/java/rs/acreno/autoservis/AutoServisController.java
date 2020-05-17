@@ -12,8 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.*;
@@ -26,17 +29,25 @@ import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
+import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AutoServisController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
+    @FXML private Line lineInternetIndicator;
     @FXML private Button btnNoviAutomobil;
     @FXML private Button btnNoviKlijent;
     @FXML private Button btnUrediAutomobil;
@@ -131,7 +142,21 @@ public class AutoServisController implements Initializable {
         Platform.runLater(() -> {
             GeneralUiUtility.initSat(lblTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
+
+            final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+            ses.scheduleWithFixedDelay(new Runnable() {
+                @Override
+                public void run() {
+                    if (GeneralUiUtility.netIsAvailable()) {
+                        lineInternetIndicator.setStroke(Color.rgb(36, 164, 11));
+                    } else {
+                        lineInternetIndicator.setStroke(Color.rgb(198, 13, 13));
+                    }
+                    System.out.println(new Date() + " = ping IMA INTERNETA !");
+                }
+            }, 2, Constants.APP_UCESTALOST_PROVERE_INTERNETA, TimeUnit.SECONDS);
         });
+
     }
 
 
@@ -305,6 +330,11 @@ public class AutoServisController implements Initializable {
             stageAutomobil.setScene(scene);
             stageAutomobil.setTitle("Automobil: " + txtFieldRegOznaka.getText());
 
+            stageAutomobil.setOnCloseRequest(windowEvent -> {
+                // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+                System.out.println("FORM BUUTTON openAutomobiliUi --- AUTOMOBILI_UI_VIEW_URI");
+            });
+
             //Set AutoServisController u AutomobiliController UI
             AutomobiliController automobiliController = fxmlLoaderAutomobil.getController();
             automobiliController.setAutoServisController(this, stageAutomobil);
@@ -373,6 +403,11 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.setResizable(false);
         stageNewAutomobil.setTitle("Kreiraj Novi Autmobil");
 
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            System.out.println("FORM BUUTTON btnOpenNoviAutomobilGui --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
+        });
+
         //Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
@@ -422,10 +457,17 @@ public class AutoServisController implements Initializable {
         Stage stageNewAutomobil = new Stage();
         stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
+        stageNewAutomobil.setTitle("Izmena Autmobila: " + automobil.getRegOznaka());
+
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
+        });
+
+
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
-        stageNewAutomobil.setTitle("Uređivanje Autmobila: " + automobil.getRegOznaka());
 
         //Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
@@ -433,6 +475,7 @@ public class AutoServisController implements Initializable {
         addEditAutomobilController.setWeAreInEditMode(true); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
         addEditAutomobilController.setAutomobil(automobil); //Prosledi Automobil Obj
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
+        addEditAutomobilController.setLblHeaderTitle("IZMENA AUTOMOBILA:");
 
         stageNewAutomobil.showAndWait();
 

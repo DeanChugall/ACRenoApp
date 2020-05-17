@@ -46,4 +46,6 @@ public class Constants {
     // ******************* SYSTEM ***************************
     public static final String APP_ICON = "/faktura/logo-acreno.jpg";
     public static final String APP_MAIN_PNG_LOGO = "/acr_logo.png";
+    public static final int APP_UCESTALOST_PROVERE_INTERNETA = Integer.parseInt(
+            ApplicationProperties.getInstance().getProperty("intenet.connection.check.interval"));
 }

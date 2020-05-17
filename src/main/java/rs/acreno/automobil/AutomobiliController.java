@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
@@ -44,6 +45,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutomobiliController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutomobiliController.class);
+    @FXML private Button btnZatvoriProzorAutomobili;
 
 
     //MENU
@@ -673,11 +675,11 @@ public class AutomobiliController implements Initializable {
 
 
     // 7.0 *************** EDIT AUTOMOBILI ***************************
-
+    Stage stageNewAutomobil;
     @FXML private void btnOpenIzmeniAutomobilUi(ActionEvent actionEvent) throws IOException {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
-        Stage stageNewAutomobil = new Stage();
+        stageNewAutomobil = new Stage();
         stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
@@ -688,7 +690,7 @@ public class AutomobiliController implements Initializable {
 
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
-            System.out.println("FORM BUUTTON btnOpenIzmeniAutomobilUi --- YEAAAHHH");
+            System.out.println("FORM BUUTTON btnOpenIzmeniAutomobilUi --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
         });
 
         //Inicijalizacija CREATE NEW KLIJENT Controllora-a
@@ -716,7 +718,8 @@ public class AutomobiliController implements Initializable {
      * @param actionEvent posto koristimo sakrivanje prozara
      */
     @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        btnZatvoriProzorAutomobili.fireEvent(new WindowEvent(stageNewAutomobil, WindowEvent.WINDOW_CLOSE_REQUEST));
+        //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 }
 

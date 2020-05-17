@@ -134,6 +134,8 @@ public class FakturaController implements Initializable {
      */
     private boolean ifWeAreFromBtnSacuvajRacun = true;
 
+
+
     private ObservableList<Racun> racuni;
     private ObservableList<Artikl> artikli;
     private ObservableList<PosaoArtikli> posaoArtikli;
@@ -1170,6 +1172,10 @@ public class FakturaController implements Initializable {
     /**
      * Zatvaranje FAKTURA UIa i refresh tabele Racuni u {@link AutomobiliController}-u
      * <p>
+     * {@code ifWeAreFromBtnSacuvajRacun = false } je za onemogucavanje dijaloga o uspesnom cuvanju Racuna.
+     * Tj. kada se klikne na dugme {@link #btnCloseFaktureAction} prosledjujemo FALSE u
+     * {@link #btnSacuvajRacunAction()} koja onda proverava da li treba prikazivatio Dijalog.
+     * <p>
      * Da bi se refresovala tabela Racuni u {@link AutomobiliController}-u potrebno je pozvati
      * {@code WindowEvent.WINDOW_CLOSE_REQUEST} koji je implementiran u {@link AutomobiliController#btnOpenFakturaUi}
      * <p>
@@ -1184,6 +1190,7 @@ public class FakturaController implements Initializable {
      */
     @FXML
     private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        ifWeAreFromBtnSacuvajRacun = false; //Obavesti da ne cuvamo racun iz dugmeta btnCloseFaktureAction
         // Pametno bisanje racuna ako je samo otvoren novi i nema artikala
         if (tblPosaoArtikli.getItems().size() == 0) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

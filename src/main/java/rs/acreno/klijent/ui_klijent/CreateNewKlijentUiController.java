@@ -3,12 +3,14 @@ package rs.acreno.klijent.ui_klijent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
@@ -138,7 +140,7 @@ public class CreateNewKlijentUiController implements Initializable {
      * @see Klijent
      */
     private void initGUI() {
-        if (isWeAreInEditMode()) { //U EDIT MODU SMO
+        if (isWeAreInEditMode()) { //U EDIT MODU SMO (TRUE)
             Platform.runLater(() -> {
                 lblKreateOrEditKlijenta.setText("UREĐIVANJE KLIJENTA:");
                 txtfIdKlijenta.setText(String.valueOf(klijent.getIdKlijenta()));
@@ -225,7 +227,7 @@ public class CreateNewKlijentUiController implements Initializable {
             );
             throw new AcrenoException("Greska iz CREATE NEW CLINET CONTROLORA\n" + e.getMessage());
         }
-        btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
+        //btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     /**
@@ -315,7 +317,7 @@ public class CreateNewKlijentUiController implements Initializable {
             saveKlijent(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
             btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
-
     }
+
 }
 

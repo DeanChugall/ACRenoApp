@@ -74,6 +74,8 @@ public class RadniNalogController implements Initializable {
      */
     private Stage stagePrintRadniNalog;
 
+    private boolean ifWeAreFromBtnCloseFaktureAction = true;
+
     public int getBrojRadnogNaloga() {
         return brojRadnogNaloga;
     }
@@ -248,12 +250,15 @@ public class RadniNalogController implements Initializable {
             noviRadniNalog.setDetaljiStranke(txtAreaDetaljiStranke.getText());
             noviRadniNalog.setDetaljiServisera(txtAreDetaljiServisera.getText());
             radniNalogDAO.updateRadniNalog(noviRadniNalog);
-            GeneralUiUtility.alertDialogBox(
-                    Alert.AlertType.CONFIRMATION,
-                    "USPESNO SACUVAN RADNI NALOG",
-                    "EDITOVANJE RADNOG NALOGA",
-                    "Uspesno ste sacuvali RN pod brojem: " + brojRadnogNaloga
-            );
+            if (ifWeAreFromBtnCloseFaktureAction) {
+                GeneralUiUtility.alertDialogBox(
+                        Alert.AlertType.CONFIRMATION,
+                        "USPESNO SACUVAN RADNI NALOG",
+                        "EDITOVANJE RADNOG NALOGA",
+                        "Uspesno ste sacuvali RN pod brojem: " + brojRadnogNaloga
+                );
+            }
+
         } catch (SQLException | AcrenoException throwables) {
             throwables.printStackTrace();
             GeneralUiUtility.alertDialogBox(
@@ -352,6 +357,7 @@ public class RadniNalogController implements Initializable {
      */
     @FXML
     private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        ifWeAreFromBtnCloseFaktureAction = false;
         // Pametno bisanje racuna ako je samo otvoren novi i nema Unosa u txtF
         if (txtAreaDetaljiStranke.getText().equals("") || txtAreDetaljiServisera.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

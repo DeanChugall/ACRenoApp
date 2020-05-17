@@ -1,17 +1,22 @@
 package rs.acreno.system.util.properties;
 
+import org.apache.log4j.Logger;
+import rs.acreno.autoservis.AutoServisController;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 
 public class AcrenoProperties {
+
+    private static final Logger logger = Logger.getLogger(AcrenoProperties.class);
+
     private final Properties configProp = new Properties();
 
     private AcrenoProperties() {
         //Private constructor to restrict new instances
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("acreno.properties");
-        System.out.println("Read all properties from file");
         try {
             configProp.load(in);
         } catch (IOException e) {

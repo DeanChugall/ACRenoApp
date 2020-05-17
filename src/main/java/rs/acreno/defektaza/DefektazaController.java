@@ -67,6 +67,8 @@ public class DefektazaController implements Initializable {
     //RADNI NALOG STAFF OBJECT
     private Defektaza novaDefektaza;
 
+    private boolean ifWeAreFromBtnCloseDefektazaAction = true;
+
 
     public TextField getTxtfKlijent() {
         return txtfKlijent;
@@ -246,12 +248,15 @@ public class DefektazaController implements Initializable {
             novaDefektaza.setOpisDefektaze(txtAreaOpisDefektaze.getText());
             novaDefektaza.setOstaliDetaljiDefektaze(txtAreOstaliDetaljiDefektaze.getText());
             defektazaDAO.updateDefektaza(novaDefektaza);
-            GeneralUiUtility.alertDialogBox(
-                    Alert.AlertType.CONFIRMATION,
-                    "USPESNO SACUVANA DEFEKTAZA",
-                    "EDITOVANJE DEFEKTAZE",
-                    "Uspesno ste sacuvali DEF pod brojem: " + brojDefektaze
-            );
+            if (ifWeAreFromBtnCloseDefektazaAction) {
+                GeneralUiUtility.alertDialogBox(
+                        Alert.AlertType.CONFIRMATION,
+                        "USPESNO SACUVANA DEFEKTAZA",
+                        "EDITOVANJE DEFEKTAZE",
+                        "Uspesno ste sacuvali DEF pod brojem: " + brojDefektaze
+                );
+            }
+
         } catch (SQLException | AcrenoException throwables) {
             throwables.printStackTrace();
             GeneralUiUtility.alertDialogBox(
@@ -262,6 +267,7 @@ public class DefektazaController implements Initializable {
                             + throwables.getMessage()
             );
         }
+
     }
 
     /**
@@ -357,6 +363,7 @@ public class DefektazaController implements Initializable {
      */
     @FXML
     private void btnCloseDefektazaAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
+        ifWeAreFromBtnCloseDefektazaAction = false;
         if (txtAreaOpisDefektaze.getText().equals("") || txtAreOstaliDetaljiDefektaze.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("SMART brisanja Defektaže");

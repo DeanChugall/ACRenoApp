@@ -6,13 +6,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import org.apache.log4j.Logger;
 import rs.acreno.system.constants.Constants;
+import rs.acreno.system.util.properties.AcrenoProperties;
 import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SplashScreenController implements Initializable {
+
+    private static final Logger logger = Logger.getLogger(SplashScreenController.class);
 
 
     @FXML private  Label lblReleaseDate;
@@ -34,6 +38,7 @@ public class SplashScreenController implements Initializable {
             System.out.println("**********************************");
             System.out.println(Constants.MSACCESS_STRING_URL);
             System.out.println("**********************************");
+            logger.error("********** PRISTUP APLIKACIJI **********");
 
         });
     }

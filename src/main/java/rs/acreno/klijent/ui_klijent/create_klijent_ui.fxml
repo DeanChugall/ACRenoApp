@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController">
     <top>
         <AnchorPane prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
@@ -45,132 +45,132 @@
     <left>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="23.0" layoutY="28.0" prefHeight="24.0" prefWidth="116.0" text="Ime Prezime" textFill="#e8e8e8">
+                <Label layoutX="22.0" layoutY="17.0" prefHeight="24.0" prefWidth="116.0" text="Ime Prezime" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="23.0" layoutY="339.0" prefHeight="24.0" prefWidth="116.0" text="Grad" textFill="#e8e8e8">
+                <Label layoutX="22.0" layoutY="328.0" prefHeight="24.0" prefWidth="116.0" text="Grad" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="197.0" layoutY="339.0" prefHeight="24.0" prefWidth="116.0" text="Poštanski Broj" textFill="#e8e8e8">
+                <Label layoutX="196.0" layoutY="328.0" prefHeight="24.0" prefWidth="116.0" text="Poštanski Broj" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="23.0" layoutY="263.0" prefHeight="24.0" prefWidth="116.0" text="Ulica i Broj" textFill="#e8e8e8">
+                <Label layoutX="22.0" layoutY="252.0" prefHeight="24.0" prefWidth="116.0" text="Ulica i Broj" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="415.0" layoutY="146.0" prefHeight="24.0" prefWidth="116.0" text="BR. Lične Karte" textFill="#e8e8e8">
+                <Label layoutX="414.0" layoutY="135.0" prefHeight="24.0" prefWidth="116.0" text="BR. Lične Karte" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="415.0" layoutY="87.0" prefHeight="24.0" prefWidth="116.0" text="Matični Broj" textFill="#e8e8e8">
+                <Label layoutX="414.0" layoutY="76.0" prefHeight="24.0" prefWidth="116.0" text="Matični Broj" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="25.0" layoutY="396.0" prefHeight="24.0" prefWidth="181.0" text="Ostali Detalji / Napomene" textFill="#e8e8e8">
+                <Label layoutX="24.0" layoutY="385.0" prefHeight="24.0" prefWidth="181.0" text="Ostali Detalji / Napomene" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="23.0" layoutY="184.0" prefHeight="24.0" prefWidth="116.0" text="e-mail" textFill="#e8e8e8">
+                <Label layoutX="22.0" layoutY="173.0" prefHeight="24.0" prefWidth="116.0" text="e-mail" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="23.0" layoutY="111.0" prefHeight="24.0" prefWidth="116.0" text="Mobili Telefon" textFill="#e8e8e8">
+                <Label layoutX="22.0" layoutY="100.0" prefHeight="24.0" prefWidth="116.0" text="Mobili Telefon" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="197.0" layoutY="111.0" prefHeight="24.0" prefWidth="116.0" text="Fiksni Telefon" textFill="#e8e8e8">
+                <Label layoutX="196.0" layoutY="100.0" prefHeight="24.0" prefWidth="116.0" text="Fiksni Telefon" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="416.0" layoutY="320.0" prefHeight="24.0" prefWidth="116.0" text="Web" textFill="#e8e8e8">
+                <Label layoutX="415.0" layoutY="309.0" prefHeight="24.0" prefWidth="116.0" text="Web" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="415.0" layoutY="203.0" prefHeight="24.0" prefWidth="116.0" text="Broj Žiro Racuna" textFill="#e8e8e8">
+                <Label layoutX="414.0" layoutY="192.0" prefHeight="24.0" prefWidth="116.0" text="Broj Žiro Racuna" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="415.0" layoutY="262.0" prefHeight="24.0" prefWidth="116.0" text="Banka" textFill="#e8e8e8">
+                <Label layoutX="414.0" layoutY="251.0" prefHeight="24.0" prefWidth="116.0" text="Banka" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <TextArea fx:id="txtaOstaliDetaljiKlijenta" layoutX="24.0" layoutY="423.0" prefHeight="93.0" prefWidth="331.0" wrapText="true">
+                <TextArea fx:id="txtaOstaliDetaljiKlijenta" layoutX="23.0" layoutY="412.0" prefHeight="93.0" prefWidth="331.0" wrapText="true">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextArea>
-                <TextField fx:id="txtfGradKlijenta" layoutX="23.0" layoutY="363.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="155.0">
+                <TextField fx:id="txtfGradKlijenta" layoutX="22.0" layoutY="352.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="155.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfImePrezimeKlijenta" alignment="CENTER" layoutX="23.0" layoutY="52.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
+                <TextField fx:id="txtfImePrezimeKlijenta" alignment="CENTER" layoutX="22.0" layoutY="41.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
                     <font>
                         <Font name="Segoe UI Bold" size="27.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfMobilniTelefonKlijenta" layoutX="23.0" layoutY="133.0" minHeight="-Infinity" prefHeight="43.0" prefWidth="161.0">
+                <TextField fx:id="txtfMobilniTelefonKlijenta" layoutX="22.0" layoutY="122.0" minHeight="-Infinity" prefHeight="43.0" prefWidth="161.0">
                     <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfFiksniTelefonKlijenta" layoutX="194.0" layoutY="133.0" minHeight="-Infinity" prefHeight="43.0" prefWidth="161.0">
+                <TextField fx:id="txtfFiksniTelefonKlijenta" layoutX="193.0" layoutY="122.0" minHeight="-Infinity" prefHeight="43.0" prefWidth="161.0">
                     <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txrfEmailKlijenta" alignment="CENTER" layoutX="23.0" layoutY="210.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
+                <TextField fx:id="txrfEmailKlijenta" alignment="CENTER" layoutX="22.0" layoutY="199.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
                     <font>
                         <Font name="Segoe UI Bold" size="17.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfUlicaBrojKlijenta" alignment="CENTER" layoutX="23.0" layoutY="287.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
+                <TextField fx:id="txtfUlicaBrojKlijenta" alignment="CENTER" layoutX="22.0" layoutY="276.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
                     <font>
                         <Font name="Segoe UI Bold" size="17.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfPosatanskiBrojKlijenta" layoutX="197.0" layoutY="363.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="155.0">
+                <TextField fx:id="txtfPosatanskiBrojKlijenta" layoutX="196.0" layoutY="352.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="155.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfMaticniBrojKlijenta" layoutX="415.0" layoutY="110.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                <TextField fx:id="txtfMaticniBrojKlijenta" layoutX="414.0" layoutY="99.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfBrojLicneKarteKlijenta" layoutX="415.0" layoutY="170.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                <TextField fx:id="txtfBrojLicneKarteKlijenta" layoutX="414.0" layoutY="159.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfBrojZiroRacunaKlijenta" layoutX="415.0" layoutY="226.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                <TextField fx:id="txtfBrojZiroRacunaKlijenta" layoutX="414.0" layoutY="215.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfBankaKlijenta" layoutX="415.0" layoutY="286.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                <TextField fx:id="txtfBankaKlijenta" layoutX="414.0" layoutY="275.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="txtfWebSajtKlijenta" layoutX="416.0" layoutY="342.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                <TextField fx:id="txtfWebSajtKlijenta" layoutX="415.0" layoutY="331.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
@@ -187,17 +187,8 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button layoutX="705.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnObrisiKlijenta" prefHeight="43.0" prefWidth="81.0" text="Obriši">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/btn_delete_icon.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            <DatePicker fx:id="datePicDatumAdregistracijeKlijenta" layoutX="415.0" layoutY="49.0" prefHeight="25.0" prefWidth="222.0" />
-            <Label layoutX="415.0" layoutY="27.0" prefHeight="24.0" prefWidth="155.0" text="Datum ACR Registracije" textFill="#e8e8e8">
+            <DatePicker fx:id="datePicDatumAdregistracijeKlijenta" layoutX="414.0" layoutY="38.0" prefHeight="25.0" prefWidth="222.0" />
+            <Label layoutX="414.0" layoutY="16.0" prefHeight="24.0" prefWidth="155.0" text="Datum ACR Registracije" textFill="#e8e8e8">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
@@ -205,4 +196,22 @@
             </children>
         </AnchorPane>
     </left>
+   <bottom>
+      <AnchorPane prefHeight="55.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <children>
+                <Button layoutX="705.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnObrisiKlijenta" prefHeight="43.0" prefWidth="81.0" text="Obriši">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/btn_delete_icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+                </Button>
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

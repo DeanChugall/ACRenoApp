@@ -18,10 +18,16 @@ import org.jetbrains.annotations.Nullable;
 import rs.acreno.racuni.faktura.FakturaController;
 import rs.acreno.system.constants.Constants;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GeneralUiUtility {
 
@@ -57,7 +63,7 @@ public class GeneralUiUtility {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(poruka);
-        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
+        ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
         alert.show();
         return alert;
     }
@@ -138,7 +144,8 @@ public class GeneralUiUtility {
 
     /**
      * Postavljenje stat koji se prikazuje u Labelu
-     * @param label gde prikazijemo sat
+     *
+     * @param label     gde prikazijemo sat
      * @param formatter format sata
      */
     public static void initSat(Label label, DateTimeFormatter formatter) {
@@ -148,6 +155,22 @@ public class GeneralUiUtility {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+    }
+
+    //CHECK INTERNET
+    private TimerTask tt;
+    public static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 }
 
