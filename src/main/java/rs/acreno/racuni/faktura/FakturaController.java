@@ -516,13 +516,52 @@ public class FakturaController implements Initializable {
         tblRowidArtikla.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
 
+
         // NAZIV ARTIKLA
         tblRowNazivArtikla.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
+        tblRowNazivArtikla.setCellFactory(TextFieldTableCell.forTableColumn());
+        tblRowNazivArtikla.setOnEditCommit(t -> {
+            if (t.getNewValue().equals("")) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GREŠKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                t.getRowValue().setNazivArtikla(t.getNewValue());
+                try {
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setNazivArtikla(t.getRowValue().getNazivArtikla());
+
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
         //OPIS ARTIKLA
         tblRowOpisArtikla.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
+        tblRowOpisArtikla.setCellFactory(TextFieldTableCell.forTableColumn());
+        tblRowOpisArtikla.setOnEditCommit(t -> {
+            if (t.getNewValue().equals("")) {
+                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                        "GREŠKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+            } else {
+                t.getRowValue().setOpisPosaoArtiklli(t.getNewValue());
+                try {
+                    posaoArtikliTemp = t.getRowValue();
+                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                    posaoArtikliTemp.setOpisPosaoArtiklli(t.getRowValue().getOpisPosaoArtiklli());
+
+                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+
+                } catch (SQLException | AcrenoException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
         // CENA
         tblRowCena.setCellValueFactory(cellData ->
@@ -613,14 +652,18 @@ public class FakturaController implements Initializable {
             }
             tblPosaoArtikli.refresh();// Potrebno zbog izracunavanja TOTAL sume u tabeli
 
+            // Izracunavanje TOTAL SUME SA POPUSTOM NA DELOVE i sredjivanje decimala
             double totalSumSaPopustomNaDelove = izracunajTotalSumaSaPopustomNaDelove();
             txtfTotalSaPopustomNaDelove.setText(GeneralUiUtility.formatDecimalPlaces(totalSumSaPopustomNaDelove));
+
             // Izracunavanje TOTAL SUME CENE i sredjivanje decimala
             double totalSumCene = izracunajTotalRegularneCene();
             txtfTotalPoCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumCene));
+
             // Izracunavanje TOTAL SUME NABAVNE CENE i sredjivanje decimala
             double totalSumPoNabavnimCenama = izracunajTotalNabavneCene();
             txtfTotalPoNabavnimCenama.setText(GeneralUiUtility.formatDecimalPlaces(totalSumPoNabavnimCenama));
+
             // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
             double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
             txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));

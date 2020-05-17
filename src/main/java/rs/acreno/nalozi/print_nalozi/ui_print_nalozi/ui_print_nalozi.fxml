@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.print_nalozi.PrintNaloziController">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.print_nalozi.PrintNaloziController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
          <font>
@@ -46,8 +42,8 @@
       <Label layoutX="407.0" layoutY="179.0" text="Kilometraza" />
       <Label layoutX="36.0" layoutY="242.0" text="Detalji Klijenta:" />
       <Label layoutX="32.0" layoutY="494.0" text="Detalji Servisera:" />
-      <TextArea fx:id="txtAreaDetaljiKlijenta" layoutX="32.0" layoutY="264.0" prefHeight="200.0" prefWidth="615.0" />
-      <TextArea fx:id="txtAreaDetaljiServisera" layoutX="32.0" layoutY="524.0" prefHeight="200.0" prefWidth="615.0" />
+      <TextArea fx:id="txtAreaDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="32.0" layoutY="264.0" prefHeight="200.0" prefWidth="615.0" />
+      <TextArea fx:id="txtAreaDetaljiServisera" editable="false" focusTraversable="false" layoutX="32.0" layoutY="524.0" prefHeight="200.0" prefWidth="615.0" />
       <TextField fx:id="txtfDatum" layoutX="20.0" layoutY="205.0" />
       <TextField fx:id="txtfVreme" layoutX="223.0" layoutY="205.0" />
       <TextField fx:id="txtfKilometraza" layoutX="407.0" layoutY="205.0" />
