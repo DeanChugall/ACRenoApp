@@ -1,0 +1,10 @@
+.progress-bar > .bar {
+    -fx-background-insets: 0, 1;
+    -fx-indeterminate-bar-length: 60;
+    -fx-indeterminate-bar-escape: true;
+    -fx-indeterminate-bar-flip: true;
+    -fx-indeterminate-bar-animation-time: 26;
+    -fx-accent: #fbbc04;
+}
+
+

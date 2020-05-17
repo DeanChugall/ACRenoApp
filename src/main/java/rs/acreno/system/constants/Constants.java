@@ -3,6 +3,7 @@ package rs.acreno.system.constants;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import rs.acreno.autoservis.splash.SplashScreenController;
+import rs.acreno.system.util.properties.AcrenoProperties;
 import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.File;
@@ -48,4 +49,7 @@ public class Constants {
     public static final String APP_MAIN_PNG_LOGO = "/acr_logo.png";
     public static final int APP_UCESTALOST_PROVERE_INTERNETA = Integer.parseInt(
             ApplicationProperties.getInstance().getProperty("intenet.connection.check.interval"));
+
+    public static int SPLASH_SCREEN_DELAY= Integer.parseInt(ApplicationProperties
+            .getInstance().getProperty("splash.screen.delay"));
 }
