@@ -116,6 +116,10 @@ public class RadniNalogController implements Initializable {
         this.brojRadnogNaloga = brojRadnogNaloga;
     }
 
+    public RadniNalog getNoviRadniNalog() {
+        return noviRadniNalog;
+    }
+
     /**
      * Seter metoda koja se koristi u {@link AutomobiliController#setAutoServisController(AutoServisController, Stage)}-u
      * Takodje se prosledjuje i STAGE ako bude zatrebalo, a iz {@link AutomobiliController #btnOpenFakturaUi()}-a

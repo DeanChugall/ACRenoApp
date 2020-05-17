@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PrintNaloziController implements Initializable {
 
+    //FXMLs  STAFF
     @FXML private Button btnPrintZatvori;
     @FXML private TextField txtfKlijent;
     @FXML private TextArea txtAreaDetaljiKlijenta;
