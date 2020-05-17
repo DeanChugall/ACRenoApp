@@ -46,7 +46,7 @@
       <Label layoutX="407.0" layoutY="179.0" text="Kilometraza" />
       <Label layoutX="36.0" layoutY="242.0" text="Detalji Klijenta:" />
       <Label layoutX="32.0" layoutY="494.0" text="Detalji Servisera:" />
-      <TextArea fx:id="txtAreaDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="32.0" layoutY="264.0" prefHeight="200.0" prefWidth="615.0" />
+      <TextArea fx:id="txtAreaDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="19.0" layoutY="273.0" prefHeight="200.0" prefWidth="615.0" />
       <TextArea fx:id="txtAreaDetaljiServisera" editable="false" focusTraversable="false" layoutX="32.0" layoutY="524.0" prefHeight="200.0" prefWidth="615.0" />
       <TextField fx:id="txtfDatum" layoutX="20.0" layoutY="205.0" />
       <TextField fx:id="txtfVreme" layoutX="221.0" layoutY="205.0" />

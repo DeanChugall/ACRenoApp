@@ -250,21 +250,23 @@ public class AutoServisController implements Initializable {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
-            String regOznaka = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0).getRegOznaka();
-            txtFieldRegOznaka.setText(regOznaka); // Postavi REG. OZNAKU u TF
-            listViewAutmobiliSearch.setVisible(false); // Zatvori listu
-            btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
-            btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+            if (listViewAutmobiliSearch.getSelectionModel().getSelectedItems().size() > 0) {
+                String regOznaka = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0).getRegOznaka();
+                txtFieldRegOznaka.setText(regOznaka); // Postavi REG. OZNAKU u TF
+                listViewAutmobiliSearch.setVisible(false); // Zatvori listu
+                btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
+                btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
 
-            //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
-            klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
-                    listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
-            txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
-            btnNoviAutomobil.setDisable(false);
+                //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+                klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
+                        listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
+                txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                btnNoviAutomobil.setDisable(false);
 
-            //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-            //openAutomobiliUi();
-            //((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
+                //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
+                //openAutomobiliUi();
+                //((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
+            }
         }
     }
 
@@ -568,21 +570,23 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void zatvoriLvKlijent(@NotNull MouseEvent mouseEvent) throws IOException {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
+            if (listViewKlijentiSearch.getSelectionModel().getSelectedItems().size()  > 0) {
+                //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
+                String imePrezimeKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getImePrezime();
 
-            //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
-            String imePrezimeKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getImePrezime();
+                //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
+                klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
-            //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
-            klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
+                txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
+                btnNoviAutomobil.setDisable(false);
+                listViewKlijentiSearch.setVisible(false); // Zatvori listu
 
-            txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
-            btnNoviAutomobil.setDisable(false);
-            listViewKlijentiSearch.setVisible(false); // Zatvori listu
+                //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
+                //openAddEditklijent();
+                // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
+            }
 
-            //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-            //openAddEditklijent();
-            // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
         }
     }
 
