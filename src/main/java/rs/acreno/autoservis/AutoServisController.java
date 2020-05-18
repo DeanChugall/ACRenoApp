@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import rs.acreno.artikli.ArtkikliController;
 import rs.acreno.automobil.*;
 import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
 import rs.acreno.klijent.Klijent;
@@ -28,6 +29,7 @@ import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
+import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +45,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutoServisController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
+
     @FXML private Line lineInternetIndicator;
     @FXML private Button btnNoviAutomobil;
     @FXML private Button btnNoviKlijent;
@@ -51,6 +54,9 @@ public class AutoServisController implements Initializable {
     // 1.0 *************** FXMLs **************************************
     @FXML private Label lblDate;
     @FXML private Label lblTime;
+    @FXML private Label lblVerzijaAplikacije;
+    @FXML private Label lblReleaseDate;
+
 
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
@@ -137,6 +143,8 @@ public class AutoServisController implements Initializable {
         Platform.runLater(() -> {
             GeneralUiUtility.initSat(lblTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
+            lblVerzijaAplikacije.setText(ApplicationProperties.getInstance().getProperty("app.version"));
+            lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
 
             //PROVERA INTERNETA
             final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
@@ -718,13 +726,24 @@ public class AutoServisController implements Initializable {
         // Standart FX load UI
         FXMLLoader fxmlLoaderArtikli = new FXMLLoader(getClass().getResource(Constants.ARTIKLI_UI_VIEW_URI));
         Stage stageArtikli = new Stage();
-        stageArtikli.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageArtikli.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ARTIKLI_ICON)));
         stageArtikli.initModality(Modality.APPLICATION_MODAL);
         stageArtikli.setResizable(false);
         Scene scene = new Scene(fxmlLoaderArtikli.load());
         stageArtikli.setScene(scene);
         stageArtikli.setResizable(false);
         stageArtikli.setTitle("Artikli Kartica");
+
+
+        stageArtikli.setOnCloseRequest(windowEvent -> {
+           logger.debug("YEEEAAAAHHHH");
+        });
+
+        //Set AutoServisController u "ARTIKLI_UI_VIEW_URI"  UI
+        ArtkikliController createNewArtiklUiController = fxmlLoaderArtikli.getController();
+        createNewArtiklUiController.setAutmobilController(this, stageArtikli);
+        //createNewArtiklUiController.setWeAreInEditMode(true);
+
 
         stageArtikli.showAndWait();
     }

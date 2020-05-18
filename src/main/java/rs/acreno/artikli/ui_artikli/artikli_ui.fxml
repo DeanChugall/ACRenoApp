@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="artikliUiBorderPane" fx:controller="rs.acreno.artikli.ArtkikliCntroller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="750.0" prefWidth="930.0" style="-fx-background-color: #2d2d2d;"
-            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="930.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
     <center>
         <Label text="ARTIKLI  UI" textFill="WHITE" BorderPane.alignment="CENTER">
             <font>
-                <Font size="32.0"/>
+                <Font size="32.0" />
             </font>
         </Label>
     </center>
+   <top>
+      <AnchorPane prefHeight="99.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="661.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="72.0" prefWidth="245.0" text="ZATVORI">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect></AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="36.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

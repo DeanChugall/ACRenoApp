@@ -304,7 +304,6 @@ public class DefektazaController implements Initializable {
         }
     }
 
-
     /**
      * Inicijalizacija {@link PrintDefektazaController}, a implementira se {@link #initialize}
      *

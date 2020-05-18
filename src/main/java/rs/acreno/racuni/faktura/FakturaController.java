@@ -62,7 +62,6 @@ public class FakturaController implements Initializable {
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
     @FXML private TextField txtFidRacuna;
-
     @FXML private TextField txtFklijentImePrezime;
     @FXML private TextField txtFregTablica;
     @FXML private TextField txtfKilometraza;
@@ -114,7 +113,6 @@ public class FakturaController implements Initializable {
      */
     private int brojFakture;
 
-
     //INIT GUI FIELDS
     private int idAutomobila;
 
@@ -133,8 +131,6 @@ public class FakturaController implements Initializable {
      * @see #btnPrintAction()
      */
     private boolean ifWeAreFromBtnSacuvajRacun = true;
-
-
 
     private ObservableList<Racun> racuni;
     private ObservableList<Artikl> artikli;
@@ -967,7 +963,6 @@ public class FakturaController implements Initializable {
                 //break;
             }
         }
-
     }
 
     /**

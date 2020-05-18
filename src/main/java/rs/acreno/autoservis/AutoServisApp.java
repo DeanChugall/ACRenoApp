@@ -31,7 +31,6 @@ public class AutoServisApp extends Application {
     private TimerTask tt;
     private boolean isJustOpenApp = true;
 
-
     @Override
     public void start(@NotNull Stage stage) throws Exception {
         Stage stageSpashScreen = new Stage();
@@ -109,7 +108,6 @@ public class AutoServisApp extends Application {
             t.schedule(tt, Constants.SPLASH_SCREEN_DELAY, 5000);
         });
 
-        //TODO: SAKRITI SPLASH SCREEN AFTER FADE OUT IS FINISH
         fadeOut.setOnFinished((e) -> Platform.runLater(new Runnable() {
             @Override public void run() {
                 try {
@@ -130,7 +128,6 @@ public class AutoServisApp extends Application {
                 }
             }
         }));
-
     }
 
     @Override

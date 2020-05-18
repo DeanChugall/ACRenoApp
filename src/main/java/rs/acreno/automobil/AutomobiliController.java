@@ -405,10 +405,13 @@ public class AutomobiliController implements Initializable {
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
         stageFaktura.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
+
+        //Refresuje tabelu u povratku u Automobil UI
         stageFaktura.setOnCloseRequest(windowEvent -> {
             popuniTabeluRacuni(); //Popuni tabelu jer kada se pravi novi racun nece da se refresuje
             tblFakture.refresh(); //Uradi refresh tabele da se vide izmene
         });
+
         //Inicijalizacija FakturaController-a i setovanje naslova
         FakturaController fakturaController = fxmlLoaderFaktura.getController();
         fakturaController.setAutmobilController(this, stageFaktura);
