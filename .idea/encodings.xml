@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/artikli/ui_artikli" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/automobil/ui_add_edit_automobil" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/automobil/ui_automobili" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/autoservis/splash/ui_splash_screen" charset="UTF-8" />
@@ -19,6 +20,7 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/app_icons" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/fx-css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/images" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/images/auto_servis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/properties" charset="UTF-8" />
   </component>
 </project>

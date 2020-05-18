@@ -12,6 +12,14 @@
     <center>
         <AnchorPane fx:id="aPaneAutomobil" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
+            <Label focusTraversable="false" layoutX="143.0" layoutY="296.0" prefHeight="63.0" prefWidth="512.0" style="-fx-background-color: #252525;" text="ARTIKLI" textFill="#c3c3c3">
+               <font>
+                  <Font name="Segoe UI" size="48.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
                 <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="32.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/tablica.png" />
@@ -29,7 +37,7 @@
             <Button fx:id="btnOtvoriAutomobilKarticu" disable="true" focusTraversable="false" layoutX="473.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="81.0" prefWidth="177.0" text="OTVORI AUTO KARTICU" />
             <Label layoutX="16.0" layoutY="119.0" prefHeight="17.0" prefWidth="446.0" text="CTRL+C otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+C otvori karticu" textFill="#c3c3c3" />
             <Label layoutX="99.0" layoutY="138.0" prefHeight="17.0" prefWidth="257.0" text="ILI DUPLI CLICK NA TRAZENU REGISTRACIJU" textFill="#c3c3c3" />
-            <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="715.0" layoutY="128.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="433.0" promptText="Pretrazi...">
+            <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="715.0" layoutY="168.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="433.0" promptText="Pretrazi...">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
@@ -38,9 +46,9 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></ListView>
-            <Button fx:id="btnOtvoriKlijentEditMode" focusTraversable="false" layoutX="1180.0" layoutY="130.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="71.0" prefWidth="177.0" text="OTVORI KLIJENTA" />
-            <Label layoutX="715.0" layoutY="103.0" prefHeight="17.0" prefWidth="441.0" text="CTRL+F otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+F otvori karticu" textFill="#c3c3c3" />
-            <Label focusTraversable="false" layoutX="32.0" layoutY="14.0" prefHeight="63.0" prefWidth="623.0" style="-fx-background-color: #252525;" text="AUTOMOBILI" textFill="#c3c3c3">
+            <Button fx:id="btnOtvoriKlijentEditMode" focusTraversable="false" layoutX="1180.0" layoutY="170.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="71.0" prefWidth="177.0" text="OTVORI KLIJENTA" />
+            <Label layoutX="715.0" layoutY="143.0" prefHeight="17.0" prefWidth="441.0" text="CTRL+F otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+F otvori karticu" textFill="#c3c3c3" />
+            <Label focusTraversable="false" layoutX="143.0" layoutY="14.0" prefHeight="63.0" prefWidth="512.0" style="-fx-background-color: #252525;" text="AUTOMOBILI" textFill="#c3c3c3">
                <font>
                   <Font name="Segoe UI" size="48.0" />
                </font>
@@ -48,7 +56,7 @@
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Label focusTraversable="false" layoutX="718.0" layoutY="14.0" prefHeight="63.0" prefWidth="645.0" style="-fx-background-color: #252525;" text="KLIJENTI" textFill="#c3c3c3">
+            <Label focusTraversable="false" layoutX="847.0" layoutY="14.0" prefHeight="63.0" prefWidth="516.0" style="-fx-background-color: #252525;" text="KLIJENTI" textFill="#c3c3c3">
                <font>
                   <Font name="Segoe UI" size="48.0" />
                </font>
@@ -56,10 +64,35 @@
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Label layoutX="1180.0" layoutY="111.0" prefHeight="17.0" prefWidth="87.0" text="CTRL + F" textFill="#c3c3c3" />
+            <Label layoutX="1180.0" layoutY="147.0" prefHeight="17.0" prefWidth="87.0" text="CTRL + F" textFill="#c3c3c3" />
             <Button fx:id="btnNoviAutomobil" disable="true" focusTraversable="false" layoutX="472.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="177.0" text="NOVI AUTOMOBIL" />
             <Button fx:id="btnNoviKlijent" focusTraversable="false" layoutX="1179.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT" />
             <Button fx:id="btnUrediAutomobil" disable="true" focusTraversable="false" layoutX="473.0" layoutY="119.0" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="38.0" prefWidth="177.0" text="UREDI AUTOMOBIL" />
+            <Button fx:id="btnOtvoriArtiklKarticu" focusTraversable="false" layoutX="472.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="177.0" text="OTVORI ARTIKL KARTICU" />
+            <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="43.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/car_home.png" />
+               </image>
+               <effect>
+                  <DropShadow height="121.81" radius="61.8875" width="127.74" />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="47.0" fitWidth="83.0" layoutX="757.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/clients_home.png" />
+               </image>
+               <effect>
+                  <DropShadow height="178.15" radius="72.2675" width="112.92" />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="62.0" fitWidth="97.0" layoutX="44.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/bar_code_home.png" />
+               </image>
+               <effect>
+                  <DropShadow height="157.4" radius="69.30250000000001" width="121.81" />
+               </effect>
+            </ImageView>
             </children>
         </AnchorPane>
     </center>
@@ -132,4 +165,18 @@
          </effect>
       </AnchorPane>
    </top>
+   <bottom>
+      <AnchorPane prefHeight="31.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="21.0" prefHeight="27.0" prefWidth="287.0" text="Copyright @ 2020 ACReno Inc. All rights reserved" textFill="#838383">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

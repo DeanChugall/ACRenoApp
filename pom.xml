@@ -80,6 +80,9 @@
             <resource>
                 <directory>src\main\java\rs\acreno\autoservis\ui_autoservis</directory>
             </resource>
+            <resource>
+                <directory>src\main\java\rs\acreno\autoservis\ui_autoservis</directory>
+            </resource>
             <!--AUTOMOBILI-->
             <resource>
                 <directory>src\main\java\rs\acreno\automobil\ui_automobili</directory>
@@ -111,6 +114,10 @@
             <!--KLIJENTI-->
             <resource>
                 <directory>src\main\java\rs\acreno\klijent\ui_klijent</directory>
+            </resource>
+            <!--ARTIKLI / DELOVI-->
+            <resource>
+                <directory>src\main\java\rs\acreno\artikli\ui_artikli</directory>
             </resource>
             <!--FX CSS-->
             <resource>

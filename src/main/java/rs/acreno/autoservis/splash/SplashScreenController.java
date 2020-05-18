@@ -10,7 +10,6 @@ import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import rs.acreno.autoservis.AutoServisApp;
-import rs.acreno.system.constants.Constants;
 import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.net.URL;
@@ -31,10 +30,9 @@ public class SplashScreenController implements Initializable {
         this.prgBarLoadStaff = prgBarLoadStaff;
     }
 
-    @FXML private  Label lblReleaseDate;
-    @FXML private  Label lblAppVersion;
+    @FXML private Label lblReleaseDate;
+    @FXML private Label lblAppVersion;
     @FXML private AnchorPane aPaneSplashScreen;
-
 
     private final AtomicReference<Stage> stageSpashScreen = new AtomicReference<>();
     private final AtomicReference<AutoServisApp> autoServisAppController = new AtomicReference<>();
@@ -50,15 +48,9 @@ public class SplashScreenController implements Initializable {
             //Get individual properties
             lblAppVersion.setText(ApplicationProperties.getInstance().getProperty("app.version"));
             lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
-            System.out.println(ApplicationProperties.getInstance().getProperty("app.date"));
-            System.out.println(ApplicationProperties.getInstance().getProperty("app.name"));
 
             //All property names
-            System.out.println(ApplicationProperties.getInstance().getAllPropertyNames());
-            System.out.println("**********************************");
-            System.out.println(Constants.MSACCESS_STRING_URL);
-            System.out.println("**********************************");
-            logger.error("********** PRISTUP APLIKACIJI **********");
+            logger.info("********** PRISTUP APLIKACIJI **********");
 
         });
     }

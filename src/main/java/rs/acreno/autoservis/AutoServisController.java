@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.*;
@@ -29,7 +28,6 @@ import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
-import rs.acreno.system.util.properties.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,8 +35,6 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -95,7 +91,6 @@ public class AutoServisController implements Initializable {
 
 
     // 2.0 *************** INICIJALIZACIJA **************************************
-
     /**
      * Inicijalizacija AUTOMOBIL Objekta
      * Da bi u samom startu imali sve objekte {@link Automobil}. Koristi se {@link AutomobilDAO} interfejs,
@@ -143,20 +138,20 @@ public class AutoServisController implements Initializable {
             GeneralUiUtility.initSat(lblTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
 
+            //PROVERA INTERNETA
             final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
             ses.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
-                    if (GeneralUiUtility.netIsAvailable()) {
-                        lineInternetIndicator.setStroke(Color.rgb(36, 164, 11));
-                    } else {
+                    if (GeneralUiUtility.netIsAvailable()) { //Imamo internet (TRUE)
+                        lineInternetIndicator.setStroke(Color.rgb(36, 164, 11));//promeni boju indikatora
+                    } else { // Nmea Interneta (FALSE)
                         lineInternetIndicator.setStroke(Color.rgb(198, 13, 13));
                     }
                     System.out.println(new Date() + " = ping IMA INTERNETA !");
                 }
             }, 2, Constants.APP_UCESTALOST_PROVERE_INTERNETA, TimeUnit.SECONDS);
         });
-
     }
 
 
@@ -325,7 +320,7 @@ public class AutoServisController implements Initializable {
             // Standart FX load UI
             FXMLLoader fxmlLoaderAutomobil = new FXMLLoader(getClass().getResource(Constants.AUTOMOBILI_UI_VIEW_URI));
             Stage stageAutomobil = new Stage();
-            stageAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+            stageAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
             stageAutomobil.initModality(Modality.APPLICATION_MODAL);
             stageAutomobil.setResizable(false);
             Scene scene = new Scene(fxmlLoaderAutomobil.load());
@@ -398,7 +393,7 @@ public class AutoServisController implements Initializable {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
-        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
         stageNewAutomobil.setScene(scene);
@@ -457,7 +452,7 @@ public class AutoServisController implements Initializable {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
-        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
         stageNewAutomobil.setTitle("Izmena Autmobila: " + automobil.getRegOznaka());
 
@@ -482,6 +477,7 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.showAndWait();
 
     }
+
 
     // 4.0 ***************  KLIJENTI STAFF ***************************
 
@@ -571,7 +567,7 @@ public class AutoServisController implements Initializable {
     @FXML private void zatvoriLvKlijent(@NotNull MouseEvent mouseEvent) throws IOException {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
-            if (listViewKlijentiSearch.getSelectionModel().getSelectedItems().size()  > 0) {
+            if (listViewKlijentiSearch.getSelectionModel().getSelectedItems().size() > 0) {
                 //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
                 String imePrezimeKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getImePrezime();
 
@@ -585,6 +581,7 @@ public class AutoServisController implements Initializable {
                 //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
                 //openAddEditklijent();
                 // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
+
             }
 
         }
@@ -639,7 +636,7 @@ public class AutoServisController implements Initializable {
         if (klijent.getImePrezime() != null) {
             FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
             Stage stageKljent = new Stage();
-            stageKljent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+            stageKljent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_CLIENTS_ICON)));
             stageKljent.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(fxmlLoaderKlijent.load());
             stageKljent.setScene(scene);
@@ -675,7 +672,7 @@ public class AutoServisController implements Initializable {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
         Stage stageNewKlijent = new Stage();
-        stageNewKlijent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageNewKlijent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_CLIENTS_ICON)));
         stageNewKlijent.initModality(Modality.APPLICATION_MODAL);
         stageNewKlijent.setResizable(false);
         Scene scene = new Scene(fxmlLoaderNewKlijent.load());
@@ -697,8 +694,42 @@ public class AutoServisController implements Initializable {
         listViewAutmobiliSearch.setVisible(false);
     }
 
+    // 4.1 **************** TABELA SA AUTOMOBILIMA IZABRANOG KLIJENTA (AKO NAM ZATREBA)
+    //     ***************** In some case if we need
+    /*private ObservableList<Automobil> popuniTabeluAutomobiliklijenta(@NotNull Klijent klijent) {
+        logger.debug("ID KLIJENTA: " + klijent.getIdKlijenta()
+        + " || Ime i Prezime Klijenta: " + klijent.getImePrezime());
 
-    // 5.0 *************** BUTTONs STAFF ***************************
+        try {
+            ObservableList<Automobil> automobili = FXCollections.observableArrayList(
+                    automobilDAO.findAutomobilByProperty(AutoSearchType.KLIJNET_ID, klijent.getIdKlijenta()));
+            for (Automobil automobil : automobili) {
+                logger.debug(automobil.getRegOznaka());
+            }
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        return automobili;
+    }*/
+
+
+    // 5.0 *************** ARTIKLI STAFF ***************************
+    public void btnOtvoriArtiklKarticuAct(ActionEvent actionEvent) throws IOException {
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderArtikli = new FXMLLoader(getClass().getResource(Constants.ARTIKLI_UI_VIEW_URI));
+        Stage stageArtikli = new Stage();
+        stageArtikli.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageArtikli.initModality(Modality.APPLICATION_MODAL);
+        stageArtikli.setResizable(false);
+        Scene scene = new Scene(fxmlLoaderArtikli.load());
+        stageArtikli.setScene(scene);
+        stageArtikli.setResizable(false);
+        stageArtikli.setTitle("Artikli Kartica");
+
+        stageArtikli.showAndWait();
+    }
+
+    // 6.0 *************** BUTTONs STAFF ***************************
 
     /**
      * Kada se klikne na BORDER PANE da se zatvori {@link #listViewAutmobiliSearch}, {@link #listViewKlijentiSearch}
@@ -718,6 +749,7 @@ public class AutoServisController implements Initializable {
     @FXML private void btnCloseApplication() {
         System.exit(0);
     }
+
 
 
 }
