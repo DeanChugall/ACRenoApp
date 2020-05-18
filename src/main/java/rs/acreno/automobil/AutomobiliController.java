@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -145,7 +144,6 @@ public class AutomobiliController implements Initializable {
         return isRadniNalogInEditMode;
     }
 
-
     /**
      * Geter za {@link #isDefektazaInEditMode} koji se koristi u
      * {@link DefektazaController#initialize(URL, ResourceBundle)}
@@ -213,6 +211,7 @@ public class AutomobiliController implements Initializable {
         return klijenti;
     }
 
+
     // 1.0 ******************* KOMUNIKACIJA SA AUTOSERVIS CONTROLLOROM ******************
 
     /**
@@ -240,6 +239,7 @@ public class AutomobiliController implements Initializable {
         this.autoServisController.set(autoServisController);
         this.stageAutoSerivs.set(stageAutoServis);
     }
+
 
     // 2.0 ************* INICIJALIZACIJA *********************************
 
@@ -680,6 +680,7 @@ public class AutomobiliController implements Initializable {
 
     // 7.0 *************** EDIT AUTOMOBILI ***************************
     Stage stageNewAutomobil;
+
     @FXML private void btnOpenIzmeniAutomobilUi(ActionEvent actionEvent) throws IOException {
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
@@ -710,7 +711,6 @@ public class AutomobiliController implements Initializable {
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
         stageNewAutomobil.showAndWait();
-
     }
 
 

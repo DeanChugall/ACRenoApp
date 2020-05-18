@@ -119,6 +119,9 @@
             <resource>
                 <directory>src\main\java\rs\acreno\artikli\ui_artikli</directory>
             </resource>
+            <resource>
+                <directory>src\main\java\rs\acreno\artikli\ui_add_edit_artikl</directory>
+            </resource>
             <!--FX CSS-->
             <resource>
                 <directory>src/main/resources/fx-css/</directory>

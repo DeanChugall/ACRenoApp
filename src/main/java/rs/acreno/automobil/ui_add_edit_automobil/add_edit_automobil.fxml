@@ -33,7 +33,7 @@
             </Label>
             <Label fx:id="lblImeKlijenta" alignment="CENTER" layoutX="181.0" layoutY="20.0" prefHeight="64.0" prefWidth="360.0" style="-fx-background-color: #292929;" textFill="#c6c6c6">
                <font>
-                  <Font name="Segoe UI" size="32.0" />
+                  <Font name="Segoe UI Bold" size="30.0" />
                </font>
                <padding>
                   <Insets left="10.0" />
@@ -87,22 +87,22 @@
                </font>
             </Label>
             <DatePicker fx:id="datePickerDatumAcrRegistracije" layoutX="550.0" layoutY="132.0" prefHeight="41.0" prefWidth="235.0" promptText="Datum ACR Registracije..." />
-            <Label layoutX="14.0" layoutY="189.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Model Vozila:" textFill="#d3d3d3">
+            <Label layoutX="17.0" layoutY="183.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Marka Vozila:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtfModelAutomobila" layoutX="15.0" layoutY="207.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Model Vozila...">
+            <TextField fx:id="txtfMarkaAutomobila" layoutX="17.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Marka Vozila...">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="285.0" layoutY="189.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Marka Vozila:" textFill="#d3d3d3">
+            <Label layoutX="284.0" layoutY="183.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Model Vozila:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtfMarkaAutomobila" layoutX="285.0" layoutY="207.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Marka Vozila...">
+            <TextField fx:id="txtfModelAutomobila" layoutX="285.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Model Vozila...">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>

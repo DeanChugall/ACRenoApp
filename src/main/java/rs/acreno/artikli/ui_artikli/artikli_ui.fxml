@@ -2,25 +2,36 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="930.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
-    <center>
-        <Label text="ARTIKLI  UI" textFill="WHITE" BorderPane.alignment="CENTER">
-            <font>
-                <Font size="32.0" />
-            </font>
-        </Label>
-    </center>
    <top>
-      <AnchorPane prefHeight="99.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="108.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="661.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="72.0" prefWidth="245.0" text="ZATVORI">
+            <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="729.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="42.0" prefWidth="176.0">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_close_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
+            <Label layoutX="140.0" layoutY="31.0" text="KARTICA ARTIKLI" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="44.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/auto_servis/bar_code_home.png" />
+                </image>
+            </ImageView>
          </children>
          <effect>
             <DropShadow />
@@ -33,4 +44,15 @@
          </effect>
       </AnchorPane>
    </bottom>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="24.0" layoutY="39.0" text="BITNO MORA DA SE UNESE KATALOSKI BROJ" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="44.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

@@ -31,6 +31,8 @@ public class AutoServisApp extends Application {
     private TimerTask tt;
     private boolean isJustOpenApp = true;
 
+
+
     @Override
     public void start(@NotNull Stage stage) throws Exception {
         Stage stageSpashScreen = new Stage();
@@ -128,12 +130,6 @@ public class AutoServisApp extends Application {
                 }
             }
         }));
-    }
-
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-        logger.info("Entering stop method in AutoServisApp");
     }
 
     public static void main(String[] args) {
