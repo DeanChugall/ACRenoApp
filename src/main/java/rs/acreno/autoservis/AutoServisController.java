@@ -449,6 +449,7 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void btnOpenNoviAutomobilGui() throws IOException {
         // Standart FX load UI
+
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
         stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
@@ -457,23 +458,18 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
         stageNewAutomobil.setTitle("Kreiraj Novi Autmobil");
-
-        //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
-        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
-            logger.debug("stageNewAutomobil --> setOnCloseRequest");
-            // txtFieldRegOznaka.setText("");
-            //txtFieldRegOznaka.requestFocus();
-            // txtFieldPretragaKlijenta.setText("");
-            // popuniAutomobilTxtfOve(automobilForEdit);
-            popuniTabeluAutomobiliklijenta(klijent);
-        });
-
-        //Set AutoServisController u AutomobiliController UI
+//Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
         addEditAutomobilController.setWeAreInEditMode(false); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
-
+        //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+            logger.debug("stageNewAutomobil --> setOnCloseRequest");
+            popuniTabeluAutomobiliklijenta(klijent);
+            Automobil tempAuto = addEditAutomobilController.getAutomobil();
+            popuniAutomobilTxtfOve(tempAuto);
+        });
         stageNewAutomobil.showAndWait();
     }
 
