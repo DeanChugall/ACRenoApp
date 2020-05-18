@@ -180,7 +180,7 @@ public class PrintRacuniControler implements Initializable {
 
         //Tbl Coll OPIS ARTIKLA
         tblRowOpisArtikla.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
+                new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
         tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
 
         //Tbl Coll KOLICINA

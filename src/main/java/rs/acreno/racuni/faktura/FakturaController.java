@@ -36,6 +36,7 @@ import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
+import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
@@ -56,6 +57,7 @@ import java.util.ResourceBundle;
 public class FakturaController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(FakturaController.class);
+
 
 
     @FXML private Button btnSacuvajRacun;
@@ -80,7 +82,9 @@ public class FakturaController implements Initializable {
 
     // FXMLs ARTICLES FIELDS in Faktura
     @FXML private ListView<Artikl> listViewPretragaArtikli;
+    @FXML private ListView<Artikl> listViewPretragaKatalskiBrojArtikli;
     @FXML private TextField txtFidArtikla;
+    @FXML private TextField txtfKataloskiBrojArtikla;
     @FXML private TextField txtFcenaArtikla;
     @FXML private TextField txtFnabavnaCenaArtikla;
     @FXML private TextField txtFKolicinaArtikla;
@@ -912,7 +916,113 @@ public class FakturaController implements Initializable {
     }
 
 
-    //****************** LIST VIEW STAFF  ************************
+    //TODO: PRETRAGA PO KATALOSKOM BROJU U RACUNU(za BAR CODE skener...)
+    @FXML private void txtfPretragaPoKataloskomBroju(KeyEvent keyEvent) {
+        txtFieldPretragaArtikla.textProperty().addListener(observable -> {
+            if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
+                listViewPretragaKatalskiBrojArtikli.setItems(artikli);
+            }
+        });
+        ObservableList<Artikl> artikl = null;
+        ObservableList<Artikl> tempArtikl = null;
+        try {
+            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
+            artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
+            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
+            artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
+            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
+        } catch (AcrenoException | SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
+
+            String katBrojArtikla = artikl.get(i).getKataloskiBrArtikla().toLowerCase();//Trenutna tablica auta
+
+            if (katBrojArtikla.contains(txtfKataloskiBrojArtikla.textProperty().get())) {
+                tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
+                listViewPretragaKatalskiBrojArtikli.setItems(tempArtikl); // Dodaje u FXlistView
+                listViewPretragaKatalskiBrojArtikli.setCellFactory(param -> new ListCell<>() {
+                    @Override
+                    protected void updateItem(Artikl item, boolean empty) {
+                        super.updateItem(item, empty);
+                        listViewPretragaKatalskiBrojArtikli.setVisible(true); //Prikazuje listu vidljivom
+                        if (empty || item == null || item.getKataloskiBrArtikla() == null) {
+                            setText(null);
+                        } else {
+                            setText(item.getKataloskiBrArtikla());
+                        }
+                    }
+                });
+            }
+        }
+        switch (keyEvent.getCode()) {
+            case ESCAPE:
+                System.out.println("ESCAPE");
+                listViewPretragaKatalskiBrojArtikli.setVisible(false);
+                txtfKataloskiBrojArtikla.requestFocus();
+                break;
+            case DOWN:
+                System.out.println("DOWN FRON LIST");
+                listViewPretragaKatalskiBrojArtikli.requestFocus();
+                break;
+            case ENTER:
+                System.out.println("ENTER FRON LIST");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @FXML private void zatvoriListViewPretragaPoKatBrojuArtikla(@NotNull MouseEvent mouseEvent) {
+        //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+            // Popunjavanje TF polja sa podacima Artikla
+            String nazivArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
+            String kataloskiBrojArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getKataloskiBrArtikla();
+            int idArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
+            double cenaArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getCenaArtikla();
+            double nabavnaCenaArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
+            String jedinicaMereArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
+            String opisArtikla =
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+            //Popunjavanje GUI polja
+            txtFidArtikla.setText(String.valueOf(idArtikla));
+            txtfKataloskiBrojArtikla.setText(kataloskiBrojArtikla);
+            txtFcenaArtikla.setText(String.valueOf(cenaArtikla));
+            txtFnabavnaCenaArtikla.setText(String.valueOf(nabavnaCenaArtikla));
+            txtFKolicinaArtikla.setText(String.valueOf(1));
+            txtFjedinicaMereArtikla.setText(jedinicaMereArtikla);
+            txtFpopustArtikla.setText(String.valueOf(0));
+            txtFieldPretragaArtikla.setText(nazivArtikla);
+            txtFopisArtikla.setText(opisArtikla);
+
+            btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
+            listViewPretragaKatalskiBrojArtikli.setVisible(false); //Sakrij ListView
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //****************** LIST VIEW STAFF PO ID ARTIKLU  ************************
 
     /**
      * Pretraga i filtriranje Artikala po NAZIVU ARTIKLA u KeyListeneru TxtF-a
@@ -984,6 +1094,8 @@ public class FakturaController implements Initializable {
             // Popunjavanje TF polja sa podacima Artikla
             String nazivArtikla =
                     listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
+            String kataloskiBrojArtikla =
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getKataloskiBrArtikla();
             int idArtikla =
                     listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
             double cenaArtikla =
@@ -996,6 +1108,7 @@ public class FakturaController implements Initializable {
                     listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
             //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
+            txtfKataloskiBrojArtikla.setText(kataloskiBrojArtikla);
             txtFcenaArtikla.setText(String.valueOf(cenaArtikla));
             txtFnabavnaCenaArtikla.setText(String.valueOf(nabavnaCenaArtikla));
             txtFKolicinaArtikla.setText(String.valueOf(1));
@@ -1248,6 +1361,8 @@ public class FakturaController implements Initializable {
             btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
+
+
 }
 
 

@@ -96,12 +96,12 @@ public class SQLArtikliDAO implements ArtikliDAO {
         String valueClause = "";
         switch (artikliSearchType) {
             case ID_ARTIKLA -> {
-                whereClause = "idArtikla LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "idArtikla = ?";
+                valueClause = value.toString();
             }
             case KATALOSKI_BROJ_ARTIKLA -> {
-                whereClause = "kataloskiBrArtikla LIKE ?";
-                valueClause = "%" + value.toString() + "%";
+                whereClause = "kataloskiBrArtikla = ?";
+                valueClause = value.toString();
             }
             case NAZIV_ARTIKLA -> {
                 whereClause = "nazivArtikla LIKE ?";

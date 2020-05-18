@@ -7,7 +7,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 
 import java.net.URL;
