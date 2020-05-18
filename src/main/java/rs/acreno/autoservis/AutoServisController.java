@@ -184,7 +184,7 @@ public class AutoServisController implements Initializable {
         });
 
         //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
-        tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", (Automobil p) -> {
+        tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("Učitaj", (Automobil p) -> {
 
             logger.debug(p.getRegOznaka() + "..." + p.getVinVozila());
 
@@ -301,6 +301,7 @@ public class AutoServisController implements Initializable {
                 listViewAutmobiliSearch.setVisible(false); // Zatvori listu
                 btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+                btnUrediAutomobilFromKlijent.setDisable(false); // Omoguci dugme za Editovanje Automobila
 
 
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
@@ -340,6 +341,7 @@ public class AutoServisController implements Initializable {
                 txtFieldRegOznaka.requestFocus();
                 btnOtvoriAutomobilKarticu.setDisable(false);
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+                btnUrediAutomobilFromKlijent.setDisable(false); // Omoguci dugme za Editovanje Automobila
                 listViewAutmobiliSearch.setVisible(false);
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
                 klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,

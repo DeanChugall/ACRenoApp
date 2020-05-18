@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
+import rs.acreno.artikli.ArtkikliController;
 import rs.acreno.artikli.SQLArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
@@ -57,7 +58,7 @@ import java.util.ResourceBundle;
 public class FakturaController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(FakturaController.class);
-
+    public Button btnDodajArtikl;
 
 
     @FXML private Button btnSacuvajRacun;
@@ -1362,7 +1363,30 @@ public class FakturaController implements Initializable {
         }
     }
 
+    //ARTIKLI STAFF
 
+    public void btnDodajArtikl(ActionEvent actionEvent) throws IOException {
+        // Standart FX load UI
+        FXMLLoader fxmlLoaderArtikli = new FXMLLoader(getClass().getResource(Constants.ARTIKLI_UI_VIEW_URI));
+        Stage stageArtikli = new Stage();
+        stageArtikli.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ARTIKLI_ICON)));
+        stageArtikli.initModality(Modality.APPLICATION_MODAL);
+        stageArtikli.setResizable(false);
+        Scene scene = new Scene(fxmlLoaderArtikli.load());
+        stageArtikli.setScene(scene);
+        stageArtikli.setResizable(false);
+        stageArtikli.setTitle("Artikli Kartica");
+
+        stageArtikli.setOnCloseRequest(windowEvent -> logger.debug("stageArtikli --> setOnCloseRequest"));
+
+       /* //Set AutoServisController u "ARTIKLI_UI_VIEW_URI"  UI
+        ArtkikliController createNewArtiklUiController = fxmlLoaderArtikli.getController();
+        createNewArtiklUiController.setAutmobilController(this, stageArtikli);
+        //createNewArtiklUiController.setWeAreInEditMode(true);*/
+
+
+        stageArtikli.showAndWait();
+    }
 }
 
 
