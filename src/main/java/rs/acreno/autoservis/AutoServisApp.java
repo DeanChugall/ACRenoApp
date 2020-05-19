@@ -32,7 +32,6 @@ public class AutoServisApp extends Application {
     private boolean isJustOpenApp = true;
 
 
-
     @Override
     public void start(@NotNull Stage stage) throws Exception {
         Stage stageSpashScreen = new Stage();
@@ -130,6 +129,11 @@ public class AutoServisApp extends Application {
                 }
             }
         }));
+    }
+
+    @Override
+    public void stop() {
+        System.exit(0);
     }
 
     public static void main(String[] args) {

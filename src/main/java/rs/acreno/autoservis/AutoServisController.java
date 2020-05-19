@@ -132,7 +132,8 @@ public class AutoServisController implements Initializable {
      * @see SQLAutomobilDAO#findAllAutomobil()
      */
     private final AutomobilDAO automobilDAO = new SQLAutomobilDAO();
-    private ObservableList<Automobil> automobili = FXCollections.observableArrayList(automobilDAO.findAllAutomobil());
+    private final AtomicReference<ObservableList<Automobil>> automobili = new AtomicReference<>(
+            FXCollections.observableArrayList(automobilDAO.findAllAutomobil()));
 
     /**
      * Inicijalizacija KLIJENT Objekta
@@ -404,12 +405,12 @@ public class AutoServisController implements Initializable {
 
             //Prosledjivanje filtriranog AUTOMOBILA po REG tablici u ObservableList "automobil"
             String regOznaka = txtFieldRegOznaka.getText(); //Uzmi reg tablicu kao filter parametar za auto
-            automobili = FXCollections.observableArrayList(
-                    automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, regOznaka));
-            automobiliController.setAutomobil(automobili); // Prosledjivanje "Automobil" Obj u Automobil Kontroler
+            automobili.set(FXCollections.observableArrayList(
+                    automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, regOznaka)));
+            automobiliController.setAutomobil(automobili.get()); // Prosledjivanje "Automobil" Obj u Automobil Kontroler
 
             //Prosledjivanje filtriranog KLIJENTA po ID AUTOMOBILA u ObservableList "klijenti"
-            int idKlijenta = automobili.get(0).getIdKlijenta();//Moze automobili.get(0), jer imamo samo jednog Klijenta.
+            int idKlijenta = automobili.get().get(0).getIdKlijenta();//Moze automobili.get(0), jer imamo samo jednog Klijenta.
             klijenti.set(FXCollections.observableArrayList(
                     klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA, idKlijenta)
             ));
@@ -598,7 +599,6 @@ public class AutoServisController implements Initializable {
         txtFieldPretragaKlijenta.textProperty().addListener(observable -> {
             if (txtFieldPretragaKlijenta.textProperty().get().isEmpty()) {
                 listViewKlijentiSearch.setItems(klijenti.get());
-                return;
             }
         });
         btnUrediAutomobilFromKlijent.setDisable(true);

@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -11,19 +12,19 @@
 
 <BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
     <top>
-        <AnchorPane prefHeight="108.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Label focusTraversable="false" layoutX="140.0" layoutY="31.0" text="KARTICA ARTIKLI" textFill="WHITE">
+                <Label focusTraversable="false" layoutX="140.0" layoutY="36.0" text="KARTICA ARTIKLI" textFill="WHITE">
                     <font>
                         <Font name="Segoe UI" size="44.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="10.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@/auto_servis/bar_code_home.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="997.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="66.0" prefWidth="176.0">
+                <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="997.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="59.0" prefWidth="176.0">
                     <font>
                         <Font name="Segoe UI" size="12.0" />
                     </font>
@@ -32,11 +33,14 @@
                             <image>
                                 <Image url="@/btn_close_icon.png" />
                             </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                         </ImageView>
                     </graphic>
-                    <effect>
-                        <DropShadow />
-                    </effect>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
                 </Button>
             </children>
             <effect>
@@ -45,7 +49,7 @@
         </AnchorPane>
     </top>
     <bottom>
-        <AnchorPane prefHeight="36.0" prefWidth="930.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="24.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <effect>
                 <DropShadow />
             </effect>
@@ -124,9 +128,27 @@
                                 <DropShadow />
                             </effect>
                         </TableView>
+                  <Button disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="534.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="43.0" prefWidth="141.0" text="Uvezi Artikle">
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/import_article_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
                     </children>
                 </Pane>
-                <Pane fx:id="paneUnosArtikli" layoutX="718.0" layoutY="14.0" prefHeight="589.0" prefWidth="465.0" AnchorPane.rightAnchor="17.0">
+                <Pane fx:id="paneUnosArtikli" layoutX="718.0" layoutY="14.0" minHeight="-Infinity" prefHeight="589.0" prefWidth="465.0" AnchorPane.rightAnchor="17.0">
                     <children>
                         <Label focusTraversable="false" prefHeight="63.0" prefWidth="460.0" style="-fx-background-color: #1a1a1a;" text="         UNOS ARTIKALA / DELOVA" textFill="#c3c3c3">
                             <font>

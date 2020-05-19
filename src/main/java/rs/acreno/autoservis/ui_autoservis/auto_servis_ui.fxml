@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
+<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
     <center>
         <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
@@ -71,7 +58,7 @@
                   </Button>
                </children>
             </Pane>
-            <Pane layoutX="10.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="683.0" AnchorPane.topAnchor="70.0">
+            <Pane layoutX="10.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="726.0" AnchorPane.topAnchor="70.0">
                <children>
                   <Region layoutX="3.0" layoutY="7.0" prefHeight="355.0" prefWidth="671.0" style="-fx-background-color: #252525;">
                      <effect>
@@ -86,11 +73,6 @@
                         <DropShadow />
                      </effect>
                       </ImageView>
-                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="58.0" layoutY="98.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Traži Automobil...">
-                          <font>
-                              <Font name="System Bold" size="34.0" />
-                          </font>
-                      </TextField>
                   <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="0.0" layoutX="453.0" layoutY="91.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="213.0" text="   AUTOMOBIL KARTICA">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
@@ -210,6 +192,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="58.0" layoutY="98.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Traži Automobil...">
+                          <font>
+                              <Font name="System Bold" size="34.0" />
+                          </font>
+                      </TextField>
                </children>
             </Pane>
             <Pane layoutX="723.0" layoutY="76.0" prefHeight="357.0" prefWidth="677.0">
@@ -219,32 +206,6 @@
                         <DropShadow />
                      </effect>
                   </Region>
-                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="13.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="455.0" promptText="Traži Klijenta...">
-                     <font>
-                        <Font name="System Bold" size="34.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </TextField>
-                  <Button fx:id="btnOtvoriKlijentEditMode" focusTraversable="false" graphicTextGap="8.0" layoutX="486.0" layoutY="76.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="74.0" prefWidth="177.0" text="OTVORI KLIJENTA">
-                     <graphic>
-                        <ImageView fitHeight="41.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/clients_home.png" />
-                           </image>
-                           <effect>
-                              <DropShadow offsetY="1.0" />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </Button>
                   <Label focusTraversable="false" layoutX="7.0" layoutY="8.0" prefHeight="63.0" prefWidth="662.0" style="-fx-background-color: #1a1a1a;" text="       KLIJENTI" textFill="#c3c3c3">
                      <font>
                         <Font name="Segoe UI" size="48.0" />
@@ -256,21 +217,6 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Button fx:id="btnNoviKlijent" focusTraversable="false" graphicTextGap="12.0" layoutX="486.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/add_client.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <ImageView fitHeight="51.0" fitWidth="83.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/clients_home.png" />
@@ -345,6 +291,47 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="13.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="455.0" promptText="Traži Klijenta...">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </TextField>
+                  <Button fx:id="btnOtvoriKlijentEditMode" focusTraversable="false" graphicTextGap="8.0" layoutX="486.0" layoutY="76.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="74.0" prefWidth="177.0" text="OTVORI KLIJENTA">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/clients_home.png" />
+                           </image>
+                           <effect>
+                              <DropShadow offsetY="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnNoviKlijent" focusTraversable="false" graphicTextGap="12.0" layoutX="486.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/add_client.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </Pane>
             </children>
@@ -392,17 +379,6 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <Button fx:id="btnCloseApplication" focusTraversable="false" layoutX="1206.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="56.0" prefWidth="176.0">
-               <font>
-                  <Font name="Segoe UI Bold" size="12.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/btn_close_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
             <Label fx:id="lblDate" alignment="CENTER" focusTraversable="false" layoutX="283.0" layoutY="30.0" prefHeight="41.0" prefWidth="164.0" text="16.05.2020." textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="30.0" />
@@ -423,6 +399,17 @@
                   <DropShadow />
                </effect>
             </Line>
+                <Button fx:id="btnCloseApplication" focusTraversable="false" layoutX="1206.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="56.0" prefWidth="176.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_close_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
          <effect>
             <DropShadow />
