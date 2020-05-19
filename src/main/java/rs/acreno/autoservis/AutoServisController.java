@@ -50,6 +50,7 @@ public class AutoServisController implements Initializable {
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
 
 
+
     @FXML private Line lineInternetIndicator;
 
     // 1.0 *************** FXMLs **************************************
@@ -81,6 +82,7 @@ public class AutoServisController implements Initializable {
     @FXML private Button btnOtvoriAutomobilKarticu;
     @FXML private Button btnNoviAutomobilInKlijentArea;
     @FXML private Button btnUrediAutomobilFromKlijent;
+    @FXML private Button btnOtvoriKlijentEditMode;
     //TABELA
     @FXML private TableView<Automobil> tblAutomobiliInKlijent;
     @FXML private TableColumn<Automobil, Number> tblColIDAutomobila;
@@ -191,6 +193,7 @@ public class AutoServisController implements Initializable {
             txtFieldRegOznaka.setText(p.getRegOznaka());
             btnOtvoriAutomobilKarticu.setDisable(false);
             btnUrediAutomobil.setDisable(false);
+            btnNoviAutomobilInKlijentArea.setDisable(false);
             btnUrediAutomobilFromKlijent.setDisable(false);
             popuniAutomobilTxtfOve(p); // Popuni Automobil TxtFove
             weAreFromTable = true;
@@ -221,11 +224,12 @@ public class AutoServisController implements Initializable {
      * @see AutomobiliController
      */
     @FXML private void txtFieldRegTablicaSaerchKeyListener(KeyEvent keyEvent) {
-        txtFieldRegOznaka.textProperty().addListener(observable -> {
-            if (txtFieldRegOznaka.textProperty().get().isEmpty()) {
+        /*txtFieldRegOznaka.textProperty().addListener(observable -> {
+            if (txtFieldRegOznaka.getText().isEmpty()) {
                 listViewAutmobiliSearch.setItems(automobili);
+                return;
             }
-        });
+        });*/
 
         ObservableList<Automobil> auto = FXCollections.observableArrayList();
         ObservableList<Automobil> tempAutomobil = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
@@ -250,6 +254,7 @@ public class AutoServisController implements Initializable {
                             btnOtvoriAutomobilKarticu.setDisable(true);
                             btnNoviAutomobil.setDisable(true);
                             btnNoviAutomobilInKlijentArea.setDisable(true);
+                            btnUrediAutomobilFromKlijent.setDisable(true);
                             btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getRegOznaka());
@@ -460,17 +465,22 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
         stageNewAutomobil.setTitle("Kreiraj Novi Autmobil");
-//Set AutoServisController u AutomobiliController UI
+
+        //Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
         addEditAutomobilController.setWeAreInEditMode(false); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
+
         //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             logger.debug("stageNewAutomobil --> setOnCloseRequest");
             popuniTabeluAutomobiliklijenta(klijent);
             Automobil tempAuto = addEditAutomobilController.getAutomobil();
             popuniAutomobilTxtfOve(tempAuto);
+            btnOtvoriAutomobilKarticu.setDisable(true);
+            btnUrediAutomobil.setDisable(true);
+            btnUrediAutomobilFromKlijent.setDisable(true);
         });
         stageNewAutomobil.showAndWait();
     }
@@ -504,6 +514,7 @@ public class AutoServisController implements Initializable {
         btnNoviAutomobil.setDisable(true);
         btnNoviAutomobilInKlijentArea.setDisable(true);
         btnUrediAutomobil.setDisable(true);
+        btnUrediAutomobilFromKlijent.setDisable(true);
     }
 
 
@@ -540,6 +551,7 @@ public class AutoServisController implements Initializable {
             System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
             popuniAutomobilTxtfOve(automobilForEdit);
             popuniTabeluAutomobiliklijenta(klijent);
+
         });
 
 
@@ -583,6 +595,7 @@ public class AutoServisController implements Initializable {
         txtFieldPretragaKlijenta.textProperty().addListener(observable -> {
             if (txtFieldPretragaKlijenta.textProperty().get().isEmpty()) {
                 listViewKlijentiSearch.setItems(klijenti.get());
+                return;
             }
         });
         btnUrediAutomobilFromKlijent.setDisable(true);
@@ -663,9 +676,7 @@ public class AutoServisController implements Initializable {
                 //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
                 //openAddEditklijent();
                 // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
-
             }
-
         }
     }
 
@@ -771,8 +782,9 @@ public class AutoServisController implements Initializable {
             txtFieldRegOznaka.setText("");
             txtFieldRegOznaka.requestFocus();
             txtFieldPretragaKlijenta.setText("");
+            btnOtvoriKlijentEditMode.setDisable(true);
+            listViewKlijentiSearch.setVisible(false);
         });
-
         stageNewKlijent.showAndWait();
     }
 
@@ -835,7 +847,7 @@ public class AutoServisController implements Initializable {
 
 
     // 5.0 *************** ARTIKLI STAFF ***************************
-    public void btnOtvoriArtiklKarticuAct() throws IOException {
+    @FXML private void btnOtvoriArtiklKarticuAct() throws IOException {
         // Standart FX load UI
         FXMLLoader fxmlLoaderArtikli = new FXMLLoader(getClass().getResource(Constants.ARTIKLI_UI_VIEW_URI));
         Stage stageArtikli = new Stage();

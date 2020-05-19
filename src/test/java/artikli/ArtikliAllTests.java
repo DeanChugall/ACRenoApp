@@ -20,10 +20,10 @@ public class ArtikliAllTests {
 
     public ArtikliAllTests() {
         artikl = new Artikl();
-        artikl.setIdArtikla(1);
-        artikl.setNazivArtikla("LETVA CVOLANA");
-        artikl.setKataloskiBrArtikla("asdasdasd");
-        artikl.setOpisArtikla("LETVA LETVA Scenic II");
+        artikl.setIdArtikla(3);
+        artikl.setNazivArtikla("test");
+        artikl.setKataloskiBrArtikla("test");
+        artikl.setOpisArtikla("test Scenic II");
         artikl.setJedinicaMere("lit");
         artikl.setKolicina(3);
         artikl.setNabavnaCenaArtikla(34234.56);
@@ -56,7 +56,7 @@ public class ArtikliAllTests {
     @Test
     public void updateArtikal() throws SQLException, AcrenoException {
         artikl.setIdArtikla(3);
-        artikl.setKataloskiBrArtikla("123123123");
+        artikl.setKataloskiBrArtikla("test");
         artikliDAO.updateArtikli(artikl);
     }
 

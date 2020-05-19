@@ -165,7 +165,6 @@
                <value>
                   <String fx:value="Dizel" />
                </value>
-
             </ComboBox>
             <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža:" textFill="#d3d3d3">
                <font>
