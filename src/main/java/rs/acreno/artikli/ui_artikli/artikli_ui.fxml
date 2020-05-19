@@ -284,14 +284,6 @@
                                 <DropShadow />
                             </effect>
                         </TextField>
-                        <TextField fx:id="txtfKolicinaArtikla" layoutX="27.0" layoutY="467.0" prefHeight="36.0" prefWidth="433.0" text="0">
-                            <font>
-                                <Font name="Segoe UI Bold" size="17.0" />
-                            </font>
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                        </TextField>
                         <ComboBox fx:id="cmbJedinicaMere" layoutX="27.0" layoutY="403.0" prefHeight="38.0" prefWidth="433.0">
                             <effect>
                                 <DropShadow />
@@ -308,6 +300,14 @@
                                 <String fx:value="kom" />
                             </value>
                         </ComboBox>
+                        <TextField fx:id="txtfKolicinaArtikla" layoutX="27.0" layoutY="467.0" prefHeight="36.0" prefWidth="433.0" text="0">
+                            <font>
+                                <Font name="Segoe UI Bold" size="17.0" />
+                            </font>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </TextField>
                   <Button fx:id="btnDodajArtikl" focusTraversable="false" layoutX="27.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#btnDodajArtiklAct" prefHeight="51.0" prefWidth="434.0" text="DODAJ ARTIKL U BAZU">
                      <font>
                         <Font name="Segoe UI" size="12.0" />

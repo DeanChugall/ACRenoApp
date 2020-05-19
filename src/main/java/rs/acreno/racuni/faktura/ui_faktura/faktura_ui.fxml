@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.FakturaController">
+<BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.FakturaController">
     <center>
         <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
             <items>
@@ -25,8 +15,6 @@
                         <DatePicker fx:id="datePickerDatumRacuna" layoutX="277.0" layoutY="45.0" />
                         <Label layoutX="277.0" layoutY="26.0" prefHeight="23.0" prefWidth="111.0" text="Datum" textFill="#d3d3d3" />
                         <TextField fx:id="txtFklijentImePrezime" layoutX="111.0" layoutY="45.0" />
-                        <Label layoutX="14.0" layoutY="26.0" prefHeight="23.0" prefWidth="69.0" text="ID RACUNA" textFill="#d3d3d3" />
-                        <TextField fx:id="txtFidRacuna" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="76.0" />
                         <TextField fx:id="txtFregTablica" layoutX="461.0" layoutY="46.0" />
                         <TextField fx:id="txtFieldPretragaArtikla" layoutX="86.0" layoutY="133.0" prefHeight="25.0" prefWidth="281.0" />
                         <Label layoutX="397.0" layoutY="110.0" prefHeight="23.0" prefWidth="69.0" text="ID ARTIKLA" textFill="#d3d3d3" />
@@ -109,6 +97,12 @@
                   <Font name="Segoe UI" size="44.0" />
                </font>
             </Label>
+                  <Label layoutX="573.0" layoutY="2.0" prefHeight="23.0" prefWidth="69.0" text="ID RACUNA" textFill="#d3d3d3" />
+                  <TextField fx:id="txtFidRacuna" editable="false" layoutX="572.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="48.0" prefWidth="115.0" text="3234">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </TextField>
             </children>
         </AnchorPane>
     </top>

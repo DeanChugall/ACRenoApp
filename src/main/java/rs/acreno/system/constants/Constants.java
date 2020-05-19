@@ -50,7 +50,10 @@ public class Constants {
 
     //KLIJENT U AUTO SERVIS UIa
     public static final KeyCode OTVORI_KLIJENT_KARTICU_KEYCODE = KeyCode.F;
-    public static final KeyCombination.Modifier OTVORI_KLIJENTL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+    public static final KeyCombination.Modifier OTVORI_KLIJENT_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+    //Shor Cut Otvori ARTIKLE
+    public static final KeyCode OTVORI_ARTIKL_KARTICU_KEYCODE = KeyCode.A;
+    public static final KeyCombination.Modifier OTVORI_ARTIKL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
 
     // ******************* SYSTEM ***************************
     public static final String APP_ICON = "/faktura/logo-acreno.jpg";

@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -50,7 +49,6 @@ public class AutoServisController implements Initializable {
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
 
 
-
     @FXML private Line lineInternetIndicator;
 
     // 1.0 *************** FXMLs **************************************
@@ -58,6 +56,8 @@ public class AutoServisController implements Initializable {
     @FXML private Label lblTime;
     @FXML private Label lblVerzijaAplikacije;
     @FXML private Label lblReleaseDate;
+    @FXML private Button btnOtvoriArtiklKarticu;
+
     // 1.1 ************* FXMLs Automobil Kartica
     /**
      * txtF za Reg. Tablicu u {@link #txtFieldRegTablicaSaerchKeyListener), pa posle bitno za
@@ -160,6 +160,7 @@ public class AutoServisController implements Initializable {
 
 
     private boolean weAreFromTable = false;
+
     /**
      * Empty inicijalizaciona metoda ovog {@link AutoServisController}-a, if we need this for later use
      *
@@ -436,9 +437,9 @@ public class AutoServisController implements Initializable {
      * @see AutomobiliController
      */
     @FXML private void btnOtvoriAutomobilKarticu(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
-       // ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+        // ((Node) actionEvent.getSource()).getScene().getWindow().hide();
         openAutomobiliUi();
-       // ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).show();
+        // ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).show();
     }
 
     /**
@@ -852,6 +853,7 @@ public class AutoServisController implements Initializable {
     // 5.0 *************** ARTIKLI STAFF ***************************
     @FXML private void btnOtvoriArtiklKarticuAct() throws IOException {
         // Standart FX load UI
+
         FXMLLoader fxmlLoaderArtikli = new FXMLLoader(getClass().getResource(Constants.ARTIKLI_UI_VIEW_URI));
         Stage stageArtikli = new Stage();
         stageArtikli.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ARTIKLI_ICON)));
@@ -868,7 +870,6 @@ public class AutoServisController implements Initializable {
         ArtkikliController createNewArtiklUiController = fxmlLoaderArtikli.getController();
         createNewArtiklUiController.setAutmobilController(this, stageArtikli);
         //createNewArtiklUiController.setWeAreInEditMode(true);
-
 
         stageArtikli.showAndWait();
     }
@@ -894,4 +895,7 @@ public class AutoServisController implements Initializable {
         stage.close();
         System.exit(0);
     }
+
+
 }
+

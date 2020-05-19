@@ -415,38 +415,65 @@ public class ArtkikliController implements Initializable {
             GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Greška..."
                     , "Greška u unosu Artikla", "Morate da popunite polja Artikla da bi smo ga sačuvali!");
         } else {
-            int idArtiklaTemp;
+            int idArtiklaTemp = 1;
             artikliTemp = new Artikl();
             //Inicijalizacija broja fakture MORA DA IDE OVDE
             try {
-
-
                 ObservableList<Artikl> artiklovi = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
-                idArtiklaTemp = artikliDAO.findAllArtikle().get(artiklovi.size() - 1).getIdArtikla();
-                artikliTemp.setIdArtikla(idArtiklaTemp);
-                artikliTemp.setKataloskiBrArtikla(txtfKataloskiBroj.getText());
-                artikliTemp.setNazivArtikla(txtfNazivArtikla.getText());
-                artikliTemp.setOpisArtikla(txtfOpisArtikla.getText());
-                artikliTemp.setJedinicaMere(cmbJedinicaMere.getValue());
-                artikliTemp.setKolicina(Integer.parseInt(txtfKolicinaArtikla.getText()));
-                artikliTemp.setNabavnaCenaArtikla(Double.parseDouble(txtfNabavnaCenaArtikla.getText()));
-                artikliTemp.setCenaArtikla(Double.parseDouble(txtfCenaArtikla.getText()));
-            } catch (NumberFormatException es) {
+                try {
+
+                    if (artiklovi.size() < 1) {
+                        artikliTemp.setIdArtikla(1);
+                    } else {
+                        idArtiklaTemp = artiklovi.get(artiklovi.size() - 1).getIdArtikla();
+                    }
+                        artikliTemp.setIdArtikla(idArtiklaTemp);
+                        artikliTemp.setKataloskiBrArtikla(txtfKataloskiBroj.getText());
+                        artikliTemp.setNazivArtikla(txtfNazivArtikla.getText());
+                        artikliTemp.setOpisArtikla(txtfOpisArtikla.getText());
+                        artikliTemp.setJedinicaMere(cmbJedinicaMere.getValue());
+                        artikliTemp.setKolicina(Integer.parseInt(txtfKolicinaArtikla.getText()));
+                        artikliTemp.setNabavnaCenaArtikla(Double.parseDouble(txtfNabavnaCenaArtikla.getText()));
+                        artikliTemp.setCenaArtikla(Double.parseDouble(txtfCenaArtikla.getText()));
+
+                } catch (IndexOutOfBoundsException exception) {
+                    logger.error("IndexOutOfBoundsException, FORM #btnDodajArtiklAct sa porukom: " + exception);
+                    GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                            "GREŠKA, bilo bi dobro da kontaktirate Administratora!" ,"Greška"
+                            , "IndexOutOfBoundsException, FORM #btnDodajArtiklAct sa porukom:: " + exception);
+                }
+            } catch (NumberFormatException ex) {
                 logger.info("GRESKA U NUMBER FORMATU");
+
             }
             if (ifWeAreInEditMode) {
                 artikliTemp.setIdArtikla(Integer.parseInt(txtfIdArtikla.getText()));
                 artikliDAO.updateArtikli(artikliTemp);
             } else {
+                if (txtfKataloskiBroj.getText().isEmpty())
+                    txtfKataloskiBroj.setText("");
+                if (txtfCenaArtikla.getText().isEmpty())
+                    txtfCenaArtikla.setText("0");
+                if (txtfNabavnaCenaArtikla.getText().isEmpty())
+                    txtfNabavnaCenaArtikla.setText("0");
+                if (txtfKolicinaArtikla.getText().isEmpty())
+                    txtfKolicinaArtikla.setText("0");
+
                 artikliDAO.insertArtikli(artikliTemp);
             }
             ObservableList<Artikl> artikloviUpdate = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
             tblArtikli.getItems().clear();
             artikli.addAll(artikloviUpdate);
-            popuniTabeluArtikli();
-            tblArtikli.refresh();
+            //popuniTabeluArtikli();
+            //tblArtikli.refresh();
             //Obrisi Polja
-            GeneralUiUtility.clearTextFieldsInPane(paneUnosArtikli);
+           // GeneralUiUtility.clearTextFieldsInPane(paneUnosArtikli);
+            txtfKataloskiBroj.setText("");
+            txtfNazivArtikla.setText("");
+            txtfOpisArtikla.setText("");
+            txtfCenaArtikla.setText("0");
+            txtfNabavnaCenaArtikla.setText("0");
+            txtfKolicinaArtikla.setText("0");
             ifWeAreInEditMode = false;
         }
     }
