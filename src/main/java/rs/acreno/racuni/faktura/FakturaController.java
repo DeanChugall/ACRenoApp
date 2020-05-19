@@ -5,6 +5,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +29,6 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.Artikl;
 import rs.acreno.artikli.ArtikliDAO;
-import rs.acreno.artikli.ArtkikliController;
 import rs.acreno.artikli.SQLArtikliDAO;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
@@ -37,7 +38,6 @@ import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
 import rs.acreno.racuni.SQLRacuniDAO;
@@ -58,8 +58,6 @@ import java.util.ResourceBundle;
 public class FakturaController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(FakturaController.class);
-    public Button btnDodajArtikl;
-
 
     @FXML private Button btnSacuvajRacun;
     @FXML private Button btnCloseFakture;
@@ -92,6 +90,7 @@ public class FakturaController implements Initializable {
     @FXML private TextField txtFjedinicaMereArtikla;
     @FXML private TextField txtFpopustArtikla;
     @FXML private Button btnDodajArtiklRacun;
+    @FXML private TextField txtfNazivArtikla;
     @FXML private TextField txtFopisArtikla;
     @FXML private TextArea txtAreaDetaljiOpisArtikla;
 
@@ -313,7 +312,7 @@ public class FakturaController implements Initializable {
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
 
             //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
-            tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("x", p -> {
+            tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("Brisanje", p -> {
                 try {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("BRISANJE ARTIKLA");
@@ -376,6 +375,11 @@ public class FakturaController implements Initializable {
                 newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
             }
         });
+
+        //Sttlistener for "txtFieldPretragaArtikla", ZATVORI LISTVEW "listViewPretragaArtikli"
+        txtFieldPretragaArtikla.focusedProperty().addListener(focusListenerCloseImeArtiklaListView);
+        //Sttlistener for "txtfKataloskiBrojArtikla", ZATVORI LISTVEW "listViewPretragaKatalskiBrojArtikli"
+        txtfKataloskiBrojArtikla.focusedProperty().addListener(focusListenerCloseImeKatBrojListView);
     }
 
     /**
@@ -997,6 +1001,7 @@ public class FakturaController implements Initializable {
                     listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
             String opisArtikla =
                     listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+
             //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
             txtfKataloskiBrojArtikla.setText(kataloskiBrojArtikla);
@@ -1006,21 +1011,13 @@ public class FakturaController implements Initializable {
             txtFjedinicaMereArtikla.setText(jedinicaMereArtikla);
             txtFpopustArtikla.setText(String.valueOf(0));
             txtFieldPretragaArtikla.setText(nazivArtikla);
+            txtfNazivArtikla.setText(nazivArtikla);
             txtFopisArtikla.setText(opisArtikla);
 
             btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
             listViewPretragaKatalskiBrojArtikli.setVisible(false); //Sakrij ListView
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     //****************** LIST VIEW STAFF PO ID ARTIKLU  ************************
@@ -1117,6 +1114,7 @@ public class FakturaController implements Initializable {
             txtFpopustArtikla.setText(String.valueOf(0));
             txtFieldPretragaArtikla.setText(nazivArtikla);
             txtFopisArtikla.setText(opisArtikla);
+            txtfNazivArtikla.setText(opisArtikla);
 
             btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
             listViewPretragaArtikli.setVisible(false); //Sakrij ListView
@@ -1383,10 +1381,40 @@ public class FakturaController implements Initializable {
         ArtkikliController createNewArtiklUiController = fxmlLoaderArtikli.getController();
         createNewArtiklUiController.setAutmobilController(this, stageArtikli);
         //createNewArtiklUiController.setWeAreInEditMode(true);*/
-
-
         stageArtikli.showAndWait();
     }
+
+    //***************** UTILLITY ********************
+
+    /**
+     * Setovan Listener za {@link #txtFieldPretragaArtikla} da kada izgubi focu zatvori {@link #listViewPretragaArtikli}
+     * Impementirano u {@link #initialize(URL, ResourceBundle)}
+     *
+     * @see #initialize(URL, ResourceBundle)
+     */
+    private final ChangeListener<Boolean> focusListenerCloseImeArtiklaListView = new ChangeListener<Boolean>() {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            if (!newValue) {
+                listViewPretragaArtikli.setVisible(false);
+            }
+        }
+    };
+
+    /**
+     * Setovan Listener za {@link #txtfKataloskiBrojArtikla} da kada izgubi focu zatvori {@link #listViewPretragaKatalskiBrojArtikli}
+     * Impementirano u {@link #initialize(URL, ResourceBundle)}
+     *
+     * @see #initialize(URL, ResourceBundle)
+     */
+    private final ChangeListener<Boolean> focusListenerCloseImeKatBrojListView = new ChangeListener<Boolean>() {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            if (!newValue) {
+                listViewPretragaKatalskiBrojArtikli.setVisible(false);
+            }
+        }
+    };
 }
 
 
