@@ -85,7 +85,7 @@
                                 <Label text="Nepostoji u bazi podataka za traženi Artikl!" />
                             </placeholder>
                             <columns>
-                                <TableColumn fx:id="tblColIDartikla" prefWidth="41.0" text="ID" visible="false" />
+                                <TableColumn fx:id="tblColIDartikla" prefWidth="41.0" text="ID" />
                                 <TableColumn fx:id="tblColKataloskiBrojArtikla" text="Kat.Broj">
                                     <graphic>
                                         <ImageView fitHeight="23.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
@@ -126,7 +126,7 @@
                         </TableView>
                     </children>
                 </Pane>
-                <Pane layoutX="718.0" layoutY="14.0" prefHeight="589.0" prefWidth="465.0" AnchorPane.rightAnchor="17.0">
+                <Pane fx:id="paneUnosArtikli" layoutX="718.0" layoutY="14.0" prefHeight="589.0" prefWidth="465.0" AnchorPane.rightAnchor="17.0">
                     <children>
                         <Label focusTraversable="false" prefHeight="63.0" prefWidth="460.0" style="-fx-background-color: #1a1a1a;" text="         UNOS ARTIKALA / DELOVA" textFill="#c3c3c3">
                             <font>
@@ -235,7 +235,7 @@
                                 <DropShadow />
                             </effect>
                         </TextField>
-                        <TextField fx:id="txtfCenaArtikla" layoutX="27.0" layoutY="281.0" prefHeight="36.0" prefWidth="433.0">
+                        <TextField fx:id="txtfCenaArtikla" layoutX="27.0" layoutY="281.0" prefHeight="36.0" prefWidth="433.0" text="0">
                             <font>
                                 <Font name="Segoe UI Bold" size="17.0" />
                             </font>
@@ -243,7 +243,7 @@
                                 <DropShadow />
                             </effect>
                         </TextField>
-                        <TextField fx:id="txtfNabavnaCenaArtikla" layoutX="27.0" layoutY="342.0" prefHeight="36.0" prefWidth="433.0">
+                        <TextField fx:id="txtfNabavnaCenaArtikla" layoutX="27.0" layoutY="342.0" prefHeight="36.0" prefWidth="433.0" text="0">
                             <font>
                                 <Font name="Segoe UI Bold" size="17.0" />
                             </font>
@@ -251,7 +251,7 @@
                                 <DropShadow />
                             </effect>
                         </TextField>
-                        <TextField fx:id="txtfKolicinaArtikla" layoutX="27.0" layoutY="467.0" prefHeight="36.0" prefWidth="433.0">
+                        <TextField fx:id="txtfKolicinaArtikla" layoutX="27.0" layoutY="467.0" prefHeight="36.0" prefWidth="433.0" text="0">
                             <font>
                                 <Font name="Segoe UI Bold" size="17.0" />
                             </font>
@@ -275,7 +275,7 @@
                                 <String fx:value="kom" />
                             </value>
                         </ComboBox>
-                  <Button fx:id="btnDodajArtikl" disable="true" focusTraversable="false" layoutX="27.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#btnDodajArtiklAct" prefHeight="51.0" prefWidth="434.0" text="DODAJ ARTIKL U BAZU">
+                  <Button fx:id="btnDodajArtikl" focusTraversable="false" layoutX="27.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#btnDodajArtiklAct" prefHeight="51.0" prefWidth="434.0" text="DODAJ ARTIKL U BAZU">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>

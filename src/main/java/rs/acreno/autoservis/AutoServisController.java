@@ -551,6 +551,9 @@ public class AutoServisController implements Initializable {
             System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
             popuniAutomobilTxtfOve(automobilForEdit);
             popuniTabeluAutomobiliklijenta(klijent);
+            btnOtvoriAutomobilKarticu.setDisable(true);
+            btnUrediAutomobil.setDisable(true);
+            btnUrediAutomobilFromKlijent.setDisable(true);
 
         });
 

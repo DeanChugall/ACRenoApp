@@ -13,6 +13,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
@@ -42,11 +43,11 @@ public class ArtkikliController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(ArtkikliController.class);
 
-
     // 1.0 *************** FXMLs **************************************
 
     // 1.1 *************** FXMLs GUI
     @FXML private BorderPane artikliUiBorderPane;
+    @FXML private Pane paneUnosArtikli;
 
     // 1.2 *************** FXMLs TABELA ARTIKLI
     @FXML private TableView<Artikl> tblArtikli;
@@ -70,8 +71,6 @@ public class ArtkikliController implements Initializable {
     @FXML private TextField txtfNabavnaCenaArtikla;
     @FXML private TextField txtfKolicinaArtikla;
     @FXML private ComboBox<String> cmbJedinicaMere;
-
-    private boolean isWeAreInEditMode;
 
     // 1.3 ***************  BUTTONs STAFF
     @FXML private Button btnCloseArtikliKarticu;
@@ -135,6 +134,7 @@ public class ArtkikliController implements Initializable {
      */
     private final ArtikliDAO artikliDAO = new SQLArtikliDAO();
     private ObservableList<Artikl> artikli = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
+    private boolean ifWeAreInEditMode = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,8 +142,9 @@ public class ArtkikliController implements Initializable {
             popuniTabeluArtikli();
             //Inicijalizacija i Postavljenje dugmeta "IZMENI" u tabeli ARTIKLI
             tblColButtonUredi.setCellFactory(ActionButtonTableCell.forTableColumn("Izmeni", (Artikl artikl) -> {
+                ifWeAreInEditMode = true;
+                logger.debug("DA LI SMO U EDIT MODU: " + ifWeAreInEditMode);
                 logger.debug("ARTIKL: " + artikl.getKataloskiBrArtikla() + " || " + artikl.getNazivArtikla());
-                isWeAreInEditMode = true;
                 txtfIdArtikla.setText(String.valueOf(artikl.getIdArtikla()));
                 txtfKataloskiBroj.setText(artikl.getKataloskiBrArtikla());
                 txtfNazivArtikla.setText(artikl.getNazivArtikla());
@@ -153,8 +154,7 @@ public class ArtkikliController implements Initializable {
                 txtfKolicinaArtikla.setText(String.valueOf(artikl.getKolicina()));
                 cmbJedinicaMere.setValue(artikl.getJedinicaMere());
                 btnDodajArtikl.setDisable(false);
-
-
+                artikl = new Artikl();
                 return artikl;
             }));
 
@@ -302,6 +302,7 @@ public class ArtkikliController implements Initializable {
         //tblColl KOLICINA ARTIKLA
         tblColKolicinaArtikla.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getKolicina()));
+        tblColKolicinaArtikla.setStyle("-fx-alignment: CENTER;");
         tblColKolicinaArtikla.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         tblColKolicinaArtikla.setOnEditCommit((TableColumn.CellEditEvent<Artikl, Number> t) -> {
             if (t.getNewValue() == null) {
@@ -323,6 +324,7 @@ public class ArtkikliController implements Initializable {
         //tblColl NABAVNA CENA ARTIKLA
         tblColNabavnaCenaArtikla.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getNabavnaCenaArtikla()));
+        tblColNabavnaCenaArtikla.setStyle("-fx-alignment: CENTER;");
         tblColNabavnaCenaArtikla.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         tblColNabavnaCenaArtikla.setOnEditCommit((TableColumn.CellEditEvent<Artikl, Number> t) -> {
             if (t.getNewValue() == null) {
@@ -344,6 +346,7 @@ public class ArtkikliController implements Initializable {
         //tblColl CENA ARTIKLA
         tblColCenaArtikla.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getCenaArtikla()));
+        tblColCenaArtikla.setStyle("-fx-alignment: CENTER;");
         tblColCenaArtikla.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         tblColCenaArtikla.setOnEditCommit(t -> {
             if (t.getNewValue() == null) {
@@ -362,18 +365,6 @@ public class ArtkikliController implements Initializable {
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
         tblArtikli.setItems(artikli);
     }
@@ -417,12 +408,46 @@ public class ArtkikliController implements Initializable {
         btnCloseArtikliKarticu.fireEvent(new WindowEvent(stageCreateNewArtikl, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
-    @FXML private void btnDodajArtiklAct(MouseEvent mouseEvent) {
-        isWeAreInEditMode = false;
-        btnDodajArtikl.setDisable(true);
+    @FXML private void btnDodajArtiklAct(MouseEvent mouseEvent) throws SQLException, AcrenoException {
+
+        if (txtfKataloskiBroj.getText().isEmpty()
+                || txtfNazivArtikla.getText().isEmpty()) {
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Greška..."
+                    , "Greška u unosu Artikla", "Morate da popunite polja Artikla da bi smo ga sačuvali!");
+        } else {
+            int idArtiklaTemp;
+            artikliTemp = new Artikl();
+            //Inicijalizacija broja fakture MORA DA IDE OVDE
+            try {
 
 
-
-
+                ObservableList<Artikl> artiklovi = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
+                idArtiklaTemp = artikliDAO.findAllArtikle().get(artiklovi.size() - 1).getIdArtikla();
+                artikliTemp.setIdArtikla(idArtiklaTemp);
+                artikliTemp.setKataloskiBrArtikla(txtfKataloskiBroj.getText());
+                artikliTemp.setNazivArtikla(txtfNazivArtikla.getText());
+                artikliTemp.setOpisArtikla(txtfOpisArtikla.getText());
+                artikliTemp.setJedinicaMere(cmbJedinicaMere.getValue());
+                artikliTemp.setKolicina(Integer.parseInt(txtfKolicinaArtikla.getText()));
+                artikliTemp.setNabavnaCenaArtikla(Double.parseDouble(txtfNabavnaCenaArtikla.getText()));
+                artikliTemp.setCenaArtikla(Double.parseDouble(txtfCenaArtikla.getText()));
+            } catch (NumberFormatException es) {
+                logger.info("GRESKA U NUMBER FORMATU");
+            }
+            if (ifWeAreInEditMode) {
+                artikliTemp.setIdArtikla(Integer.parseInt(txtfIdArtikla.getText()));
+                artikliDAO.updateArtikli(artikliTemp);
+            } else {
+                artikliDAO.insertArtikli(artikliTemp);
+            }
+            ObservableList<Artikl> artikloviUpdate = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
+            tblArtikli.getItems().clear();
+            artikli.addAll(artikloviUpdate);
+            popuniTabeluArtikli();
+            tblArtikli.refresh();
+            //Obrisi Polja
+            GeneralUiUtility.clearTextFieldsInPane(paneUnosArtikli);
+            ifWeAreInEditMode = false;
+        }
     }
 }
