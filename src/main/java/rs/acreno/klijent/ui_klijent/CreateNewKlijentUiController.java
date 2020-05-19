@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
@@ -28,6 +29,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CreateNewKlijentUiController implements Initializable {
+
+    private static final Logger logger = Logger.getLogger(CreateNewKlijentUiController.class);
 
     //FXMLs
     @FXML private Label lblKreateOrEditKlijenta;
@@ -187,6 +190,7 @@ public class CreateNewKlijentUiController implements Initializable {
      */
     @FXML private void saveKlijent() throws AcrenoException {
         try {
+
             //klijent = new Klijent();
             klijent.setIdKlijenta(Integer.parseInt(txtfIdKlijenta.getText()));
             klijent.setImePrezime(txtfImePrezimeKlijenta.getText());
@@ -204,7 +208,10 @@ public class CreateNewKlijentUiController implements Initializable {
             klijent.setWeb(txtfWebSajtKlijenta.getText());
             klijent.setDatumAcrRegistracijeKliljenta(
                     GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
-
+        } catch (IllegalArgumentException exception) {
+            logger.error("From saveKlijent() sa porukom: " + exception);
+        }
+        try {
             klijentDAO.updateKlijent(klijent);
 
             if (!isCloseButtonPresed) {
@@ -272,9 +279,9 @@ public class CreateNewKlijentUiController implements Initializable {
     @FXML private void btnObrisiKlijenta() throws AcrenoException, SQLException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda brisanja Klijenta: " + klijent.getIdKlijenta());
-        alert.setHeaderText("Brisanje Klijenta: " + klijent.getImePrezime());
-        alert.setContentText("Da li ste sigurni da želite da obrišete " + klijent.getImePrezime() + " iz baze podataka ?");
+        alert.setTitle("Potvrda brisanja Klijenta: " + txtfIdKlijenta.getText());
+        alert.setHeaderText("Brisanje Klijenta: " + txtfIdKlijenta.getText());
+        alert.setContentText("Da li ste sigurni da želite da obrišete " + txtfIdKlijenta.getText() + " iz baze podataka ?");
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {

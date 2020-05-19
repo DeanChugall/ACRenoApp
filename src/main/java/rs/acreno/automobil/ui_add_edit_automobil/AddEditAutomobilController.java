@@ -277,9 +277,9 @@ public class AddEditAutomobilController implements Initializable {
      */
     public void btnObrisiAutomobilAct(ActionEvent actionEvent) throws AcrenoException, SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda Brisanja Automobila: " + getAutomobil().getRegOznaka());
-        alert.setHeaderText("Brisanja Automobila: " + getAutomobil().getRegOznaka());
-        alert.setContentText("Da li ste sigurni da želite da obrišete " + getAutomobil().getRegOznaka() + " iz baze podataka ?");
+        alert.setTitle("Potvrda Brisanja Automobila: " + txtfIdKAutomobila.getText());
+        alert.setHeaderText("Brisanja Automobila: " + txtFieldRegOznaka.getText());
+        alert.setContentText("Da li ste sigurni da želite da obrišete " + txtfIdKAutomobila.getText() + " iz baze podataka ?");
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(Constants.APP_ICON));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {

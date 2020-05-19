@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="bPaneMainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.FakturaController">
     <center>
@@ -100,9 +101,14 @@
         </SplitPane>
     </center>
     <top>
-        <AnchorPane prefHeight="63.0" prefWidth="1180.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="85.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="btnCloseFakture" layoutX="1056.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnCloseFaktureAction" prefHeight="35.0" prefWidth="87.0" text="ZATVORI" />
+            <Label focusTraversable="false" layoutX="204.0" layoutY="16.0" text="KARTICA ARTIKLI" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="44.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </top>

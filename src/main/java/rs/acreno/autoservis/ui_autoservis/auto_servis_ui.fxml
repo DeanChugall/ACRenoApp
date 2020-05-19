@@ -268,6 +268,9 @@
                            <image>
                               <Image url="@/auto_servis/edit_icon.png" />
                            </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
@@ -329,6 +332,9 @@
                            <image>
                               <Image url="@/auto_servis/add_client.png" />
                            </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
@@ -408,8 +414,14 @@
                      <image>
                         <Image url="@/btn_close_icon.png" />
                      </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <effect>
+                  <DropShadow />
+               </effect></Button>
          </children>
          <effect>
             <DropShadow />

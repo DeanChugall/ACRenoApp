@@ -436,9 +436,9 @@ public class AutoServisController implements Initializable {
      * @see AutomobiliController
      */
     @FXML private void btnOtvoriAutomobilKarticu(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
-        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+       // ((Node) actionEvent.getSource()).getScene().getWindow().hide();
         openAutomobiliUi();
-        ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).show();
+       // ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).show();
     }
 
     /**
