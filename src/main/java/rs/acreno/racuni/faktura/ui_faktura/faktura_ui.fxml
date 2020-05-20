@@ -28,6 +28,13 @@
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/faktura/racun-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                               <Label layoutX="205.0" layoutY="40.0" prefHeight="23.0" text="Popust Racuna %" textFill="#d3d3d3">
                            <font>
@@ -64,8 +71,15 @@
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/auto_servis/bar_code_home.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
-                              <TextField fx:id="txtFidArtikla" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="91.0" layoutY="4.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="1234">
+                              <TextField fx:id="txtFidArtikla" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="149.0" layoutY="4.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="1234">
                            <font>
                               <Font name="Segoe UI Bold" size="19.0" />
                            </font></TextField>
@@ -190,6 +204,13 @@
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/auto_servis/search_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                               <TextField fx:id="txtFieldPretragaArtikla" layoutX="5.0" layoutY="61.0" prefHeight="35.0" prefWidth="230.0" promptText="Pretraga po nazivu artikla...">
                            <font>
@@ -261,6 +282,13 @@
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/auto_servis/bar_code_home.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                             </children>
                      <effect>
@@ -282,6 +310,13 @@
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <graphic>
+                              <ImageView fitHeight="53.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/faktura/calendar_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                         <Label layoutX="311.0" layoutY="40.0" prefHeight="23.0" text="Datum Valute:" textFill="#d3d3d3">
                            <font>
@@ -315,6 +350,13 @@
                            <effect>
                               <DropShadow />
                            </effect>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/faktura/notice_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                               <TextArea fx:id="txtAreaNapomenaRacuna" focusTraversable="false" layoutX="5.0" layoutY="43.0" prefHeight="136.0" prefWidth="427.0" promptText="Napomena servisera u računu..." wrapText="true" />
                      </children>

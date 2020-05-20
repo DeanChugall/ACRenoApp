@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class ActionButtonTableCell<S> extends TableCell<S, Button> {
 
@@ -26,7 +28,7 @@ public class ActionButtonTableCell<S> extends TableCell<S, Button> {
         return (S) getTableView().getItems().get(getIndex());
     }
 
-    public static <S> Callback<TableColumn<S, Button>, TableCell<S, Button>> forTableColumn(String label, Function<S, S> function) {
+    @Contract(pure = true) public static <S> @NotNull Callback<TableColumn<S, Button>, TableCell<S, Button>> forTableColumn(String label, Function<S, S> function) {
         return param -> new ActionButtonTableCell<>(label, function);
     }
 

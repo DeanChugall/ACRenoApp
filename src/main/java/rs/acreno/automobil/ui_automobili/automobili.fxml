@@ -1,74 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TableView fx:id="tblFakture" layoutX="23.0" layoutY="70.0" prefHeight="318.0" prefWidth="626.0">
+            <Pane layoutX="768.0" layoutY="24.0" prefHeight="203.0" prefWidth="648.0" style="-fx-background-color: #252525;">
+               <children>
+                  <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="661.0" style="-fx-background-color: #1a1a1a;" text="Računi:" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                      <Button fx:id="btnNoviRacun" layoutX="486.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="36.0" prefWidth="157.0" text="Novi Račun" />
+                      <TableView fx:id="tblFakture" layoutX="15.0" layoutY="60.0" prefHeight="92.0" prefWidth="626.0">
+                          <columns>
+                              <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
+                              <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
+                              <TableColumn fx:id="tblRowDatumRacuna" prefWidth="85.0" text="Datum" />
+                        <TableColumn fx:id="tblRowIdKilometraza" prefWidth="78.0" text="Kilometraza" />
+                              <TableColumn fx:id="tblRowPopustRacuna" prefWidth="91.0" text="Popust" />
+                              <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="301.0" text="Napomene" />
+                        <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="69.0" />
+                          </columns>
+                      </TableView>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane layoutX="14.0" layoutY="404.0" prefHeight="233.0" prefWidth="703.0" style="-fx-background-color: #252525;">
+               <children>
+                  <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="714.0" style="-fx-background-color: #1a1a1a;" text="Radni Nalozi:" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TableView fx:id="tblRadniNalozi" layoutX="7.0" layoutY="62.0" prefHeight="139.0" prefWidth="682.0">
                     <columns>
-                        <TableColumn fx:id="tblRowIdRacuna" prefWidth="75.0" text="ID Racuna" visible="false" />
-                        <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
-                        <TableColumn fx:id="tblRowDatumRacuna" prefWidth="85.0" text="Datum" />
-                  <TableColumn fx:id="tblRowIdKilometraza" prefWidth="78.0" text="Kilometraza" />
-                        <TableColumn fx:id="tblRowPopustRacuna" prefWidth="91.0" text="Popust" />
-                        <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="301.0" text="Napomene" />
-                  <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="69.0" />
+                      <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
+                      <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" visible="false" />
+                        <TableColumn fx:id="tblColRadniNalogDatum" prefWidth="75.0" text="Datum" />
+                        <TableColumn fx:id="tblColRadniNalogVreme" prefWidth="75.0" text="Vreme" />
+                        <TableColumn fx:id="tblColRadniNalogKilometraza" prefWidth="75.0" text="Kilometraza" />
+                        <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="257.0" text="DetaljiStranke" />
+                        <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="129.0" text="DetaljiServisera" />
+                        <TableColumn fx:id="tblColRadniNalogBtnIzmeni" prefWidth="70.0" />
                     </columns>
-                </TableView>
-            <Label layoutX="23.0" layoutY="27.0" prefHeight="17.0" prefWidth="204.0" text="Računi" textFill="#e1e1e1">
-               <font>
-                  <Font name="Segoe UI" size="36.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tblRadniNalozi" layoutX="673.0" layoutY="74.0" prefHeight="318.0" prefWidth="712.0">
-              <columns>
-                <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
-                <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" visible="false" />
-                  <TableColumn fx:id="tblColRadniNalogDatum" prefWidth="75.0" text="Datum" />
-                  <TableColumn fx:id="tblColRadniNalogVreme" prefWidth="75.0" text="Vreme" />
-                  <TableColumn fx:id="tblColRadniNalogKilometraza" prefWidth="75.0" text="Kilometraza" />
-                  <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="257.0" text="DetaljiStranke" />
-                  <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="166.0" text="DetaljiServisera" />
-                  <TableColumn fx:id="tblColRadniNalogBtnIzmeni" prefWidth="60.0" />
-              </columns>
-            </TableView>
-            <Label layoutX="673.0" layoutY="31.0" prefHeight="43.0" prefWidth="218.0" text="Radni Nalozi" textFill="#e1e1e1">
-               <font>
-                  <Font name="Segoe UI" size="36.0" />
-               </font>
-            </Label>
-            <Label layoutX="672.0" layoutY="409.0" prefHeight="43.0" prefWidth="218.0" text="Defektaže" textFill="#e1e1e1">
-               <font>
-                  <Font name="Segoe UI" size="36.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tblDefektaza" layoutX="672.0" layoutY="452.0" prefHeight="248.0" prefWidth="713.0">
-              <columns>
-                  <TableColumn fx:id="tblColKilometraza" prefWidth="75.0" text="Kilometraza" />
-                <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
-                <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" visible="false" />
-                  <TableColumn fx:id="tblColDatumDefektaze" prefWidth="112.0" text="datumDefektaze" />
-                  <TableColumn fx:id="tblColVreme" prefWidth="75.0" text="Vreme" />
-                  <TableColumn fx:id="tblColOpisDefektaze" prefWidth="149.0" text="opisDefektaze" />
-                  <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="229.0" text="ostaliDetaljiDefektaze" />
-                  <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="69.0" />
-              </columns>
-            </TableView>
-                <Button fx:id="btnNoviRadniNalog" layoutX="1229.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="38.0" prefWidth="156.0" text="Novi Radni Nalog" />
-                <Button fx:id="btnNoviRacun" layoutX="492.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#btnOpenFakturaUi" prefHeight="36.0" prefWidth="157.0" text="Novi Račun" />
-                <Button fx:id="btnDefektaza" layoutX="1235.0" layoutY="410.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="40.0" prefWidth="151.0" text="Nova Defektaža" />
+                  </TableView>
+                      <Button fx:id="btnNoviRadniNalog" layoutX="536.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="38.0" prefWidth="156.0" text="Novi Radni Nalog" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane layoutX="741.0" layoutY="388.0" prefHeight="233.0" prefWidth="750.0" style="-fx-background-color: #252525;">
+               <children>
+                  <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="714.0" style="-fx-background-color: #1a1a1a;" text="Defektaže:" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TableView fx:id="tblDefektaza" layoutX="14.0" layoutY="67.0" prefHeight="100.0" prefWidth="713.0">
+                    <columns>
+                        <TableColumn fx:id="tblColKilometraza" prefWidth="75.0" text="Kilometraza" />
+                      <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
+                      <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" visible="false" />
+                        <TableColumn fx:id="tblColDatumDefektaze" prefWidth="112.0" text="datumDefektaze" />
+                        <TableColumn fx:id="tblColVreme" prefWidth="75.0" text="Vreme" />
+                        <TableColumn fx:id="tblColOpisDefektaze" prefWidth="149.0" text="opisDefektaze" />
+                        <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="229.0" text="ostaliDetaljiDefektaze" />
+                        <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="69.0" />
+                    </columns>
+                  </TableView>
+                      <Button fx:id="btnDefektaza" layoutX="492.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="40.0" prefWidth="151.0" text="Nova Defektaža" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
             </children>
         </AnchorPane>
     </center>
