@@ -174,7 +174,7 @@ public class RadniNalogController implements Initializable {
         txtfKlijent.setText(imePrezimeKlijenta);
         txtfRegOznaka.setText(regOznakaAutomobila);
         //Formatiranje Vremena
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("kk:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         txtfVreme.setText(dtf.format(now));
     }
