@@ -307,8 +307,7 @@ public class FakturaController implements Initializable {
             } catch (AcrenoException | SQLException e) {
                 e.printStackTrace();
             }
-            txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
-            listViewPretragaArtikli.setOnMouseClicked(this::zatvoriListViewSearchArtikli);
+            //txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
 
             //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
@@ -376,10 +375,10 @@ public class FakturaController implements Initializable {
             }
         });
 
-        //Sttlistener for "txtFieldPretragaArtikla", ZATVORI LISTVEW "listViewPretragaArtikli"
-        txtFieldPretragaArtikla.focusedProperty().addListener(focusListenerCloseImeArtiklaListView);
-        //Sttlistener for "txtfKataloskiBrojArtikla", ZATVORI LISTVEW "listViewPretragaKatalskiBrojArtikli"
-        txtfKataloskiBrojArtikla.focusedProperty().addListener(focusListenerCloseImeKatBrojListView);
+        //Setlistener for "txtFieldPretragaArtikla", ZATVORI LISTVEW "listViewPretragaArtikli"
+        //txtFieldPretragaArtikla.focusedProperty().addListener(focusListenerCloseImeArtiklaListView);
+        //Setlistener for "txtfKataloskiBrojArtikla", ZATVORI LISTVEW "listViewPretragaKatalskiBrojArtikli"
+       // txtfKataloskiBrojArtikla.focusedProperty().addListener(focusListenerCloseImeKatBrojListView);
     }
 
     /**
@@ -925,31 +924,27 @@ public class FakturaController implements Initializable {
     @FXML private void txtfPretragaPoKataloskomBroju(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
-                listViewPretragaKatalskiBrojArtikli.setItems(artikli);
+                //listViewPretragaKatalskiBrojArtikli.setItems(artikli);
+                listViewPretragaKatalskiBrojArtikli.setVisible(false);
             }
         });
-        ObservableList<Artikl> artikl = null;
-        ObservableList<Artikl> tempArtikl = null;
+        listViewPretragaArtikli.setVisible(false);
+        ObservableList<Artikl> artikl = FXCollections.observableArrayList();
+        ObservableList<Artikl> tempArtikl = FXCollections.observableArrayList();
         try {
-            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
+            // ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
             artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
+            // tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
-        try {
-            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
-            artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
-        } catch (AcrenoException | SQLException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
 
-            String katBrojArtikla = artikl.get(i).getKataloskiBrArtikla().toLowerCase();//Trenutna tablica auta
+        for (Artikl value : artikl) {
+
+            String katBrojArtikla = value.getKataloskiBrArtikla().toLowerCase();//Trenutna tablica auta
 
             if (katBrojArtikla.contains(txtfKataloskiBrojArtikla.textProperty().get())) {
-                tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
+                tempArtikl.add(value); // Dodaje nadjeni auto u temp listu
                 listViewPretragaKatalskiBrojArtikli.setItems(tempArtikl); // Dodaje u FXlistView
                 listViewPretragaKatalskiBrojArtikli.setCellFactory(param -> new ListCell<>() {
                     @Override
@@ -988,19 +983,19 @@ public class FakturaController implements Initializable {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             // Popunjavanje TF polja sa podacima Artikla
             String nazivArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getNazivArtikla();
             String kataloskiBrojArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getKataloskiBrArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getKataloskiBrArtikla();
             int idArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getIdArtikla();
             double cenaArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getCenaArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getCenaArtikla();
             double nabavnaCenaArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getNabavnaCenaArtikla();
             String jedinicaMereArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getJedinicaMere();
             String opisArtikla =
-                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+                    listViewPretragaKatalskiBrojArtikli.getSelectionModel().getSelectedItem().getOpisArtikla();
 
             //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
@@ -1034,27 +1029,29 @@ public class FakturaController implements Initializable {
      * @see #zatvoriListViewSearchArtikli(MouseEvent)
      * @see #listViewPretragaArtikli
      */
-    private void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
+    @FXML private void txtFieldPretragaArtiklaKeyListener(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
-                listViewPretragaArtikli.setItems(artikli);
+                //listViewPretragaArtikli.setItems(artikli);
+                listViewPretragaArtikli.setVisible(false);
             }
         });
-        ObservableList<Artikl> artikl = null;
-        ObservableList<Artikl> tempArtikl = null;
+        listViewPretragaKatalskiBrojArtikli.setVisible(false);
+        ObservableList<Artikl> artikl = FXCollections.observableArrayList();
+        ObservableList<Artikl> tempArtikl = FXCollections.observableArrayList();
         try {
-            ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
+           // ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
             artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-            tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
+           // tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < (artikl != null ? artikl.size() : 0); i++) {
+        for (Artikl value : artikl) {
 
-            String nazivArtikla = artikl.get(i).getNazivArtikla().toLowerCase();//Trenutna tablica auta
+            String nazivArtikla = value.getNazivArtikla().toLowerCase();//Trenutna tablica auta
 
             if (nazivArtikla.contains(txtFieldPretragaArtikla.textProperty().get())) {
-                tempArtikl.add(artikl.get(i)); // Dodaje nadjeni auto u temp listu
+                tempArtikl.add(value); // Dodaje nadjeni auto u temp listu
                 listViewPretragaArtikli.setItems(tempArtikl); // Dodaje u FXlistView
                 listViewPretragaArtikli.setCellFactory(param -> new ListCell<>() {
                     @Override
@@ -1086,24 +1083,24 @@ public class FakturaController implements Initializable {
      * @see PosaoArtikli
      * @see PosaoArtikliDAO
      */
-    private void zatvoriListViewSearchArtikli(@NotNull MouseEvent mouseEvent) {
+    @FXML private void zatvoriListViewSearchArtikli(@NotNull MouseEvent mouseEvent) {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             // Popunjavanje TF polja sa podacima Artikla
             String nazivArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNazivArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getNazivArtikla();
             String kataloskiBrojArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getKataloskiBrArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getKataloskiBrArtikla();
             int idArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getIdArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getIdArtikla();
             double cenaArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getCenaArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getCenaArtikla();
             double nabavnaCenaArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getNabavnaCenaArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getNabavnaCenaArtikla();
             String jedinicaMereArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getJedinicaMere();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getJedinicaMere();
             String opisArtikla =
-                    listViewPretragaArtikli.getSelectionModel().getSelectedItems().get(0).getOpisArtikla();
+                    listViewPretragaArtikli.getSelectionModel().getSelectedItem().getOpisArtikla();
             //Popunjavanje GUI polja
             txtFidArtikla.setText(String.valueOf(idArtikla));
             txtfKataloskiBrojArtikla.setText(kataloskiBrojArtikla);

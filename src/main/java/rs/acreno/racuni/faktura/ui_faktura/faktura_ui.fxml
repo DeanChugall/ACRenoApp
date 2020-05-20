@@ -79,7 +79,7 @@
                               </ImageView>
                            </graphic>
                         </Label>
-                              <TextField fx:id="txtFidArtikla" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="149.0" layoutY="4.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="1234">
+                              <TextField fx:id="txtFidArtikla" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="149.0" layoutY="4.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="100.0">
                            <font>
                               <Font name="Segoe UI Bold" size="19.0" />
                            </font></TextField>
@@ -212,7 +212,7 @@
                               </ImageView>
                            </graphic>
                         </Label>
-                              <TextField fx:id="txtFieldPretragaArtikla" layoutX="5.0" layoutY="61.0" prefHeight="35.0" prefWidth="230.0" promptText="Pretraga po nazivu artikla...">
+                              <TextField fx:id="txtFieldPretragaArtikla" layoutX="5.0" layoutY="61.0" onKeyReleased="#txtFieldPretragaArtiklaKeyListener" prefHeight="35.0" prefWidth="230.0" promptText="Pretraga po nazivu artikla...">
                            <font>
                               <Font name="Segoe UI Bold" size="15.0" />
                            </font></TextField>
@@ -231,7 +231,7 @@
                            </font>
                         </Label>
                         <ListView fx:id="listViewPretragaKatalskiBrojArtikli" layoutX="240.0" layoutY="96.0" onMouseClicked="#zatvoriListViewPretragaPoKatBrojuArtikla" prefHeight="200.0" prefWidth="332.0" visible="false" />
-                              <ListView fx:id="listViewPretragaArtikli" layoutX="17.0" layoutY="96.0" prefHeight="200.0" prefWidth="332.0" visible="false" />
+                              <ListView fx:id="listViewPretragaArtikli" layoutX="17.0" layoutY="96.0" onMouseClicked="#zatvoriListViewSearchArtikli" prefHeight="200.0" prefWidth="332.0" visible="false" />
                      </children>
                      <effect>
                         <DropShadow />
@@ -251,9 +251,9 @@
                            </effect>
                         </ImageView>
                      </graphic></Button>
-                        <Pane fx:id="panePrint" layoutX="2.0" layoutY="319.0" prefHeight="308.0" prefWidth="1383.0" style="-fx-background-color: #252525;">
+                        <Pane fx:id="panePrint" layoutX="19.0" layoutY="319.0" prefHeight="308.0" prefWidth="1366.0" style="-fx-background-color: #252525;">
                             <children>
-                                <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="16.0" layoutY="33.0" prefHeight="264.0" prefWidth="1367.0" style="-fx-alignment: CENTER;" stylesheets="/table-view.css">
+                                <TableView fx:id="tblPosaoArtikli" editable="true" focusTraversable="false" layoutX="6.0" layoutY="33.0" prefHeight="264.0" prefWidth="1358.0" style="-fx-alignment: CENTER;" stylesheets="/table-view.css">
                                     <columns>
                                         <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="104.0" style="-fx-alignment: CENTER;" text="idPosaoArtikli" visible="false" />
                                         <TableColumn fx:id="tblRowidRacuna" prefWidth="72.0" style="-fx-alignment: CENTER;" text="idRacuna" visible="false" />
@@ -269,10 +269,10 @@
                                         <TableColumn fx:id="tblRowPopust" prefWidth="79.0" style="-fx-alignment: CENTER;" text="Popust %" />
                               <TableColumn fx:id="tblRowTotal" editable="false" prefWidth="116.0" sortable="false" style="-fx-alignment: CENTER; -fx-font-weight: bold;" text="UKUPNO" />
                               <TableColumn fx:id="tblRowDetaljiPosaoArtikl" prefWidth="113.0" text="Detalji Artikla" />
-                                        <TableColumn fx:id="tblRowButton" prefWidth="79.0" style="-fx-alignment: CENTER;" />
+                                        <TableColumn fx:id="tblRowButton" prefWidth="69.0" style="-fx-alignment: CENTER;" />
                                     </columns>
                                 </TableView>
-                        <Label focusTraversable="false" layoutX="14.0" layoutY="5.0" prefHeight="32.0" prefWidth="1373.0" style="-fx-background-color: #1a1a1a;" text="Artikli u Računu:" textFill="WHITE">
+                        <Label focusTraversable="false" layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="1379.0" style="-fx-background-color: #1a1a1a;" text="Artikli u Računu:" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="26.0" />
                            </font>
@@ -340,9 +340,9 @@
                   </Pane>
                   <Pane layoutX="934.0" layoutY="125.0" prefHeight="185.0" prefWidth="459.0" style="-fx-background-color: #252525;" AnchorPane.rightAnchor="10.0">
                      <children>
-                        <Label focusTraversable="false" layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="462.0" style="-fx-background-color: #1a1a1a;" text="Napomene:" textFill="WHITE">
+                        <Label focusTraversable="false" layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="462.0" style="-fx-background-color: #1a1a1a;" text="Napomene Servisera na Računu:" textFill="WHITE">
                            <font>
-                              <Font name="Segoe UI Bold" size="26.0" />
+                              <Font name="Segoe UI Bold" size="22.0" />
                            </font>
                            <padding>
                               <Insets left="5.0" />
@@ -425,7 +425,7 @@
                   <DropShadow />
                </effect>
             </TextField>
-                  <Button fx:id="btnSacuvajRacun" focusTraversable="false" layoutX="1178.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="55.0" prefWidth="118.0" text="SAČUVAJ">
+                  <Button fx:id="btnSacuvajRacun" focusTraversable="false" graphicTextGap="10.0" layoutX="1178.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSacuvajRacunAction" prefHeight="55.0" prefWidth="118.0" text="SAČUVAJ">
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>

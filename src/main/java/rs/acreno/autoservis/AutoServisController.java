@@ -599,7 +599,8 @@ public class AutoServisController implements Initializable {
     @FXML private void txtfKlijentSaerchKeyListener(KeyEvent keyEvent) {
         txtFieldPretragaKlijenta.textProperty().addListener(observable -> {
             if (txtFieldPretragaKlijenta.textProperty().get().isEmpty()) {
-                listViewKlijentiSearch.setItems(klijenti.get());
+                //listViewKlijentiSearch.setItems(klijenti.get());
+                listViewKlijentiSearch.setVisible(false);
             }
         });
         btnUrediAutomobilFromKlijent.setDisable(true);

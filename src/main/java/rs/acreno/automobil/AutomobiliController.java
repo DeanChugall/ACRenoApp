@@ -696,6 +696,8 @@ public class AutomobiliController implements Initializable {
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
             System.out.println("FORM BUUTTON btnOpenIzmeniAutomobilUi --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
+            txtFieldRegOznaka.setText(automobil.get(0).getRegOznaka());
+
         });
 
         //Inicijalizacija CREATE NEW KLIJENT Controllora-a
