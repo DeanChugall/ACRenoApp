@@ -2,23 +2,14 @@ package rs.acreno.system.constants;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import rs.acreno.autoservis.splash.SplashScreenController;
-import rs.acreno.system.util.properties.AcrenoProperties;
 import rs.acreno.system.util.properties.ApplicationProperties;
-
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Constants {
 
     // *******************  DB Staf SQLite ***************************
     public static final String IME_BAZE = ApplicationProperties.getInstance().getProperty("database.name");
     private static final String RESOURCE_DIRECTORY = ApplicationProperties.getInstance().getProperty("database.dir");
-    private static final String RESOURCE_DIRECTORY_DEVELOP = ApplicationProperties.getInstance().getProperty("database.dir.develop");
-
-    public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + RESOURCE_DIRECTORY_DEVELOP + IME_BAZE;
+    public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + RESOURCE_DIRECTORY + IME_BAZE;
 
     // *******************  FX UIs Path ***************************
     //AUTO SERVIS HOME
@@ -64,6 +55,6 @@ public class Constants {
     public static final int APP_UCESTALOST_PROVERE_INTERNETA = Integer.parseInt(
             ApplicationProperties.getInstance().getProperty("intenet.connection.check.interval"));
 
-    public static int SPLASH_SCREEN_DELAY= Integer.parseInt(ApplicationProperties
+    public static int SPLASH_SCREEN_DELAY = Integer.parseInt(ApplicationProperties
             .getInstance().getProperty("splash.screen.delay"));
 }

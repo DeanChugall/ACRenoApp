@@ -154,6 +154,8 @@ public class ArtkikliController implements Initializable {
                 txtfKolicinaArtikla.setText(String.valueOf(artikl.getKolicina()));
                 cmbJedinicaMere.setValue(artikl.getJedinicaMere());
                 btnDodajArtikl.setDisable(false);
+
+                btnDodajArtikl.setText("UREĐIVANJE ARTIKLA: " + artikl.getIdArtikla());
                 artikl = new Artikl();
                 return artikl;
             }));
@@ -475,6 +477,7 @@ public class ArtkikliController implements Initializable {
             txtfNabavnaCenaArtikla.setText("0");
             txtfKolicinaArtikla.setText("0");
             ifWeAreInEditMode = false;
+            btnDodajArtikl.setText("DODAJ ARTIKL U BAZU");
         }
     }
 }

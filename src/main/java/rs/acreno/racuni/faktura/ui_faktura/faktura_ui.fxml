@@ -56,7 +56,7 @@
                            </font></TextField>
                      </children>
                   </Pane>
-                  <Pane layoutX="19.0" layoutY="125.0" prefHeight="185.0" prefWidth="881.0" style="-fx-background-color: #252525;">
+                  <Pane fx:id="paneArtikli" layoutX="19.0" layoutY="125.0" prefHeight="185.0" prefWidth="881.0" style="-fx-background-color: #252525;">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -192,7 +192,7 @@
                            </font></Button>
                      </children>
                   </Pane>
-                  <Pane layoutX="20.0" layoutY="11.0" prefHeight="103.0" prefWidth="419.0" style="-fx-background-color: #252525;">
+                  <Pane fx:id="panePretragaArtikli" layoutX="20.0" layoutY="11.0" prefHeight="103.0" prefWidth="419.0" style="-fx-background-color: #252525;">
                      <children>
                         <Label focusTraversable="false" layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="430.0" style="-fx-background-color: #1a1a1a;" text="Pretraga Artikala:" textFill="WHITE">
                            <font>

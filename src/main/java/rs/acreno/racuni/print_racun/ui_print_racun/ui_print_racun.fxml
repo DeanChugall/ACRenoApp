@@ -11,12 +11,12 @@
     <children>
         <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="555.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/Dean VM/Desktop/ACrenoApp/src/main/resources/images/faktura/identifikacioniKodRacuna.jpg" />
+                <Image url="@/faktura/identifikacioniKodRacuna.jpg" />
             </image>
         </ImageView>
         <ImageView fitHeight="39.0" fitWidth="197.0" layoutX="478.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/Dean VM/Desktop/ACrenoApp/src/main/resources/images/tablica.png" />
+                <Image url="@/tablica.png" />
             </image>
         </ImageView>
         <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="220.0" layoutY="110.0" prefHeight="18.0" prefWidth="112.0" text="info@acreno.rs" textAlignment="CENTER">
@@ -56,7 +56,7 @@
          </font></TextField>
         <ImageView fitHeight="84.0" fitWidth="166.0" layoutX="7.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/Dean VM/Desktop/ACrenoApp/src/main/resources/images/faktura/logo-acreno.jpg" />
+                <Image url="@/faktura/logo-acreno.jpg" />
             </image>
         </ImageView>
         <Label layoutX="310.0" layoutY="790.0" text="Ukupno sa popustm na delove: (RSD)">
@@ -234,7 +234,7 @@
         <Line endX="550.0" layoutX="116.0" layoutY="908.0" startX="-100.0" />
         <ImageView fitHeight="46.0" fitWidth="112.0" layoutX="35.0" layoutY="910.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/Dean VM/Desktop/ACrenoApp/src/main/resources/images/faktura/logo-acreno.jpg" />
+                <Image url="@/faktura/logo-acreno.jpg" />
             </image>
         </ImageView>
         <Label layoutX="150.0" layoutY="924.0" text="Ovaj račun je validan bez pečata i potpisa po identidfikacionom broju u zaglavlju." />

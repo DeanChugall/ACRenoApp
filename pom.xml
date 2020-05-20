@@ -128,7 +128,7 @@
             </resource>
             <!--APP DATABASE-->
             <resource>
-                <directory>src\main\resources\AcrDB</directory>
+                <directory>src/main/resources/AcrDB/</directory>
                 <excludes>
                     <exclude>*.laccdb</exclude>
                     <exclude>*.accdb</exclude>

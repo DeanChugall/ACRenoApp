@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -59,6 +60,8 @@ public class FakturaController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(FakturaController.class);
 
+    @FXML private Pane panePretragaArtikli;
+    @FXML private Pane paneArtikli;
     @FXML private Button btnSacuvajRacun;
     @FXML private Button btnCloseFakture;
     @FXML private Button btnOdustaniObrisiRacun;
@@ -1164,6 +1167,9 @@ public class FakturaController implements Initializable {
             e.printStackTrace();
         }
         btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
+        GeneralUiUtility.clearTextFieldsInPane(paneArtikli);
+        GeneralUiUtility.clearTextFieldsInPane(panePretragaArtikli);
+        txtFieldPretragaArtikla.requestFocus();
     }
 
 

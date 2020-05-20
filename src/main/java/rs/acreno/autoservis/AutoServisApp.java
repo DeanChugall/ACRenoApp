@@ -50,7 +50,7 @@ public class AutoServisApp extends Application {
         splashScreenController.setAutoServisAppController(this, stageSpashScreen);
 
         final Task<Void> task = new Task<>() {
-            final int N_ITERATIONS = 100;
+            final int N_ITERATIONS = 50;
 
             @Override
             protected @Nullable Void call() throws Exception {

@@ -189,9 +189,6 @@ public class AutoServisController implements Initializable {
 
         //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
         tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("Učitaj", (Automobil p) -> {
-
-            logger.debug(p.getRegOznaka() + "..." + p.getVinVozila());
-
             txtFieldRegOznaka.setText(p.getRegOznaka());
             btnOtvoriAutomobilKarticu.setDisable(false);
             btnUrediAutomobil.setDisable(false);
@@ -202,7 +199,6 @@ public class AutoServisController implements Initializable {
             automobilForEdit = p;
             return p;
         }));
-
     }
 
 
@@ -512,11 +508,11 @@ public class AutoServisController implements Initializable {
      */
     public void txtFieldRegTablicaSaerchhOnMouseClick() {
         listViewKlijentiSearch.setVisible(false);
-        btnOtvoriAutomobilKarticu.setDisable(true);
+       /* btnOtvoriAutomobilKarticu.setDisable(true);
         btnNoviAutomobil.setDisable(true);
         btnNoviAutomobilInKlijentArea.setDisable(true);
         btnUrediAutomobil.setDisable(true);
-        btnUrediAutomobilFromKlijent.setDisable(true);
+        btnUrediAutomobilFromKlijent.setDisable(true);*/
     }
 
 
@@ -597,13 +593,13 @@ public class AutoServisController implements Initializable {
      * @see CreateNewKlijentUiController controlle sad
      */
     @FXML private void txtfKlijentSaerchKeyListener(KeyEvent keyEvent) {
-        txtFieldPretragaKlijenta.textProperty().addListener(observable -> {
+       /* txtFieldPretragaKlijenta.textProperty().addListener(observable -> {
             if (txtFieldPretragaKlijenta.textProperty().get().isEmpty()) {
                 //listViewKlijentiSearch.setItems(klijenti.get());
                 listViewKlijentiSearch.setVisible(false);
             }
-        });
-        btnUrediAutomobilFromKlijent.setDisable(true);
+        });*/
+
         ObservableList<Klijent> klijenti = FXCollections.observableArrayList();
         ObservableList<Klijent> tempKlijent = FXCollections.observableArrayList();
         try {
@@ -624,6 +620,11 @@ public class AutoServisController implements Initializable {
                         listViewKlijentiSearch.setVisible(true); //Prikazuje listu vidljivom
                         if (empty || item == null || item.getImePrezime() == null) {
                             setText(null);
+                            btnOtvoriAutomobilKarticu.setDisable(true);
+                            btnNoviAutomobil.setDisable(true);
+                            btnNoviAutomobilInKlijentArea.setDisable(true);
+                            btnUrediAutomobilFromKlijent.setDisable(true);
+                            btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getImePrezime());
                         }
