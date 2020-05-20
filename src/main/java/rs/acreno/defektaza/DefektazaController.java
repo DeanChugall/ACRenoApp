@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 
 public class DefektazaController implements Initializable {
 
+    @FXML private Button btnObrisiDefektazubtnObrisiDefektazu;
     @FXML private Button btnCloseDefektaza;
     @FXML private TextField txtfRegOznaka;
     @FXML private TextField txtfKlijent;
@@ -138,7 +139,6 @@ public class DefektazaController implements Initializable {
             // Ako je DEFEKTAZA u edit modu nemoj praviti novu DEFEKTAZU nego prosledi DF koji je za izmenu
             if (automobiliController.isDefektazaInEditMode()) { //TRUE
                 newOrEditDefektaza(true);
-
             } else { //Nismo u Edit Modu (FALSE)
                 //Datum
                 LocalDate now = LocalDate.now();
@@ -381,7 +381,7 @@ public class DefektazaController implements Initializable {
                 }
             }
         } else {
-            btnSacuvajDefektazuAction(); //Cuvamo Radni Nalog ako ima nesto u TXTFu Detalji Servisera
+            btnSacuvajDefektazuAction(); //Cuvamo Defektayu ako ima nesto u TXTFu Opis Defektaye Servisera
             btnCloseDefektaza.fireEvent(new WindowEvent(stageDefektaza, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }

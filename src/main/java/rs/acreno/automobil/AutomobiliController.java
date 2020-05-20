@@ -628,13 +628,13 @@ public class AutomobiliController implements Initializable {
         //Inicijalizacija Defektaza Controllora-a i setovanje naslova
         DefektazaController defektazaController = fxmlLoaderDefektaza.getController();
         defektazaController.setAutmobilController(this, stageDefektaza);
-        defektazaController.setBrojDefektaze(brojDefektaze);//Prosledi u DefektazaView broj DF (EDIT MODE)
-        defektazaController.setEditDefektaza(defektaza); //Prosledi u Defektaza Objekat broj Defektaze (EDIT MODE)
 
         //Postavi Title u stageu FakturaController
         stageDefektaza.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
                 + " || Klijent: " + txtFieldImeKlijenta.getText());
 
+        defektazaController.setBrojDefektaze(brojDefektaze);//Prosledi u DefektazaView broj DF (EDIT MODE)
+        defektazaController.setEditDefektaza(defektaza); //Prosledi u Defektaza Objekat broj Defektaze (EDIT MODE)
         stageDefektaza.showAndWait();
         return isDefektazaInEditMode = false;
     }
