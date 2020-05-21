@@ -15,8 +15,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -44,6 +47,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutomobiliController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutomobiliController.class);
+    @FXML private BorderPane automobiliUiBorderPane;
+    @FXML private Button btnNoviRacun;
     @FXML private Button btnZatvoriProzorAutomobili;
 
 
@@ -403,6 +408,8 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderFaktura = new FXMLLoader(getClass().getResource(Constants.FAKTURA_UI_VIEW_URI));
         Stage stageFaktura = new Stage();
         stageFaktura.initModality(Modality.APPLICATION_MODAL);
+        stageFaktura.setResizable(false);
+        // stageFaktura.initStyle(StageStyle.UNDECORATED);
         stageFaktura.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageFaktura.setScene(new Scene(fxmlLoaderFaktura.load()));
 
@@ -417,8 +424,8 @@ public class AutomobiliController implements Initializable {
         fakturaController.setAutmobilController(this, stageFaktura);
 
         //Postavi Title u stageu FakturaController
-        stageFaktura.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
-                + " || Klijent: " + txtFieldImeKlijenta.getText());
+       /* stageFaktura.setTitle("Registarska Oznaka: " + txtFieldRegOznaka.getText()
+                + " || Klijent: " + txtFieldImeKlijenta.getText());*/
 
         fakturaController.setBrojFakture(brojFakture);//Prosledi u FakturaView broj fakture (EDIT MODE)
         fakturaController.setEditRacun(racun); //Prosledi u RACUN Objekat broj fakture (EDIT MODE)
@@ -510,6 +517,7 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.RADNI_NALOZI_UI_VIEW_URI));
         Stage stageRadniNalog = new Stage();
         stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
+        stageRadniNalog.setResizable(false);
         stageRadniNalog.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
 
@@ -617,6 +625,7 @@ public class AutomobiliController implements Initializable {
         FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.DEFEKTAZA_UI_VIEW_URI));
         Stage stageDefektaza = new Stage();
         stageDefektaza.initModality(Modality.APPLICATION_MODAL);
+        stageDefektaza.setResizable(false);
         stageDefektaza.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageDefektaza.setScene(new Scene(fxmlLoaderDefektaza.load()));
 
@@ -726,6 +735,24 @@ public class AutomobiliController implements Initializable {
     @FXML private void btnZatvoriProzorAutomobiliAction(@NotNull ActionEvent actionEvent) {
         btnZatvoriProzorAutomobili.fireEvent(new WindowEvent(stageNewAutomobil, WindowEvent.WINDOW_CLOSE_REQUEST));
         //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    }
+
+
+    public void btnNoviRacunKr(@NotNull KeyEvent keyEvent) throws IOException {
+        switch (keyEvent.getCode()) {
+            case UP:
+                //System.out.println("UP");
+                break;
+            case DOWN:
+                //System.out.println("DOWN FRON LIST");
+                break;
+            case ENTER:
+                logger.debug("TEST");
+                btnOpenFakturaUi();
+                break;
+            default:
+                break;
+        }
     }
 }
 

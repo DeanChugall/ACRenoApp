@@ -155,7 +155,7 @@ public class SqlQuerys {
             ", detaljiPosaoArtikli = ?" +
             " WHERE idPosaoArtikli=?";
 
-    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idRacuna=? AND idArtikla=?";
+    public static final String DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO = "DELETE FROM PosaoArtikli WHERE idPosaoArtikli=?";
 
     public static final String FIND_ALL_POSAO_ARTIKLE_DAO_BY_PROPERTY = "SELECT * FROM PosaoArtikli WHERE ";
 

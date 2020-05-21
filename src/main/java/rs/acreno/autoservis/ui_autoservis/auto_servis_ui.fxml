@@ -208,7 +208,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="14.0" layoutY="221.0" prefHeight="130.0" prefWidth="649.0" stylesheets="@/table-view.css">
+                  <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="5.0" layoutY="221.0" prefHeight="130.0" prefWidth="659.0" stylesheets="@/table-view.css">
                       <placeholder>
                           <Label text="Odaberite Klijenta da vidite Automobile." />
                       </placeholder>
@@ -224,7 +224,7 @@
                         <TableColumn fx:id="tblRowButton" prefWidth="78.0" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnUrediAutomobilFromKlijent" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="13.0" layoutY="164.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="49.0" prefWidth="213.0" text="UREDI AUTOMOBIL">
+                  <Button fx:id="btnUrediAutomobilFromKlijent" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="4.0" layoutY="164.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="49.0" prefWidth="213.0" text="UREDI AUTOMOBIL">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -262,7 +262,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="13.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="455.0" promptText="Traži Klijenta...">
+                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="455.0" promptText="Traži Klijenta...">
                      <font>
                         <Font name="System Bold" size="34.0" />
                      </font>

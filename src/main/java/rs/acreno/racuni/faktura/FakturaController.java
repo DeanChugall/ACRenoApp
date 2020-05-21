@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -377,11 +379,6 @@ public class FakturaController implements Initializable {
                 newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
             }
         });
-
-        //Setlistener for "txtFieldPretragaArtikla", ZATVORI LISTVEW "listViewPretragaArtikli"
-        //txtFieldPretragaArtikla.focusedProperty().addListener(focusListenerCloseImeArtiklaListView);
-        //Setlistener for "txtfKataloskiBrojArtikla", ZATVORI LISTVEW "listViewPretragaKatalskiBrojArtikli"
-       // txtfKataloskiBrojArtikla.focusedProperty().addListener(focusListenerCloseImeKatBrojListView);
     }
 
     /**
@@ -524,32 +521,47 @@ public class FakturaController implements Initializable {
                 new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
 
 
-        // NAZIV ARTIKLA
-        tblRowNazivArtikla.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
-        tblRowNazivArtikla.setCellFactory(TextFieldTableCell.forTableColumn());
-        tblRowNazivArtikla.setOnEditCommit(t -> {
-            if (t.getNewValue().equals("")) {
-                GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
-                        "GREŠKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
-            } else {
-                t.getRowValue().setNazivArtikla(t.getNewValue());
-                try {
-                    posaoArtikliTemp = t.getRowValue();
-                    posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
-                    posaoArtikliTemp.setNazivArtikla(t.getRowValue().getNazivArtikla());
 
-                    posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+        //WRAP TEXT IN COLUMN NAZIV ARTKLA
+        tblRowNazivArtikla.setCellFactory(tc -> {
+            TableCell<PosaoArtikli, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblRowNazivArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
 
-                } catch (SQLException | AcrenoException throwables) {
-                    throwables.printStackTrace();
+            // NAZIV ARTIKLA -- MORA OVDE DA BI SE EDITOVALO U SAMOJ TABELI
+            tblRowNazivArtikla.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
+            tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
+            tblRowNazivArtikla.setCellFactory(TextFieldTableCell.forTableColumn());
+            tblRowNazivArtikla.setOnEditCommit(t -> {
+                if (t.getNewValue().equals("")) {
+                    GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                            "GREŠKA", "PRAZNO POLJE", "Polje mora imati vrednost!");
+                } else {
+                    t.getRowValue().setNazivArtikla(t.getNewValue());
+                    try {
+                        posaoArtikliTemp = t.getRowValue();
+                        posaoArtikliTemp.setIdPosaoArtikli(t.getRowValue().getIdPosaoArtikli()); // Obavezno ID zbog update-a
+                        posaoArtikliTemp.setNazivArtikla(t.getRowValue().getNazivArtikla());
+
+                        posaoArtikliDAO.updatePosaoArtikliDao(posaoArtikliTemp); // update u DB
+
+                    } catch (SQLException | AcrenoException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
-            }
+            });
+
+            return cell ;
         });
 
         //OPIS ARTIKLA
         tblRowOpisArtikla.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
+        tblRowNazivArtikla.setStyle("-fx-alignment: CENTER-RIGHT;");
         tblRowOpisArtikla.setCellFactory(TextFieldTableCell.forTableColumn());
         tblRowOpisArtikla.setOnEditCommit(t -> {
             if (t.getNewValue().equals("")) {
@@ -569,6 +581,17 @@ public class FakturaController implements Initializable {
                 }
             }
         });
+        //WRAP TEXT IN COLUMN
+      /*  tblRowOpisArtikla.setCellFactory(tc -> {
+            tblRowOpisArtikla.setEditable(true);
+            TableCell<PosaoArtikli, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblRowOpisArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });*/
 
         // CENA
         tblRowCena.setCellValueFactory(cellData ->
@@ -1114,7 +1137,7 @@ public class FakturaController implements Initializable {
             txtFpopustArtikla.setText(String.valueOf(0));
             txtFieldPretragaArtikla.setText(nazivArtikla);
             txtFopisArtikla.setText(opisArtikla);
-            txtfNazivArtikla.setText(opisArtikla);
+            txtfNazivArtikla.setText(nazivArtikla);
 
             btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
             listViewPretragaArtikli.setVisible(false); //Sakrij ListView
@@ -1418,6 +1441,10 @@ public class FakturaController implements Initializable {
             }
         }
     };
+
+    public void txtFopisArtiklaMc(MouseEvent mouseEvent) {
+        txtFopisArtikla.setText("");
+    }
 }
 
 

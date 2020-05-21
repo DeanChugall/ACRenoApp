@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
@@ -173,15 +174,38 @@ public class PrintRacuniControler implements Initializable {
                 new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
         tblRowidArtikla.setStyle("-fx-alignment: CENTER;");
 
-        //Tbl Coll NAZIV ARTKLA
-        tblRowNazivArtikla.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
-        tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
 
-        //Tbl Coll OPIS ARTIKLA
-        tblRowOpisArtikla.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
-        tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
+        //WRAP TEXT IN COLUMN NAZIV ARTKLA
+        tblRowNazivArtikla.setCellFactory(tc -> {
+            TableCell<PosaoArtikli, String> cell = new TableCell<>();
+
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblRowNazivArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            //Tbl Coll NAZIV ARTKLA
+            tblRowNazivArtikla.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getNazivArtikla()));
+            tblRowNazivArtikla.setStyle("-fx-alignment: CENTER;");
+            return cell ;
+        });
+
+
+        //WRAP TEXT IN COLUMN OPIS ARTIKLA
+        tblRowOpisArtikla.setCellFactory(tc -> {
+            TableCell<PosaoArtikli, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblRowOpisArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            //Tbl Coll OPIS ARTIKLA
+            tblRowOpisArtikla.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getOpisPosaoArtiklli()));
+            tblRowOpisArtikla.setStyle("-fx-alignment: CENTER;");
+            return cell ;
+        });
 
         //Tbl Coll KOLICINA
         tblRowKolicina.setCellValueFactory(cellData ->

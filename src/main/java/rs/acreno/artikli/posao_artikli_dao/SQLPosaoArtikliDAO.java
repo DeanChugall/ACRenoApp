@@ -84,8 +84,7 @@ public class SQLPosaoArtikliDAO implements PosaoArtikliDAO {
     public boolean deletePosaoArtikliDao(PosaoArtikli posaoArtikli) throws AcrenoException, SQLException {
         try {
             connect();
-            dbAccess.update(connection, SqlQuerys.DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO,
-                    posaoArtikli.getIdRacuna(), posaoArtikli.getIdArtikla());
+            dbAccess.update(connection, SqlQuerys.DELETE_FROM_TABLE_POSAO_ARTIKLI_DAO, posaoArtikli.getIdPosaoArtikli());
             return true;
         } catch (Exception e) {
             throw new AcrenoException("Greska u DB DELETE deleteArtikli ARTIKLI", e);

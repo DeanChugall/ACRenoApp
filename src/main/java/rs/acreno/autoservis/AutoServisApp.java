@@ -39,6 +39,7 @@ public class AutoServisApp extends Application {
         loader.setLocation(AutoServisController.class.getResource(Constants.SPLASH_SCREEN_URI));
         stageSpashScreen.initStyle(StageStyle.UNDECORATED);
         stageSpashScreen.initStyle(StageStyle.TRANSPARENT);
+        stageSpashScreen.setResizable(false);
         stageSpashScreen.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         Scene scene = new Scene(loader.load());
         scene.setFill(Color.TRANSPARENT);

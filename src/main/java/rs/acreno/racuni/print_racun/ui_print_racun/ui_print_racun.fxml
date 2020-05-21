@@ -9,12 +9,29 @@
 
 <AnchorPane fx:id="ancorPanePrint" prefHeight="936.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.PrintRacuniControler">
     <children>
+      <Pane layoutX="467.0" layoutY="136.0" prefHeight="46.0" prefWidth="197.0" style="-fx-background-color: #1a1a1a;">
+         <children>
+              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="8.0" text="Vozilo:" textFill="#ebebeb">
+                  <font>
+                      <Font name="Segoe UI Bold" size="23.0" />
+                  </font>
+              </Label>
+            <TextField fx:id="txtfIdAutomobila" editable="false" layoutX="82.0" layoutY="7.0" prefHeight="31.0" prefWidth="106.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
         <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="555.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/faktura/identifikacioniKodRacuna.jpg" />
             </image>
         </ImageView>
-        <ImageView fitHeight="39.0" fitWidth="197.0" layoutX="478.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="46.0" fitWidth="197.0" layoutX="467.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/tablica.png" />
             </image>
@@ -24,7 +41,7 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="50.0" prefHeight="46.0" prefWidth="166.0" text="ACReno" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="50.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="50.0" prefHeight="46.0" prefWidth="166.0" text="ACReno" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="50.0">
             <font>
                 <Font name="Segoe UI Bold" size="37.0" />
             </font>
@@ -34,14 +51,25 @@
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
         </Label>
-        <Button fx:id="btnPrint" layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintAct" prefHeight="33.0" prefWidth="116.0" text="Print" />
-        <TableView fx:id="tblPosaoArtikli" focusTraversable="false" layoutX="10.0" layoutY="407.0" prefHeight="335.0" prefWidth="657.0" stylesheets="/table-view.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <Button fx:id="btnPrint" layoutX="192.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnPrintAct" prefHeight="39.0" prefWidth="135.0" stylesheets="/button.css">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/faktura/printer-icon.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+        </Button>
+        <TableView fx:id="tblPosaoArtikli" focusTraversable="false" layoutX="5.0" layoutY="418.0" prefHeight="324.0" prefWidth="665.0" stylesheets="/table-view.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.0">
             <columns>
                 <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
                 <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
                 <TableColumn fx:id="tblRowidArtikla" prefWidth="50.0" text="šifra" visible="false" />
-                <TableColumn fx:id="tblRowNazivArtikla" prefWidth="130.0" style="-fx-alignment: CENTER;" text="Naziv Artikla" />
-                <TableColumn fx:id="tblRowOpisArtikla" prefWidth="182.0" style="-fx-alignment: CENTER;" text="Opis" />
+                <TableColumn fx:id="tblRowOpisArtikla" prefWidth="116.0" text="Opis" />
+                <TableColumn fx:id="tblRowNazivArtikla" prefWidth="196.0" text="Naziv Artikla" />
                 <TableColumn fx:id="tblRowJedinicaMere" prefWidth="39.0" style="-fx-alignment: CENTER;" text="J.M" />
                 <TableColumn fx:id="tblRowKolicina" prefWidth="42.0" style="-fx-alignment: CENTER;" text="kol." />
                 <TableColumn fx:id="tblRowCena" prefWidth="79.0" style="-fx-alignment: CENTER;" text="cena" />
@@ -50,10 +78,6 @@
                 <TableColumn fx:id="tblRowTotal" minWidth="-Infinity" prefWidth="116.0" style="-fx-alignment: CENTER;" text="Total" />
             </columns>
         </TableView>
-        <TextField fx:id="txtFidRacuna" editable="false" layoutX="159.0" layoutY="145.0" prefHeight="31.0" prefWidth="94.0">
-         <font>
-            <Font name="Segoe UI Bold" size="16.0" />
-         </font></TextField>
         <ImageView fitHeight="84.0" fitWidth="166.0" layoutX="7.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/faktura/logo-acreno.jpg" />
@@ -73,13 +97,16 @@
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
+         <effect>
+            <DropShadow offsetY="2.0" />
+         </effect>
         </TextField>
         <Label layoutX="9.0" layoutY="232.0" text="Popust na računu %">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <TextField fx:id="txtFpopustRacuna" layoutX="128.0" layoutY="228.0" prefHeight="25.0" prefWidth="126.0">
+        <TextField fx:id="txtFpopustRacuna" layoutX="125.0" layoutY="228.0" prefHeight="25.0" prefWidth="126.0">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -93,43 +120,50 @@
             <font>
                 <Font name="Segoe UI Bold" size="14.0" />
             </font>
+         <effect>
+            <DropShadow offsetY="2.0" />
+         </effect>
         </TextField>
         <Label layoutX="404.0" layoutY="824.0" text="Popust na račun %">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <TextField fx:id="txtfPopustDoleNaRacunu" layoutX="519.0" layoutY="819.0">
+        <TextField fx:id="txtfPopustDoleNaRacunu" layoutX="519.0" layoutY="819.0" prefHeight="25.0">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
+         <effect>
+            <DropShadow offsetY="2.0" />
+         </effect>
         </TextField>
         <Label layoutX="4.0" layoutY="188.0" text="Datum Računa:">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
         </Label>
-        <Label layoutX="470.0" layoutY="250.0" text="VIN:">
+        <Label layoutX="470.0" layoutY="256.0" text="VIN:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="138.0" text="Račun br.">
-            <font>
-                <Font name="Segoe UI Bold" size="32.0" />
-            </font>
-        </Label>
-        <Label layoutX="21.0" layoutY="757.0" text="Napomene Servisera:" />
-        <TextArea fx:id="txtfNapomeneServiseraNaRacunu" layoutX="21.0" layoutY="774.0" prefHeight="112.0" prefWidth="265.0" promptText="Nema Napomene Servisera." wrapText="true">
+        <Label layoutX="23.0" layoutY="756.0" text="Napomene Servisera:">
+         <font>
+            <Font name="Segoe UI Bold" size="12.0" />
+         </font></Label>
+        <TextArea fx:id="txtfNapomeneServiseraNaRacunu" layoutX="21.0" layoutY="774.0" prefHeight="122.0" prefWidth="265.0" promptText="Nema Napomene Servisera." wrapText="true">
          <font>
             <Font name="Segoe UI" size="12.0" />
-         </font></TextArea>
+         </font>
+         <effect>
+            <DropShadow offsetY="2.0" />
+         </effect></TextArea>
         <Label layoutX="194.0" layoutY="187.0" text="Valuta:">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="51.0" prefHeight="39.0" prefWidth="166.0" text="Auto Servis">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="53.0" prefHeight="39.0" prefWidth="166.0" text="Auto Servis">
             <font>
                 <Font name="Segoe UI" size="32.0" />
             </font>
@@ -174,22 +208,12 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="267.0" layoutY="144.0" text="Klijent:">
-            <font>
-                <Font name="Segoe UI Bold" size="23.0" />
-            </font>
-        </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="474.0" layoutY="142.0" text="Vozilo:">
-            <font>
-                <Font name="Segoe UI Bold" size="23.0" />
-            </font>
-        </Label>
-        <Label layoutX="469.0" layoutY="274.0" text="Model:">
+        <Label layoutX="469.0" layoutY="280.0" text="Model:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="468.0" layoutY="300.0" text="Marka:">
+        <Label layoutX="468.0" layoutY="306.0" text="Marka:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -204,29 +228,35 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Line endX="-100.0" endY="235.0" fill="#d3d3d3" layoutX="564.0" layoutY="154.0" startX="-100.0" startY="-12.0" stroke="#d7d7d7" />
-        <Line endX="-100.0" endY="231.0" fill="#d3d3d3" layoutX="359.0" layoutY="154.0" startX="-100.0" startY="-12.0" stroke="#d7d7d7" />
-        <Label layoutX="468.0" layoutY="224.0" text="Kilometraža:">
+        <Line endX="-100.0" endY="262.5" fill="#d3d3d3" layoutX="564.0" layoutY="154.0" startX="-100.0" startY="-12.0" stroke="#d7d7d7">
+         <effect>
+            <DropShadow />
+         </effect></Line>
+        <Line endX="-100.0" endY="256.0" fill="#d3d3d3" layoutX="361.0" layoutY="154.0" startX="-100.0" startY="-12.0" stroke="#d7d7d7">
+         <effect>
+            <DropShadow />
+         </effect></Line>
+        <Label layoutX="468.0" layoutY="230.0" text="Kilometraža:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="468.0" layoutY="328.0" text="Godište:">
+        <Label layoutX="468.0" layoutY="334.0" text="Godište:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="267.0" layoutY="216.0" text="Telefon:">
+        <Label layoutX="267.0" layoutY="235.0" text="Telefon:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="267.0" layoutY="259.0" text="e-mail:">
+        <Label layoutX="267.0" layoutY="278.0" text="e-mail:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="267.0" layoutY="303.0" text="Adresa:">
+        <Label layoutX="267.0" layoutY="321.0" text="Adresa:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
@@ -238,142 +268,180 @@
             </image>
         </ImageView>
         <Label layoutX="150.0" layoutY="924.0" text="Ovaj račun je validan bez pečata i potpisa po identidfikacionom broju u zaglavlju." />
-        <Label layoutX="267.0" layoutY="348.0" text="Mesto:">
+        <Label layoutX="267.0" layoutY="364.0" text="Mesto:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="10.0" layoutY="379.0" text="Žiro Račun:">
+        <Label layoutX="10.0" layoutY="388.0" text="Žiro Račun:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <TextField fx:id="txtfZiroRacunFirmeNaRacunu" layoutX="75.0" layoutY="373.0" prefHeight="25.0" prefWidth="180.0">
+        <TextField fx:id="txtfZiroRacunFirmeNaRacunu" layoutX="75.0" layoutY="382.0" prefHeight="25.0" prefWidth="180.0">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="txtfGrandTotaluRacunu" layoutX="79.0" layoutY="258.0" prefHeight="25.0" prefWidth="175.0">
+        <TextField fx:id="txtfGrandTotaluRacunu" layoutX="77.0" layoutY="260.0" prefHeight="25.0" prefWidth="175.0">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </TextField>
-        <Label layoutX="11.0" layoutY="266.0" text="Za Uplatu:">
+        <Label layoutX="9.0" layoutY="268.0" text="Za Uplatu:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
             </font>
         </Label>
-        <TextField fx:id="txtfAdresaFirmeNaRacunu" layoutX="5.0" layoutY="317.0" prefHeight="25.0" prefWidth="249.0">
+        <TextField fx:id="txtfAdresaFirmeNaRacunu" layoutX="5.0" layoutY="322.0" prefHeight="25.0" prefWidth="249.0">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="txtfGradFirmeNaRacunu" layoutX="5.0" layoutY="345.0" prefHeight="25.0" prefWidth="249.0">
+        <TextField fx:id="txtfGradFirmeNaRacunu" layoutX="5.0" layoutY="352.0" prefHeight="25.0" prefWidth="249.0">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="txtfImeFirmeNaRaacunu" layoutX="5.0" layoutY="288.0" prefHeight="27.0" prefWidth="249.0">
+        <TextField fx:id="txtfImeFirmeNaRaacunu" layoutX="5.0" layoutY="290.0" prefHeight="27.0" prefWidth="249.0">
             <font>
                 <Font name="Segoe UI Bold" size="13.0" />
             </font>
         </TextField>
-        <Line endX="562.0000610351562" fill="#5e5e5e" layoutX="105.0" layoutY="405.0" startX="-95.0" stroke="#d0d0d0">
+        <Line endX="562.0000610351562" fill="#5e5e5e" layoutX="105.0" layoutY="417.0" startX="-95.0" stroke="#d0d0d0">
             <effect>
                 <DropShadow />
             </effect>
         </Line>
-        <TextField fx:id="txtfUkupnoSadPopustomNaDelove" layoutX="520.0" layoutY="784.0">
+        <TextField fx:id="txtfUkupnoSadPopustomNaDelove" layoutX="520.0" layoutY="784.0" prefHeight="25.0">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
+         <effect>
+            <DropShadow offsetY="2.0" />
+         </effect>
         </TextField>
         <Line endX="542.0" layoutX="123.0" layoutY="855.0" startX="278.0" stroke="#9a9a9a" />
-        <Label layoutX="470.0" layoutY="381.0" text="Snaga:">
+        <Label layoutX="470.0" layoutY="387.0" text="Snaga KW:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="470.0" layoutY="355.0" text="Gorivo:">
+        <Label layoutX="470.0" layoutY="361.0" text="Gorivo:">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-      <TextField fx:id="txtFidKlijenta" editable="false" layoutX="346.0" layoutY="143.0" prefHeight="31.0" prefWidth="112.0">
+      <TextField fx:id="txtfImePrezimeKllijenta" alignment="CENTER" layoutX="267.0" layoutY="194.0" prefHeight="33.0" prefWidth="190.0" text="Milutin Milanokiv ">
          <font>
             <Font name="Segoe UI Bold" size="16.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </TextField>
-      <TextField fx:id="txtfIdAutomobila" editable="false" layoutX="555.0" layoutY="143.0" prefHeight="31.0" prefWidth="106.0">
-         <font>
-            <Font name="Segoe UI Bold" size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txtfImePrezimeKllijenta" alignment="CENTER" layoutX="267.0" layoutY="178.0" prefHeight="33.0" prefWidth="190.0" text="Milutin Milanokiv ">
-         <font>
-            <Font name="Segoe UI Bold" size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txtfTelefonKlijenta" layoutX="267.0" layoutY="232.0" prefHeight="25.0" prefWidth="190.0">
+      <TextField fx:id="txtfTelefonKlijenta" layoutX="267.0" layoutY="251.0" prefHeight="25.0" prefWidth="190.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfEmailKlijenta" layoutX="266.0" layoutY="275.0" prefHeight="25.0" prefWidth="190.0">
+      <TextField fx:id="txtfEmailKlijenta" layoutX="266.0" layoutY="294.0" prefHeight="25.0" prefWidth="190.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfAdresaKlijenta" layoutX="267.0" layoutY="318.0" prefHeight="25.0" prefWidth="190.0">
+      <TextField fx:id="txtfAdresaKlijenta" layoutX="267.0" layoutY="336.0" prefHeight="25.0" prefWidth="190.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfGradKlijenta" layoutX="267.0" layoutY="364.0" prefHeight="25.0" prefWidth="190.0">
+      <TextField fx:id="txtfGradKlijenta" layoutX="267.0" layoutY="380.0" prefHeight="25.0" prefWidth="190.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfKilometraza" layoutX="546.0" layoutY="219.0" prefHeight="25.0" prefWidth="116.0">
+      <TextField fx:id="txtfKilometraza" layoutX="546.0" layoutY="225.0" prefHeight="25.0" prefWidth="116.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfVinAutomobila" layoutX="514.0" layoutY="245.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfVinAutomobila" layoutX="514.0" layoutY="251.0" prefHeight="25.0" prefWidth="149.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfModelAutomobila" layoutX="514.0" layoutY="271.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfModelAutomobila" layoutX="514.0" layoutY="277.0" prefHeight="25.0" prefWidth="149.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfMarkaAutomobila" layoutX="514.0" layoutY="297.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfMarkaAutomobila" layoutX="514.0" layoutY="303.0" prefHeight="25.0" prefWidth="149.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfGodisteAutomobila" layoutX="514.0" layoutY="323.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfGodisteAutomobila" layoutX="537.0" layoutY="329.0" prefHeight="25.0" prefWidth="126.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfVrstaGorivaAutomobila" layoutX="514.0" layoutY="349.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfVrstaGorivaAutomobila" layoutX="537.0" layoutY="355.0" prefHeight="25.0" prefWidth="126.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfSnagaAutomobila" layoutX="513.0" layoutY="375.0" prefHeight="25.0" prefWidth="149.0">
+      <TextField fx:id="txtfSnagaAutomobila" layoutX="537.0" layoutY="382.0" prefHeight="25.0" prefWidth="126.0">
          <font>
             <Font name="Segoe UI Bold" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtfRegTablicaAutomobila" layoutX="496.0" layoutY="180.0" minHeight="-Infinity" prefHeight="33.0" prefWidth="160.0">
+      <TextField fx:id="txtfRegTablicaAutomobila" alignment="CENTER" layoutX="487.0" layoutY="187.0" minHeight="-Infinity" prefHeight="34.0" prefWidth="173.0">
          <font>
             <Font name="Segoe UI Bold" size="19.0" />
          </font>
       </TextField>
-      <Button fx:id="btnPrintClose" layoutX="402.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintActClose" prefHeight="33.0" prefWidth="116.0" text="Zatvori" />
+        <Button fx:id="btnPrintClose" layoutX="341.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnPrintActClose" prefHeight="39.0" prefWidth="135.0">
+            <graphic>
+                <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/btn_close_icon.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+      <Pane layoutX="3.0" layoutY="140.0" prefHeight="61.0" prefWidth="249.0" style="-fx-background-color: #1a1a1a;">
+         <children>
+              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="10.0" text="Račun br:" textFill="#dddddd">
+                  <font>
+                      <Font name="Segoe UI Bold" size="32.0" />
+                  </font>
+              </Label>
+              <TextField fx:id="txtFidRacuna" editable="false" layoutX="149.0" layoutY="16.0" prefHeight="31.0" prefWidth="94.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="265.0" layoutY="136.0" prefHeight="46.0" prefWidth="197.0" style="-fx-background-color: #1a1a1a;">
+         <children>
+              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="8.0" text="Klijent:" textFill="#e4e4e4">
+                  <font>
+                      <Font name="Segoe UI Bold" size="23.0" />
+                  </font>
+              </Label>
+            <TextField fx:id="txtFidKlijenta" editable="false" layoutX="85.0" layoutY="7.0" prefHeight="31.0" prefWidth="106.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
     </children>
 </AnchorPane>

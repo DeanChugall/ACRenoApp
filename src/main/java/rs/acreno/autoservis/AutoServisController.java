@@ -293,7 +293,7 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void zatvoriListViewSearchAutomobil(@NotNull MouseEvent mouseEvent) throws AcrenoException, SQLException {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
             if (listViewAutmobiliSearch.getSelectionModel().getSelectedItems().size() > 0) {
                 //POPUNI TXTFove SA PODACIUMA AUTOMOBILA
@@ -666,7 +666,7 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void zatvoriLvKlijent(@NotNull MouseEvent mouseEvent) {
         //Na dupli click vraca Radni Nalog Objekat i otvara Radni nalog Dashboard
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             if (listViewKlijentiSearch.getSelectionModel().getSelectedItems().size() > 0) {
                 //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
                 String imePrezimeKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getImePrezime();

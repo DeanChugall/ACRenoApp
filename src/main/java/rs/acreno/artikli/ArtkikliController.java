@@ -14,10 +14,12 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
 import org.apache.log4j.Logger;
+import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
@@ -255,6 +257,19 @@ public class ArtkikliController implements Initializable {
                 }
             }
         });
+        //WRAP TEXT IN COLUMN NAZIV ARTKLA
+        tblColNazivArtikla.setCellFactory(tc -> {
+            TableCell<Artikl, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblColNazivArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
+
+
+
         //tblColl OPIS ARTIKLA
         tblColOpisArtikla.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getOpisArtikla()));
@@ -278,6 +293,17 @@ public class ArtkikliController implements Initializable {
                 }
             }
         });
+        //WRAP TEXT IN COLUMN OPIS ARTIKLA
+        tblColOpisArtikla.setCellFactory(tc -> {
+            TableCell<Artikl, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(tblColOpisArtikla.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
+
         //tblColl JEDINICA MERE ARTIKLA
         tblColJedinicaMereArtikla.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getJedinicaMere()));
@@ -301,6 +327,7 @@ public class ArtkikliController implements Initializable {
                 }
             }
         });
+
         //tblColl KOLICINA ARTIKLA
         tblColKolicinaArtikla.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getKolicina()));
