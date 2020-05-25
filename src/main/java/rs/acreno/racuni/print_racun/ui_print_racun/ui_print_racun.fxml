@@ -36,7 +36,7 @@
                 <Image url="@/tablica.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="220.0" layoutY="110.0" prefHeight="18.0" prefWidth="112.0" text="info@acreno.rs" textAlignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="220.0" layoutY="109.0" prefHeight="18.0" prefWidth="112.0" text="info@acreno.rs" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -183,7 +183,7 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="348.0" layoutY="110.0" prefHeight="18.0" prefWidth="112.0" text="www.acreno.rs" textAlignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="348.0" layoutY="109.0" prefHeight="18.0" prefWidth="112.0" text="www.acreno.rs" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -409,14 +409,14 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Pane layoutX="3.0" layoutY="140.0" prefHeight="61.0" prefWidth="249.0" style="-fx-background-color: #1a1a1a;">
+      <Pane layoutX="3.0" layoutY="136.0" prefHeight="46.0" prefWidth="249.0" style="-fx-background-color: #1a1a1a;">
          <children>
-              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="10.0" text="Račun br:" textFill="#dddddd">
+              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="8.0" text="Račun br:" textFill="#dddddd">
                   <font>
-                      <Font name="Segoe UI Bold" size="32.0" />
+                      <Font name="Segoe UI Bold" size="23.0" />
                   </font>
               </Label>
-              <TextField fx:id="txtFidRacuna" editable="false" layoutX="149.0" layoutY="16.0" prefHeight="31.0" prefWidth="94.0">
+              <TextField fx:id="txtFidRacuna" editable="false" layoutX="149.0" layoutY="7.0" prefHeight="31.0" prefWidth="94.0">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>

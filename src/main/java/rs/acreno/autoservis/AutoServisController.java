@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.ArtkikliController;
@@ -49,7 +50,7 @@ public class AutoServisController implements Initializable {
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
 
 
-    @FXML private Line lineInternetIndicator;
+    @FXML private Line lineInternetIndicator; // Internet indikator linija
 
     // 1.0 *************** FXMLs **************************************
     @FXML private Label lblDate;
@@ -148,6 +149,10 @@ public class AutoServisController implements Initializable {
     private final AtomicReference<ObservableList<Klijent>> klijenti =
             new AtomicReference<>(FXCollections.observableArrayList(klijentDAO.findAllKlijents()));
     private Klijent klijent = new Klijent();
+
+    public void setKlijent(Klijent klijent) {
+        this.klijent = klijent;
+    }
 
     /**
      * Empty Constructor if we need this for later use
@@ -386,6 +391,7 @@ public class AutoServisController implements Initializable {
             Stage stageAutomobil = new Stage();
             stageAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
             stageAutomobil.initModality(Modality.APPLICATION_MODAL);
+
             stageAutomobil.setResizable(false);
             Scene scene = new Scene(fxmlLoaderAutomobil.load());
             stageAutomobil.setScene(scene);
@@ -459,6 +465,7 @@ public class AutoServisController implements Initializable {
         Stage stageNewAutomobil = new Stage();
         stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
+        stageNewAutomobil.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
@@ -679,6 +686,7 @@ public class AutoServisController implements Initializable {
                 btnNoviAutomobilInKlijentArea.setDisable(false);
                 listViewKlijentiSearch.setVisible(false); // Zatvori listu
                 popuniTabeluAutomobiliklijenta(klijent);
+                btnOtvoriKlijentEditMode.setDisable(false);
                 //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
                 //openAddEditklijent();
                 // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
@@ -715,6 +723,7 @@ public class AutoServisController implements Initializable {
                 btnNoviAutomobilInKlijentArea.setDisable(false);
                 listViewKlijentiSearch.setVisible(false);
                 popuniTabeluAutomobiliklijenta(klijent);
+                btnOtvoriKlijentEditMode.setDisable(false);
                 break;
             default:
                 break;
@@ -744,16 +753,47 @@ public class AutoServisController implements Initializable {
             stageKljent.setResizable(false);
             stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
 
-            stageKljent.setOnCloseRequest(windowEvent -> logger.debug("stageKljent --> setOnCloseRequest"));
+
 
             //Set AutoServisController u CREATE NEW KLIJENT CONTROLORU  UI
             CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
-            createNewKlijentUiController.setAutoServisController(this);
+            createNewKlijentUiController.setAutoServisController(this, stageKljent);
             createNewKlijentUiController.setWeAreInEditMode(true);
 
             createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
 
+            stageKljent.setOnCloseRequest(windowEvent -> {
+                logger.debug("stageKljent --> setOnCloseRequest: " + createNewKlijentUiController.isDeleteButtonPressed());
+                //Ako je Klijent ID =0 to znaci da nismo sacuvali ili uneli Klijenta pa dugme novi automobil mora biti DISABLE
+                if (klijent.getIdKlijenta() == 0) {
+                    btnNoviAutomobilInKlijentArea.setDisable(true);
+                    btnNoviAutomobil.setDisable(true);
+                    btnOtvoriKlijentEditMode.setDisable(true);
+
+                }
+                if (klijent.getIdKlijenta() != 0) {
+                    txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                    txtFieldRegOznaka.setText("");
+                    txtFieldRegOznaka.requestFocus();
+                    btnNoviAutomobilInKlijentArea.setDisable(false);
+                    btnNoviAutomobil.setDisable(false);
+                    btnOtvoriKlijentEditMode.setDisable(false);
+                }
+                if (createNewKlijentUiController.isDeleteButtonPressed()) {
+                    btnNoviAutomobilInKlijentArea.setDisable(true);
+                    btnNoviAutomobil.setDisable(true);
+                    btnOtvoriAutomobilKarticu.setDisable(true);
+                    btnUrediAutomobil.setDisable(true);
+                    btnUrediAutomobilFromKlijent.setDisable(true);
+                    btnOtvoriKlijentEditMode.setDisable(true);
+                    txtFieldRegOznaka.setText("");
+                    txtFieldPretragaKlijenta.setText("");
+                    tblAutomobiliInKlijent.getItems().clear();
+                    tblAutomobiliInKlijent.refresh();
+                }
+            });
             stageKljent.showAndWait();
+
         } else {
             GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Nije izabran nijedan Klijent !"
                     , "Greška !"
@@ -776,20 +816,54 @@ public class AutoServisController implements Initializable {
         Stage stageNewKlijent = new Stage();
         stageNewKlijent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_CLIENTS_ICON)));
         stageNewKlijent.initModality(Modality.APPLICATION_MODAL);
+        stageNewKlijent.initStyle(StageStyle.UNDECORATED);
         stageNewKlijent.setResizable(false);
         Scene scene = new Scene(fxmlLoaderNewKlijent.load());
         stageNewKlijent.setScene(scene);
         stageNewKlijent.setResizable(false);
         stageNewKlijent.setTitle("Kreiranje Novog Klijenta");
 
+        //Set AutoServisController u "ARTIKLI_UI_VIEW_URI"  UI
+        CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderNewKlijent.getController();
+        createNewKlijentUiController.setAutoServisController(this, stageNewKlijent);
+
+
         //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
         stageNewKlijent.setOnCloseRequest(windowEvent -> {
-            logger.debug("stageNewKlijent --> setOnCloseRequest");
-            txtFieldRegOznaka.setText("");
-            txtFieldRegOznaka.requestFocus();
-            txtFieldPretragaKlijenta.setText("");
-            btnOtvoriKlijentEditMode.setDisable(true);
+            logger.debug("stageNewKlijent --> setOnCloseRequest: " + createNewKlijentUiController.isDeleteButtonPressed());
+
+            //Ako je Klijent ID =0 to znaci da nismo sacuvali ili uneli Klijenta pa dugme novi automobil mora biti DISABLE
+            if (klijent.getIdKlijenta() == 0) {
+                btnNoviAutomobilInKlijentArea.setDisable(true);
+                btnNoviAutomobil.setDisable(true);
+                btnOtvoriKlijentEditMode.setDisable(true);
+
+            }
+            if (klijent.getIdKlijenta() != 0) {
+                txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                txtFieldRegOznaka.setText("");
+                txtFieldRegOznaka.requestFocus();
+                btnNoviAutomobilInKlijentArea.setDisable(false);
+                btnNoviAutomobil.setDisable(false);
+                btnOtvoriKlijentEditMode.setDisable(false);
+            }
+            if (createNewKlijentUiController.isDeleteButtonPressed()) {
+                btnNoviAutomobilInKlijentArea.setDisable(true);
+                btnNoviAutomobil.setDisable(true);
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+                btnUrediAutomobilFromKlijent.setDisable(true);
+                btnOtvoriKlijentEditMode.setDisable(true);
+                txtFieldRegOznaka.setText("");
+                txtFieldPretragaKlijenta.setText("");
+                tblAutomobiliInKlijent.getItems().clear();
+                tblAutomobiliInKlijent.refresh();
+            }
+
+
+            //btnOtvoriKlijentEditMode.setDisable(true);
             listViewKlijentiSearch.setVisible(false);
+
         });
         stageNewKlijent.showAndWait();
     }
@@ -877,6 +951,24 @@ public class AutoServisController implements Initializable {
     }
 
     // 6.0 *************** BUTTONs STAFF ***************************
+
+    /**
+     * Print Blanko radnih Naloga
+     * Samo otvara {@link rs.acreno.nalozi.RadniNalogController} i implementira mogucnost stampanja
+     * blanko {@link rs.acreno.nalozi.RadniNalog}-a.
+     *
+     * @param actionEvent if we need in some case
+     * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
+     */
+    @FXML private void btnPrintBlankoRadniNalogAct(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoaderRadniNalog = new FXMLLoader(getClass().getResource(Constants.PRINT_BLANKO_RADNI_NALOG_UI_VIEW_URI));
+        Stage stageRadniNalog = new Stage();
+        stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
+        stageRadniNalog.setResizable(false);
+        stageRadniNalog.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
+        stageRadniNalog.showAndWait();
+    }
 
     /**
      * Kada se klikne na BORDER PANE da se zatvori {@link #listViewAutmobiliSearch}, {@link #listViewKlijentiSearch}

@@ -10,56 +10,52 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
+<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
     <top>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <effect>
                 <DropShadow />
             </effect>
-            <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="997.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="59.0" prefWidth="176.0">
-                <font>
-                    <Font name="Segoe UI" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                        <effect>
-                            <DropShadow />
-                        </effect>
-                        <Image url="@/btn_close_icon.png" />
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="DEFAULT" />
-                </cursor>
-                <effect>
-                    <DropShadow />
-                </effect>
-            </Button>
-            <Label layoutX="140.0" layoutY="36.0" text="KARTICA ARTIKLI" textFill="WHITE">
-                <font>
-                    <Font name="Segoe UI" size="44.0" />
-                </font>
-            </Label>
-            <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="10.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@/auto_servis/bar_code_home.png" />
-            </ImageView>
-            <Button layoutX="772.0" layoutY="76.0" mnemonicParsing="false" text="Button" />
+         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1180.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                  <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="36.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@/auto_servis/bar_code_home.png" />
+                  </ImageView>
+                  <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="980.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="59.0" prefWidth="176.0">
+                      <font>
+                          <Font name="Segoe UI" size="12.0" />
+                      </font>
+                      <graphic>
+                          <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                              <effect>
+                                  <DropShadow />
+                              </effect>
+                              <Image url="@/btn_close_icon.png" />
+                          </ImageView>
+                      </graphic>
+                      <cursor>
+                          <Cursor fx:constant="DEFAULT" />
+                      </cursor>
+                      <effect>
+                          <DropShadow />
+                      </effect>
+                  </Button>
+                  <Label layoutX="157.0" layoutY="28.0" text="KARTICA ARTIKLI" textFill="WHITE">
+                      <font>
+                          <Font name="Segoe UI" size="44.0" />
+                      </font>
+                  </Label>
+            </children>
+         </Pane>
         </AnchorPane>
     </top>
-    <bottom>
-        <AnchorPane prefHeight="24.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
-            <effect>
-                <DropShadow />
-            </effect>
-        </AnchorPane>
-    </bottom>
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Pane layoutX="9.0" layoutY="14.0" prefHeight="586.0" prefWidth="842.0" style="-fx-background-color: #252525;" AnchorPane.leftAnchor="9.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+            <Pane layoutX="7.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="836.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="357.0" AnchorPane.topAnchor="1.0">
                 <effect>
                     <DropShadow />
                 </effect>
-                <Label layoutX="-4.0" prefHeight="63.0" prefWidth="817.0" style="-fx-background-color: #1a1a1a;" text="PRETRAGA ARTIKALA / DELOVA" textFill="#c3c3c3">
+                <Label layoutX="-4.0" prefHeight="63.0" prefWidth="849.0" style="-fx-background-color: #1a1a1a;" text="PRETRAGA ARTIKALA / DELOVA" textFill="#c3c3c3">
                     <font>
                         <Font name="Segoe UI" size="20.0" />
                     </font>
@@ -138,7 +134,7 @@
                     </effect>
                 </Button>
             </Pane>
-            <Pane fx:id="paneUnosArtikli" layoutX="871.0" layoutY="14.0" minHeight="-Infinity" prefHeight="583.0" prefWidth="323.0" style="-fx-background-color: #252525;" AnchorPane.rightAnchor="6.0">
+            <Pane fx:id="paneUnosArtikli" layoutX="873.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="313.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="873.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                 <effect>
                     <DropShadow />
                 </effect>
@@ -305,4 +301,13 @@
             </Pane>
         </AnchorPane>
     </center>
+   <left>
+      <AnchorPane prefHeight="719.0" prefWidth="11.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="719.0" prefWidth="5.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

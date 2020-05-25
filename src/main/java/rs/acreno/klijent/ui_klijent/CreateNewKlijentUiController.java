@@ -3,7 +3,7 @@ package rs.acreno.klijent.ui_klijent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
@@ -62,6 +61,7 @@ public class CreateNewKlijentUiController implements Initializable {
      * Referenca ka {@link AutoServisController}-u
      */
     private final AtomicReference<AutoServisController> autoServisController = new AtomicReference<>();
+    private Stage stageAutoServis;
 
     /**
      * Objasnjeno u {@link #initialize(URL, ResourceBundle)}
@@ -80,6 +80,12 @@ public class CreateNewKlijentUiController implements Initializable {
      * Objasnjenjo u {@link #btnZatvoriCreateKlijentUi()}
      */
     private boolean isCloseButtonPresed = false;
+
+    private boolean isDeleteButtonPressed = false;
+
+    public boolean isDeleteButtonPressed() {
+        return isDeleteButtonPressed;
+    }
 
     private Klijent klijent;
 
@@ -114,6 +120,8 @@ public class CreateNewKlijentUiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
+
+
             try {
                 if (!isWeAreInEditMode()) {
                     klijent = new Klijent();
@@ -123,6 +131,8 @@ public class CreateNewKlijentUiController implements Initializable {
                 e.printStackTrace();
             }
             initGUI();
+
+
         });
     }
 
@@ -168,10 +178,13 @@ public class CreateNewKlijentUiController implements Initializable {
                 int tempIDKlijenta = klijentDAO.findAllKlijents().get(klijenti.size() - 1).getIdKlijenta();
                 klijent.setIdKlijenta(tempIDKlijenta); // ako se predomislimo i hocemo da obrisemo ovde postavljamo ID
                 txtfIdKlijenta.setText(String.valueOf(tempIDKlijenta)); // Ubaci ID kojenta u TF "txtfIdKlijenta"
+                LocalDate now = LocalDate.now();
+                datePicDatumAdregistracijeKlijenta.setValue(now); //Postavi danasnji datum Racuna u datePiceru
             } catch (AcrenoException | SQLException e) {
                 e.printStackTrace();
             }
         }
+
     }
 
     /**
@@ -189,52 +202,62 @@ public class CreateNewKlijentUiController implements Initializable {
      * @see Klijent
      */
     @FXML private void saveKlijent() throws AcrenoException {
-        try {
-
-            //klijent = new Klijent();
-            klijent.setIdKlijenta(Integer.parseInt(txtfIdKlijenta.getText()));
-            klijent.setImePrezime(txtfImePrezimeKlijenta.getText());
-            klijent.setMesto(txtfGradKlijenta.getText());
-            klijent.setPostanskiBroj(txtfPosatanskiBrojKlijenta.getText());
-            klijent.setTelefonMobilni(txtfMobilniTelefonKlijenta.getText());
-            klijent.setTelefonFiksni(txtfFiksniTelefonKlijenta.getText());
-            klijent.setEmail(txrfEmailKlijenta.getText());
-            klijent.setUlicaBroj(txtfUlicaBrojKlijenta.getText());
-            klijent.setOstaliDetalji(txtaOstaliDetaljiKlijenta.getText());
-            klijent.setMaticniBroj(txtfMaticniBrojKlijenta.getText());
-            klijent.setBrLicneKarte(txtfBrojLicneKarteKlijenta.getText());
-            klijent.setBrojRacuna(txtfBrojZiroRacunaKlijenta.getText());
-            klijent.setBanka(txtfBankaKlijenta.getText());
-            klijent.setWeb(txtfWebSajtKlijenta.getText());
-            klijent.setDatumAcrRegistracijeKliljenta(
-                    GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
-        } catch (IllegalArgumentException exception) {
-            logger.error("From saveKlijent() sa porukom: " + exception);
-        }
-        try {
-            klijentDAO.updateKlijent(klijent);
-
-            if (!isCloseButtonPresed) {
-                GeneralUiUtility.alertDialogBox(
-                        Alert.AlertType.INFORMATION,
-                        "USPESNO SACUVAN KLIJENT: " + klijent.getIdKlijenta(),
-                        "EDITOVANJE KLIJENTA: " + klijent.getImePrezime(),
-                        "Uspesno sačuvane izmene Klijenta: " + klijent.getImePrezime() + " !"
-                );
-            }
-        } catch (AcrenoException | SQLException e) {
-
+        if (txtfImePrezimeKlijenta.getText().isEmpty()) {
             GeneralUiUtility.alertDialogBox(
                     Alert.AlertType.INFORMATION,
-                    "GRESKA U CUVANJU KLIJENTA",
+                    "Niste Uneli Ime klijenta@",
                     "EDITOVANJE KLIJENTA",
-                    "Niste sacuvali  KLIJENTA br." + klijent.getImePrezime()
-                            + ", Kontatiraj Administratora sa porukom: \n"
-                            + e.getMessage()
+                    "Niste Uneli Ime klijenta!"
+
             );
-            throw new AcrenoException("Greska iz CREATE NEW CLINET CONTROLORA\n" + e.getMessage());
+        } else {
+            try {
+                //klijent = new Klijent();
+                klijent.setIdKlijenta(Integer.parseInt(txtfIdKlijenta.getText()));
+                klijent.setImePrezime(txtfImePrezimeKlijenta.getText());
+                klijent.setMesto(txtfGradKlijenta.getText());
+                klijent.setPostanskiBroj(txtfPosatanskiBrojKlijenta.getText());
+                klijent.setTelefonMobilni(txtfMobilniTelefonKlijenta.getText());
+                klijent.setTelefonFiksni(txtfFiksniTelefonKlijenta.getText());
+                klijent.setEmail(txrfEmailKlijenta.getText());
+                klijent.setUlicaBroj(txtfUlicaBrojKlijenta.getText());
+                klijent.setOstaliDetalji(txtaOstaliDetaljiKlijenta.getText());
+                klijent.setMaticniBroj(txtfMaticniBrojKlijenta.getText());
+                klijent.setBrLicneKarte(txtfBrojLicneKarteKlijenta.getText());
+                klijent.setBrojRacuna(txtfBrojZiroRacunaKlijenta.getText());
+                klijent.setBanka(txtfBankaKlijenta.getText());
+                klijent.setWeb(txtfWebSajtKlijenta.getText());
+                klijent.setDatumAcrRegistracijeKliljenta(
+                        GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
+            } catch (IllegalArgumentException exception) {
+                logger.error("From saveKlijent() sa porukom: " + exception);
+            }
+            try {
+                klijentDAO.updateKlijent(klijent);
+                autoServisController.get().setKlijent(klijent);
+                if (!isCloseButtonPresed) {
+                    GeneralUiUtility.alertDialogBox(
+                            Alert.AlertType.INFORMATION,
+                            "USPESNO SACUVAN KLIJENT: " + klijent.getIdKlijenta(),
+                            "EDITOVANJE KLIJENTA: " + klijent.getImePrezime(),
+                            "Uspesno sačuvane izmene Klijenta: " + klijent.getImePrezime() + " !"
+
+                    );
+                    btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
+                }
+            } catch (AcrenoException | SQLException e) {
+
+                GeneralUiUtility.alertDialogBox(
+                        Alert.AlertType.INFORMATION,
+                        "GRESKA U CUVANJU KLIJENTA",
+                        "EDITOVANJE KLIJENTA",
+                        "Niste sacuvali  KLIJENTA br." + klijent.getImePrezime()
+                                + ", Kontatiraj Administratora sa porukom: \n"
+                                + e.getMessage()
+                );
+                throw new AcrenoException("Greska iz CREATE NEW CLINET CONTROLORA\n" + e.getMessage());
+            }
         }
-        //btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     /**
@@ -262,8 +285,9 @@ public class CreateNewKlijentUiController implements Initializable {
      * @param autoServisController referenca ka {@link AutoServisController} kontroloru
      * @see AutoServisController
      */
-    public void setAutoServisController(AutoServisController autoServisController) {
+    public void setAutoServisController(AutoServisController autoServisController, Stage stageAutoServis) {
         this.autoServisController.set(autoServisController);
+        this.stageAutoServis = stageAutoServis;
         //isWeAreInEditMode = false;
     }
 
@@ -277,7 +301,7 @@ public class CreateNewKlijentUiController implements Initializable {
      * @see #initGUI()
      */
     @FXML private void btnObrisiKlijenta() throws AcrenoException, SQLException {
-
+        isDeleteButtonPressed = true;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrda brisanja Klijenta: " + txtfIdKlijenta.getText());
         alert.setHeaderText("Brisanje Klijenta: " + txtfIdKlijenta.getText());
@@ -287,7 +311,8 @@ public class CreateNewKlijentUiController implements Initializable {
         if (result.isPresent()) {
             if (result.get() == ButtonType.OK) {
                 klijentDAO.deleteKlijent(klijent);
-                btnCloseCreateEditKlijent.fire();
+                //btnCloseCreateEditKlijent.fire();
+                btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
             }
         }
     }

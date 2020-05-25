@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.print_blanko_nalozi.PrintBlankoNaloziController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="ACReno Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Button fx:id="btnPrint" layoutX="479.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnPrintAct" prefHeight="39.0" prefWidth="79.0" text="Print" />
+
+        <TextField fx:id="txtFidRadnogNaloga" layoutX="134.0" layoutY="88.0" prefHeight="39.0" prefWidth="192.0">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </TextField>
+        <ImageView fitHeight="74.0" fitWidth="141.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/faktura/logo-acreno.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="74.0" fitWidth="311.0" layoutX="339.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/tablica.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="txtRegTablica" alignment="CENTER" editable="false" focusTraversable="false" layoutX="370.0" layoutY="89.0" prefHeight="59.0" prefWidth="275.0">
+            <font>
+                <Font name="Segoe UI Bold" size="32.0" />
+            </font>
+        </TextField>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="88.0" prefHeight="33.0" prefWidth="115.0" text="RN #">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="36.0" layoutY="179.0" text="Datum" />
+        <Label layoutX="223.0" layoutY="179.0" text="Vreme" />
+        <Label layoutX="407.0" layoutY="179.0" text="Kilometraza" />
+        <Label layoutX="36.0" layoutY="242.0" text="Detalji Klijenta:" />
+        <Label layoutX="32.0" layoutY="494.0" text="Detalji Servisera:" />
+        <TextArea fx:id="txtAreaDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="19.0" layoutY="273.0" prefHeight="200.0" prefWidth="615.0" />
+        <TextArea fx:id="txtAreaDetaljiServisera" editable="false" focusTraversable="false" layoutX="32.0" layoutY="524.0" prefHeight="200.0" prefWidth="615.0" />
+        <TextField fx:id="txtfDatum" layoutX="20.0" layoutY="205.0" />
+        <TextField fx:id="txtfVreme" layoutX="221.0" layoutY="205.0" />
+        <TextField fx:id="txtfKilometraza" layoutX="407.0" layoutY="205.0" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="134.0" prefHeight="33.0" prefWidth="124.0" text="Klijent">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtfKlijent" layoutX="134.0" layoutY="133.0" prefHeight="39.0" prefWidth="192.0">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </TextField>
+        <Button fx:id="btnPrintZatvori" layoutX="584.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnZatvoriPrintAct" prefHeight="39.0" prefWidth="63.0" text="Zatvori" />
+
+    </children>
+</AnchorPane>

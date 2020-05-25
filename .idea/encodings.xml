@@ -10,7 +10,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/defektaza/print_defektaza/ui_print_defektaza" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/defektaza/ui_defektaza" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/klijent/ui_klijent" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/nalozi/print_nalozi/ui_print_nalozi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/nalozi/print_blanko_nalozi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/nalozi/ui_print_nalozi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/nalozi/ui_radni_nalozi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/racuni/faktura/ui_faktura" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/acreno/racuni/print_racun/ui_print_racun" charset="UTF-8" />

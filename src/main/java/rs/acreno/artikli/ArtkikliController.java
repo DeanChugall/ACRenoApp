@@ -87,7 +87,6 @@ public class ArtkikliController implements Initializable {
     @FXML private ListView<Artikl> lvArtiklSearch;
 
     // 2.0 *************** REFERENCE KA AutoServisController-u **********
-
     /**
      * Referenca ka {@link AutoServisController}-u
      */

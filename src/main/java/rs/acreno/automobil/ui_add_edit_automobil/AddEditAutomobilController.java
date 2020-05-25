@@ -67,6 +67,12 @@ public class AddEditAutomobilController implements Initializable {
 
 
     private boolean isCloseButtonPresed = false;
+    private boolean isDeleteButtonPressed = false;
+
+    public boolean isDeleteButtonPressed() {
+        return isDeleteButtonPressed;
+    }
+
     private Stage stageCreateNewAutomobil;
     private boolean isWeAreInEditModeAutomobil;
     private Automobil automobil;
@@ -159,7 +165,7 @@ public class AddEditAutomobilController implements Initializable {
      * @param isEditMode da li smo u EDIT MODU ILI NE
      */
     private void newOrEditAutomobil(boolean isEditMode) {
-        if (isEditMode) { //NOT EDIT MODE (TRUE)
+        if (isEditMode) { //EDIT MODE (TRUE)
             txtfIdKAutomobila.setDisable(false);
             txtfIdKAutomobila.setText(String.valueOf(getAutomobil().getIdAuta()));
             txtFieldRegOznaka.setText(getAutomobil().getRegOznaka());
@@ -276,6 +282,7 @@ public class AddEditAutomobilController implements Initializable {
      * @throws SQLException    Greska u {@link AutomobilDAO#deleteAutomobil(Automobil)}
      */
     public void btnObrisiAutomobilAct(ActionEvent actionEvent) throws AcrenoException, SQLException {
+        isDeleteButtonPressed = true;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrda Brisanja Automobila: " + txtfIdKAutomobila.getText());
         alert.setHeaderText("Brisanja Automobila: " + txtFieldRegOznaka.getText());

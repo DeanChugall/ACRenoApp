@@ -20,7 +20,7 @@ import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.nalozi.print_nalozi.PrintNaloziController;
+import rs.acreno.nalozi.ui_print_nalozi.PrintNaloziController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;

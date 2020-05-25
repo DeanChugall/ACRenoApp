@@ -1,4 +1,4 @@
-package rs.acreno.nalozi.print_nalozi;
+package rs.acreno.nalozi.ui_print_nalozi;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

@@ -10,170 +10,10 @@
 
 <BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
     <center>
-        <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
+        <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="662.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-            <Pane layoutX="10.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="726.0" AnchorPane.topAnchor="70.0">
+            <Pane layoutX="709.0" layoutY="13.0" prefHeight="357.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
-                  <Region layoutX="3.0" layoutY="7.0" prefHeight="355.0" prefWidth="671.0" style="-fx-background-color: #252525;">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Region>
-                      <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="9.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/tablica.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                      </ImageView>
-                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="453.0" layoutY="91.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="213.0" text="   AUTOMOBIL KARTICA">
-                     <graphic>
-                        <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/car_home.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="3.0" layoutY="266.0" prefHeight="17.0" prefWidth="446.0" text="CTRL+C otvori sve || strelice gore..dole || ENTER za odabir  *** CTRL+C otvori karticu" textFill="#c3c3c3" />
-                  <Label alignment="CENTER" layoutX="92.0" layoutY="285.0" prefHeight="17.0" prefWidth="257.0" text="ILI  CLICK NA TRAZENU REGISTRACIJU" textFill="#c3c3c3" />
-                  <Label focusTraversable="false" layoutX="-4.0" layoutY="18.0" prefHeight="63.0" prefWidth="686.0" style="-fx-background-color: #1a1a1a;" text="         AUTOMOBILI" textFill="#c3c3c3">
-                     <font>
-                        <Font name="Segoe UI" size="48.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Label>
-                  <Button fx:id="btnNoviAutomobil" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="452.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="213.0" text="NOVI AUTOMOBIL">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/add_car_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="453.0" layoutY="190.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="213.0" text="UREDI AUTOMOBIL">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="44.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/edit_icon.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="32.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/auto_servis/car_home.png" />
-                     </image>
-                     <effect>
-                        <DropShadow height="121.81" radius="61.8875" width="127.74" />
-                     </effect>
-                  </ImageView>
-                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="187.0" layoutY="242.0">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" layoutX="188.0" layoutY="225.0" prefHeight="17.0" prefWidth="147.0" text="Model" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfMarkaAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="14.0" layoutY="243.0">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" layoutX="15.0" layoutY="226.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="363.0" layoutY="242.0" prefHeight="23.0" prefWidth="77.0">
-                     <font>
-                        <Font name="Segoe UI Bold" size="10.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" layoutX="364.0" layoutY="224.0" prefHeight="17.0" prefWidth="74.0" text="Gorivo" textFill="#c3c3c3" />
-                  <Label alignment="CENTER" layoutX="12.0" layoutY="182.0" prefHeight="17.0" prefWidth="268.0" text="VIN" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="200.0" prefHeight="23.0" prefWidth="269.0">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtfGodisteAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="300.0" layoutY="200.0" prefHeight="23.0" prefWidth="139.0">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" layoutX="302.0" layoutY="182.0" prefHeight="17.0" prefWidth="136.0" text="Godište" textFill="#c3c3c3" />
-                      <ListView fx:id="listViewAutmobiliSearch" layoutX="51.0" layoutY="176.0" onKeyReleased="#listViewAutmobiliSearchKeyReleased" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="350.0" visible="false">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </ListView>
-                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="30.0" layoutX="450.0" layoutY="306.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="53.0" prefWidth="216.0" text="Učitaj Saobraćajnu">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/auto_servis/ucitaj_saobracajnu_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="58.0" layoutY="98.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Traži Automobil...">
-                          <font>
-                              <Font name="System Bold" size="34.0" />
-                          </font>
-                      </TextField>
-                  <Button disable="true" graphicTextGap="10.0" layoutX="6.0" layoutY="306.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="139.0" text="Zakaži Servis">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/faktura/calendar_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font></Button>
-               </children>
-            </Pane>
-            <Pane layoutX="711.0" layoutY="76.0" prefHeight="357.0" prefWidth="677.0">
-               <children>
-                  <Region layoutX="1.0" prefHeight="357.0" prefWidth="672.0" style="-fx-background-color: #252525;">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Region>
                   <Label focusTraversable="false" layoutX="-8.0" layoutY="8.0" prefHeight="63.0" prefWidth="688.0" style="-fx-background-color: #1a1a1a;" text="       KLIJENTI" textFill="#c3c3c3">
                      <font>
                         <Font name="Segoe UI" size="48.0" />
@@ -210,7 +50,7 @@
                   </Button>
                   <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="5.0" layoutY="221.0" prefHeight="130.0" prefWidth="659.0" stylesheets="@/table-view.css">
                       <placeholder>
-                          <Label text="Odaberite Klijenta da vidite Automobile." />
+                          <Label text="Odaberite Klijenta da vidite Automobile, ili unesite novi Automobl!" />
                       </placeholder>
                     <columns>
                       <TableColumn fx:id="tblColIDAutomobila" prefWidth="75.0" text="ID AUTO" visible="false" />
@@ -270,7 +110,7 @@
                         <DropShadow />
                      </effect>
                   </TextField>
-                  <Button fx:id="btnOtvoriKlijentEditMode" graphicTextGap="8.0" layoutX="486.0" layoutY="76.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="74.0" prefWidth="177.0" text="OTVORI KLIJENTA">
+                  <Button fx:id="btnOtvoriKlijentEditMode" disable="true" graphicTextGap="8.0" layoutX="486.0" layoutY="76.0" mnemonicParsing="false" onAction="#openAddEditklijent" prefHeight="74.0" prefWidth="177.0" text="OTVORI KLIJENTA">
                      <graphic>
                         <ImageView fitHeight="41.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -307,14 +147,12 @@
                      </graphic>
                   </Button>
                </children>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Pane>
-            <Pane layoutX="12.0" layoutY="444.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="277.0" prefWidth="680.0">
+            <Pane layoutX="10.0" layoutY="379.0" minWidth="-Infinity" prefHeight="244.0" prefWidth="680.0" style="-fx-background-color: #252525;">
                <children>
-                  <Region layoutX="3.0" prefHeight="272.0" prefWidth="671.0" style="-fx-background-color: #252525;">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Region>
                   <Label focusTraversable="false" layoutX="-4.0" layoutY="2.0" prefHeight="63.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" text="         ARTIKLI" textFill="#c3c3c3">
                      <font>
                         <Font name="Segoe UI" size="48.0" />
@@ -331,9 +169,6 @@
                      <image>
                         <Image url="@/auto_servis/bar_code_home.png" />
                      </image>
-                     <effect>
-                        <DropShadow height="157.4" radius="69.30250000000001" width="121.81" />
-                     </effect>
                   </ImageView>
                   <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" graphicTextGap="20.0" layoutX="450.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="216.0" text="KARTICA ARTIKLI">
                      <graphic>
@@ -354,6 +189,174 @@
                      </font>
                   </Button>
                </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="680.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
+               <children>
+                      <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="9.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/tablica.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                      </ImageView>
+                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="453.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="213.0" text="   AUTOMOBIL KARTICA">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/car_home.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label focusTraversable="false" layoutX="-4.0" layoutY="9.0" prefHeight="63.0" prefWidth="686.0" style="-fx-background-color: #1a1a1a;" text="         AUTOMOBILI" textFill="#c3c3c3">
+                     <font>
+                        <Font name="Segoe UI" size="48.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Button fx:id="btnNoviAutomobil" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="452.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="213.0" text="NOVI AUTOMOBIL">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/add_car_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="453.0" layoutY="189.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="213.0" text="UREDI AUTOMOBIL">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/edit_icon.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="32.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/auto_servis/car_home.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="121.81" radius="61.8875" width="127.74" />
+                     </effect>
+                  </ImageView>
+                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="187.0" layoutY="235.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="188.0" layoutY="218.0" prefHeight="17.0" prefWidth="147.0" text="Model" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfMarkaAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="14.0" layoutY="236.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="15.0" layoutY="219.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="363.0" layoutY="235.0" prefHeight="23.0" prefWidth="77.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="10.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="364.0" layoutY="217.0" prefHeight="17.0" prefWidth="74.0" text="Gorivo" textFill="#c3c3c3" />
+                  <Label alignment="CENTER" layoutX="12.0" layoutY="175.0" prefHeight="17.0" prefWidth="268.0" text="VIN" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="193.0" prefHeight="23.0" prefWidth="269.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtfGodisteAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="300.0" layoutY="193.0" prefHeight="23.0" prefWidth="139.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="302.0" layoutY="175.0" prefHeight="17.0" prefWidth="136.0" text="Godište" textFill="#c3c3c3" />
+                      <ListView fx:id="listViewAutmobiliSearch" layoutX="51.0" layoutY="176.0" onKeyReleased="#listViewAutmobiliSearchKeyReleased" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="350.0" visible="false">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ListView>
+                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="30.0" layoutX="450.0" layoutY="295.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="53.0" prefWidth="216.0" text="Učitaj Saobraćajnu">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/ucitaj_saobracajnu_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="58.0" layoutY="91.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Traži Automobil...">
+                          <font>
+                              <Font name="System Bold" size="34.0" />
+                          </font>
+                      </TextField>
+                  <Button disable="true" graphicTextGap="10.0" layoutX="6.0" layoutY="295.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="139.0" text="Zakaži Servis">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/faktura/calendar_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font></Button>
+                  <Button graphicTextGap="10.0" layoutX="254.0" layoutY="295.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoRadniNalogAct" prefHeight="53.0" prefWidth="185.0" text="Blanko Radni Nalog">
+                     <graphic>
+                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/work_order_icon.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font></Button>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Pane>
             </children>
         </AnchorPane>
