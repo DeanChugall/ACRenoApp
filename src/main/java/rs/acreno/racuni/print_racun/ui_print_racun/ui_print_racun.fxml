@@ -267,7 +267,7 @@
                 <Image url="@/faktura/logo-acreno.jpg" />
             </image>
         </ImageView>
-        <Label layoutX="150.0" layoutY="924.0" text="Ovaj račun je validan bez pečata i potpisa po identidfikacionom broju u zaglavlju." />
+        <Label layoutX="150.0" layoutY="924.0" text="Ovaj račun je validan bez pečata i potpisa po identifikacionoj oznaci u zaglavlju." />
         <Label layoutX="267.0" layoutY="364.0" text="Mesto:">
             <font>
                 <Font name="Segoe UI" size="12.0" />
