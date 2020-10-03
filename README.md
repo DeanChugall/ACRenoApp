@@ -1,5 +1,5 @@
-# ACReno Auto Servis Application
-Open source "ACReno" aplikacija za vođenje tekućih poslova oko evidencije 
+# "AC Reno" Auto Servis Application
+Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
 
 #### System Requirements

@@ -203,7 +203,7 @@
                 <DropShadow />
             </effect>
         </Line>
-        <Label fx:id="lblDatumRacuna" alignment="CENTER" layoutX="2.0" layoutY="206.0" prefHeight="20.0" prefWidth="81.0" style="-fx-background-color: #e0e0e0;" text="31,31,2019">
+        <Label fx:id="lblDatumRacuna" alignment="CENTER" layoutX="2.0" layoutY="206.0" prefHeight="20.0" prefWidth="81.0" style="-fx-background-color: #e0e0e0;">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -218,12 +218,12 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label fx:id="lblDatumPrometa" alignment="CENTER" layoutX="88.0" layoutY="206.0" prefHeight="20.0" prefWidth="87.0" style="-fx-background-color: #e0e0e0;" text="31,31,2019">
+        <Label fx:id="lblDatumPrometa" alignment="CENTER" layoutX="88.0" layoutY="206.0" prefHeight="20.0" prefWidth="87.0" style="-fx-background-color: #e0e0e0;">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label fx:id="lblDatumValute" alignment="CENTER" layoutX="180.0" layoutY="205.0" prefHeight="20.0" prefWidth="74.0" style="-fx-background-color: #e0e0e0;" text="31,31,2019">
+        <Label fx:id="lblDatumValute" alignment="CENTER" layoutX="180.0" layoutY="205.0" prefHeight="20.0" prefWidth="74.0" style="-fx-background-color: #e0e0e0;">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -332,7 +332,7 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-      <TextField fx:id="txtfImePrezimeKllijenta" alignment="CENTER" layoutX="267.0" layoutY="194.0" prefHeight="33.0" prefWidth="190.0" text="Milutin Milanokiv ">
+      <TextField fx:id="txtfImePrezimeKllijenta" alignment="CENTER" layoutX="267.0" layoutY="194.0" prefHeight="33.0" prefWidth="190.0">
          <font>
             <Font name="Segoe UI Bold" size="16.0" />
          </font>
