@@ -158,7 +158,7 @@
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1432.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Button graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
+                <Button disable="true" graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <Image url="@/auto_servis/clients_home.png" />
@@ -168,7 +168,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
+                <Button disable="true" graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                             <image>

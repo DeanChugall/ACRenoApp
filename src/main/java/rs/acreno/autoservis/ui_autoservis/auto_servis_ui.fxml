@@ -306,7 +306,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="30.0" layoutX="450.0" layoutY="295.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="53.0" prefWidth="216.0" text="Učitaj Saobraćajnu">
+                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="30.0" layoutX="453.0" layoutY="310.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="38.0" prefWidth="213.0" text="Učitaj Saobraćajnu">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -326,7 +326,7 @@
                               <Font name="System Bold" size="34.0" />
                           </font>
                       </TextField>
-                  <Button disable="true" graphicTextGap="10.0" layoutX="6.0" layoutY="295.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="139.0" text="Zakaži Servis">
+                  <Button disable="true" graphicTextGap="10.0" layoutX="453.0" layoutY="270.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="213.0" text="Zakaži Servis">
                      <graphic>
                         <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -357,6 +357,21 @@
                      </font>
                   </TextField>
                   <Label fx:id="lblIdKlijenta1" layoutX="342.0" layoutY="13.0" text="ID AUTOMOBILA" textFill="#e1e1e1" />
+                  <Button graphicTextGap="10.0" layoutX="75.0" layoutY="295.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoDefektazaAct" prefHeight="53.0" prefWidth="171.0" text="Blanko Defektaža">
+                     <graphic>
+                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/work_order_icon.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
                <effect>
                   <DropShadow />

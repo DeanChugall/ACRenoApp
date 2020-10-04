@@ -61,7 +61,6 @@ public class CreateNewKlijentUiController implements Initializable {
      * Referenca ka {@link AutoServisController}-u
      */
     private final AtomicReference<AutoServisController> autoServisController = new AtomicReference<>();
-    private Stage stageAutoServis;
 
     /**
      * Objasnjeno u {@link #initialize(URL, ResourceBundle)}
@@ -287,7 +286,6 @@ public class CreateNewKlijentUiController implements Initializable {
      */
     public void setAutoServisController(AutoServisController autoServisController, Stage stageAutoServis) {
         this.autoServisController.set(autoServisController);
-        this.stageAutoServis = stageAutoServis;
         //isWeAreInEditMode = false;
     }
 

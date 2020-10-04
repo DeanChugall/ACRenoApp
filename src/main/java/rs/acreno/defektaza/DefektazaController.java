@@ -363,7 +363,7 @@ public class DefektazaController implements Initializable {
     @FXML
     private void btnCloseDefektazaAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
         ifWeAreFromBtnCloseDefektazaAction = false;
-        if (txtAreaOpisDefektaze.getText().equals("") || txtAreOstaliDetaljiDefektaze.getText().equals("")) {
+        if (txtAreOstaliDetaljiDefektaze.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("SMART brisanja Defektaže");
             alert.setHeaderText("Niste uneli ''OPIS DEFEKTAZE'' ni ''OSTALI DETALJI DEFELTAZE''," +

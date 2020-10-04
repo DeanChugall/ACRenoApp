@@ -114,6 +114,9 @@
             <resource>
                 <directory>src\main\java\rs\acreno\defektaza\print_defektaza\ui_print_defektaza</directory>
             </resource>
+            <resource>
+                <directory>src\main\java\rs\acreno\defektaza\print_blanko_defektaza</directory>
+            </resource>
             <!--KLIJENTI-->
             <resource>
                 <directory>src\main\java\rs\acreno\klijent\ui_klijent</directory>

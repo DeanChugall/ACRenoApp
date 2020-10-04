@@ -16,7 +16,7 @@
                       <Font name="Segoe UI Bold" size="23.0" />
                   </font>
               </Label>
-            <TextField fx:id="txtfIdAutomobila" editable="false" layoutX="82.0" layoutY="7.0" prefHeight="31.0" prefWidth="106.0">
+            <TextField fx:id="txtfIdAutomobila" alignment="CENTER" editable="false" layoutX="82.0" layoutY="7.0" prefHeight="31.0" prefWidth="106.0">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>
@@ -46,7 +46,7 @@
                 <Font name="Segoe UI Bold" size="37.0" />
             </font>
         </Label>
-        <Label layoutX="359.0" layoutY="141.0" text="Datum Prometa:">
+        <Label fx:id="lblDatumPrometaPonuda" layoutX="359.0" layoutY="141.0" text="Datum Prometa:">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
@@ -137,7 +137,7 @@
             <DropShadow offsetY="2.0" />
          </effect>
         </TextField>
-        <Label layoutX="263.0" layoutY="141.0" text="Datum Računa:">
+        <Label fx:id="lblDatumRacunaPonuda" layoutX="263.0" layoutY="141.0" text="Datum Računa:">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
@@ -158,7 +158,7 @@
          <effect>
             <DropShadow offsetY="2.0" />
          </effect></TextArea>
-        <Label layoutX="472.0" layoutY="141.0" text="Valuta:">
+        <Label fx:id="lblPonudaVaziDo" layoutX="472.0" layoutY="141.0" text="Valuta:">
             <font>
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
@@ -253,7 +253,7 @@
                 <Image url="@/faktura/logo-acreno.jpg" />
             </image>
         </ImageView>
-        <Label layoutX="150.0" layoutY="946.0" text="Ovaj račun je validan bez pečata i potpisa po identifikacionoj oznaci u zaglavlju." />
+        <Label fx:id="lblPodnozije" layoutX="150.0" layoutY="946.0" text="Ovaj račun je validan bez pečata i potpisa po identifikacionoj oznaci u zaglavlju." />
         <TextField fx:id="txtfZiroRacunFirmeNaRacunu" alignment="CENTER" layoutX="403.0" layoutY="104.0" prefHeight="25.0" prefWidth="135.0" text="115-38162202057-96">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
@@ -345,14 +345,14 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Pane layoutX="3.0" layoutY="136.0" prefHeight="46.0" prefWidth="249.0" style="-fx-background-color: #1a1a1a;">
+      <Pane layoutX="3.0" layoutY="138.0" prefHeight="46.0" prefWidth="249.0" style="-fx-background-color: #1a1a1a;">
          <children>
-              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="8.0" text="Račun br:" textFill="#dddddd">
+              <Label fx:id="lblRacunIliPonuda" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="8.0" text="Račun br:" textFill="#dddddd">
                   <font>
                       <Font name="Segoe UI Bold" size="23.0" />
                   </font>
               </Label>
-              <TextField fx:id="txtFidRacuna" editable="false" layoutX="127.0" layoutY="7.0" prefHeight="31.0" prefWidth="116.0">
+              <TextField fx:id="txtFidRacuna" alignment="CENTER" editable="false" layoutX="127.0" layoutY="7.0" prefHeight="31.0" prefWidth="116.0">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>
@@ -369,7 +369,7 @@
                       <Font name="Segoe UI Bold" size="23.0" />
                   </font>
               </Label>
-            <TextField fx:id="txtFidKlijenta" editable="false" layoutX="85.0" layoutY="8.0" prefHeight="31.0" prefWidth="106.0">
+            <TextField fx:id="txtFidKlijenta" alignment="CENTER" editable="false" layoutX="85.0" layoutY="8.0" prefHeight="31.0" prefWidth="106.0">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>

@@ -240,18 +240,21 @@
                 <ListView fx:id="listViewPretragaKatalskiBrojArtikli" layoutX="240.0" layoutY="96.0" onMouseClicked="#zatvoriListViewPretragaPoKatBrojuArtikla" prefHeight="200.0" prefWidth="332.0" visible="false" />
                 <ListView fx:id="listViewPretragaArtikli" layoutX="17.0" layoutY="96.0" onMouseClicked="#zatvoriListViewSearchArtikli" prefHeight="200.0" prefWidth="332.0" visible="false" />
              </Pane>
-             <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="99.0" prefWidth="142.0" stylesheets="/button.css">
+             <Button alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="58.0" prefWidth="142.0" stylesheets="/button.css" text="RAČUN">
                 <effect>
                    <DropShadow />
                 </effect>
                 <graphic>
-                   <ImageView fitHeight="75.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                       <effect>
                          <DropShadow />
                       </effect>
                       <Image url="@/faktura/printer-icon.png" />
                    </ImageView>
                 </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
              </Button>
              <Pane layoutX="9.0" layoutY="319.0" prefHeight="308.0" prefWidth="1382.0" style="-fx-background-color: #252525;">
                 <effect>
@@ -360,6 +363,21 @@
                 </Label>
                 <TextArea fx:id="txtAreaNapomenaRacuna" focusTraversable="false" layoutX="5.0" layoutY="43.0" prefHeight="136.0" prefWidth="427.0" promptText="Napomena servisera u računu..." wrapText="true" />
              </Pane>
+            <Button alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnPrintPonudaAction" prefHeight="28.0" prefWidth="142.0" stylesheets="/button.css" text="PONUDA">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <image>
+                        <Image url="@/faktura/printer-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
           </AnchorPane>
        </SplitPane>
     </center>

@@ -1220,7 +1220,7 @@ public class FakturaController implements Initializable {
      * Promenjiva kojom se pristupaju promenjive iz ovog kontrolora, a u {@link PrintRacuniControler}
      */
     private Stage stagePrint;
-
+    PrintRacuniControler printRacuniControler;
     /**
      * Inicijalizacija {@link PrintRacuniControler}, a implementira se {@link #initialize}
      *
@@ -1228,7 +1228,7 @@ public class FakturaController implements Initializable {
      * @see PrintRacuniControler
      */
     private void initUiPrintControler(@NotNull FXMLLoader fxmlLoader) {
-        PrintRacuniControler printRacuniControler = fxmlLoader.getController();
+        printRacuniControler = fxmlLoader.getController();
         printRacuniControler.setFakturaController(this, stagePrint);
     }
 
@@ -1268,6 +1268,44 @@ public class FakturaController implements Initializable {
         }
     }
 
+    /**
+     * Otvaranje Print Fakture {@link PrintRacuniControler} i štampanje PONUDE
+     * <p>
+     * Posto je moguce da se doda napomena racuna u {@link #txtAreaNapomenaRacuna} i da se klikne odmah na PRINT
+     * moramo da sacuvamo izmene u racunu a u {@link #btnSacuvajRacunAction()}. U ovoj metodi imamo obavestenje da je
+     * Racun uspesno sacuvan, pa kada se klikne na Print dugme i otvori se GUI za print iza ostane Dialog.
+     * Promenjivom {@link #ifWeAreFromBtnSacuvajRacun} regulisemo da se ono ne pojavljujekadase klikne na print.
+     * <p>
+     * Inicijalizacija Print Controlora i prosledjivanje id Racuna {@link #initUiPrintControler}
+     * Na ovom mestu je zato sto je ovo poslednja pozicija koja se radi pre otvaranja Print Cotrolora
+     *
+     * @see #initUiPrintControler(FXMLLoader)
+     * @see PrintRacuniControler
+     * @see #btnSacuvajRacunAction()
+     */
+    public void btnPrintPonudaAction(ActionEvent actionEvent) {
+        try {
+            ifWeAreFromBtnSacuvajRacun = false; //Obavesti da ne cuvamo racun iz dugmeta btnSacuvajRacun
+            btnSacuvajRacun.fire(); // Fire dugme za cuvanje bez dijaloga
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PRINT_FAKTURA_UI_VIEW_URI));
+            stagePrint = new Stage();
+            stagePrint.initModality(Modality.APPLICATION_MODAL);
+            stagePrint.initStyle(StageStyle.UNDECORATED);
+            stagePrint.setScene(new Scene(loader.load()));
+            initUiPrintControler(loader); //Inicijalizacija Print Controlora i prosledjivanje id Racuna
+            printRacuniControler.lblRacunIliPonuda.setText("Ponuda br:");
+            printRacuniControler.lblDatumRacunaPonuda.setText("Datum Ponude:");
+            printRacuniControler.lblDatumPrometaPonuda.setText("Datum Prometa:");
+            printRacuniControler.lblPonudaVaziDo.setText("Važi do:");
+            printRacuniControler.lblPodnozije.setText("Ova ponuda je validan bez pečata i potpisa " +
+                                                            "po identifikacionoj oznaci u zaglavlju.");
+            stagePrint.showAndWait();//Open Stage and wait
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     //******************* BUTTON ACTION STAFF*********************
 
@@ -1463,6 +1501,8 @@ public class FakturaController implements Initializable {
     public void txtFopisArtiklaMc(MouseEvent mouseEvent) {
         txtFopisArtikla.setText("");
     }
+
+
 }
 
 

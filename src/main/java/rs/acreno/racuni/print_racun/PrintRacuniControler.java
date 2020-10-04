@@ -38,6 +38,12 @@ public class PrintRacuniControler implements Initializable {
     @FXML private AnchorPane ancorPanePrint;
     @FXML private Button btnPrint;
     @FXML private Button btnPrintClose;
+    @FXML public Label lblRacunIliPonuda;
+    @FXML public Label lblPodnozije;
+    @FXML public Label lblDatumRacunaPonuda;
+    @FXML public Label lblDatumPrometaPonuda;
+    @FXML public Label lblPonudaVaziDo;
+
 
     //RACUN FIELDS IN PRINT
     private Racun racun;
@@ -101,6 +107,8 @@ public class PrintRacuniControler implements Initializable {
             this.automobil = fakturaController.getAutomobil();
         });
     }
+
+
 
     /**
      * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
@@ -325,4 +333,6 @@ public class PrintRacuniControler implements Initializable {
     @FXML private void btnPrintActClose(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
+
+
 }

@@ -82,8 +82,8 @@ public class AutoServisController implements Initializable {
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
-   /* @FXML private Button btnNoviAutomobilInKlijentArea;
-    @FXML private Button btnUrediAutomobilFromKlijent;*/
+    /* @FXML private Button btnNoviAutomobilInKlijentArea;
+     @FXML private Button btnUrediAutomobilFromKlijent;*/
     @FXML private Button btnOtvoriKlijentEditMode;
     @FXML private TextField txtFiDKlijenta;
     @FXML private TextField txtFbrojTelefona;
@@ -550,7 +550,7 @@ public class AutoServisController implements Initializable {
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
         if (automobilForEdit.getRegOznaka().isEmpty()) {
             automobilForEdit.setRegOznaka("");
-        }else{
+        } else {
 
             stageNewAutomobil.setTitle("Izmena Autmobila: " + automobilForEdit.getRegOznaka());
         }
@@ -761,7 +761,6 @@ public class AutoServisController implements Initializable {
             stageKljent.setScene(scene);
             stageKljent.setResizable(false);
             stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
-
 
 
             //Set AutoServisController u CREATE NEW KLIJENT CONTROLORU  UI
@@ -994,6 +993,24 @@ public class AutoServisController implements Initializable {
         stageRadniNalog.setResizable(false);
         stageRadniNalog.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         stageRadniNalog.setScene(new Scene(fxmlLoaderRadniNalog.load()));
+        stageRadniNalog.showAndWait();
+    }
+
+    /**
+     * Print Blanko Defektaze
+     * Samo otvara {@link rs.acreno.defektaza.DefektazaController} i implementira mogucnost stampanja
+     * blanko {@link rs.acreno.defektaza.Defektaza}-a.
+     *
+     * @param actionEvent if we need in some case
+     * @throws IOException not found {@link Constants#RADNI_NALOZI_UI_VIEW_URI}
+     */
+    @FXML private void btnPrintBlankoDefektazaAct(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoaderDefektaza = new FXMLLoader(getClass().getResource(Constants.PRINT_BLANKO_DEFEKTAZA_UI_VIEW_URI));
+        Stage stageRadniNalog = new Stage();
+        stageRadniNalog.initModality(Modality.APPLICATION_MODAL);
+        stageRadniNalog.setResizable(false);
+        stageRadniNalog.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageRadniNalog.setScene(new Scene(fxmlLoaderDefektaza.load()));
         stageRadniNalog.showAndWait();
     }
 
