@@ -1,5 +1,6 @@
 package rs.acreno.nalozi.print_blanko_nalozi;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import rs.acreno.system.util.GeneralUiUtility;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class PrintBlankoNaloziController implements Initializable {
@@ -31,6 +38,16 @@ public class PrintBlankoNaloziController implements Initializable {
 
 
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            //Formatiranje Vremena
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("kk:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            txtfVreme.setText(dtf.format(now));
+            //******************************
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
+            Date date = new Date();
+            txtfDatum.setText(dateFormat.format(date));
+        });
 
     }
 

@@ -119,7 +119,7 @@ public class AutoServisApp extends Application {
                     stageAutoServisApp.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
                     stageAutoServisApp.setScene(sceneAutoServisApp);
                     stageAutoServisApp.setResizable(false);
-                    stageAutoServisApp.setTitle("ACR Informacioni Sistem || ACReno auto Servis");
+                    stageAutoServisApp.setTitle("ACR Informacioni Sistem || \"AC Reno\" Auto Servis");
                     stageAutoServisApp.show();
                     tt.cancel();
                     t.purge();

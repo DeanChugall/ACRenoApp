@@ -81,8 +81,8 @@ public class AutoServisController implements Initializable {
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
-    @FXML private Button btnNoviAutomobilInKlijentArea;
-    @FXML private Button btnUrediAutomobilFromKlijent;
+   /* @FXML private Button btnNoviAutomobilInKlijentArea;
+    @FXML private Button btnUrediAutomobilFromKlijent;*/
     @FXML private Button btnOtvoriKlijentEditMode;
     //TABELA
     @FXML private TableView<Automobil> tblAutomobiliInKlijent;
@@ -197,8 +197,6 @@ public class AutoServisController implements Initializable {
             txtFieldRegOznaka.setText(p.getRegOznaka());
             btnOtvoriAutomobilKarticu.setDisable(false);
             btnUrediAutomobil.setDisable(false);
-            btnNoviAutomobilInKlijentArea.setDisable(false);
-            btnUrediAutomobilFromKlijent.setDisable(false);
             popuniAutomobilTxtfOve(p); // Popuni Automobil TxtFove
             weAreFromTable = true;
             automobilForEdit = p;
@@ -256,8 +254,6 @@ public class AutoServisController implements Initializable {
                             setText(null);
                             btnOtvoriAutomobilKarticu.setDisable(true);
                             btnNoviAutomobil.setDisable(true);
-                            btnNoviAutomobilInKlijentArea.setDisable(true);
-                            btnUrediAutomobilFromKlijent.setDisable(true);
                             btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getRegOznaka());
@@ -309,7 +305,6 @@ public class AutoServisController implements Initializable {
                 listViewAutmobiliSearch.setVisible(false); // Zatvori listu
                 btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
-                btnUrediAutomobilFromKlijent.setDisable(false); // Omoguci dugme za Editovanje Automobila
 
 
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
@@ -317,7 +312,6 @@ public class AutoServisController implements Initializable {
                         listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
                 btnNoviAutomobil.setDisable(false);
-                btnNoviAutomobilInKlijentArea.setDisable(false);
 
                 //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
                 popuniTabeluAutomobiliklijenta(klijent);
@@ -349,14 +343,12 @@ public class AutoServisController implements Initializable {
                 txtFieldRegOznaka.requestFocus();
                 btnOtvoriAutomobilKarticu.setDisable(false);
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
-                btnUrediAutomobilFromKlijent.setDisable(false); // Omoguci dugme za Editovanje Automobila
                 listViewAutmobiliSearch.setVisible(false);
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
                 klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
                         listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
                 btnNoviAutomobil.setDisable(false);
-                btnNoviAutomobilInKlijentArea.setDisable(false);
 
                 //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
                 popuniTabeluAutomobiliklijenta(klijent);
@@ -483,9 +475,8 @@ public class AutoServisController implements Initializable {
             popuniTabeluAutomobiliklijenta(klijent);
             Automobil tempAuto = addEditAutomobilController.getAutomobil();
             popuniAutomobilTxtfOve(tempAuto);
-            btnOtvoriAutomobilKarticu.setDisable(true);
-            btnUrediAutomobil.setDisable(true);
-            btnUrediAutomobilFromKlijent.setDisable(true);
+            btnOtvoriAutomobilKarticu.setDisable(false);
+            btnUrediAutomobil.setDisable(false);
         });
         stageNewAutomobil.showAndWait();
     }
@@ -549,16 +540,20 @@ public class AutoServisController implements Initializable {
         Stage stageNewAutomobil = new Stage();
         stageNewAutomobil.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_AUTOMOBIL_ICON)));
         stageNewAutomobil.initModality(Modality.APPLICATION_MODAL);
-        stageNewAutomobil.setTitle("Izmena Autmobila: " + automobilForEdit.getRegOznaka());
+        if (automobilForEdit.getRegOznaka().isEmpty()) {
+            automobilForEdit.setRegOznaka("");
+        }else{
+
+            stageNewAutomobil.setTitle("Izmena Autmobila: " + automobilForEdit.getRegOznaka());
+        }
 
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
             System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
             popuniAutomobilTxtfOve(automobilForEdit);
             popuniTabeluAutomobiliklijenta(klijent);
-            btnOtvoriAutomobilKarticu.setDisable(true);
-            btnUrediAutomobil.setDisable(true);
-            btnUrediAutomobilFromKlijent.setDisable(true);
+            btnOtvoriAutomobilKarticu.setDisable(false);
+            btnUrediAutomobil.setDisable(false);
 
         });
 
@@ -629,8 +624,6 @@ public class AutoServisController implements Initializable {
                             setText(null);
                             btnOtvoriAutomobilKarticu.setDisable(true);
                             btnNoviAutomobil.setDisable(true);
-                            btnNoviAutomobilInKlijentArea.setDisable(true);
-                            btnUrediAutomobilFromKlijent.setDisable(true);
                             btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getImePrezime());
@@ -683,7 +676,6 @@ public class AutoServisController implements Initializable {
 
                 txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
                 btnNoviAutomobil.setDisable(false);
-                btnNoviAutomobilInKlijentArea.setDisable(false);
                 listViewKlijentiSearch.setVisible(false); // Zatvori listu
                 popuniTabeluAutomobiliklijenta(klijent);
                 btnOtvoriKlijentEditMode.setDisable(false);
@@ -720,7 +712,6 @@ public class AutoServisController implements Initializable {
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
                 btnNoviAutomobil.setDisable(false);
-                btnNoviAutomobilInKlijentArea.setDisable(false);
                 listViewKlijentiSearch.setVisible(false);
                 popuniTabeluAutomobiliklijenta(klijent);
                 btnOtvoriKlijentEditMode.setDisable(false);
@@ -766,25 +757,21 @@ public class AutoServisController implements Initializable {
                 logger.debug("stageKljent --> setOnCloseRequest: " + createNewKlijentUiController.isDeleteButtonPressed());
                 //Ako je Klijent ID =0 to znaci da nismo sacuvali ili uneli Klijenta pa dugme novi automobil mora biti DISABLE
                 if (klijent.getIdKlijenta() == 0) {
-                    btnNoviAutomobilInKlijentArea.setDisable(true);
                     btnNoviAutomobil.setDisable(true);
                     btnOtvoriKlijentEditMode.setDisable(true);
 
                 }
                 if (klijent.getIdKlijenta() != 0) {
                     txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
-                    txtFieldRegOznaka.setText("");
+                    //txtFieldRegOznaka.setText("");
                     txtFieldRegOznaka.requestFocus();
-                    btnNoviAutomobilInKlijentArea.setDisable(false);
                     btnNoviAutomobil.setDisable(false);
                     btnOtvoriKlijentEditMode.setDisable(false);
                 }
                 if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                    btnNoviAutomobilInKlijentArea.setDisable(true);
                     btnNoviAutomobil.setDisable(true);
                     btnOtvoriAutomobilKarticu.setDisable(true);
                     btnUrediAutomobil.setDisable(true);
-                    btnUrediAutomobilFromKlijent.setDisable(true);
                     btnOtvoriKlijentEditMode.setDisable(true);
                     txtFieldRegOznaka.setText("");
                     txtFieldPretragaKlijenta.setText("");
@@ -834,7 +821,6 @@ public class AutoServisController implements Initializable {
 
             //Ako je Klijent ID =0 to znaci da nismo sacuvali ili uneli Klijenta pa dugme novi automobil mora biti DISABLE
             if (klijent.getIdKlijenta() == 0) {
-                btnNoviAutomobilInKlijentArea.setDisable(true);
                 btnNoviAutomobil.setDisable(true);
                 btnOtvoriKlijentEditMode.setDisable(true);
 
@@ -843,16 +829,13 @@ public class AutoServisController implements Initializable {
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
                 txtFieldRegOznaka.setText("");
                 txtFieldRegOznaka.requestFocus();
-                btnNoviAutomobilInKlijentArea.setDisable(false);
                 btnNoviAutomobil.setDisable(false);
                 btnOtvoriKlijentEditMode.setDisable(false);
             }
             if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                btnNoviAutomobilInKlijentArea.setDisable(true);
                 btnNoviAutomobil.setDisable(true);
                 btnOtvoriAutomobilKarticu.setDisable(true);
                 btnUrediAutomobil.setDisable(true);
-                btnUrediAutomobilFromKlijent.setDisable(true);
                 btnOtvoriKlijentEditMode.setDisable(true);
                 txtFieldRegOznaka.setText("");
                 txtFieldPretragaKlijenta.setText("");
