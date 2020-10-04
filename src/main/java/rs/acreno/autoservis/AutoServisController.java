@@ -76,6 +76,7 @@ public class AutoServisController implements Initializable {
     @FXML private TextField txtfGodisteAutomobila;
     @FXML private Button btnNoviAutomobil;
     @FXML private Button btnUrediAutomobil;
+    @FXML private TextField txtFidAutomobila;
 
 
     // 1.2 ************* FXMLs Klijent Kartica
@@ -84,6 +85,12 @@ public class AutoServisController implements Initializable {
    /* @FXML private Button btnNoviAutomobilInKlijentArea;
     @FXML private Button btnUrediAutomobilFromKlijent;*/
     @FXML private Button btnOtvoriKlijentEditMode;
+    @FXML private TextField txtFiDKlijenta;
+    @FXML private TextField txtFbrojTelefona;
+    @FXML private TextField txtFadresaKlijenta;
+    @FXML private TextField txtFmestoStanovanjaKlijenta;
+    @FXML private TextField txtFeMailKlijenta;
+    @FXML private TextArea txtAreaOstaliDetaljiKlijenta;
     //TABELA
     @FXML private TableView<Automobil> tblAutomobiliInKlijent;
     @FXML private TableColumn<Automobil, Number> tblColIDAutomobila;
@@ -489,6 +496,7 @@ public class AutoServisController implements Initializable {
      */
     private void popuniAutomobilTxtfOve(@NotNull Automobil automobil) {
 
+        txtFidAutomobila.setText(String.valueOf(automobil.getIdAuta()));
         txtFieldRegOznaka.setText(automobil.getRegOznaka()); // Postavi REG. OZNAKU u TF
         txtfVinAutomobila.setText(automobil.getVinVozila());
         txtfModelAutomobila.setText(automobil.getModelVozila());
@@ -627,6 +635,7 @@ public class AutoServisController implements Initializable {
                             btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getImePrezime());
+
                         }
                     }
                 });
@@ -670,11 +679,20 @@ public class AutoServisController implements Initializable {
             if (listViewKlijentiSearch.getSelectionModel().getSelectedItems().size() > 0) {
                 //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
                 String imePrezimeKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getImePrezime();
+                String brojTelefonaKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getTelefonMobilni();
+                int idKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getIdKlijenta();
+
 
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
                 txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
+                txtFiDKlijenta.setText(String.valueOf(idKlijenta)); // u "txtFiDKlijenta" postavi ID klijenta
+                txtFbrojTelefona.setText(brojTelefonaKlijenta);
+                txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+                txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+                txtFeMailKlijenta.setText(klijent.getEmail());
+                txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
                 btnNoviAutomobil.setDisable(false);
                 listViewKlijentiSearch.setVisible(false); // Zatvori listu
                 popuniTabeluAutomobiliklijenta(klijent);
@@ -753,7 +771,7 @@ public class AutoServisController implements Initializable {
 
             createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
 
-            stageKljent.setOnCloseRequest(windowEvent -> {
+            stageKljent.setOnCloseRequest(windowEvent -> { // Kada se yatvori EDIT KLIIJENT CONTROLLER, ovo se desava
                 logger.debug("stageKljent --> setOnCloseRequest: " + createNewKlijentUiController.isDeleteButtonPressed());
                 //Ako je Klijent ID =0 to znaci da nismo sacuvali ili uneli Klijenta pa dugme novi automobil mora biti DISABLE
                 if (klijent.getIdKlijenta() == 0) {
@@ -762,7 +780,13 @@ public class AutoServisController implements Initializable {
 
                 }
                 if (klijent.getIdKlijenta() != 0) {
+                    txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
                     txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                    txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+                    txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+                    txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+                    txtFeMailKlijenta.setText(klijent.getEmail());
+                    txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
                     //txtFieldRegOznaka.setText("");
                     txtFieldRegOznaka.requestFocus();
                     btnNoviAutomobil.setDisable(false);
@@ -775,6 +799,13 @@ public class AutoServisController implements Initializable {
                     btnOtvoriKlijentEditMode.setDisable(true);
                     txtFieldRegOznaka.setText("");
                     txtFieldPretragaKlijenta.setText("");
+                    //Popunjavanje Klijent polja posle odabira sa praznim poljima jer je obrisan
+                    txtFiDKlijenta.setText(""); // u "txtFiDKlijenta" postavi ID klijenta
+                    txtFbrojTelefona.setText("");
+                    txtFadresaKlijenta.setText("");
+                    txtFmestoStanovanjaKlijenta.setText("");
+                    txtFeMailKlijenta.setText("");
+                    txtAreaOstaliDetaljiKlijenta.setText("");
                     tblAutomobiliInKlijent.getItems().clear();
                     tblAutomobiliInKlijent.refresh();
                 }
@@ -815,7 +846,7 @@ public class AutoServisController implements Initializable {
         createNewKlijentUiController.setAutoServisController(this, stageNewKlijent);
 
 
-        //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
+        //Kada se zatvori "CREATE_EDIT_KLIJENT" da uradimo neke stvari ovde
         stageNewKlijent.setOnCloseRequest(windowEvent -> {
             logger.debug("stageNewKlijent --> setOnCloseRequest: " + createNewKlijentUiController.isDeleteButtonPressed());
 
@@ -827,6 +858,12 @@ public class AutoServisController implements Initializable {
             }
             if (klijent.getIdKlijenta() != 0) {
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+                txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+                txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+                txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+                txtFeMailKlijenta.setText(klijent.getEmail());
+                txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
                 txtFieldRegOznaka.setText("");
                 txtFieldRegOznaka.requestFocus();
                 btnNoviAutomobil.setDisable(false);
@@ -839,6 +876,13 @@ public class AutoServisController implements Initializable {
                 btnOtvoriKlijentEditMode.setDisable(true);
                 txtFieldRegOznaka.setText("");
                 txtFieldPretragaKlijenta.setText("");
+                //Popunjavanje Klijent polja posle odabira sa praznim poljima jer je obrisan
+                txtFiDKlijenta.setText(""); // u "txtFiDKlijenta" postavi ID klijenta
+                txtFbrojTelefona.setText("");
+                txtFadresaKlijenta.setText("");
+                txtFmestoStanovanjaKlijenta.setText("");
+                txtFeMailKlijenta.setText("");
+                txtAreaOstaliDetaljiKlijenta.setText("");
                 tblAutomobiliInKlijent.getItems().clear();
                 tblAutomobiliInKlijent.refresh();
             }

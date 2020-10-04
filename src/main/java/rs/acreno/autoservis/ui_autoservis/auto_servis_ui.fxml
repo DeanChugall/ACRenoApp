@@ -12,11 +12,23 @@
     <center>
         <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="662.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-            <Pane layoutX="709.0" layoutY="13.0" prefHeight="432.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
+            <Pane layoutX="709.0" layoutY="13.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
+                  <Label fx:id="lblBrojTelefona" focusTraversable="false" layoutX="8.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Broj Telefona:" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFbrojTelefona" editable="false" focusTraversable="false" layoutX="6.0" layoutY="179.0" prefHeight="25.0" prefWidth="164.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblAdresaKlijenta" focusTraversable="false" layoutX="178.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Adresa Klijenta:" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFadresaKlijenta" editable="false" focusTraversable="false" layoutX="175.0" layoutY="179.0" prefHeight="25.0" prefWidth="164.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
                   <Label focusTraversable="false" layoutX="-8.0" layoutY="8.0" prefHeight="63.0" prefWidth="688.0" style="-fx-background-color: #1a1a1a;" text="       KLIJENTI" textFill="#c3c3c3">
                      <font>
-                        <Font name="Segoe UI" size="48.0" />
+                        <Font name="Segoe UI" size="41.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
@@ -25,6 +37,14 @@
                         <DropShadow />
                      </effect>
                   </Label>
+                  <Label fx:id="lblMestoStanoivanjaKlijenta" focusTraversable="false" layoutX="346.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Mesto Stanovanja:" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFmestoStanovanjaKlijenta" editable="false" focusTraversable="false" layoutX="344.0" layoutY="179.0" prefHeight="25.0" prefWidth="126.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblOstaliDetaljiKlijenta" focusTraversable="false" layoutX="8.0" layoutY="217.0" prefHeight="17.0" prefWidth="183.0" text="Ostali detalji vezano za Klijenta:" textFill="#e1e1e1" />
+                  <TextArea fx:id="txtAreaOstaliDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="7.0" layoutY="240.0" prefHeight="79.0" prefWidth="335.0" wrapText="true" />
                   <ImageView fitHeight="51.0" fitWidth="83.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/clients_home.png" />
@@ -33,7 +53,7 @@
                         <DropShadow height="178.15" radius="72.2675" width="112.92" />
                      </effect>
                   </ImageView>
-                  <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="5.0" layoutY="160.0" prefHeight="263.0" prefWidth="659.0" stylesheets="@/table-view.css">
+                  <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="7.0" layoutY="333.0" prefHeight="263.0" prefWidth="659.0" stylesheets="@/table-view.css">
                       <placeholder>
                           <Label text="Odaberite Klijenta da vidite Automobile, ili unesite novi Automobl!" />
                       </placeholder>
@@ -45,8 +65,8 @@
                         <TableColumn fx:id="tblColModel" prefWidth="137.0" text="Model" />
                         <TableColumn fx:id="tblColGodiste" prefWidth="70.0" text="Godiste" />
                         <TableColumn fx:id="tblColVrstaGoriva" prefWidth="62.0" text="Gorivo" />
-                        <TableColumn fx:id="tblColVibAutomobila" prefWidth="136.0" text="VIN" />
-                        <TableColumn fx:id="tblRowButton" prefWidth="78.0" />
+                        <TableColumn fx:id="tblColVibAutomobila" prefWidth="136.0" sortable="false" text="VIN" />
+                        <TableColumn fx:id="tblRowButton" prefWidth="78.0" sortable="false" />
                     </columns>
                   </TableView>
                   <ListView fx:id="listViewKlijentiSearch" layoutX="12.0" layoutY="151.0" onKeyReleased="#listViewKlijentiSearchKeyReleased" onMouseClicked="#zatvoriLvKlijent" prefHeight="113.0" prefWidth="400.0" visible="false">
@@ -54,7 +74,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil11" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="326.0" layoutY="27.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="39.0" prefWidth="137.0" text="Učitaj L. Kartu">
+                  <Button fx:id="btnUrediAutomobil11" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="326.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="53.0" prefWidth="137.0" text="Učitaj L. Kartu">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -69,7 +89,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="455.0" promptText="Traži Klijenta...">
+                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="386.0" promptText="Traži Klijenta...">
                      <font>
                         <Font name="System Bold" size="34.0" />
                      </font>
@@ -113,6 +133,17 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Label fx:id="lblIdKlijenta" layoutX="402.0" layoutY="73.0" text="ID KLIJENTA" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFiDKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="395.0" layoutY="90.0" prefHeight="59.0" prefWidth="81.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></TextField>
+                  <Label fx:id="lblEmailklijenta" focusTraversable="false" layoutX="478.0" layoutY="162.0" prefHeight="17.0" prefWidth="114.0" text="E-mail Klijenta:" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFeMailKlijenta" editable="false" focusTraversable="false" layoutX="476.0" layoutY="179.0" prefHeight="25.0" prefWidth="186.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
                </children>
                <effect>
                   <DropShadow />
@@ -190,7 +221,7 @@
                   </Button>
                   <Label focusTraversable="false" layoutX="-4.0" layoutY="9.0" prefHeight="63.0" prefWidth="686.0" style="-fx-background-color: #1a1a1a;" text="         AUTOMOBILI" textFill="#c3c3c3">
                      <font>
-                        <Font name="Segoe UI" size="48.0" />
+                        <Font name="Segoe UI" size="36.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
@@ -320,6 +351,12 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font></Button>
+                  <TextField fx:id="txtFidAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="339.0" layoutY="28.0" prefHeight="35.0" prefWidth="96.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblIdKlijenta1" layoutX="342.0" layoutY="13.0" text="ID AUTOMOBILA" textFill="#e1e1e1" />
                </children>
                <effect>
                   <DropShadow />
@@ -419,7 +456,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="10.0" prefHeight="27.0" prefWidth="552.0" text="Copyright @ 2020 AC Reno Inc. All rights reserved under GNU GENERAL PUBLIC LICENSE  Version 3" textFill="#838383">
+            <Label layoutX="10.0" prefHeight="27.0" prefWidth="552.0" text="Copyright @ 2020 &quot;AC Reno&quot; Inc. All rights reserved under GNU GENERAL PUBLIC LICENSE  Version 3" textFill="#838383">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>

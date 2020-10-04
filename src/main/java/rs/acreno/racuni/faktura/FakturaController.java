@@ -1384,7 +1384,7 @@ public class FakturaController implements Initializable {
     private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
         ifWeAreFromBtnSacuvajRacun = false; //Obavesti da ne cuvamo racun iz dugmeta btnCloseFaktureAction
         // Pametno bisanje racuna ako je samo otvoren novi i nema artikala
-        if (tblPosaoArtikli.getItems().size() == 0) {
+        /*if (tblPosaoArtikli.getItems().size() == 0) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("SMART brisanja Računa");
             alert.setHeaderText("Niste uneli nijedan Artikal, da li možemo Račun da obrišemo?");
@@ -1399,10 +1399,10 @@ public class FakturaController implements Initializable {
                     ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
                 }
             }
-        } else {
+        } else { }*/
             btnSacuvajRacunAction(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
             btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
-        }
+
     }
 
     //ARTIKLI STAFF

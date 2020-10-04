@@ -363,7 +363,7 @@ public class RadniNalogController implements Initializable {
     private void btnCloseFaktureAction(@NotNull ActionEvent actionEvent) throws AcrenoException, SQLException {
         ifWeAreFromBtnCloseFaktureAction = false;
         // Pametno bisanje racuna ako je samo otvoren novi i nema Unosa u txtF
-        if (txtAreaDetaljiStranke.getText().equals("") || txtAreDetaljiServisera.getText().equals("")) {
+        if (txtAreDetaljiServisera.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("SMART brisanja Radnog Naloga");
             alert.setHeaderText("Niste uneli ''Detalje stranke'' ni ''Detalje Servisera'', da li možemo Radnog Naloga da obrišemo?");
