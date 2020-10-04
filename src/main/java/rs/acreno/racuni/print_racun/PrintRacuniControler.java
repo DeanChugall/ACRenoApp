@@ -47,9 +47,9 @@ public class PrintRacuniControler implements Initializable {
     @FXML private Label lblDatumValute;
     @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtfGrandTotaluRacunu;
-    @FXML private TextField txtfImeFirmeNaRaacunu;
-    @FXML private TextField txtfAdresaFirmeNaRacunu;
-    @FXML private TextField txtfGradFirmeNaRacunu;
+   // @FXML private TextField txtfImeFirmeNaRaacunu;
+   // @FXML private TextField txtfAdresaFirmeNaRacunu;
+   // @FXML private TextField txtfGradFirmeNaRacunu;
     @FXML private TextField txtfZiroRacunFirmeNaRacunu;
     @FXML private TextArea txtfNapomeneServiseraNaRacunu;
 
@@ -58,9 +58,9 @@ public class PrintRacuniControler implements Initializable {
     @FXML private TextField txtFidKlijenta;
     @FXML private TextField txtfImePrezimeKllijenta;
     @FXML private TextField txtfTelefonKlijenta;
-    @FXML private TextField txtfEmailKlijenta;
-    @FXML private TextField txtfAdresaKlijenta;
-    @FXML private TextField txtfGradKlijenta;
+   // @FXML private TextField txtfEmailKlijenta;
+   // @FXML private TextField txtfAdresaKlijenta;
+   // @FXML private TextField txtfGradKlijenta;
 
     //AUTOMOBIL FIELDS IN PRINT
     private Automobil automobil;
@@ -88,7 +88,7 @@ public class PrintRacuniControler implements Initializable {
     @FXML private TableColumn<PosaoArtikli, String> tblRowNazivArtikla;
     @FXML private TableColumn<PosaoArtikli, String> tblRowOpisArtikla;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowCena;
-    @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
+   // @FXML private TableColumn<PosaoArtikli, Number> tblRowNabavnaCena;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowKolicina;
     @FXML private TableColumn<PosaoArtikli, String> tblRowJedinicaMere;
     @FXML private TableColumn<PosaoArtikli, Number> tblRowPopust;
@@ -272,10 +272,10 @@ public class PrintRacuniControler implements Initializable {
         lblDatumRacuna.setText(racun.getDatum());
         lblDatumPrometa.setText(racun.getDatumPrometa());
         lblDatumValute.setText(racun.getDatumValute());
-        txtfGrandTotaluRacunu.setText(fakturaController.getGrandTotalSumaSuma());
-        txtfImeFirmeNaRaacunu.setText(AcrenoProperties.getInstance().getProperty("ime.firme"));
-        txtfAdresaFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("adresa.firme"));
-        txtfGradFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("grad.firme"));
+       // txtfGrandTotaluRacunu.setText(fakturaController.getGrandTotalSumaSuma());
+       // txtfImeFirmeNaRaacunu.setText(AcrenoProperties.getInstance().getProperty("ime.firme"));
+        //txtfAdresaFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("adresa.firme"));
+        //txtfGradFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("grad.firme"));
         txtfZiroRacunFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("ziro.racun"));
         txtfNapomeneServiseraNaRacunu.setText(racun.getNapomeneRacuna());
     }
@@ -292,9 +292,9 @@ public class PrintRacuniControler implements Initializable {
         txtFidKlijenta.setText(String.valueOf(klijent.getIdKlijenta()));
         txtfImePrezimeKllijenta.setText(klijent.getImePrezime());
         txtfTelefonKlijenta.setText(klijent.getTelefonMobilni());
-        txtfEmailKlijenta.setText(klijent.getEmail());
-        txtfAdresaKlijenta.setText(klijent.getUlicaBroj());
-        txtfGradKlijenta.setText(klijent.getMesto());
+        //txtfEmailKlijenta.setText(klijent.getEmail());
+       // txtfAdresaKlijenta.setText(klijent.getUlicaBroj());
+        //txtfGradKlijenta.setText(klijent.getMesto());
     }
 
     /**
