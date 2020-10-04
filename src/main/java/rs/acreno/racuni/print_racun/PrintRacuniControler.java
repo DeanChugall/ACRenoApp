@@ -308,7 +308,7 @@ public class PrintRacuniControler implements Initializable {
     private void initAutomobil() {
         txtfIdAutomobila.setText(String.valueOf(automobil.getIdAuta()));
         txtfRegTablicaAutomobila.setText(automobil.getRegOznaka());
-        txtfKilometraza.setText(automobil.getKilomteraza());
+        txtfKilometraza.setText(racun.getKilometraza());
         txtfVinAutomobila.setText(automobil.getVinVozila());
         txtfModelAutomobila.setText(automobil.getModelVozila());
         txtfMarkaAutomobila.setText(automobil.getMarkaVozila());

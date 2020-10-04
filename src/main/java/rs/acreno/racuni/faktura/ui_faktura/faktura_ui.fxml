@@ -56,7 +56,7 @@
                 <effect>
                    <DropShadow />
                 </effect>
-                <Button fx:id="btnDodajArtiklRacun" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="9.0" layoutY="117.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN">
+                <Button fx:id="btnDodajArtiklRacun" focusTraversable="false" graphicTextGap="20.0" layoutX="9.0" layoutY="117.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN">
                    <graphic>
                       <ImageView fitHeight="43.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
                          <effect>
@@ -171,27 +171,27 @@
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFjedinicaMereArtikla" alignment="CENTER" focusTraversable="false" layoutX="402.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="JM">
+                <TextField fx:id="txtFjedinicaMereArtikla" alignment="CENTER" focusTraversable="false" layoutX="402.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="JM" text="kom">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFKolicinaArtikla" focusTraversable="false" layoutX="485.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="Količina">
+                <TextField fx:id="txtFKolicinaArtikla" focusTraversable="false" layoutX="485.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="Količina" text="1">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFcenaArtikla" alignment="CENTER" focusTraversable="false" layoutX="568.0" layoutY="67.0" prefHeight="34.0" prefWidth="114.0" promptText="Cena">
+                <TextField fx:id="txtFcenaArtikla" alignment="CENTER" focusTraversable="false" layoutX="568.0" layoutY="67.0" prefHeight="34.0" prefWidth="114.0" promptText="Cena" text="0">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFnabavnaCenaArtikla" alignment="CENTER" focusTraversable="false" layoutX="692.0" layoutY="67.0" prefHeight="34.0" prefWidth="110.0" promptText="Nabavna Cena">
+                <TextField fx:id="txtFnabavnaCenaArtikla" alignment="CENTER" focusTraversable="false" layoutX="692.0" layoutY="67.0" prefHeight="34.0" prefWidth="110.0" promptText="Nabavna Cena" text="0">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFpopustArtikla" alignment="CENTER" focusTraversable="false" layoutX="812.0" layoutY="67.0" prefHeight="34.0" prefWidth="60.0" promptText="Popust">
+                <TextField fx:id="txtFpopustArtikla" alignment="CENTER" focusTraversable="false" layoutX="812.0" layoutY="67.0" prefHeight="34.0" prefWidth="60.0" promptText="Popust" text="0">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
@@ -217,12 +217,12 @@
                       </ImageView>
                    </graphic>
                 </Label>
-                <TextField fx:id="txtFieldPretragaArtikla" layoutX="5.0" layoutY="61.0" onKeyReleased="#txtFieldPretragaArtiklaKeyListener" prefHeight="35.0" prefWidth="230.0" promptText="Pretraga po nazivu artikla...">
+                <TextField fx:id="txtFieldPretragaArtikla" focusTraversable="false" layoutX="5.0" layoutY="61.0" onKeyReleased="#txtFieldPretragaArtiklaKeyListener" prefHeight="35.0" prefWidth="230.0" promptText="Pretraga po nazivu artikla...">
                    <font>
                       <Font name="Segoe UI Bold" size="15.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtfKataloskiBrojArtikla" alignment="CENTER" layoutX="240.0" layoutY="61.0" onKeyReleased="#txtfPretragaPoKataloskomBroju" prefHeight="35.0" prefWidth="176.0" promptText="Pretraga po kataloškom broju...">
+                <TextField fx:id="txtfKataloskiBrojArtikla" alignment="CENTER" focusTraversable="false" layoutX="240.0" layoutY="61.0" onKeyReleased="#txtfPretragaPoKataloskomBroju" prefHeight="35.0" prefWidth="176.0" promptText="Pretraga po kataloškom broju...">
                    <font>
                       <Font name="Segoe UI Bold" size="11.0" />
                    </font>
@@ -386,7 +386,7 @@
                 <Insets left="10.0" />
              </padding>
           </Label>
-          <TextField fx:id="txtFklijentImePrezime" alignment="CENTER" editable="false" focusTraversable="false" layoutX="872.0" layoutY="13.0" prefHeight="57.0" prefWidth="297.0" text="Milutin Djoka djordjeviuc">
+          <TextField fx:id="txtFklijentImePrezime" alignment="CENTER" editable="false" focusTraversable="false" layoutX="872.0" layoutY="13.0" prefHeight="57.0" prefWidth="297.0">
              <font>
                 <Font name="Segoe UI Black" size="21.0" />
              </font>
@@ -408,7 +408,7 @@
              </effect>
              <Image url="@/faktura/racun-icon.png" />
           </ImageView>
-          <TextField fx:id="txtFidRacuna" alignment="CENTER" editable="false" focusTraversable="false" layoutX="453.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="115.0" text="3234">
+          <TextField fx:id="txtFidRacuna" alignment="CENTER" editable="false" focusTraversable="false" layoutX="453.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="115.0">
              <font>
                 <Font name="Segoe UI Bold" size="30.0" />
              </font>
@@ -474,7 +474,7 @@
                 <Font name="Segoe UI Bold" size="11.0" />
              </font>
           </Label>
-          <TextField fx:id="txtfGrandTotal" alignment="CENTER" focusTraversable="false" layoutX="1179.0" layoutY="12.0" minHeight="-Infinity" prefHeight="66.0" prefWidth="204.0" text="192.559.95">
+          <TextField fx:id="txtfGrandTotal" alignment="CENTER" focusTraversable="false" layoutX="1179.0" layoutY="12.0" minHeight="-Infinity" prefHeight="66.0" prefWidth="204.0">
              <font>
                 <Font name="Segoe UI Black" size="31.0" />
              </font>

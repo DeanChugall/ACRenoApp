@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -521,7 +520,6 @@ public class FakturaController implements Initializable {
                 new SimpleIntegerProperty(cellData.getValue().getIdArtikla()));
 
 
-
         //WRAP TEXT IN COLUMN NAZIV ARTKLA
         tblRowNazivArtikla.setCellFactory(tc -> {
             TableCell<PosaoArtikli, String> cell = new TableCell<>();
@@ -555,7 +553,7 @@ public class FakturaController implements Initializable {
                 }
             });
 
-            return cell ;
+            return cell;
         });
 
         //OPIS ARTIKLA
@@ -950,7 +948,6 @@ public class FakturaController implements Initializable {
     @FXML private void txtfPretragaPoKataloskomBroju(KeyEvent keyEvent) {
         txtFieldPretragaArtikla.textProperty().addListener(observable -> {
             if (txtFieldPretragaArtikla.textProperty().get().isEmpty()) {
-                //listViewPretragaKatalskiBrojArtikli.setItems(artikli);
                 listViewPretragaKatalskiBrojArtikli.setVisible(false);
             }
         });
@@ -1035,7 +1032,6 @@ public class FakturaController implements Initializable {
             txtfNazivArtikla.setText(nazivArtikla);
             txtFopisArtikla.setText(opisArtikla);
 
-            btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
             listViewPretragaKatalskiBrojArtikli.setVisible(false); //Sakrij ListView
         }
     }
@@ -1066,9 +1062,7 @@ public class FakturaController implements Initializable {
         ObservableList<Artikl> artikl = FXCollections.observableArrayList();
         ObservableList<Artikl> tempArtikl = FXCollections.observableArrayList();
         try {
-           // ArtikliDAO artikliDAO = new SQLArtikliDAO();// inicijalizacija podataka iz BAZE
             artikl = FXCollections.observableArrayList(artikliDAO.findAllArtikle()); //Svi Automobili
-           // tempArtikl = FXCollections.observableArrayList(); //Lista u koju dodajemo nadjene Auto objekte
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
@@ -1127,19 +1121,33 @@ public class FakturaController implements Initializable {
                     listViewPretragaArtikli.getSelectionModel().getSelectedItem().getJedinicaMere();
             String opisArtikla =
                     listViewPretragaArtikli.getSelectionModel().getSelectedItem().getOpisArtikla();
-            //Popunjavanje GUI polja
-            txtFidArtikla.setText(String.valueOf(idArtikla));
-            txtfKataloskiBrojArtikla.setText(kataloskiBrojArtikla);
-            txtFcenaArtikla.setText(String.valueOf(cenaArtikla));
-            txtFnabavnaCenaArtikla.setText(String.valueOf(nabavnaCenaArtikla));
-            txtFKolicinaArtikla.setText(String.valueOf(1));
-            txtFjedinicaMereArtikla.setText(jedinicaMereArtikla);
-            txtFpopustArtikla.setText(String.valueOf(0));
-            txtFieldPretragaArtikla.setText(nazivArtikla);
-            txtFopisArtikla.setText(opisArtikla);
-            txtfNazivArtikla.setText(nazivArtikla);
 
-            btnDodajArtiklRacun.setDisable(false); // omoguci dugme dodaj u listu
+            // Create Posao Artikli Object and populate with data
+            PosaoArtikli posaoArtikliObject = new PosaoArtikli();
+            //  posaoArtikliObject.setIdPosaoArtikli(0);
+            posaoArtikliObject.setIdRacuna(brojFakture);
+            posaoArtikliObject.setIdArtikla(Integer.parseInt(String.valueOf(idArtikla)));
+            posaoArtikliObject.setNazivArtikla(nazivArtikla);
+            posaoArtikliObject.setOpisPosaoArtiklli(opisArtikla);
+            posaoArtikliObject.setCena(Double.parseDouble(String.valueOf(cenaArtikla)));
+            posaoArtikliObject.setNabavnaCena(Double.parseDouble(String.valueOf(nabavnaCenaArtikla)));
+            posaoArtikliObject.setKolicina(Integer.parseInt("1"));
+            posaoArtikliObject.setJedinicaMere(jedinicaMereArtikla);
+            posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
+            posaoArtikliObject.setPopust(Integer.parseInt("0"));
+            try {
+                posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
+                //Create ObservableList<PosaoArtikli> and insert in table for print and preview
+                ObservableList<PosaoArtikli> posaoArtiklovi = FXCollections.observableArrayList(
+                        posaoArtikliDAO.findPosaoArtikliByPropertyDao(
+                                PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture));
+
+                setTableData(posaoArtiklovi); // Popunjavanje i omogucavanje EDITA u Tabeli
+
+            } catch (AcrenoException | SQLException e) {
+                e.printStackTrace();
+            }
+
             listViewPretragaArtikli.setVisible(false); //Sakrij ListView
         }
     }
@@ -1167,8 +1175,10 @@ public class FakturaController implements Initializable {
         PosaoArtikli posaoArtikliObject = new PosaoArtikli();
         //  posaoArtikliObject.setIdPosaoArtikli(0);
         posaoArtikliObject.setIdRacuna(brojFakture);
-        posaoArtikliObject.setIdArtikla(Integer.parseInt(txtFidArtikla.getText()));
-        posaoArtikliObject.setNazivArtikla(txtFieldPretragaArtikla.getText());
+
+        posaoArtikliObject.setIdArtikla(Integer.parseInt("40"));
+
+        posaoArtikliObject.setNazivArtikla(txtfNazivArtikla.getText());
         posaoArtikliObject.setOpisPosaoArtiklli(txtFopisArtikla.getText());
         posaoArtikliObject.setCena(Double.parseDouble(txtFcenaArtikla.getText()));
         posaoArtikliObject.setNabavnaCena(Double.parseDouble(txtFnabavnaCenaArtikla.getText()));
@@ -1189,10 +1199,18 @@ public class FakturaController implements Initializable {
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();
         }
-        btnDodajArtiklRacun.setDisable(true); // onemoguci dugme dodaj u listu
-        GeneralUiUtility.clearTextFieldsInPane(paneArtikli);
+        //GeneralUiUtility.clearTextFieldsInPane(paneArtikli);
+        txtfNazivArtikla.setText("");
+        txtFopisArtikla.setText("");
+        txtFjedinicaMereArtikla.setText("kom");
+        txtFKolicinaArtikla.setText("1");
+        txtFcenaArtikla.setText("0");
+        txtFnabavnaCenaArtikla.setText("0");
+        txtFpopustArtikla.setText("0");
+        txtAreaDetaljiOpisArtikla.setText("");
+
         GeneralUiUtility.clearTextFieldsInPane(panePretragaArtikli);
-        txtFieldPretragaArtikla.requestFocus();
+        // txtFieldPretragaArtikla.requestFocus();
     }
 
 

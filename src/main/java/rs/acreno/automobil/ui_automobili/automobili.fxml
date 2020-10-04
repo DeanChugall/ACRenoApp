@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="719.0" prefWidth="1476.0" BorderPane.alignment="CENTER">
             <children>
-                <Pane layoutX="8.0" layoutY="8.0" prefHeight="226.0" prefWidth="847.0" style="-fx-background-color: #252525;">
+                <Pane layoutX="8.0" layoutY="8.0" prefHeight="434.0" prefWidth="1451.0" style="-fx-background-color: #252525;">
                     <children>
-                        <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="856.0" style="-fx-background-color: #1a1a1a;" text="Računi:" textFill="WHITE">
+                        <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="1448.0" style="-fx-background-color: #1a1a1a;" text="Računi:" textFill="WHITE">
                             <font>
                                 <Font name="Segoe UI Bold" size="26.0" />
                             </font>
@@ -29,7 +29,7 @@
                                 </ImageView>
                             </graphic>
                         </Label>
-                        <Button fx:id="btnNoviRacun" layoutX="669.0" layoutY="8.0" minHeight="-Infinity" mnemonicParsing="false" onKeyReleased="#btnNoviRacunKr" onMouseClicked="#btnOpenFakturaUi" prefHeight="41.0" prefWidth="157.0" text="Novi Račun">
+                        <Button fx:id="btnNoviRacun" layoutX="1166.0" layoutY="8.0" minHeight="-Infinity" mnemonicParsing="false" onKeyReleased="#btnNoviRacunKr" onMouseClicked="#btnOpenFakturaUi" prefHeight="41.0" prefWidth="273.0" text="Novi Račun">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -40,15 +40,15 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font></Button>
-                        <TableView fx:id="tblFakture" layoutX="7.0" layoutY="60.0" prefHeight="160.0" prefWidth="829.0" stylesheets="@/table-view.css">
+                        <TableView fx:id="tblFakture" layoutX="7.0" layoutY="60.0" prefHeight="359.0" prefWidth="1435.0" stylesheets="@/table-view.css">
                             <columns>
-                                <TableColumn fx:id="tblRowIdRacuna" editable="false" prefWidth="75.0" text="ID Racuna" />
+                                <TableColumn fx:id="tblRowIdRacuna" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID Racuna" />
                                 <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
-                                <TableColumn fx:id="tblRowDatumRacuna" prefWidth="76.00003051757812" text="Datum" />
+                                <TableColumn fx:id="tblRowDatumRacuna" prefWidth="76.00003051757812" sortType="DESCENDING" text="Datum" />
                                 <TableColumn fx:id="tblRowIdKilometraza" prefWidth="128.0" text="Kilometraza" />
                                 <TableColumn fx:id="tblRowPopustRacuna" prefWidth="79.0" text="Popust %" />
-                                <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="376.0" text="Napomene" />
-                                <TableColumn fx:id="tblRowBtnIzmeniRacun" prefWidth="84.0" />
+                                <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="980.0" text="Napomene" />
+                                <TableColumn fx:id="tblRowBtnIzmeniRacun" minWidth="0.0" prefWidth="86.0" />
                             </columns>
                         </TableView>
                     </children>
@@ -56,9 +56,9 @@
                         <DropShadow />
                     </effect>
                 </Pane>
-                <Pane layoutX="8.0" layoutY="238.0" prefHeight="220.0" prefWidth="847.0" style="-fx-background-color: #252525;">
+                <Pane layoutX="14.0" layoutY="436.0" prefHeight="302.0" prefWidth="743.0" style="-fx-background-color: #252525;">
                     <children>
-                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="856.0" style="-fx-background-color: #1a1a1a;" text="Radni Nalozi:" textFill="WHITE">
+                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="748.0" style="-fx-background-color: #1a1a1a;" text="Radni Nalozi:" textFill="WHITE">
                             <font>
                                 <Font name="Segoe UI Bold" size="26.0" />
                             </font>
@@ -76,7 +76,7 @@
                         </ImageView>
                      </graphic>
                         </Label>
-                        <Button fx:id="btnNoviRadniNalog" layoutX="669.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="36.0" prefWidth="157.0" text="Novi Radni Nalog">
+                        <Button fx:id="btnNoviRadniNalog" layoutX="572.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="37.0" prefWidth="157.0" text="Novi Radni Nalog">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
@@ -87,16 +87,16 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <TableView fx:id="tblRadniNalozi" layoutX="7.0" layoutY="58.0" prefHeight="154.0" prefWidth="829.0" stylesheets="@/table-view.css">
+                        <TableView fx:id="tblRadniNalozi" layoutX="8.0" layoutY="60.0" prefHeight="215.0" prefWidth="734.0" stylesheets="@/table-view.css">
                             <columns>
                                 <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
                                 <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" visible="false" />
                                 <TableColumn fx:id="tblColRadniNalogDatum" prefWidth="75.0" text="Datum" />
                                 <TableColumn fx:id="tblColRadniNalogVreme" prefWidth="75.0" text="Vreme" />
                                 <TableColumn fx:id="tblColRadniNalogKilometraza" prefWidth="94.00003051757812" text="Kilometraza" />
-                                <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="231.0" text="DetaljiStranke" />
-                                <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="264.0" text="DetaljiServisera" />
-                                <TableColumn fx:id="tblColRadniNalogBtnIzmeni" prefWidth="76.0" />
+                                <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="169.00003051757812" text="DetaljiStranke" />
+                                <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="225.0" text="DetaljiServisera" />
+                                <TableColumn fx:id="tblColRadniNalogBtnIzmeni" />
                             </columns>
                         </TableView>
                     </children>
@@ -104,9 +104,9 @@
                         <DropShadow />
                     </effect>
                 </Pane>
-                <Pane layoutX="8.0" layoutY="466.0" prefHeight="233.0" prefWidth="847.0" style="-fx-background-color: #252525;">
+                <Pane layoutX="769.0" layoutY="436.0" prefHeight="302.0" prefWidth="690.0" style="-fx-background-color: #252525;">
                     <children>
-                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="856.0" style="-fx-background-color: #1a1a1a;" text="Defektaže:" textFill="WHITE">
+                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="701.0" style="-fx-background-color: #1a1a1a;" text="Defektaže:" textFill="WHITE">
                             <font>
                                 <Font name="Segoe UI Bold" size="26.0" />
                             </font>
@@ -124,7 +124,7 @@
                         </ImageView>
                      </graphic>
                         </Label>
-                        <Button fx:id="btnDefektaza" layoutX="669.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="36.0" prefWidth="157.0" text="Nova Defektaža">
+                        <Button fx:id="btnDefektaza" layoutX="519.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="36.0" prefWidth="157.0" text="Nova Defektaža">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
@@ -135,16 +135,16 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <TableView fx:id="tblDefektaza" layoutX="4.0" layoutY="59.0" prefHeight="170.0" prefWidth="829.0" stylesheets="@/table-view.css">
+                        <TableView fx:id="tblDefektaza" layoutX="14.0" layoutY="56.0" prefHeight="219.0" prefWidth="671.0" stylesheets="@/table-view.css">
                             <columns>
                                 <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
                                 <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" visible="false" />
                                 <TableColumn fx:id="tblColDatumDefektaze" prefWidth="97.0" text="Datum" />
                                 <TableColumn fx:id="tblColVreme" prefWidth="91.00003051757812" text="Vreme" />
                                 <TableColumn fx:id="tblColKilometraza" text="Kilometraza" />
-                                <TableColumn fx:id="tblColOpisDefektaze" prefWidth="218.0" text="Opis Defektaže" />
-                                <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="231.0" text="Ostali Detalji Defektaže" />
-                                <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="99.0" />
+                                <TableColumn fx:id="tblColOpisDefektaze" prefWidth="155.0" text="Opis Defektaže" />
+                                <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="165.0" text="Ostali Detalji Defektaže" />
+                                <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="70.0" />
                             </columns>
                         </TableView>
                     </children>
@@ -156,7 +156,7 @@
         </AnchorPane>
     </center>
     <top>
-        <AnchorPane prefHeight="94.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="94.0" prefWidth="1432.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
                 <Button graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
                     <graphic>
@@ -180,7 +180,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1233.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="70.0" prefWidth="144.0">
+                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1317.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="70.0" prefWidth="144.0">
                <graphic>
                   <ImageView fitHeight="62.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -215,6 +215,6 @@
         </AnchorPane>
     </top>
    <bottom>
-      <AnchorPane prefHeight="33.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="10.0" prefWidth="1475.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
