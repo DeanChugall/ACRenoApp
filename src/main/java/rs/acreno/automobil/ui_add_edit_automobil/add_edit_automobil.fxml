@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
+         <children>
+            <Line endX="495.0" layoutX="299.0" startX="-299.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Line>
+            <Label focusTraversable="false" layoutX="19.0" layoutY="26.0" minHeight="-Infinity" prefHeight="49.0" prefWidth="166.0" text="KLIJENT:" textFill="#c6c6c6">
+               <font>
+                  <Font name="Segoe UI" size="42.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblImeKlijenta" alignment="CENTER" layoutX="181.0" layoutY="20.0" prefHeight="64.0" prefWidth="360.0" style="-fx-background-color: #292929;" textFill="#c6c6c6">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtfIdKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="548.0" layoutY="21.0" minHeight="-Infinity" prefHeight="63.0" prefWidth="111.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="27.0" />
+               </font>
+            </TextField>
+            <Button focusTraversable="false" layoutX="691.0" layoutY="21.0" mnemonicParsing="false" onAction="#saveAutomobil" prefHeight="63.0" prefWidth="98.0" text="Sačuvaj">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_save_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Line endX="495.0" layoutX="302.0" layoutY="85.0" startX="-299.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Line>
+            <ImageView fitHeight="50.0" fitWidth="344.0" layoutX="16.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/tablica.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" layoutX="40.0" layoutY="132.0" minHeight="-Infinity" prefHeight="41.0" prefWidth="204.0" promptText="Unesi Reg. Tablicu...">
+               <font>
+                  <Font name="Segoe UI Bold" size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="284.0" layoutY="114.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="VIN Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfVinVozila" alignment="CENTER" layoutX="284.0" layoutY="132.0" minHeight="-Infinity" prefHeight="41.0" prefWidth="235.0" promptText="VIN Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="550.0" layoutY="114.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Datum ACR Registracije:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="datePickerDatumAcrRegistracije" layoutX="550.0" layoutY="132.0" prefHeight="41.0" prefWidth="235.0" promptText="Datum ACR Registracije..." />
+            <Label layoutX="17.0" layoutY="183.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Marka Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfMarkaAutomobila" layoutX="17.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Marka Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="284.0" layoutY="183.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Model Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfModelAutomobila" layoutX="285.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Model Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="549.0" layoutY="189.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Vrsta Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfVrstaAutomobila" layoutX="550.0" layoutY="207.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="16.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Godište Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfGodisteAutomobila" layoutX="16.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Godište Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfZapreminaAutomobila" layoutX="286.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Zapremina Motora...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfSnagaAutomobila" layoutX="550.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Snaga Motora...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="15.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Vrsta Goriva:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbVrstaGorivaAutomobila" layoutX="15.0" layoutY="317.0" prefHeight="25.0" prefWidth="235.0" promptText="Vrsta Goriva...">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Dizel" />
+                     <String fx:value="Benzin" />
+                     <String fx:value="Auto Gas" />
+                     <String fx:value="Hibrid" />
+                     <String fx:value="Električni" />
+                  </FXCollections>
+               </items>
+               <value>
+                  <String fx:value="Dizel" />
+               </value>
+            </ComboBox>
+            <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfKilometrazaAutomobila" layoutX="286.0" layoutY="316.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Klometraža....">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="549.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Motora Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfBrojMotoraAutomobila" layoutX="550.0" layoutY="317.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Motora...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="17.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Boja Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfBojaAutomobila" layoutX="17.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Boja Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfMasaAutomobila" layoutX="286.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Masa Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="552.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Vrata:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfBrojVrataAutomobila" layoutX="550.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Vrata...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfDozvoljenaMasaAutomobila" layoutX="15.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Dozvoljena Masa Vozila...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="284.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Datum Prve Registracije:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfDatumPrveRegistracijeAutomobila" layoutX="285.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Datum Prve Registracije...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="551.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Mesta za sedenje:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtfBrojMestaZaSedenje" layoutX="550.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Mesta za sedenje...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="466.0" prefHeight="17.0" prefWidth="201.0" text="Napomene o Vozilu:" textFill="#d3d3d3">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="txtaNapomeneAutomobila" layoutX="14.0" layoutY="485.0" prefHeight="135.0" prefWidth="511.0" promptText="Napomene o Vozilu..." />
+            <Line endX="495.0" layoutX="303.0" layoutY="656.0" startX="-302.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Line>
+         </children></AnchorPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="90.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label fx:id="lblHeaderTitle" layoutX="14.0" layoutY="17.0" prefHeight="57.0" prefWidth="428.0" text="UNOS AUTOMOBILA:" textFill="#c6c6c6">
+               <font>
+                  <Font name="Segoe UI" size="39.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnClose" layoutX="691.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnZatvoriCreateAutomobilUi" prefHeight="53.0" prefWidth="98.0" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_close_icon.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="txtfIdKAutomobila" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="445.0" layoutY="19.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="163.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </TextField>
+         </children></AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+         <children>
+            <Button disable="true" layoutX="4.0" layoutY="5.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="121.0" text="Učitaj Saobraćajnu" />
+            <Button fx:id="btnObrisiAutomobil" layoutX="646.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnObrisiAutomobilAct" prefHeight="42.0" prefWidth="140.0" text="Obriši Automobil">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_delete_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

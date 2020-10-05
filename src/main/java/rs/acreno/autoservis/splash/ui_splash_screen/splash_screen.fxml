@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="aPaneSplashScreen" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.splash.SplashScreenController">
+   <children>
+        <ImageView fitHeight="405.0" fitWidth="655.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+             <Image url="@/splash_screen/splash_screen_logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="231.0" prefHeight="17.0" prefWidth="97.0" text="Verzija Programa:" textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAppVersion" layoutX="111.0" layoutY="231.0" prefHeight="17.0" prefWidth="97.0" text="Alpha 1.0" textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI Black" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="273.0" prefHeight="17.0" prefWidth="283.0" text="Copyright @ 2020 AC Reno Inc. All rights reserved" textFill="#9e9e9e">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="88.0" text="Release Date: " textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblReleaseDate" layoutX="111.0" layoutY="250.0" prefHeight="17.0" prefWidth="97.0" text="1.1.2020" textFill="#b8b8b8">
+         <font>
+            <Font name="Segoe UI Black" size="12.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="prgBarLoadStaff" layoutX="344.0" layoutY="176.0" prefHeight="9.0" prefWidth="249.0" progress="0.0" stylesheets="@/pbar.css" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.print_defektaza.PrintDefektazaController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="298.0" text="&quot;AC Reno&quot; Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="24.0">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPrintDefektaza" layoutX="466.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPrintActDefektazaAct" prefHeight="55.0" prefWidth="105.0" text="Print" />
+
+      <TextField fx:id="txtFidDefektaze" layoutX="134.0" layoutY="164.0" prefHeight="39.0" prefWidth="192.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></TextField>
+      <ImageView fitHeight="74.0" fitWidth="141.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/faktura/logo-acreno.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="74.0" fitWidth="311.0" layoutX="339.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/tablica.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtRegTablica" alignment="CENTER" editable="false" focusTraversable="false" layoutX="370.0" layoutY="165.0" prefHeight="59.0" prefWidth="275.0">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font></TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="164.0" prefHeight="33.0" prefWidth="115.0" text="DF #">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="255.0" text="Datum" />
+      <Label layoutX="223.0" layoutY="255.0" text="Vreme" />
+      <Label layoutX="407.0" layoutY="255.0" text="Kilometraza" />
+      <Label layoutX="36.0" layoutY="318.0" text="Opis Defektaže:" />
+      <Label layoutX="32.0" layoutY="543.0" text="Detalji Defektaže:" />
+      <TextField fx:id="txtfKilometraza" layoutX="407.0" layoutY="281.0" />
+      <TextField fx:id="txtfDatumDefektaze" layoutX="20.0" layoutY="281.0" />
+      <TextField fx:id="txtfVreme" layoutX="223.0" layoutY="281.0" />
+      <TextArea fx:id="txtAreaopisDefektaze" editable="false" focusTraversable="false" layoutX="32.0" layoutY="340.0" prefHeight="200.0" prefWidth="615.0" wrapText="true" />
+      <TextArea fx:id="txtAreaDetaljiDefektaze" editable="false" focusTraversable="false" layoutX="32.0" layoutY="573.0" prefHeight="200.0" prefWidth="615.0" wrapText="true" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="33.0" prefWidth="124.0" text="Klijent">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtfKlijent" layoutX="134.0" layoutY="209.0" prefHeight="39.0" prefWidth="192.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btnZatvoriPrintDefektaza" layoutX="580.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnZatvoriPrintDefektazaActtion" prefHeight="39.0" prefWidth="70.0" text="Zatvori" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="84.0" prefHeight="33.0" prefWidth="484.0" text="DEFEKTAŽA">
+         <font>
+            <Font name="System Bold" size="46.0" />
+         </font>
+      </Label>
+
+   </children>
+</AnchorPane>
