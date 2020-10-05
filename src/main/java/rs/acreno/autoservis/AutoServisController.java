@@ -78,7 +78,6 @@ public class AutoServisController implements Initializable {
     @FXML private Button btnUrediAutomobil;
     @FXML private TextField txtFidAutomobila;
 
-
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
@@ -91,6 +90,7 @@ public class AutoServisController implements Initializable {
     @FXML private TextField txtFmestoStanovanjaKlijenta;
     @FXML private TextField txtFeMailKlijenta;
     @FXML private TextArea txtAreaOstaliDetaljiKlijenta;
+
     //TABELA
     @FXML private TableView<Automobil> tblAutomobiliInKlijent;
     @FXML private TableColumn<Automobil, Number> tblColIDAutomobila;
