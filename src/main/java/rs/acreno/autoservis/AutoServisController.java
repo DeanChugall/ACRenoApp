@@ -28,6 +28,7 @@ import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
 import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
+import rs.acreno.saobracajna.Saobracajna;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
@@ -172,6 +173,8 @@ public class AutoServisController implements Initializable {
 
 
     private boolean weAreFromTable = false;
+    private boolean ifWeAreFromUcitajSaobracajnu = false;
+
 
     /**
      * Empty inicijalizaciona metoda ovog {@link AutoServisController}-a, if we need this for later use
@@ -213,6 +216,38 @@ public class AutoServisController implements Initializable {
 
 
     // 3.0 ***************  AUTOMOBILI STAFF ***************************
+
+    public void ucitajSaobracajnu(ActionEvent actionEvent) throws AcrenoException, SQLException {
+        logger.info("Kliknuto ucitaj sobracajnu !!!");
+        ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
+        String regOznaka = Saobracajna.automobil().getRegOznaka();
+        String test = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2);
+        txtFieldRegOznaka.setText(test.toLowerCase());
+        automobil = automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, test.toLowerCase()).get(0);
+        automobilForEdit = automobil; // Da bi moglo da se uredi automobil klikom na dugme
+        popuniAutomobilTxtfOve(automobil);
+
+        // list view staff
+        listViewAutmobiliSearch.setVisible(false); // Zatvori listu
+        btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
+        btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+
+
+        //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
+                automobil.getIdKlijenta()).get(0);
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnNoviAutomobil.setDisable(false);
+
+        //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
+        popuniTabeluAutomobiliklijenta(klijent);
+    }
 
     /**
      * Pretraga i filtriranje Autmobila po REG. TABLICI u KeyListeneru TxtF-a
@@ -289,6 +324,8 @@ public class AutoServisController implements Initializable {
         }
     }
 
+    private Automobil automobil;
+
     /**
      * Zatvara popUp ListView pretrage i setuje selektovanu vrednost u TF sa DUPLIM KLIKOM
      * Nakon toga se zatvara ovj UIa i sve se inicijalizuje u {@link #openAutomobiliUi()}
@@ -304,20 +341,26 @@ public class AutoServisController implements Initializable {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
             if (listViewAutmobiliSearch.getSelectionModel().getSelectedItems().size() > 0) {
-                //POPUNI TXTFove SA PODACIUMA AUTOMOBILA
-                Automobil automobil = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0);
-                popuniAutomobilTxtfOve(automobil);
+                automobil = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0);
+                popuniAutomobilTxtfOve(automobil); //POPUNI TXTFove SA PODACIUMA AUTOMOBILA
 
                 // list view staff
                 listViewAutmobiliSearch.setVisible(false); // Zatvori listu
                 btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
 
-
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
                 klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
                         listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
+
+                //Popuni TXTf sa podacima klijenta
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+                txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+                txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+                txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+                txtFeMailKlijenta.setText(klijent.getEmail());
+                txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
                 btnNoviAutomobil.setDisable(false);
 
                 //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
@@ -522,7 +565,7 @@ public class AutoServisController implements Initializable {
     }
 
 
-    Automobil automobilForEdit;
+    private Automobil automobilForEdit;
 
     /**
      * Metoda koja se koristi za editovanje {@link Automobil} objekta, a dugme {@link #btnUrediAutomobil)}.
@@ -540,9 +583,11 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void btnUrediAutomobilAct() throws IOException {
         // Moze jer je samo jed izabran u "listViewAutmobiliSearch"
-        if (!weAreFromTable) { //  Ako je kliknuto iz tabele auto, nemoj selektovati iz ListViewa
+        //  Ako je kliknuto iz tabele auto, nemoj selektovati iz ListViewa i ako je ucitana saobracajna nemoj ovo.
+        if (!weAreFromTable && !ifWeAreFromUcitajSaobracajnu) {
             automobilForEdit = listViewAutmobiliSearch.getSelectionModel().getSelectedItem();
         }
+
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
@@ -686,7 +731,7 @@ public class AutoServisController implements Initializable {
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
-                txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
+                txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi IME I PREZIME u TF
                 txtFiDKlijenta.setText(String.valueOf(idKlijenta)); // u "txtFiDKlijenta" postavi ID klijenta
                 txtFbrojTelefona.setText(brojTelefonaKlijenta);
                 txtFadresaKlijenta.setText(klijent.getUlicaBroj());

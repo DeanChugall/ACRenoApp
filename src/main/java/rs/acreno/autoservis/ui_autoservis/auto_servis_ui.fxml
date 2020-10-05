@@ -306,7 +306,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="30.0" layoutX="453.0" layoutY="310.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="38.0" prefWidth="213.0" text="Učitaj Saobraćajnu">
+                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="30.0" layoutX="453.0" layoutY="310.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="38.0" prefWidth="213.0" text="Učitaj Saobraćajnu">
                      <effect>
                         <DropShadow />
                      </effect>
