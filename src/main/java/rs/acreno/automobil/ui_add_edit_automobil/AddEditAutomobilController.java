@@ -14,8 +14,7 @@ import org.apache.log4j.Logger;
 import rs.acreno.automobil.*;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.klijent.KlijentSearchType;
-import rs.acreno.saobracajna.Saobracajna;
+import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -34,8 +33,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 1.0
  */
 public class AddEditAutomobilController implements Initializable {
-
-    private static final Logger logger = Logger.getLogger(AutoServisController.class);
 
 
     // ****************** FXMLs STAFF *************************
@@ -66,7 +63,7 @@ public class AddEditAutomobilController implements Initializable {
     @FXML private Button btnClose;
     @FXML private Button btnUcitajSaobracajnu;
 
-
+    private static final Logger logger = Logger.getLogger(AutoServisController.class);
     private boolean isCloseButtonPresed = false;
     private boolean isDeleteButtonPressed = false;
 
