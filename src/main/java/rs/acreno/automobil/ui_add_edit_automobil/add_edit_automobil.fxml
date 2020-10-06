@@ -120,7 +120,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora:" textFill="#d3d3d3">
+            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora (cc):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -130,7 +130,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora:" textFill="#d3d3d3">
+            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora (kW):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -145,7 +145,7 @@
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cmbVrstaGorivaAutomobila" layoutX="15.0" layoutY="317.0" prefHeight="25.0" prefWidth="235.0" promptText="Vrsta Goriva...">
+            <ComboBox fx:id="cmbVrstaGorivaAutomobila1" layoutX="15.0" layoutY="317.0" prefHeight="25.0" prefWidth="235.0" promptText="Vrsta Goriva..." visible="false">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Dizel" />
@@ -159,7 +159,7 @@
                   <String fx:value="Dizel" />
                </value>
             </ComboBox>
-            <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža:" textFill="#d3d3d3">
+            <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža (km):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -189,7 +189,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila:" textFill="#d3d3d3">
+            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -209,7 +209,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila:" textFill="#d3d3d3">
+            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -250,6 +250,11 @@
                   <DropShadow />
                </effect>
             </Line>
+            <TextField fx:id="txtFvrstaGorivaVozila" layoutX="15.0" layoutY="317.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Goriva...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
          </children></AnchorPane>
    </center>
    <top>
@@ -285,7 +290,16 @@
    <bottom>
       <AnchorPane prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-            <Button disable="true" layoutX="4.0" layoutY="5.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="121.0" text="Učitaj Saobraćajnu" />
+            <Button fx:id="btnUcitajSaobracajnu" layoutX="4.0" layoutY="5.0" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="51.0" prefWidth="202.0" text="    Učitaj Saobraćajnu">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
+                     </image></ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
             <Button fx:id="btnObrisiAutomobil" layoutX="646.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnObrisiAutomobilAct" prefHeight="42.0" prefWidth="140.0" text="Obriši Automobil">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">

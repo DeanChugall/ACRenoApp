@@ -78,7 +78,7 @@
                 <TableColumn fx:id="tblRowTotal" editable="false" minWidth="-Infinity" prefWidth="116.0" sortable="false" style="-fx-alignment: center;" text="Total" />
             </columns>
         </TableView>
-        <ImageView fitHeight="84.0" fitWidth="166.0" layoutX="7.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="84.0" fitWidth="166.0" layoutX="7.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/faktura/logo-acreno.jpg" />
             </image>

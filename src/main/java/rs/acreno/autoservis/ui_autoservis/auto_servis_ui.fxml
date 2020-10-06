@@ -74,7 +74,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil11" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="326.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="137.0" text="Učitaj L. Kartu">
+                  <Button fx:id="btnUrediAutomobil11" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="289.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="174.0" text="Učitaj Ličnu Kartu">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -82,14 +82,14 @@
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/auto_servis/ucitaj_saobracajnu_icon.png" />
+                              <Image url="@/auto_servis/id-card.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="386.0" promptText="Traži Klijenta...">
+                  <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" focusTraversable="false" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="386.0" promptText="Traži Klijenta...">
                      <font>
                         <Font name="System Bold" size="34.0" />
                      </font>
@@ -115,7 +115,7 @@
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnNoviKlijent" graphicTextGap="12.0" layoutX="486.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT">
+                  <Button fx:id="btnNoviKlijent" focusTraversable="false" graphicTextGap="12.0" layoutX="486.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -168,7 +168,7 @@
                         <Image url="@/auto_servis/bar_code_home.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" graphicTextGap="20.0" layoutX="450.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="216.0" text="KARTICA ARTIKLI">
+                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" focusTraversable="false" graphicTextGap="20.0" layoutX="450.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="216.0" text="KARTICA ARTIKLI">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -271,7 +271,7 @@
                         <DropShadow height="121.81" radius="61.8875" width="127.74" />
                      </effect>
                   </ImageView>
-                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="187.0" layoutY="236.0">
+                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="185.0" layoutY="236.0">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
@@ -283,12 +283,12 @@
                      </font>
                   </TextField>
                   <Label alignment="CENTER" layoutX="15.0" layoutY="219.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="355.0" layoutY="235.0" prefHeight="23.0" prefWidth="87.0">
+                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="355.0" layoutY="236.0" prefHeight="23.0" prefWidth="87.0">
                      <font>
                         <Font name="Segoe UI Bold" size="10.0" />
                      </font>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="356.0" layoutY="217.0" prefHeight="17.0" prefWidth="74.0" text="Gorivo" textFill="#c3c3c3" />
+                  <Label alignment="CENTER" layoutX="356.0" layoutY="218.0" prefHeight="17.0" prefWidth="74.0" text="Gorivo" textFill="#c3c3c3" />
                   <Label alignment="CENTER" layoutX="12.0" layoutY="175.0" prefHeight="17.0" prefWidth="268.0" text="VIN" textFill="#c3c3c3" />
                   <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="193.0" prefHeight="23.0" prefWidth="269.0">
                      <font>
@@ -301,7 +301,7 @@
                      </font>
                   </TextField>
                   <Label alignment="CENTER" layoutX="292.0" layoutY="175.0" prefHeight="17.0" prefWidth="136.0" text="Godište" textFill="#c3c3c3" />
-                  <Button graphicTextGap="10.0" layoutX="254.0" layoutY="275.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoRadniNalogAct" prefHeight="73.0" prefWidth="185.0" text="Blanko Radni Nalog">
+                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="254.0" layoutY="275.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoRadniNalogAct" prefHeight="73.0" prefWidth="185.0" text="Blanko Radni Nalog">
                      <graphic>
                         <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -315,7 +315,7 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font></Button>
-                  <Button graphicTextGap="10.0" layoutX="75.0" layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoDefektazaAct" prefHeight="72.0" prefWidth="171.0" text="Blanko Defektaža">
+                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="75.0" layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoDefektazaAct" prefHeight="72.0" prefWidth="171.0" text="Blanko Defektaža">
                      <graphic>
                         <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                            <image>

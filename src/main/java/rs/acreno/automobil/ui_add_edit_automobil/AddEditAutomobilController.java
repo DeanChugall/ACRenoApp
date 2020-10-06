@@ -11,12 +11,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
-import rs.acreno.automobil.Automobil;
-import rs.acreno.automobil.AutomobilDAO;
-import rs.acreno.automobil.AutomobiliController;
-import rs.acreno.automobil.SQLAutomobilDAO;
+import rs.acreno.automobil.*;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
+import rs.acreno.klijent.KlijentSearchType;
+import rs.acreno.saobracajna.Saobracajna;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -53,7 +52,8 @@ public class AddEditAutomobilController implements Initializable {
     @FXML private TextField txtfGodisteAutomobila;
     @FXML private TextField txtfZapreminaAutomobila;
     @FXML private TextField txtfSnagaAutomobila;
-    @FXML private ComboBox<String> cmbVrstaGorivaAutomobila;
+    //@FXML private ComboBox<String> cmbVrstaGorivaAutomobila;
+    @FXML private TextField txtFvrstaGorivaVozila;
     @FXML private TextField txtfKilometrazaAutomobila;
     @FXML private TextField txtfBrojMotoraAutomobila;
     @FXML private TextField txtfBojaAutomobila;
@@ -64,6 +64,7 @@ public class AddEditAutomobilController implements Initializable {
     @FXML private TextField txtfBrojMestaZaSedenje;
     @FXML private TextArea txtaNapomeneAutomobila;
     @FXML private Button btnClose;
+    @FXML private Button btnUcitajSaobracajnu;
 
 
     private boolean isCloseButtonPresed = false;
@@ -178,7 +179,7 @@ public class AddEditAutomobilController implements Initializable {
             txtfGodisteAutomobila.setText(String.valueOf(getAutomobil().getGodisteVozila()));
             txtfZapreminaAutomobila.setText(String.valueOf(getAutomobil().getZapreminaVozila()));
             txtfSnagaAutomobila.setText(String.valueOf(getAutomobil().getSnagaVozila()));
-            cmbVrstaGorivaAutomobila.setValue(getAutomobil().getVrstaGorivaVozila());
+            txtFvrstaGorivaVozila.setText(getAutomobil().getVrstaGorivaVozila());
             txtfKilometrazaAutomobila.setText(getAutomobil().getKilomteraza());
             txtfBrojMotoraAutomobila.setText(getAutomobil().getBrojMotoraVozila());
             txtfBojaAutomobila.setText(getAutomobil().getBojaVozila());
@@ -246,7 +247,7 @@ public class AddEditAutomobilController implements Initializable {
                 automobil.setGodisteVozila(Integer.parseInt(txtfGodisteAutomobila.getText()));
                 automobil.setZapreminaVozila(Integer.parseInt(txtfZapreminaAutomobila.getText()));
                 automobil.setSnagaVozila(Integer.parseInt(txtfSnagaAutomobila.getText()));
-                automobil.setVrstaGorivaVozila(String.valueOf(cmbVrstaGorivaAutomobila.getValue()));
+                automobil.setVrstaGorivaVozila(txtFvrstaGorivaVozila.getText());
                 automobil.setKilomteraza(txtfKilometrazaAutomobila.getText());
                 automobil.setBrojMotoraVozila(txtfBrojMotoraAutomobila.getText());
                 automobil.setBojaVozila(txtfBojaAutomobila.getText());
@@ -341,5 +342,32 @@ public class AddEditAutomobilController implements Initializable {
             saveAutomobil(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
             btnClose.fireEvent(new WindowEvent(stageCreateNewAutomobil, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
+    }
+
+    public void ucitajSaobracajnu(ActionEvent actionEvent) {
+        logger.info("Kliknuto ucitaj sobracajnu iz kartice novi automobil!!!");
+
+        Automobil automobil = Saobracajna.automobil();
+        String regOznaka = automobil.getRegOznaka();
+        String sredjenaRegOznaka = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2);
+        txtFieldRegOznaka.setText(sredjenaRegOznaka);
+        txtfVinVozila.setText(automobil.getVinVozila());
+        txtfMarkaAutomobila.setText(automobil.getMarkaVozila());
+        txtfModelAutomobila.setText(automobil.getModelVozila());
+        txtfVrstaAutomobila.setText(automobil.getVrstaVozila());
+        txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
+        txtfZapreminaAutomobila.setText(String.valueOf(automobil.getZapreminaVozila()));
+        txtfSnagaAutomobila.setText(String.valueOf(automobil.getSnagaVozila()));
+        txtFvrstaGorivaVozila.setText(automobil.getVrstaGorivaVozila());
+        txtfBrojMotoraAutomobila.setText(automobil.getBrojMotoraVozila());
+        txtfBojaAutomobila.setText(automobil.getBojaVozila());
+        txtfMasaAutomobila.setText(String.valueOf(automobil.getMasaVozila()));
+        txtfBrojVrataAutomobila.setText(String.valueOf(automobil.getBrojVrataVozila()));
+        txtfDozvoljenaMasaAutomobila.setText(String.valueOf(automobil.getNajvecaDozvoljenaMasaVozila()));
+        txtfDatumPrveRegistracijeAutomobila.setText(String.valueOf(automobil.getDatumPrveRegistracijeVozila()));
+        txtfBrojMestaZaSedenje.setText(String.valueOf(automobil.getBrojMestaZaSedenje()));
+
+
+
     }
 }

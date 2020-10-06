@@ -14,6 +14,8 @@ import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
 import javax.smartcardio.TerminalFactory;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -54,37 +56,68 @@ public class Saobracajna {
             TerminalFactory factory = TerminalFactory.getDefault();
             terminal = pickTerminal(factory.terminals().list());
 
-            GeneralUiUtility.alertDialogBox(Alert.AlertType.INFORMATION, "Using reader   : " + terminal,
-                    "Čitanje Saobraćajne...", "Očitana saobracajna...");
-
-
-            System.out.println("Koriščen čitač: " + terminal);
-
         } catch (CardException e) {
-            System.err.println("Missing card reader.");
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Using reader   : " + terminal,
+                    "Greška u nije prepoznat čitač saobraćajne...", "**********GREŠKA---NIJE PREPOZNAT ČITAČ **********\"");
+            final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.exclamation");
+            if (runnable != null) {
+                runnable.run();
+            }
+            logger.error("**********GREŠKA---NIJE PREPOZNAT ČITAČ **********");
         }
         try {
             // establish a connection with the card
             Card card = terminal.connect("*");
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.INFORMATION, "Using reader   : " + terminal,
+                    "Čitanje Saobraćajne...", "Očitana saobracajna...");
             // read evrc data
             EvrcCard evrccard = new EvrcCard(card);
             EvrcInfo info = evrccard.readEvrcInfo();
-            System.out.println(info.toJSON());
             JSONObject reader = new JSONObject(info.toJSON());
-            JSONObject customer = (JSONObject) reader.get("document");
-            System.out.println(customer.get("issuing_date"));
 
             JSONObject vozilo = (JSONObject) reader.get("vehicle");
             automobil.setRegOznaka(vozilo.get("registration_number").toString());
+            automobil.setVinVozila(vozilo.get("id_number").toString());
+            automobil.setMarkaVozila(vozilo.get("make").toString());
+            automobil.setModelVozila(vozilo.get("commercial_description").toString());
+            automobil.setVrstaVozila(vozilo.get("vehicle_category").toString());
+            automobil.setGodisteVozila(Integer.parseInt(vozilo.get("production_year").toString()));
+            automobil.setZapreminaVozila(Integer.parseInt(vozilo.get("engine_capacity").toString()));
+            automobil.setSnagaVozila(Integer.parseInt(vozilo.get("max_net_power").toString()));
+            automobil.setVrstaGorivaVozila(vozilo.get("fuel_type").toString());
+            automobil.setBrojMotoraVozila(vozilo.get("engine_id_number").toString());
+            automobil.setBojaVozila(vozilo.get("color").toString());
+            automobil.setMasaVozila(Integer.parseInt(vozilo.get("mass").toString()));
+            automobil.setBrojVrataVozila(5);
+            automobil.setNajvecaDozvoljenaMasaVozila(Integer.parseInt(vozilo.get("max_permissible_laden_mass").toString()));
+
+            LocalDate ld  = LocalDate.parse(vozilo.get("first_registration_date").toString(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+            int year = ld.getYear();
+            int month = ld.getMonthValue();
+            int day = ld.getDayOfMonth();
+            System.out.println(month + " " + day + " " + year);
+            automobil.setDatumPrveRegistracijeVozila((month + "." + day + "." + year + "."));
+
+            automobil.setBrojMestaZaSedenje(5);
+
+
+            logger.info("********** OCITANA SAOBRACAJNA **********");
+            final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.exclamation");
+            if (runnable != null) {
+                runnable.run();
+            }
 
         } catch (CardException e) {
             e.printStackTrace();
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR, "Using reader   : " + terminal,
+                    "Greška u čitanju Saobraćajne...", "**********GREŠKA U ČITANJU SAOBRAĆAJNE **********");
+            final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.default");
+            if (runnable != null) {
+                runnable.run();
+            }
+            logger.error("**********GREŠKA U ČITANJU SAOBRACAJNE **********");
         }
-        logger.info("********** OCITANA SAOBRACAJNA **********");
-        final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.default");
-        if (runnable != null) {
-            runnable.run();
-        }
+
 
         return automobil;
     }
