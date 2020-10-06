@@ -64,9 +64,7 @@ public class AutoServisApp extends Application {
                 return null;
             }
         };
-        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(
-                task.progressProperty()
-        );
+        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(task.progressProperty());
         // color the bar green when the work is complete.
         /*splashScreenController.getPrgBarLoadStaff().progressProperty().addListener(observable -> {
             if (splashScreenController.getPrgBarLoadStaff().getProgress() >= 1 - EPSILON) {

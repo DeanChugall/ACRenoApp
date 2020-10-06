@@ -68,14 +68,14 @@
                 <TableColumn fx:id="tblRowidPosaoArtikli" prefWidth="74.0" text="idPosaoArtikli" visible="false" />
                 <TableColumn fx:id="tblRowidRacuna" prefWidth="53.0" text="idRacuna" visible="false" />
                 <TableColumn fx:id="tblRowidArtikla" prefWidth="50.0" text="šifra" visible="false" />
-                <TableColumn fx:id="tblRowOpisArtikla" prefWidth="116.0" text="Opis" />
-                <TableColumn fx:id="tblRowNazivArtikla" prefWidth="196.0" text="Naziv Artikla" />
-                <TableColumn fx:id="tblRowJedinicaMere" prefWidth="39.0" style="-fx-alignment: CENTER;" text="J.M" />
-                <TableColumn fx:id="tblRowKolicina" prefWidth="42.0" style="-fx-alignment: CENTER;" text="kol." />
-                <TableColumn fx:id="tblRowCena" prefWidth="79.0" style="-fx-alignment: CENTER;" text="cena" />
-                <TableColumn fx:id="tblRowPopust" prefWidth="67.0" style="-fx-alignment: CENTER;" text="popust %" />
+                <TableColumn fx:id="tblRowOpisArtikla" editable="false" prefWidth="126.0" sortable="false" style="-fx-alignment:center;" text="Opis" />
+                <TableColumn fx:id="tblRowNazivArtikla" editable="false" prefWidth="186.0" sortable="false" style="-fx-alignment:center;" text="Naziv Artikla" />
+                <TableColumn fx:id="tblRowJedinicaMere" editable="false" prefWidth="39.0" sortable="false" style="-fx-alignment:center;" text="J.M" />
+                <TableColumn fx:id="tblRowKolicina" editable="false" prefWidth="42.0" sortable="false" style="-fx-alignment:center;" text="kol." />
+                <TableColumn fx:id="tblRowCena" editable="false" prefWidth="79.0" sortable="false" style="-fx-alignment:center;" text="cena" />
+                <TableColumn fx:id="tblRowPopust" editable="false" prefWidth="67.0" sortable="false" style="-fx-alignment:center;" text="popust %" />
                 <TableColumn fx:id="tblRowNabavnaCena" prefWidth="93.0" text="nabavnaCena" visible="false" />
-                <TableColumn fx:id="tblRowTotal" minWidth="-Infinity" prefWidth="116.0" style="-fx-alignment: CENTER;" text="Total" />
+                <TableColumn fx:id="tblRowTotal" editable="false" minWidth="-Infinity" prefWidth="116.0" sortable="false" style="-fx-alignment: center;" text="Total" />
             </columns>
         </TableView>
         <ImageView fitHeight="84.0" fitWidth="166.0" layoutX="7.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">

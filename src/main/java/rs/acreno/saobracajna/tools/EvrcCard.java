@@ -260,8 +260,8 @@ public class EvrcCard {
         card = null;
     }
 
-    @Override
-    protected void finalize() {
+
+    protected void close() {
         try {
             if (card != null) {
                 disconnect(false);

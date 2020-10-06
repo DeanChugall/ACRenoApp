@@ -217,6 +217,8 @@ public class AutoServisController implements Initializable {
 
     // 3.0 ***************  AUTOMOBILI STAFF ***************************
 
+    private Automobil automobil;
+
     public void ucitajSaobracajnu(ActionEvent actionEvent) throws AcrenoException, SQLException {
         logger.info("Kliknuto ucitaj sobracajnu !!!");
         ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
@@ -323,8 +325,6 @@ public class AutoServisController implements Initializable {
             }
         }
     }
-
-    private Automobil automobil;
 
     /**
      * Zatvara popUp ListView pretrage i setuje selektovanu vrednost u TF sa DUPLIM KLIKOM
@@ -564,7 +564,6 @@ public class AutoServisController implements Initializable {
         btnUrediAutomobilFromKlijent.setDisable(true);*/
     }
 
-
     private Automobil automobilForEdit;
 
     /**
@@ -629,6 +628,10 @@ public class AutoServisController implements Initializable {
 
 
     // 4.0 ***************  KLIJENTI STAFF ***************************
+
+    public void ucitajLicnuKartu(ActionEvent actionEvent) {
+        logger.info("CITANJE LICNE KARTE");
+    }
 
     /**
      * Pretraga i filtriranje Klijenta po IMENU I PREZIMENU u KeyListeneru TxtF-a
@@ -1078,6 +1081,7 @@ public class AutoServisController implements Initializable {
         stage.close();
         System.exit(0);
     }
+
 
 
 }
