@@ -37,18 +37,6 @@
                   <Font name="Segoe UI Bold" size="27.0" />
                </font>
             </TextField>
-            <Button focusTraversable="false" layoutX="691.0" layoutY="21.0" mnemonicParsing="false" onAction="#saveAutomobil" prefHeight="63.0" prefWidth="98.0" text="Sačuvaj">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/btn_save_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
             <Line endX="495.0" layoutX="302.0" layoutY="85.0" startX="-299.0">
                <effect>
                   <DropShadow />
@@ -255,6 +243,16 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
+            <Button fx:id="btnUcitajSaobracajnu" layoutX="549.0" layoutY="485.0" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="130.0" prefWidth="235.0" text="    Učitaj Saobraćajnu">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
+                     </image></ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
          </children></AnchorPane>
    </center>
    <top>
@@ -263,9 +261,9 @@
             <DropShadow />
          </effect>
          <children>
-            <Label fx:id="lblHeaderTitle" layoutX="14.0" layoutY="17.0" prefHeight="57.0" prefWidth="428.0" text="UNOS AUTOMOBILA:" textFill="#c6c6c6">
+            <Label fx:id="lblHeaderTitle" layoutX="84.0" layoutY="17.0" prefHeight="57.0" prefWidth="428.0" text="UNOS AUTOMOBILA:" textFill="#c6c6c6">
                <font>
-                  <Font name="Segoe UI" size="39.0" />
+                  <Font name="Segoe UI" size="30.0" />
                </font>
             </Label>
             <Button fx:id="btnClose" layoutX="691.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnZatvoriCreateAutomobilUi" prefHeight="53.0" prefWidth="98.0" textAlignment="CENTER">
@@ -280,26 +278,32 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="txtfIdKAutomobila" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="445.0" layoutY="19.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="163.0">
+            <TextField fx:id="txtfIdKAutomobila" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="414.0" layoutY="19.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="138.0">
                <font>
                   <Font name="Segoe UI Bold" size="36.0" />
                </font>
             </TextField>
+            <Button focusTraversable="false" layoutX="571.0" layoutY="19.0" mnemonicParsing="false" onAction="#saveAutomobil" prefHeight="53.0" prefWidth="98.0" text="Sačuvaj">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/btn_save_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <ImageView fitHeight="71.0" fitWidth="74.0" layoutX="9.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/car_home.png" />
+               </image></ImageView>
          </children></AnchorPane>
    </top>
    <bottom>
       <AnchorPane prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnUcitajSaobracajnu" layoutX="4.0" layoutY="5.0" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="51.0" prefWidth="202.0" text="    Učitaj Saobraćajnu">
-               <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
-                     </image></ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
             <Button fx:id="btnObrisiAutomobil" layoutX="646.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnObrisiAutomobilAct" prefHeight="42.0" prefWidth="140.0" text="Obriši Automobil">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">

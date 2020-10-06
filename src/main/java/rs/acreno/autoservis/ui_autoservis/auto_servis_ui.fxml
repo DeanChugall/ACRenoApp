@@ -263,7 +263,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="32.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="23.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/car_home.png" />
                      </image>

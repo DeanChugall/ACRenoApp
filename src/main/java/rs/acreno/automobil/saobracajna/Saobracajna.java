@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import rs.acreno.automobil.Automobil;
 import rs.acreno.automobil.saobracajna.tools.EvrcCard;
 import rs.acreno.automobil.saobracajna.tools.EvrcInfo;
+import rs.acreno.klijent.Klijent;
 import rs.acreno.system.util.GeneralUiUtility;
 
 import javax.smartcardio.Card;
@@ -100,8 +101,14 @@ public class Saobracajna {
 
             automobil.setBrojMestaZaSedenje(5);
 
+            Klijent klijent = new Klijent();
+            JSONObject vlasnik = (JSONObject) reader.get("personal");
+            String imePrezime = (vlasnik.get("owner_first_name") + " " +
+                    String.valueOf(vlasnik.get("owner_legal_name"))).toLowerCase();
+            System.out.println("**********************  " + imePrezime + " *************************");
 
-            logger.info("********** OCITANA SAOBRACAJNA **********");
+
+            logger.info("********** OCITANA SAOBRACAJNA **********" + ": " + automobil.getRegOznaka());
             final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.exclamation");
             if (runnable != null) {
                 runnable.run();

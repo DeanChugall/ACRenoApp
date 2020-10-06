@@ -11,10 +11,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
-import rs.acreno.automobil.*;
+import rs.acreno.automobil.Automobil;
+import rs.acreno.automobil.AutomobilDAO;
+import rs.acreno.automobil.AutomobiliController;
+import rs.acreno.automobil.SQLAutomobilDAO;
+import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -138,7 +141,8 @@ public class AddEditAutomobilController implements Initializable {
 
     /**
      * TODO: Napisati JAVA DOC za "initialize" U "AddEditAutomobilController".
-     * @param url Location
+     *
+     * @param url            Location
      * @param resourceBundle Resource
      */
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -363,8 +367,5 @@ public class AddEditAutomobilController implements Initializable {
         txtfDozvoljenaMasaAutomobila.setText(String.valueOf(automobil.getNajvecaDozvoljenaMasaVozila()));
         txtfDatumPrveRegistracijeAutomobila.setText(String.valueOf(automobil.getDatumPrveRegistracijeVozila()));
         txtfBrojMestaZaSedenje.setText(String.valueOf(automobil.getBrojMestaZaSedenje()));
-
-
-
     }
 }

@@ -246,6 +246,7 @@ public class AutoServisController implements Initializable {
         txtFeMailKlijenta.setText(klijent.getEmail());
         txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
         btnNoviAutomobil.setDisable(false);
+        btnOtvoriKlijentEditMode.setDisable(false);
 
         //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
         popuniTabeluAutomobiliklijenta(klijent);
@@ -519,6 +520,7 @@ public class AutoServisController implements Initializable {
         addEditAutomobilController.setWeAreInEditMode(false); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
 
+
         //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             logger.debug("stageNewAutomobil --> setOnCloseRequest");
@@ -527,9 +529,24 @@ public class AutoServisController implements Initializable {
             popuniAutomobilTxtfOve(tempAuto);
             btnOtvoriAutomobilKarticu.setDisable(false);
             btnUrediAutomobil.setDisable(false);
+            //Ako se brise auto da se isprazne polja u automobil sekciji...Dobijamo podatak iz AddEdit kontrolora da
+            //je stisnuto dume "Brisi Automobil"
+            if (addEditAutomobilController.isDeleteButtonPressed()) {
+                System.out.println(addEditAutomobilController.isDeleteButtonPressed() + " ...YES");
+                txtFidAutomobila.setText("");
+                txtFieldRegOznaka.setText("");
+                txtfVinAutomobila.setText("");
+                txtfGodisteAutomobila.setText("");
+                txtfMarkaAutomobila.setText("");
+                txtfModelAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+            }
         });
         stageNewAutomobil.showAndWait();
     }
+
 
     /**
      * Popunjavanje {@link Automobil} TXTfova, izdvojena metoda jer nam nam treba na -
@@ -557,11 +574,6 @@ public class AutoServisController implements Initializable {
      */
     public void txtFieldRegTablicaSaerchhOnMouseClick() {
         listViewKlijentiSearch.setVisible(false);
-       /* btnOtvoriAutomobilKarticu.setDisable(true);
-        btnNoviAutomobil.setDisable(true);
-        btnNoviAutomobilInKlijentArea.setDisable(true);
-        btnUrediAutomobil.setDisable(true);
-        btnUrediAutomobilFromKlijent.setDisable(true);*/
     }
 
     private Automobil automobilForEdit;
@@ -595,25 +607,12 @@ public class AutoServisController implements Initializable {
         if (automobilForEdit.getRegOznaka().isEmpty()) {
             automobilForEdit.setRegOznaka("");
         } else {
-
             stageNewAutomobil.setTitle("Izmena Autmobila: " + automobilForEdit.getRegOznaka());
         }
-
-        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
-            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
-            System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
-            popuniAutomobilTxtfOve(automobilForEdit);
-            popuniTabeluAutomobiliklijenta(klijent);
-            btnOtvoriAutomobilKarticu.setDisable(false);
-            btnUrediAutomobil.setDisable(false);
-
-        });
-
-
+        //Inicijalizacija CREATE NEW KLIJENT Controllora-a
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
-
         //Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
@@ -622,8 +621,30 @@ public class AutoServisController implements Initializable {
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
         addEditAutomobilController.setLblHeaderTitle("IZMENA AUTOMOBILA:");
 
-        stageNewAutomobil.showAndWait();
 
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
+            popuniAutomobilTxtfOve(automobilForEdit);
+            popuniTabeluAutomobiliklijenta(klijent);
+            btnOtvoriAutomobilKarticu.setDisable(false);
+            btnUrediAutomobil.setDisable(false);
+            //Ako se brise auto da se isprazne polja u automobil sekciji...Dobijamo podatak iz AddEdit kontrolora da
+            //je stisnuto dume "Brisi Automobil"
+            if (addEditAutomobilController.isDeleteButtonPressed()) {
+                System.out.println(addEditAutomobilController.isDeleteButtonPressed() + " ...YES");
+                txtFidAutomobila.setText("");
+                txtFieldRegOznaka.setText("");
+                txtfVinAutomobila.setText("");
+                txtfGodisteAutomobila.setText("");
+                txtfMarkaAutomobila.setText("");
+                txtfModelAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+            }
+        });
+        stageNewAutomobil.showAndWait();
     }
 
 
@@ -1081,7 +1102,6 @@ public class AutoServisController implements Initializable {
         stage.close();
         System.exit(0);
     }
-
 
 
 }
