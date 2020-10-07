@@ -116,7 +116,7 @@ public class GeneralUiUtility {
      */
     public static @NotNull String formatDateForUs(@NotNull LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return date.format(formatter);
+        return date.format(formatter).trim();
     }
 
     /**
@@ -127,9 +127,9 @@ public class GeneralUiUtility {
      *
      * @param string Uzima String i vraca formatiran LocalDate
      */
-    public static @Nullable LocalDate fromStringDate(String string) {
+    public static LocalDate fromStringDate(String string) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return LocalDate.parse(string, formatter);
+        return LocalDate.parse(string.trim(), formatter);
     }
 
     /**
@@ -171,6 +171,21 @@ public class GeneralUiUtility {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    //From https://stackoverflow.com/questions/16273318/transliteration-from-cyrillic-to-latin-icu4j-java
+    public static String transliterate(String message){
+        char[] abcCyr =   {' ','а','б','в','г','д','ђ','e','ж','з','и','ј','к','л','љ', 'м','н','њ', 'о','п','р','с','т','у','ф','х','ц','ч','ш','ć','А','Б','В','Г','Д','Е','Ж','З','И','Ј','К','Л','Љ', 'М','Н','О','П','Р','С','Т','У','Ф','Х', 'Ц', 'Ч','Ш', 'Щ','Ъ','Ы','Ь','Э','Ю','Я','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        String[] abcLat = {" ","a","b","v","g","d","đ","e","ž","z","i","j","k","l","lj","m","n","nj","o","p","r","s","t","u","f","h","c","č","š","ć","A","B","V","G","D","E","Ž","Z","I","Ј","K","L","LJ","M","N","O","P","R","S","T","U","F","H","C","Č","Š","Sch", "","I", "","E","Ju","Ja","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            for (int x = 0; x < abcCyr.length; x++ ) {
+                if (message.charAt(i) == abcCyr[x]) {
+                    builder.append(abcLat[x]);
+                }
+            }
+        }
+        return builder.toString();
     }
 }
 

@@ -168,7 +168,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button disable="true" graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
+                <Button graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                             <image>

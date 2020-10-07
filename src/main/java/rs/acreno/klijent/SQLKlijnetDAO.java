@@ -122,6 +122,10 @@ public class SQLKlijnetDAO implements KlijentDAO {
                 whereClause = "brLicneKarte LIKE ?";
                 valueClause = "%" + value.toString() + "%";
             }
+            case MATICNI_BROJ -> {
+                whereClause = "maticniBroj LIKE ?";
+                valueClause = "%" + value.toString() + "%";
+            }
             case MOBILNI_TELEFON -> {
                 whereClause = "mobilniTelefon LIKE ?";
                 valueClause = "%" + value.toString() + "%";

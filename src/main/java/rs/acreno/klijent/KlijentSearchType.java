@@ -1,5 +1,5 @@
 package rs.acreno.klijent;
 
 public enum KlijentSearchType {
-    ID_KLIJENTA, IME_PREZIME, BR_LICNE_KARTE, MOBILNI_TELEFON
+    ID_KLIJENTA, IME_PREZIME, BR_LICNE_KARTE, MOBILNI_TELEFON, MATICNI_BROJ
 }

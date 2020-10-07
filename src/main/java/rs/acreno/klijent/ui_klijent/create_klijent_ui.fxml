@@ -11,17 +11,17 @@
     <top>
         <AnchorPane prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="lblKreateOrEditKlijenta" focusTraversable="false" layoutX="14.0" layoutY="7.0" prefHeight="51.0" prefWidth="390.0" text="KREIRANJE KLIJENTA:" textFill="#e8e8e8">
+                <Label fx:id="lblKreateOrEditKlijenta" layoutX="18.0" layoutY="7.0" prefHeight="51.0" prefWidth="390.0" text="KREIRANJE KLIJENTA:" textFill="#e8e8e8">
                     <font>
                         <Font name="Segoe UI" size="36.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtfIdKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="447.0" layoutY="5.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="163.0">
+                <TextField fx:id="txtfIdKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="376.0" layoutY="5.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="163.0">
                     <font>
                         <Font name="Segoe UI Bold" size="36.0" />
                     </font>
                 </TextField>
-                <Button fx:id="btnCloseCreateEditKlijent" focusTraversable="false" layoutX="690.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnZatvoriCreateKlijentUi" prefHeight="51.0" prefWidth="61.0" textAlignment="CENTER">
+                <Button fx:id="btnCloseCreateEditKlijent" focusTraversable="false" layoutX="717.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnZatvoriCreateKlijentUi" prefHeight="51.0" prefWidth="61.0" textAlignment="CENTER">
                     <graphic>
                         <ImageView fitHeight="28.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -30,6 +30,21 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button focusTraversable="false" layoutX="601.0" layoutY="7.0" mnemonicParsing="false" onAction="#saveKlijent" prefHeight="51.0" prefWidth="98.0" text="Sačuvaj">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/btn_save_icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+                </Button>
             </children>
             <effect>
                 <DropShadow />
@@ -37,7 +52,7 @@
         </AnchorPane>
     </top>
     <left>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="516.0" prefWidth="796.0" BorderPane.alignment="CENTER">
             <children>
                 <TextField fx:id="txtfImePrezimeKlijenta" alignment="CENTER" layoutX="22.0" layoutY="41.0" minHeight="-Infinity" prefHeight="47.0" prefWidth="332.0">
                     <font>
@@ -169,31 +184,22 @@
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Button focusTraversable="false" layoutX="674.0" layoutY="29.0" mnemonicParsing="false" onAction="#saveKlijent" prefHeight="63.0" prefWidth="98.0" text="Sačuvaj">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/btn_save_icon.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </Button>
             <DatePicker fx:id="datePicDatumAdregistracijeKlijenta" focusTraversable="false" layoutX="380.0" layoutY="42.0" prefHeight="25.0" prefWidth="222.0" />
             <Label layoutX="380.0" layoutY="20.0" prefHeight="24.0" prefWidth="155.0" text="Datum ACR Registracije" textFill="#e8e8e8">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
             </Label>
+            <Button fx:id="UnosLicnaKarta" layoutX="637.0" layoutY="26.0" mnemonicParsing="false" onAction="#ucitajLicnaKarta" prefHeight="57.0" prefWidth="138.0" text="Učitaj sa LK" />
+            <Button fx:id="btnBrziUnosSaobracajna" layoutX="633.0" layoutY="212.0" mnemonicParsing="false" onAction="#ucitajSaobracajna" prefHeight="60.0" prefWidth="147.0" text="Brzi unos Saobraćajna" />
+            <Button layoutX="637.0" layoutY="93.0" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="62.0" prefWidth="140.0" text="Postavi Podatke" />
             </children>
         </AnchorPane>
     </left>
    <bottom>
       <AnchorPane prefHeight="55.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-                <Button focusTraversable="false" layoutX="705.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnObrisiKlijenta" prefHeight="43.0" prefWidth="81.0" text="Obriši">
+                <Button focusTraversable="false" layoutX="648.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnObrisiKlijenta" prefHeight="43.0" prefWidth="138.0" text="Obriši Klijenta">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -202,7 +208,7 @@
                         </ImageView>
                     </graphic>
                <font>
-                  <Font name="Segoe UI" size="12.0" />
+                  <Font name="Segoe UI Bold" size="12.0" />
                </font>
                 </Button>
          </children>

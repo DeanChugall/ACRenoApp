@@ -61,7 +61,7 @@ public class RacuniAllTests {
     @Test
     public void updateRacuna() throws SQLException, AcrenoException {
         racun.setIdRacuna(1);
-        racun.setDatum("test datum");
+        racun.setDatum("popunjavanjePoljaSaLicneKarte datum");
         racuniDAO.updateRacun(racun);
     }
 

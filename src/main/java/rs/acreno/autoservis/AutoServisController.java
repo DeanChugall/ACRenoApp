@@ -28,6 +28,7 @@ import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
+import rs.acreno.klijent.licna_karta.LicnaKarta;
 import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
@@ -82,6 +83,8 @@ public class AutoServisController implements Initializable {
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
+    @FXML private Button btnOtvoriCitacLicneKarte;
+    @FXML private Button btnUcitajPodatkeSaLicneKarte;
     /* @FXML private Button btnNoviAutomobilInKlijentArea;
      @FXML private Button btnUrediAutomobilFromKlijent;*/
     @FXML private Button btnOtvoriKlijentEditMode;
@@ -223,8 +226,8 @@ public class AutoServisController implements Initializable {
         logger.info("Kliknuto ucitaj sobracajnu !!!");
         ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
         String regOznaka = Saobracajna.automobil().getRegOznaka();
-        String test = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2);
-        txtFieldRegOznaka.setText(test.toLowerCase());
+        String test = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2); // Sredi REG Tablicu jer nam treba XX-XXX-XX
+        txtFieldRegOznaka.setText(test.toLowerCase()); // da bi radilo trebaju nam mala slova
         automobil = automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, test.toLowerCase()).get(0);
         automobilForEdit = automobil; // Da bi moglo da se uredi automobil klikom na dugme
         popuniAutomobilTxtfOve(automobil);
@@ -650,8 +653,54 @@ public class AutoServisController implements Initializable {
 
     // 4.0 ***************  KLIJENTI STAFF ***************************
 
-    public void ucitajLicnuKartu(ActionEvent actionEvent) {
+    //Otvori GUI za citanje Licne Karte
+    @FXML public void ucitajLicnuKartu(ActionEvent actionEvent) {
+        LicnaKarta.main(null); //Otvori GUI za citanje Licne Karte
+        //btnOtvoriCitacLicneKarte.setDisable(true);
+        btnUcitajPodatkeSaLicneKarte.setDisable(false);
+    }
+
+    public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
+
+    //TODO moze ovo bolje
+    public static void ucitajLicnuKartu(@NotNull Klijent klijent) {
         logger.info("CITANJE LICNE KARTE");
+        klijentStatic = klijent; //Postavljanje staticne metode...za sada tako
+    }
+
+    @FXML private void popunjavanjePoljaSaLicneKarte() throws AcrenoException, SQLException {
+        //txtFiDKlijenta.setText(String.valueOf(klijentStatic.getIdKlijenta()));
+        // list view staff
+        listViewAutmobiliSearch.setVisible(false); // Zatvori listu
+        btnOtvoriAutomobilKarticu.setDisable(true); // Omoguci dugme za otvaranje Automobil kartice
+        btnUrediAutomobil.setDisable(true); // Omoguci dugme za Editovanje Automobila
+
+        txtFidAutomobila.setText("");
+        txtFieldRegOznaka.setText("");
+        txtfVinAutomobila.setText("");
+        txtfGodisteAutomobila.setText("");
+        txtfMarkaAutomobila.setText("");
+        txtfModelAutomobila.setText("");
+        txtfGoriivoAutomobila.setText("");
+
+
+        //NADJI KLIJENTA PO JMBG i POSTAVI U txtf  txtFieldPretragaKlijenta
+        String maticniBroj = klijentStatic.getMaticniBroj();
+        //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.MATICNI_BROJ, maticniBroj).get(0);
+        System.out.println("DATUM PRVE ACR REGISTRACIJE: " + klijent.getDatumAcrRegistracijeKliljenta());
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnNoviAutomobil.setDisable(false);
+        btnOtvoriKlijentEditMode.setDisable(false);
+        btnOtvoriCitacLicneKarte.setDisable(false);
+        btnUcitajPodatkeSaLicneKarte.setDisable(true);
+        popuniTabeluAutomobiliklijenta(klijent);
     }
 
     /**
@@ -820,6 +869,16 @@ public class AutoServisController implements Initializable {
      * @see CreateNewKlijentUiController
      */
     @FXML private void openAddEditklijent() throws IOException {
+
+       /* if (ifWeAreFromCitacLicneKarte == true) {
+            //createNewKlijentUiController.setKlijent(klijentStatic); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
+           // klijent = klijentStatic;
+
+        }
+        if (ifWeAreFromCitacLicneKarte == false) {
+            //createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
+            System.out.println("nooooo" + ifWeAreFromCitacLicneKarte);
+        }*/
         // Standart FX load UI
         if (klijent.getImePrezime() != null) {
             FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
@@ -830,7 +889,6 @@ public class AutoServisController implements Initializable {
             stageKljent.setScene(scene);
             stageKljent.setResizable(false);
             stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
-
 
             //Set AutoServisController u CREATE NEW KLIJENT CONTROLORU  UI
             CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();

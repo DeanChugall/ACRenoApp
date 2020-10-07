@@ -15,20 +15,20 @@
             <Pane layoutX="709.0" layoutY="13.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
                   <Label fx:id="lblBrojTelefona" focusTraversable="false" layoutX="8.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Broj Telefona:" textFill="#e1e1e1" />
-                  <TextField fx:id="txtFbrojTelefona" alignment="CENTER" editable="false" focusTraversable="false" layoutX="6.0" layoutY="179.0" prefHeight="25.0" prefWidth="164.0">
+                  <TextField fx:id="txtFbrojTelefona" alignment="CENTER" editable="false" focusTraversable="false" layoutX="6.0" layoutY="179.0" prefHeight="25.0" prefWidth="140.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lblAdresaKlijenta" focusTraversable="false" layoutX="178.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Adresa Klijenta:" textFill="#e1e1e1" />
-                  <TextField fx:id="txtFadresaKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="175.0" layoutY="179.0" prefHeight="25.0" prefWidth="164.0">
+                  <Label fx:id="lblAdresaKlijenta" focusTraversable="false" layoutX="154.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Adresa Klijenta:" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFadresaKlijenta" editable="false" focusTraversable="false" layoutX="151.0" layoutY="179.0" prefHeight="25.0" prefWidth="188.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Label focusTraversable="false" layoutX="-8.0" layoutY="8.0" prefHeight="63.0" prefWidth="688.0" style="-fx-background-color: #1a1a1a;" text="       KLIJENTI" textFill="#c3c3c3">
+                  <Label focusTraversable="false" layoutX="-8.0" layoutY="8.0" prefHeight="63.0" prefWidth="688.0" style="-fx-background-color: #1a1a1a;" text="        KLIJENTI" textFill="#c3c3c3">
                      <font>
-                        <Font name="Segoe UI" size="41.0" />
+                        <Font name="Segoe UI" size="36.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
@@ -61,8 +61,8 @@
                       <TableColumn fx:id="tblColIDAutomobila" prefWidth="75.0" text="ID AUTO" visible="false" />
                       <TableColumn fx:id="tblColIDklijenta" prefWidth="75.0" text="ID KLIJENT" visible="false" />
                         <TableColumn fx:id="tblColRegOznaka" prefWidth="109.0" text="Tablica" />
-                        <TableColumn fx:id="tblColMarka" prefWidth="55.0" text="Marka" />
-                        <TableColumn fx:id="tblColModel" prefWidth="137.0" text="Model" />
+                        <TableColumn fx:id="tblColMarka" prefWidth="97.0" text="Marka" />
+                        <TableColumn fx:id="tblColModel" prefWidth="95.0" text="Model" />
                         <TableColumn fx:id="tblColGodiste" prefWidth="70.0" text="Godiste" />
                         <TableColumn fx:id="tblColVrstaGoriva" prefWidth="62.0" text="Gorivo" />
                         <TableColumn fx:id="tblColVibAutomobila" prefWidth="136.0" sortable="false" text="VIN" />
@@ -74,7 +74,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil11" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="289.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="174.0" text="Učitaj Ličnu Kartu">
+                  <Button fx:id="btnOtvoriCitacLicneKarte" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="351.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="112.0" text="Čitač LK">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -144,6 +144,21 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
+                  <Button fx:id="btnUcitajPodatkeSaLicneKarte" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="235.0" layoutY="15.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="48.0" prefWidth="108.0" text="Popuni">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/fill_lk.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
                <effect>
                   <DropShadow />

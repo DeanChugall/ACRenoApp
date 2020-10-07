@@ -151,6 +151,10 @@
             <resource>
                 <directory>src/main/resources/properties</directory>
             </resource>
+            <!--LICNA KARTA PROPERTIES-->
+            <resource>
+                <directory>src/main/resources/viewer</directory>
+            </resource>
         </resources>
     </build>
     <dependencies>
@@ -216,6 +220,12 @@
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.2</version>
         </dependency>
 
     </dependencies>

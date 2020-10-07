@@ -3,7 +3,7 @@ package rs.acreno.klijent.ui_klijent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,11 +11,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.SQLKlijnetDAO;
+import rs.acreno.klijent.licna_karta.LicnaKarta;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -119,8 +121,6 @@ public class CreateNewKlijentUiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-
-
             try {
                 if (!isWeAreInEditMode()) {
                     klijent = new Klijent();
@@ -183,7 +183,6 @@ public class CreateNewKlijentUiController implements Initializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -349,5 +348,29 @@ public class CreateNewKlijentUiController implements Initializable {
         }
     }
 
+    @FXML public void ucitajLicnaKarta(ActionEvent actionEvent) {
+        LicnaKarta.main(null); //Otvori GUI za citanje Licne Karte
+    }
+
+    public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
+
+    //TODO moze ovo bolje
+    public static void ucitajLicnuKartu(@NotNull Klijent klijent) {
+        logger.info("CITANJE LICNE KARTE");
+        klijentStatic = klijent; //Postavljanje staticne metode...za sada tako
+    }
+
+    @FXML public void popunjavanjePoljaSaLicneKarte() {
+        //NADJI KLIJENTA PO JMBG i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentStatic;
+        txtfImePrezimeKlijenta.setText(klijent.getImePrezime());
+        txtfUlicaBrojKlijenta.setText(klijent.getUlicaBroj());
+        txtfGradKlijenta.setText(klijent.getMesto());
+        txtfMaticniBrojKlijenta.setText(klijent.getMaticniBroj());
+        txtfBrojLicneKarteKlijenta.setText(klijent.getBrLicneKarte());
+    }
+
+    @FXML public void ucitajSaobracajna(ActionEvent actionEvent) {
+    }
 }
 
