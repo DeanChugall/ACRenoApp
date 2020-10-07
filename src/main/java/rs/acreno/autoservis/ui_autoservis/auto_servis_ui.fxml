@@ -397,7 +397,7 @@
    <top>
       <AnchorPane prefHeight="108.0" prefWidth="1400.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-                <MenuBar style="-fx-background-color: #C7C1C1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar stylesheets="@/menu.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>

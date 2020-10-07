@@ -59,4 +59,6 @@ public class Constants {
 
     public static int SPLASH_SCREEN_DELAY = Integer.parseInt(ApplicationProperties
             .getInstance().getProperty("splash.screen.delay"));
+    public static int SPLASH_SCREEN_DELAY_ABOUT_WINDOW = Integer.parseInt(ApplicationProperties
+            .getInstance().getProperty("splash.screen.delay.about.window"));
 }

@@ -1,0 +1,31 @@
+.menu-bar{
+    -fx-background-color: linear-gradient(rgb(226, 205, 42) 0%, rgb(255, 194, 2) 100%);
+    -fx-selection-bar: #eaa000;
+    -fx-text-background-color: lightgrey ;
+    -fx-focused-text-base-color: white ;
+
+}
+.context-menu {
+    -fx-background-color: black;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+       -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em; /* 8 1 8 1 */
+    /* -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;*/ /* 4 1 8 1 */
+}
+.menu-bar .label {
+/*    -fx-font-size: 25 pt;*/
+    -fx-font-family: "Verdana";
+    -fx-text-fill: #000000;
+}
+.menu-item:focused {
+    -fx-background-color: #3a3a3a;
+}
+.menu:hover {
+    -fx-background-color: #d4a600;
+}
+.menu-item .label{
+/*    -fx-font-size: 25 pt;
+    -fx-label-line-length: 8;
+    -fx-background-color: #cc66ff;*/
+    -fx-text-fill: #ffffff;
+}

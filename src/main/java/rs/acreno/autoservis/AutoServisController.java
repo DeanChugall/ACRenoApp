@@ -1234,7 +1234,7 @@ public class AutoServisController implements Initializable {
                 for (int i = 0; i < N_ITERATIONS; i++) {
                     updateProgress(i + 1, N_ITERATIONS);
                     // sleep is used to simulate doing some work which takes some time....
-                    Thread.sleep(40);
+                    Thread.sleep(120);
                 }
 
                 return null;
@@ -1275,7 +1275,7 @@ public class AutoServisController implements Initializable {
                     }
                 }
             };
-            t.schedule(tt, Constants.SPLASH_SCREEN_DELAY, 15000);
+            t.schedule(tt, Constants.SPLASH_SCREEN_DELAY_ABOUT_WINDOW, 15000);
         });
 
         fadeOut.setOnFinished((e) -> Platform.runLater(() -> {
