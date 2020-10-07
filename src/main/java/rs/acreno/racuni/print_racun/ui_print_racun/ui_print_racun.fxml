@@ -36,7 +36,7 @@
                 <Image url="@/tablica.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="169.0" layoutY="106.0" prefHeight="18.0" prefWidth="112.0" text="info@acreno.rs" textAlignment="CENTER">
+        <Label fx:id="lblEmailFirmeNaRacunu" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="169.0" layoutY="106.0" prefHeight="18.0" prefWidth="112.0" text="info@acreno.rs" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -168,22 +168,22 @@
                 <Font name="Segoe UI" size="32.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="174.0" layoutY="81.0" prefHeight="33.0" prefWidth="99.0" text="Povrtarska 26" textAlignment="CENTER">
+        <Label fx:id="lblAdresaFirmeNaRacunu" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="174.0" layoutY="81.0" prefHeight="33.0" prefWidth="99.0" text="Povrtarska 26" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="279.0" layoutY="88.0" prefHeight="17.0" prefWidth="112.0" text="21000 Novi Sad" textAlignment="CENTER">
+        <Label fx:id="lblGradFirmeNaRacunu" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="279.0" layoutY="88.0" prefHeight="17.0" prefWidth="112.0" text="21000 Novi Sad" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="410.0" layoutY="85.0" prefHeight="18.0" prefWidth="112.0" text="+381 62 20 20 57" textAlignment="CENTER">
+        <Label fx:id="lblTelefonFirme" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="410.0" layoutY="85.0" prefHeight="18.0" prefWidth="112.0" text="+381 62 20 20 57" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="279.0" layoutY="105.0" prefHeight="18.0" prefWidth="112.0" text="www.acreno.rs" textAlignment="CENTER">
+        <Label fx:id="lblSajtFirmeNaRacunu" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="279.0" layoutY="105.0" prefHeight="18.0" prefWidth="112.0" text="www.acreno.rs" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
@@ -254,7 +254,7 @@
             </image>
         </ImageView>
         <Label fx:id="lblPodnozije" layoutX="150.0" layoutY="946.0" text="Ovaj račun je validan bez pečata i potpisa po identifikacionoj oznaci u zaglavlju." />
-        <TextField fx:id="txtfZiroRacunFirmeNaRacunu" alignment="CENTER" layoutX="403.0" layoutY="103.0" prefHeight="25.0" prefWidth="135.0" text="115-38162202057-96">
+        <TextField fx:id="txtFziroRacunFirmeNaRacunu" alignment="CENTER" editable="false" layoutX="403.0" layoutY="103.0" prefHeight="25.0" prefWidth="135.0" text="115-38162202057-96">
             <font>
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>

@@ -54,9 +54,12 @@ public class PrintRacuniControler implements Initializable {
     @FXML private TextField txtFpopustRacuna;
     @FXML private TextField txtfGrandTotaluRacunu;
    // @FXML private TextField txtfImeFirmeNaRaacunu;
-   // @FXML private TextField txtfAdresaFirmeNaRacunu;
-   // @FXML private TextField txtfGradFirmeNaRacunu;
-    @FXML private TextField txtfZiroRacunFirmeNaRacunu;
+    @FXML private Label lblAdresaFirmeNaRacunu;
+    @FXML private Label lblTelefonFirme;
+    @FXML private Label lblGradFirmeNaRacunu;
+    @FXML private TextField txtFziroRacunFirmeNaRacunu;
+    @FXML private Label lblSajtFirmeNaRacunu;
+    @FXML private Label lblEmailFirmeNaRacunu;
     @FXML private TextArea txtfNapomeneServiseraNaRacunu;
 
     //KLIJENT FIELDS IN PRINT
@@ -282,9 +285,12 @@ public class PrintRacuniControler implements Initializable {
         lblDatumValute.setText(racun.getDatumValute());
        // txtfGrandTotaluRacunu.setText(fakturaController.getGrandTotalSumaSuma());
        // txtfImeFirmeNaRaacunu.setText(AcrenoProperties.getInstance().getProperty("ime.firme"));
-        //txtfAdresaFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("adresa.firme"));
-        //txtfGradFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("grad.firme"));
-        txtfZiroRacunFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("ziro.racun"));
+        lblAdresaFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("adresa.firme"));
+        lblGradFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("grad.firme"));
+        lblTelefonFirme.setText(AcrenoProperties.getInstance().getProperty("telefon.firme"));
+        lblSajtFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("sajt.firme"));
+        lblEmailFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("email.firme"));
+        txtFziroRacunFirmeNaRacunu.setText(AcrenoProperties.getInstance().getProperty("ziro.racun"));
         txtfNapomeneServiseraNaRacunu.setText(racun.getNapomeneRacuna());
     }
 
