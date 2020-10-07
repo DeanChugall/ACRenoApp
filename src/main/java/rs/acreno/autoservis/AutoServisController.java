@@ -11,12 +11,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,7 +48,9 @@ import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
 import rs.acreno.system.util.GeneralUiUtility;
 import rs.acreno.system.util.properties.ApplicationProperties;
+import rs.acreno.zakazivanje.Zakazivanje;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -1273,6 +1283,22 @@ public class AutoServisController implements Initializable {
             t.purge();
             stageSpashScreen.close();
         }));
+    }
+
+    // 8.0 *************** ZAKAZI SERVIS BUTTONs STAFF ***************************
+    @FXML public void btnZakaziServisAct(ActionEvent actionEvent) {
+        Zakazivanje zakazivanje = new Zakazivanje();
+        Stage stage = new Stage();
+        stage.setTitle("Zakazivanje");
+        Text text = new Text(10, 40, "Zakazivanje");
+        text.setFont(new Font(40));
+        Scene scene = new Scene(new Group(text));
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.setResizable(true);
+        stage.centerOnScreen();
+        stage.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        zakazivanje.start(stage);
     }
 }
 

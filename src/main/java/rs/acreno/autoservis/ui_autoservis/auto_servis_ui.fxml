@@ -473,7 +473,7 @@
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button disable="true" graphicTextGap="10.0" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="180.0" text="Zakaži Servis">
+            <Button graphicTextGap="10.0" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnZakaziServisAct" prefHeight="76.0" prefWidth="180.0" text="Zakaži Servis">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
