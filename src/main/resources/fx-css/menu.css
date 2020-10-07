@@ -1,9 +1,16 @@
+.root {
+    -fx-border-color: linear-gradient(#32739B, #32739B);
+    -fx-border-width: 2;
+}
 .menu-bar{
-    -fx-background-color: linear-gradient(rgb(226, 205, 42) 0%, rgb(255, 194, 2) 100%);
-    -fx-selection-bar: #eaa000;
+    -fx-background-color: linear-gradient(rgb(17, 17, 17) 0%, rgb(17, 17, 17) 100%);
+    -fx-selection-bar: #261a01;
     -fx-text-background-color: lightgrey ;
     -fx-focused-text-base-color: white ;
-
+}
+.context-menu > * > .separator > .line {
+    -fx-border-color: #454545;
+    -fx-border-insets: 0;
 }
 .context-menu {
     -fx-background-color: black;
@@ -15,13 +22,13 @@
 .menu-bar .label {
 /*    -fx-font-size: 25 pt;*/
     -fx-font-family: "Verdana";
-    -fx-text-fill: #000000;
+    -fx-text-fill: #d2d2d2;
 }
 .menu-item:focused {
     -fx-background-color: #3a3a3a;
 }
 .menu:hover {
-    -fx-background-color: #d4a600;
+    -fx-background-color: #614a02;
 }
 .menu-item .label{
 /*    -fx-font-size: 25 pt;

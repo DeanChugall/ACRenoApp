@@ -76,6 +76,8 @@ public class AutoServisController implements Initializable {
     @FXML private Label lblTime;
     @FXML private Label lblVerzijaAplikacije;
     @FXML private Label lblReleaseDate;
+    @FXML private Label lblLicencaAplikacije;
+
     //MENU
     @FXML private MenuItem menuBtnOaplikaciji;
 
@@ -210,6 +212,7 @@ public class AutoServisController implements Initializable {
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             lblVerzijaAplikacije.setText(ApplicationProperties.getInstance().getProperty("app.version"));
             lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
+            lblLicencaAplikacije.setText(ApplicationProperties.getInstance().getProperty("app.copyright.main.window"));
 
             //PROVERA INTERNETA
             final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
