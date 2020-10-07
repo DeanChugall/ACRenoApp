@@ -1,10 +1,12 @@
 package rs.acreno.autoservis;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +20,15 @@ import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import rs.acreno.artikli.ArtkikliController;
 import rs.acreno.automobil.*;
 import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
+import rs.acreno.autoservis.splash.SplashScreenController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.KlijentSearchType;
@@ -42,6 +47,8 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +66,8 @@ public class AutoServisController implements Initializable {
     @FXML private Label lblTime;
     @FXML private Label lblVerzijaAplikacije;
     @FXML private Label lblReleaseDate;
-    @FXML private Button btnOtvoriArtiklKarticu;
+    //MENU
+    @FXML private MenuItem menuBtnOaplikaciji;
 
     // 1.1 ************* FXMLs Automobil Kartica
     /**
@@ -222,7 +230,7 @@ public class AutoServisController implements Initializable {
 
     private Automobil automobil;
 
-    public void ucitajSaobracajnu(ActionEvent actionEvent) throws AcrenoException, SQLException {
+    @FXML public void ucitajSaobracajnu(ActionEvent actionEvent) throws AcrenoException, SQLException {
         logger.info("Kliknuto ucitaj sobracajnu !!!");
         ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
         String regOznaka = Saobracajna.automobil().getRegOznaka();
@@ -1182,6 +1190,89 @@ public class AutoServisController implements Initializable {
         System.exit(0);
     }
 
+    // 7.0 *************** MENU ACTION BUTTONs STAFF ***************************
 
+    private final Timer t = new Timer();
+    private TimerTask tt;
+    private boolean isJustOpenApp = true;
+
+    @FXML private void menuBtnOAplikaciji() throws IOException {
+        Stage stageSpashScreen = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(AutoServisController.class.getResource(Constants.SPLASH_SCREEN_URI));
+        stageSpashScreen.initStyle(StageStyle.UNDECORATED);
+        stageSpashScreen.initStyle(StageStyle.TRANSPARENT);
+        stageSpashScreen.setResizable(false);
+        stageSpashScreen.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageSpashScreen.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(loader.load());
+        scene.setFill(Color.TRANSPARENT);
+        stageSpashScreen.setScene(scene);
+        stageSpashScreen.setResizable(false);
+
+        // SplashScreenController INSTANCA
+        SplashScreenController splashScreenController = loader.getController();
+        splashScreenController.setAutoServisAppController(null, stageSpashScreen);
+
+        stageSpashScreen.show();
+
+        final Task<Void> task = new Task<>() {
+            final int N_ITERATIONS = 50;
+
+            @Override
+            protected @Nullable Void call() throws Exception {
+                for (int i = 0; i < N_ITERATIONS; i++) {
+                    updateProgress(i + 1, N_ITERATIONS);
+                    // sleep is used to simulate doing some work which takes some time....
+                    Thread.sleep(40);
+                }
+
+                return null;
+            }
+        };
+        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(task.progressProperty());
+        // color the bar green when the work is complete.
+
+        stageSpashScreen.show();
+
+        //Start Thread
+        final Thread thread = new Thread(task, "task-thread");
+        thread.setDaemon(true);
+        thread.start();
+
+        //Load splash screen with fade in effect
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), stageSpashScreen.getScene().getRoot());
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.setCycleCount(1);
+        fadeIn.setAutoReverse(true);
+
+        //Finish splash with fade out effect
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), stageSpashScreen.getScene().getRoot());
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setCycleCount(1);
+        fadeIn.play();
+
+        //After fade in, start fade out
+        fadeIn.setOnFinished((e) -> {
+            tt = new TimerTask() {
+                @Override
+                public void run() {
+                    if (isJustOpenApp) {
+                        fadeOut.play();
+                        isJustOpenApp = true;
+                    }
+                }
+            };
+            t.schedule(tt, Constants.SPLASH_SCREEN_DELAY, 15000);
+        });
+
+        fadeOut.setOnFinished((e) -> Platform.runLater(() -> {
+            tt.cancel();
+            t.purge();
+            stageSpashScreen.close();
+        }));
+    }
 }
 

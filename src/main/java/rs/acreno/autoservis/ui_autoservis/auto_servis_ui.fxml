@@ -50,7 +50,7 @@
                         <Image url="@/auto_servis/clients_home.png" />
                      </image>
                      <effect>
-                        <DropShadow height="178.15" radius="72.2675" width="112.92" />
+                        <DropShadow height="252.29" radius="120.4525" spread="0.82" width="231.52" />
                      </effect>
                   </ImageView>
                   <TableView fx:id="tblAutomobiliInKlijent" focusTraversable="false" layoutX="7.0" layoutY="333.0" prefHeight="263.0" prefWidth="659.0" stylesheets="@/table-view.css">
@@ -295,7 +295,7 @@
                         <Image url="@/auto_servis/car_home.png" />
                      </image>
                      <effect>
-                        <DropShadow height="121.81" radius="61.8875" width="127.74" />
+                        <DropShadow height="124.78" radius="62.629999999999995" spread="0.57" width="127.74" />
                      </effect>
                   </ImageView>
                   <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="185.0" layoutY="236.0">
@@ -429,9 +429,9 @@
                                 <MenuItem mnemonicParsing="false" text="Unselect All" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
+                        <Menu mnemonicParsing="false" text="APP Info">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="O Aprikaciji" />
+                                <MenuItem fx:id="menuBtnOaplikaciji" mnemonicParsing="false" onAction="#menuBtnOAplikaciji" text="O Aprikaciji" />
                             </items>
                         </Menu>
                     </menus>

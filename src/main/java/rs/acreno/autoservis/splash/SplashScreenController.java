@@ -51,7 +51,6 @@ public class SplashScreenController implements Initializable {
 
             //All property names
             logger.info("********** PRISTUP APLIKACIJI **********");
-
         });
     }
 }
