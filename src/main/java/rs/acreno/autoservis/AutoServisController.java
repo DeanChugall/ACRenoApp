@@ -568,7 +568,6 @@ public class AutoServisController implements Initializable {
         txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
     }
 
-
     // 3.1 *************** EDIT AUTOMOBILI STAFF
 
     /**
@@ -660,6 +659,34 @@ public class AutoServisController implements Initializable {
         btnUcitajPodatkeSaLicneKarte.setDisable(false);
     }
 
+    /**
+     * Metoda koja se koristi za brzo citanje {@link Klijent}-a iz saobracajne, kada nemamo LK.
+     *
+     * @throws SQLException Pošto trazimo klijenta po matičnom broju
+     * @bitno regOznaka mora da bude jer se inicira citanje Saobraćajne tim
+     * @see #btnUrediAutomobil
+     * @see Klijent
+     * @see Saobracajna
+     */
+    @FXML public void btnBrzoCitanjeSobracajneKlijent() throws AcrenoException, SQLException {
+        logger.info("**************  BRZO ČITANJE SAOBRAĆAJNE  *************");
+        String regOznaka = Saobracajna.automobil().getRegOznaka(); // Mora da bude zbog iniciranje metode citanja
+        String JMBG = Saobracajna.klijent.getMaticniBroj();
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.MATICNI_BROJ, JMBG).get(0);
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnNoviAutomobil.setDisable(false);
+        btnOtvoriKlijentEditMode.setDisable(false);
+        btnOtvoriCitacLicneKarte.setDisable(false);
+        btnUcitajPodatkeSaLicneKarte.setDisable(true);
+        popuniTabeluAutomobiliklijenta(klijent);
+    }
+
     public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
 
     //TODO moze ovo bolje
@@ -683,12 +710,10 @@ public class AutoServisController implements Initializable {
         txtfModelAutomobila.setText("");
         txtfGoriivoAutomobila.setText("");
 
-
         //NADJI KLIJENTA PO JMBG i POSTAVI U txtf  txtFieldPretragaKlijenta
         String maticniBroj = klijentStatic.getMaticniBroj();
         //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
         klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.MATICNI_BROJ, maticniBroj).get(0);
-        System.out.println("DATUM PRVE ACR REGISTRACIJE: " + klijent.getDatumAcrRegistracijeKliljenta());
         txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
         txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
         txtFbrojTelefona.setText(klijent.getTelefonMobilni());
@@ -800,7 +825,6 @@ public class AutoServisController implements Initializable {
                 String brojTelefonaKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getTelefonMobilni();
                 int idKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getIdKlijenta();
 
-
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
@@ -815,9 +839,6 @@ public class AutoServisController implements Initializable {
                 listViewKlijentiSearch.setVisible(false); // Zatvori listu
                 popuniTabeluAutomobiliklijenta(klijent);
                 btnOtvoriKlijentEditMode.setDisable(false);
-                //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-                //openAddEditklijent();
-                // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
             }
         }
     }

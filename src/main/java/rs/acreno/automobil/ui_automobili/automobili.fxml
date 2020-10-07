@@ -158,7 +158,7 @@
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1432.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Button disable="true" graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
+                <Button graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <Image url="@/auto_servis/clients_home.png" />

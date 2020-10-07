@@ -74,7 +74,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnOtvoriCitacLicneKarte" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="351.0" layoutY="13.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="112.0" text="Čitač LK">
+                  <Button fx:id="btnOtvoriCitacLicneKarte" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="537.0" layoutY="264.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="112.0" text="Čitač LK">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -133,8 +133,8 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="lblIdKlijenta" layoutX="402.0" layoutY="73.0" text="ID KLIJENTA" textFill="#e1e1e1" />
-                  <TextField fx:id="txtFiDKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="395.0" layoutY="90.0" prefHeight="59.0" prefWidth="81.0">
+                  <Label fx:id="lblIdKlijenta" layoutX="402.0" layoutY="90.0" text="ID KLIJENTA" textFill="#e1e1e1" />
+                  <TextField fx:id="txtFiDKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="395.0" layoutY="108.0" prefHeight="41.0" prefWidth="81.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></TextField>
@@ -144,7 +144,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btnUcitajPodatkeSaLicneKarte" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="235.0" layoutY="15.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="48.0" prefWidth="108.0" text="Popuni">
+                  <Button fx:id="btnUcitajPodatkeSaLicneKarte" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="421.0" layoutY="266.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="53.0" prefWidth="112.0" text="Popuni">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -158,6 +158,18 @@
                            </image>
                         </ImageView>
                      </graphic>
+                  </Button>
+                  <Button fx:id="btnBrzoCitanjeSobracajneKlijent" layoutX="265.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBrzoCitanjeSobracajneKlijent" prefHeight="52.0" prefWidth="208.0" text="Brzo čitanje saobraćajna">
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/auto_servis/citaj_saobracajnu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Button>
                </children>
                <effect>
@@ -253,7 +265,7 @@
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/auto_servis/add_car_icon.png" />
                            </image>
@@ -368,7 +380,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lblIdKlijenta1" layoutX="342.0" layoutY="13.0" text="ID AUTOMOBILA" textFill="#e1e1e1" />
+                  <Label fx:id="lblIdKlijenta1" layoutX="342.0" layoutY="11.0" text="ID AUTOMOBILA" textFill="#e1e1e1" />
                   <ImageView fitHeight="41.0" fitWidth="52.0" layoutX="473.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/citaj_saobracajnu.png" />

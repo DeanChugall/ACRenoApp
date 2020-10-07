@@ -49,6 +49,7 @@ public class Saobracajna {
     }
 
     static CardTerminal terminal = null;
+    public static Klijent klijent;
 
     public static @NotNull Automobil automobil() {
         Automobil automobil = new Automobil();
@@ -92,7 +93,7 @@ public class Saobracajna {
             automobil.setBrojVrataVozila(5);
             automobil.setNajvecaDozvoljenaMasaVozila(Integer.parseInt(vozilo.get("max_permissible_laden_mass").toString()));
 
-            LocalDate ld  = LocalDate.parse(vozilo.get("first_registration_date").toString(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+            LocalDate ld = LocalDate.parse(vozilo.get("first_registration_date").toString(), DateTimeFormatter.ofPattern("yyyyMMdd"));
             int year = ld.getYear();
             int month = ld.getMonthValue();
             int day = ld.getDayOfMonth();
@@ -101,10 +102,15 @@ public class Saobracajna {
 
             automobil.setBrojMestaZaSedenje(5);
 
-            Klijent klijent = new Klijent();
+            klijent = new Klijent();
             JSONObject vlasnik = (JSONObject) reader.get("personal");
             String imePrezime = (vlasnik.get("owner_first_name") + " " +
-                    String.valueOf(vlasnik.get("owner_legal_name"))).toLowerCase();
+                    vlasnik.get("owner_legal_name")).toLowerCase();
+            String maticniBroj = String.valueOf(vlasnik.get("owner_personalno"));
+            String adresa = String.valueOf(vlasnik.get("owner_address"));
+            klijent.setImePrezime(imePrezime);
+            klijent.setMaticniBroj(maticniBroj);
+            klijent.setUlicaBroj(adresa);
             System.out.println("**********************  " + imePrezime + " *************************");
 
 
@@ -128,6 +134,7 @@ public class Saobracajna {
 
         return automobil;
     }
+
 
     /* public static void main(String[] args) {
      *//*  CardTerminal terminal = null;

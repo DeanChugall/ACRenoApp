@@ -13,6 +13,7 @@ import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
+import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
@@ -203,7 +204,7 @@ public class CreateNewKlijentUiController implements Initializable {
         if (txtfImePrezimeKlijenta.getText().isEmpty()) {
             GeneralUiUtility.alertDialogBox(
                     Alert.AlertType.INFORMATION,
-                    "Niste Uneli Ime klijenta@",
+                    "Niste Uneli Ime klijenta",
                     "EDITOVANJE KLIJENTA",
                     "Niste Uneli Ime klijenta!"
 
@@ -232,7 +233,7 @@ public class CreateNewKlijentUiController implements Initializable {
             }
             try {
                 klijentDAO.updateKlijent(klijent);
-                autoServisController.get().setKlijent(klijent);
+               autoServisController.get().setKlijent(klijent);
                 if (!isCloseButtonPresed) {
                     GeneralUiUtility.alertDialogBox(
                             Alert.AlertType.INFORMATION,
@@ -371,6 +372,21 @@ public class CreateNewKlijentUiController implements Initializable {
     }
 
     @FXML public void ucitajSaobracajna(ActionEvent actionEvent) {
+        String regOznaka = Saobracajna.automobil().getRegOznaka();
+        String imeVlasnika = Saobracajna.klijent.getImePrezime().toUpperCase();
+        String[] grad = Saobracajna.klijent.getUlicaBroj().split(",");
+        String gradSredjen = grad[0];
+        String ulicaBroj = grad[2] + " " + grad[3];
+        String JMBG = Saobracajna.klijent.getMaticniBroj();
+        System.out.println("Grad: "+ gradSredjen);
+        System.out.println("ULICA i Broj: " + ulicaBroj);
+        System.out.println("JMBG: " + JMBG);
+
+        txtfImePrezimeKlijenta.setText(imeVlasnika);
+        txtfUlicaBrojKlijenta.setText(ulicaBroj);
+        txtfGradKlijenta.setText(gradSredjen);
+        txtfMaticniBrojKlijenta.setText(JMBG);
+        }
+
     }
-}
 
