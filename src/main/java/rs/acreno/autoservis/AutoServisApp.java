@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.autoservis.splash.SplashScreenController;
@@ -23,9 +22,8 @@ import java.util.TimerTask;
 
 public class AutoServisApp extends Application {
 
-    private static final Logger logger = Logger.getLogger(AutoServisApp.class);
-
-    private static final double EPSILON = 0.0000005;
+    // private static final Logger logger = Logger.getLogger(AutoServisApp.class);
+    // private static final double EPSILON = 0.0000005;
 
     private final Timer t = new Timer();
     private TimerTask tt;

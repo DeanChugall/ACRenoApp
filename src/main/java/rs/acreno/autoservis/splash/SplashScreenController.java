@@ -32,7 +32,7 @@ public class SplashScreenController implements Initializable {
 
     @FXML private Label lblReleaseDate;
     @FXML private Label lblAppVersion;
-    @FXML private Label lblCopywrite;
+    @FXML private Label lblCopyRight;
     @FXML private Label lblImeFirme;
     @FXML private AnchorPane aPaneSplashScreen;
 
@@ -50,7 +50,7 @@ public class SplashScreenController implements Initializable {
             //Get individual properties
             lblAppVersion.setText(ApplicationProperties.getInstance().getProperty("app.version"));
             lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
-            lblCopywrite.setText(ApplicationProperties.getInstance().getProperty("app.copyright"));
+            lblCopyRight.setText(ApplicationProperties.getInstance().getProperty("app.copyright"));
             lblImeFirme.setText(ApplicationProperties.getInstance().getProperty("ime.firme"));
 
             //All property names

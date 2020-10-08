@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
         <AnchorPane prefHeight="719.0" prefWidth="1476.0" BorderPane.alignment="CENTER">
             <children>
@@ -187,7 +187,7 @@
                         <Image url="@/close-app.png" />
                      </image>
                      <effect>
-                        <DropShadow height="85.99" offsetY="2.0" radius="46.2625" width="101.06" />
+                        <DropShadow height="0.0" offsetY="2.0" radius="0.3025" width="3.21" />
                      </effect></ImageView>
                </graphic>
                <effect>

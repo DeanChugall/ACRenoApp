@@ -4,7 +4,7 @@
 Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
 
-###### Currrent release is: ALPHA 2.5
+###### Currrent release is: ALPHA 2.6
 
 #### System Requirements
 

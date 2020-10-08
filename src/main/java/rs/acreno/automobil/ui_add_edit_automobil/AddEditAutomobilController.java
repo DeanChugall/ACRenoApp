@@ -336,6 +336,7 @@ public class AddEditAutomobilController implements Initializable {
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
                     automobilDAO.deleteAutomobil(automobil);
+                    isDeleteButtonPressed = true;
                     btnClose.fireEvent(new WindowEvent(stageCreateNewAutomobil, WindowEvent.WINDOW_CLOSE_REQUEST));
                 }
             }

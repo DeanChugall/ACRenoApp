@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
+<BorderPane fx:id="bPaneAutomobil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#bPaneOnMouseClick" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.autoservis.AutoServisController">
     <center>
         <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="662.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
@@ -20,12 +20,38 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
                   <Label fx:id="lblAdresaKlijenta" focusTraversable="false" layoutX="154.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Adresa Klijenta:" textFill="#e1e1e1" />
-                  <TextField fx:id="txtFadresaKlijenta" editable="false" focusTraversable="false" layoutX="151.0" layoutY="179.0" prefHeight="25.0" prefWidth="188.0">
+                  <TextField fx:id="txtFadresaKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="151.0" layoutY="179.0" prefHeight="25.0" prefWidth="188.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
                   <Label focusTraversable="false" layoutX="-8.0" layoutY="8.0" prefHeight="63.0" prefWidth="688.0" style="-fx-background-color: #1a1a1a;" text="        KLIJENTI" textFill="#c3c3c3">
                      <font>
@@ -43,9 +69,35 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
                   <Label fx:id="lblOstaliDetaljiKlijenta" focusTraversable="false" layoutX="8.0" layoutY="217.0" prefHeight="17.0" prefWidth="183.0" text="Ostali detalji vezano za Klijenta:" textFill="#e1e1e1" />
-                  <TextArea fx:id="txtAreaOstaliDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="7.0" layoutY="240.0" prefHeight="79.0" prefWidth="335.0" wrapText="true" />
+                  <TextArea fx:id="txtAreaOstaliDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="7.0" layoutY="240.0" prefHeight="79.0" prefWidth="483.0" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></TextArea>
                   <ImageView fitHeight="51.0" fitWidth="83.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/clients_home.png" />
@@ -75,7 +127,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnOtvoriCitacLicneKarte" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="537.0" layoutY="264.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="112.0" text="Čitač LK">
+                  <Button fx:id="btnOtvoriCitacLicneKarte" alignment="BASELINE_LEFT" focusTraversable="false" graphicTextGap="10.0" layoutX="532.0" layoutY="214.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajLicnuKartu" prefHeight="53.0" prefWidth="130.0" text="Čitač LK">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -89,6 +141,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <TextField fx:id="txtFieldPretragaKlijenta" alignment="CENTER" focusTraversable="false" layoutX="4.0" layoutY="76.0" onKeyReleased="#txtfKlijentSaerchKeyListener" onMouseClicked="#txtfKlijentSearchOnMouseClick" prefHeight="74.0" prefWidth="386.0" promptText="Traži Klijenta...">
                      <font>
@@ -115,6 +170,9 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="btnNoviKlijent" focusTraversable="false" graphicTextGap="12.0" layoutX="486.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnOpenNoviKlijentGui" prefHeight="51.0" prefWidth="177.0" text="NOVI KLIJENT">
                      <effect>
@@ -133,19 +191,47 @@
                            </effect>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Label fx:id="lblIdKlijenta" layoutX="402.0" layoutY="90.0" text="ID KLIJENTA" textFill="#e1e1e1" />
-                  <TextField fx:id="txtFiDKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="395.0" layoutY="108.0" prefHeight="41.0" prefWidth="81.0">
+                  <TextField fx:id="txtFiDKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="395.0" layoutY="76.0" prefHeight="73.0" prefWidth="81.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
-                     </font></TextField>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></TextField>
                   <Label fx:id="lblEmailklijenta" focusTraversable="false" layoutX="478.0" layoutY="162.0" prefHeight="17.0" prefWidth="114.0" text="E-mail Klijenta:" textFill="#e1e1e1" />
                   <TextField fx:id="txtFeMailKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="476.0" layoutY="179.0" prefHeight="25.0" prefWidth="186.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Button fx:id="btnUcitajPodatkeSaLicneKarte" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="421.0" layoutY="266.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="53.0" prefWidth="112.0" text="Popuni">
+                  <Button fx:id="btnUcitajPodatkeSaLicneKarte" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="532.0" layoutY="274.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="53.0" prefWidth="130.0" text="Popuni">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -159,6 +245,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="btnBrzoCitanjeSobracajneKlijent" layoutX="265.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBrzoCitanjeSobracajneKlijent" prefHeight="52.0" prefWidth="208.0" text="Brzo čitanje saobraćajna">
                      <graphic>
@@ -171,13 +260,16 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <effect>
                   <DropShadow />
                </effect>
             </Pane>
-            <Pane layoutX="10.0" layoutY="379.0" minWidth="-Infinity" prefHeight="244.0" prefWidth="680.0" style="-fx-background-color: #252525;">
+            <Pane layoutX="10.0" layoutY="441.0" minWidth="-Infinity" prefHeight="182.0" prefWidth="680.0" style="-fx-background-color: #252525;">
                <children>
                   <Label focusTraversable="false" layoutX="-4.0" layoutY="2.0" prefHeight="63.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" text="         ARTIKLI" textFill="#c3c3c3">
                      <font>
@@ -213,15 +305,18 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <effect>
                   <DropShadow />
                </effect>
             </Pane>
-            <Pane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="680.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
+            <Pane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="680.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
-                      <ImageView fitHeight="93.0" fitWidth="563.0" layoutX="9.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="99.0" fitWidth="454.0" layoutX="9.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/tablica.png" />
                      </image>
@@ -229,7 +324,7 @@
                         <DropShadow />
                      </effect>
                       </ImageView>
-                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="453.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="213.0" text="   AUTOMOBIL KARTICA">
+                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="468.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="210.0" text="   AUTOMOBIL KARTICA">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -246,6 +341,9 @@
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Label focusTraversable="false" layoutX="-4.0" layoutY="9.0" prefHeight="63.0" prefWidth="686.0" style="-fx-background-color: #1a1a1a;" text="         AUTOMOBILI" textFill="#c3c3c3">
                      <font>
@@ -258,7 +356,7 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Button fx:id="btnNoviAutomobil" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="452.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="213.0" text="NOVI AUTOMOBIL">
+                  <Button fx:id="btnNoviAutomobil" alignment="BASELINE_LEFT" disable="true" focusTraversable="false" graphicTextGap="20.0" layoutX="465.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnOpenNoviAutomobilGui" prefHeight="51.0" prefWidth="213.0" text="NOVI AUTOMOBIL">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -272,8 +370,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="453.0" layoutY="189.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="213.0" text="UREDI AUTOMOBIL">
+                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="468.0" layoutY="189.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="210.0" text="UREDI AUTOMOBIL">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -290,6 +391,9 @@
                            </effect>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView fitHeight="56.0" fitWidth="85.0" layoutX="23.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -299,94 +403,246 @@
                         <DropShadow height="124.78" radius="62.629999999999995" spread="0.57" width="127.74" />
                      </effect>
                   </ImageView>
-                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="185.0" layoutY="236.0">
+                  <TextField fx:id="txtfModelAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="310.0" layoutY="253.0" prefHeight="23.0" prefWidth="147.0">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="188.0" layoutY="218.0" prefHeight="17.0" prefWidth="147.0" text="Model" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfMarkaAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="14.0" layoutY="236.0">
+                  <ImageView fx:id="imageMarkaVozila" fitHeight="131.0" fitWidth="124.0" layoutX="15.0" layoutY="203.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <Label alignment="CENTER" layoutX="311.0" layoutY="235.0" prefHeight="17.0" prefWidth="147.0" text="Model" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfMarkaAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="156.0" layoutY="253.0" prefHeight="23.0" prefWidth="147.0">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="15.0" layoutY="219.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="355.0" layoutY="236.0" prefHeight="23.0" prefWidth="87.0">
+                  <Label alignment="CENTER" layoutX="156.0" layoutY="236.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="232.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
                         <Font name="Segoe UI Bold" size="10.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="356.0" layoutY="218.0" prefHeight="17.0" prefWidth="74.0" text="Gorivo" textFill="#c3c3c3" />
-                  <Label alignment="CENTER" layoutX="12.0" layoutY="175.0" prefHeight="17.0" prefWidth="268.0" text="VIN" textFill="#c3c3c3" />
-                  <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="193.0" prefHeight="23.0" prefWidth="269.0">
+                  <Label alignment="CENTER" layoutX="240.0" layoutY="280.0" prefHeight="17.0" prefWidth="52.0" text="Gorivo" textFill="#c3c3c3" />
+                  <Label alignment="CENTER" layoutX="188.0" layoutY="189.0" prefHeight="17.0" prefWidth="268.0" text="VIN" textFill="#c3c3c3" />
+                  <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="157.0" layoutY="207.0" prefHeight="23.0" prefWidth="300.0">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <TextField fx:id="txtfGodisteAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="290.0" layoutY="193.0" prefHeight="23.0" prefWidth="149.0">
+                  <TextField fx:id="txtfGodisteAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="156.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="292.0" layoutY="175.0" prefHeight="17.0" prefWidth="136.0" text="Godište" textFill="#c3c3c3" />
-                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="254.0" layoutY="275.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoRadniNalogAct" prefHeight="73.0" prefWidth="185.0" text="Blanko Radni Nalog">
-                     <graphic>
-                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/automobili_kartica/work_order_icon.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font></Button>
-                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="75.0" layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoDefektazaAct" prefHeight="72.0" prefWidth="171.0" text="Blanko Defektaža">
-                     <graphic>
-                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/automobili_kartica/work_order_icon.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </Button>
+                  <Label alignment="CENTER" layoutX="160.0" layoutY="280.0" prefHeight="17.0" prefWidth="59.0" text="Godište" textFill="#c3c3c3" />
                       <ListView fx:id="listViewAutmobiliSearch" layoutX="51.0" layoutY="176.0" onKeyReleased="#listViewAutmobiliSearchKeyReleased" onMouseClicked="#zatvoriListViewSearchAutomobil" prefHeight="113.0" prefWidth="350.0" visible="false">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="30.0" layoutX="453.0" layoutY="274.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="74.0" prefWidth="213.0" text="                    Učitaj Saobraćajnu">
+                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="30.0" layoutX="468.0" layoutY="274.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="74.0" prefWidth="210.0" text="                    Učitaj Saobraćajnu">
                      <effect>
                         <DropShadow />
                      </effect>
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" focusTraversable="false" layoutX="58.0" layoutY="91.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="74.0" prefWidth="369.0" promptText="Traži Automobil...">
+                      <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" focusTraversable="false" layoutX="56.0" layoutY="93.0" onKeyReleased="#txtFieldRegTablicaSaerchKeyListener" onMouseClicked="#txtFieldRegTablicaSaerchhOnMouseClick" prefHeight="79.0" prefWidth="397.0" promptText="Traži Automobil...">
                           <font>
                               <Font name="System Bold" size="34.0" />
                           </font>
                       </TextField>
-                  <TextField fx:id="txtFidAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="339.0" layoutY="28.0" prefHeight="35.0" prefWidth="96.0">
+                  <TextField fx:id="txtFidAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="339.0" layoutY="20.0" prefHeight="35.0" prefWidth="96.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </TextField>
-                  <Label fx:id="lblIdKlijenta1" layoutX="342.0" layoutY="11.0" text="ID AUTOMOBILA" textFill="#e1e1e1" />
                   <ImageView fitHeight="41.0" fitWidth="52.0" layoutX="473.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/citaj_saobracajnu.png" />
                      </image>
                   </ImageView>
+                  <TextField fx:id="txtFkubikazaAuta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="308.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="308.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="Kubikaža" textFill="#c3c3c3" />
+                  <TextField fx:id="txtFsnagaAuta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="384.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
+                     <font>
+                        <Font name="Segoe UI Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Lighting diffuseConstant="1.14" surfaceScale="0.0">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="383.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="kW" textFill="#c3c3c3" />
+                  <CheckBox fx:id="chkBoxServisnaKnjizica" layoutX="346.0" layoutY="329.0" mnemonicParsing="false" text="Servisna Knjižica" textFill="#c9c9c9" />
+                  <Label focusTraversable="false" layoutX="-6.0" layoutY="355.0" prefHeight="35.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" textFill="#c3c3c3">
+                     <font>
+                        <Font name="Segoe UI" size="48.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="183.0" layoutY="359.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoDefektazaAct" prefHeight="45.0" prefWidth="171.0" text="Blanko Defektaža">
+                     <graphic>
+                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/work_order_icon.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button focusTraversable="false" graphicTextGap="10.0" layoutX="7.0" layoutY="359.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPrintBlankoRadniNalogAct" prefHeight="45.0" prefWidth="171.0" text="Blanko Radni Nalog">
+                     <graphic>
+                        <ImageView fitHeight="39.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/work_order_icon.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="btnZakaziSerivis" disable="true" graphicTextGap="10.0" layoutX="468.0" layoutY="355.0" mnemonicParsing="false" onAction="#btnZakaziServisAct" prefHeight="48.0" prefWidth="210.0" text="Zakaži Servis">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/faktura/calendar_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
                <effect>
                   <DropShadow />
@@ -447,10 +703,13 @@
                   <Font name="Segoe UI" size="27.0" />
                </font>
             </Label>
-             <ImageView fitHeight="90.0" fitWidth="247.0" layoutX="7.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+             <ImageView accessibleHelp="Klik za App Info" accessibleRole="TOOLTIP" accessibleText="Klik za App Info" fitHeight="90.0" fitWidth="247.0" layoutX="7.0" layoutY="31.0" onMouseClicked="#oAplikacijiKlikNaLogo" pickOnBounds="true" preserveRatio="true">
                  <image>
                      <Image url="@/acr_logo.png" />
                  </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
              </ImageView>
             <Line fx:id="lineInternetIndicator" endX="100.0" fill="#d0d0d0" layoutX="365.0" layoutY="31.0" startX="-100.0" stroke="#c60d0d" strokeWidth="4.0">
                <effect>
@@ -475,20 +734,13 @@
                   <DropShadow />
                </effect>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btnZakaziSerivis" disable="true" graphicTextGap="10.0" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnZakaziServisAct" prefHeight="76.0" prefWidth="180.0" text="Zakaži Servis">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/faktura/calendar_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Segoe UI Bold" size="12.0" />
-               </font>
-            </Button>
+            <ImageView fitHeight="71.0" fitWidth="579.0" layoutX="574.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/renault-passion-for-life.png" />
+               </image>
+            </ImageView>
          </children>
          <effect>
             <DropShadow />

@@ -339,6 +339,7 @@ public class CreateNewKlijentUiController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
+                    isDeleteButtonPressed = true;
                     klijentDAO.deleteKlijent(klijent);
                     btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
                 }
