@@ -8,7 +8,7 @@
 
 <p align="left">
   <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
-  <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-home.png">
+  <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-home-screen.png">
 </p>
 
 
