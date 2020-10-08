@@ -9,6 +9,10 @@ popravki i održavanja automobila.
 
 ###### Currrent release is: BETA 1.0
 
+<p align="center">
+  <img width="460" height="300" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
+</p>
+
 #### System Requirements
 
 ---
