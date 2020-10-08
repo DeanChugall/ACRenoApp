@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.print_blanko_defektaza.PrintBlankoDefektazeController">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.print_blanko_defektaza.PrintBlankoDefektazeController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="24.0" prefHeight="33.0" prefWidth="275.0" text="&quot;AC Reno&quot; Auto Servis" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="24.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="17.0" prefHeight="53.0" prefWidth="450.0" text="&quot;AC Reno&quot; Auto Servis" textAlignment="CENTER" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="17.0">
             <font>
-                <Font name="System Bold" size="22.0" />
+                <Font name="System Bold" size="39.0" />
             </font>
         </Label>
-        <Button fx:id="btnPrint" layoutX="443.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnPrintAct" prefHeight="40.0" prefWidth="94.0" text="Print">
-         <graphic>
-            <ImageView fitHeight="41.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/faktura/printer-icon.png" />
-               </image></ImageView>
-         </graphic></Button>
+        <Button fx:id="btnPrint" layoutX="443.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnPrintAct" prefHeight="40.0" prefWidth="94.0" text="Print">
+            <graphic>
+                <ImageView fitHeight="41.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/faktura/printer-icon.png" />
+                    </image></ImageView>
+            </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
 
-        <TextField fx:id="txtFidRadnogNaloga" layoutX="134.0" layoutY="155.0" prefHeight="39.0" prefWidth="192.0">
+        <TextField fx:id="txtFidRadnogNaloga" alignment="CENTER" layoutX="505.0" layoutY="103.0" prefHeight="39.0" prefWidth="141.0">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -30,84 +36,134 @@
                 <Image url="@/faktura/logo-acreno.jpg" />
             </image>
         </ImageView>
-        <ImageView fitHeight="74.0" fitWidth="311.0" layoutX="339.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="74.0" fitWidth="311.0" layoutX="339.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/tablica.png" />
             </image>
         </ImageView>
-        <TextField fx:id="txtRegTablica" alignment="CENTER" focusTraversable="false" layoutX="370.0" layoutY="156.0" prefHeight="59.0" prefWidth="275.0">
+        <TextField fx:id="txtRegTablica" alignment="CENTER" focusTraversable="false" layoutX="370.0" layoutY="173.0" prefHeight="59.0" prefWidth="275.0">
             <font>
                 <Font name="Segoe UI Bold" size="32.0" />
             </font>
         </TextField>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="155.0" prefHeight="33.0" prefWidth="115.0" text="DF #">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="443.0" layoutY="114.0" prefHeight="33.0" prefWidth="68.0" text="DF#">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Label>
-        <Label layoutX="22.0" layoutY="246.0" text="Datum">
-         <font>
-            <Font name="Segoe UI Bold" size="12.0" />
-         </font></Label>
-        <Label layoutX="237.0" layoutY="246.0" text="Vreme">
-         <font>
-            <Font name="Segoe UI Bold" size="12.0" />
-         </font></Label>
-        <Label layoutX="457.0" layoutY="246.0" text="Kilometraza">
-         <font>
-            <Font name="Segoe UI Bold" size="12.0" />
-         </font></Label>
-        <Label layoutX="20.0" layoutY="311.0" text="Detalji Klijenta:">
-         <font>
-            <Font name="Segoe UI Bold" size="13.0" />
-         </font></Label>
-        <Label layoutX="22.0" layoutY="543.0" text="Detalji Servisera:">
-         <font>
-            <Font name="Segoe UI Bold" size="13.0" />
-         </font></Label>
-        <TextArea fx:id="txtAreaDetaljiKlijenta" focusTraversable="false" layoutX="19.0" layoutY="328.0" prefHeight="200.0" prefWidth="615.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></TextArea>
-        <TextArea fx:id="txtAreaDetaljiServisera" focusTraversable="false" layoutX="19.0" layoutY="560.0" prefHeight="200.0" prefWidth="615.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></TextArea>
-        <TextField fx:id="txtfDatum" alignment="CENTER" layoutX="20.0" layoutY="263.0" prefHeight="39.0" prefWidth="178.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></TextField>
-        <TextField fx:id="txtfVreme" alignment="CENTER" layoutX="235.0" layoutY="263.0" prefHeight="39.0" prefWidth="179.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></TextField>
-        <TextField fx:id="txtfKilometraza" alignment="CENTER" layoutX="454.0" layoutY="263.0" prefHeight="39.0" prefWidth="178.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></TextField>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="201.0" prefHeight="33.0" prefWidth="124.0" text="Klijent">
+        <Label layoutX="22.0" layoutY="243.0" text="Datum:">
+            <font>
+                <Font name="Segoe UI Bold" size="12.0" />
+            </font></Label>
+        <Label layoutX="237.0" layoutY="243.0" text="Vreme:">
+            <font>
+                <Font name="Segoe UI Bold" size="12.0" />
+            </font></Label>
+        <Label layoutX="470.0" layoutY="243.0" text="Kilometraza:">
+            <font>
+                <Font name="Segoe UI Bold" size="12.0" />
+            </font></Label>
+        <Label layoutX="20.0" layoutY="318.0" text="Detalji Klijenta:">
+            <font>
+                <Font name="Segoe UI Bold" size="13.0" />
+            </font></Label>
+        <Label layoutX="22.0" layoutY="542.0" text="Detalji Servisera:">
+            <font>
+                <Font name="Segoe UI Bold" size="13.0" />
+            </font></Label>
+        <TextArea fx:id="txtAreaDetaljiKlijenta" focusTraversable="false" layoutX="19.0" layoutY="337.0" prefHeight="200.0" prefWidth="626.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect></TextArea>
+        <TextArea fx:id="txtAreaDetaljiServisera" focusTraversable="false" layoutX="19.0" layoutY="561.0" prefHeight="200.0" prefWidth="626.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect></TextArea>
+        <TextField fx:id="txtfDatum" alignment="CENTER" layoutX="15.0" layoutY="260.0" prefHeight="39.0" prefWidth="178.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect></TextField>
+        <TextField fx:id="txtfVreme" alignment="CENTER" layoutX="235.0" layoutY="260.0" prefHeight="39.0" prefWidth="190.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect></TextField>
+        <TextField fx:id="txtfKilometraza" alignment="CENTER" layoutX="468.0" layoutY="260.0" prefHeight="39.0" prefWidth="178.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect></TextField>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="155.0" prefHeight="33.0" prefWidth="113.0" text="Klijent:">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Label>
-        <TextField fx:id="txtfKlijent" layoutX="134.0" layoutY="200.0" prefHeight="39.0" prefWidth="192.0">
+        <TextField fx:id="txtfKlijent" layoutX="15.0" layoutY="194.0" prefHeight="39.0" prefWidth="311.0">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
+            <effect>
+                <DropShadow />
+            </effect>
         </TextField>
-        <Button fx:id="btnPrintZatvori" layoutX="553.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnZatvoriPrintAct" prefHeight="39.0" prefWidth="94.0" text="Zatvori">
-         <graphic>
-            <ImageView fitHeight="26.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/btn_close_icon.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="74.0" prefHeight="33.0" prefWidth="429.0" text="DEFEKTAŽA">
-         <font>
-            <Font name="System Bold" size="48.0" />
-         </font>
-      </Label>
-
+        <Button fx:id="btnPrintZatvori" layoutX="553.0" layoutY="1.0" mnemonicParsing="false" onAction="#btnZatvoriPrintAct" prefHeight="39.0" prefWidth="94.0" text="Zatvori">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/btn_close_icon.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="87.0" prefHeight="71.0" prefWidth="339.0" text="DEFEKTAŽA">
+            <font>
+                <Font name="System Bold" size="49.0" />
+            </font>
+        </Label>
+        <Line endX="107.0" endY="-1.52587890625E-5" fill="#363636" layoutX="541.0" layoutY="150.0" startX="-525.0" startY="-1.52587890625E-5" stroke="#cdcdcd">
+            <effect>
+                <DropShadow />
+            </effect></Line>
+        <Line endX="107.0" fill="#363636" layoutX="545.0" layoutY="310.0" startX="-525.0" startY="-1.52587890625E-5" stroke="#cdcdcd">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Line>
+        <Line endX="107.0" fill="#363636" layoutX="541.0" layoutY="783.0" startX="-525.0" startY="-1.52587890625E-5" stroke="#2c2c2c">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Line>
+        <Line endX="-296.0" fill="#363636" layoutX="943.0" layoutY="834.0" startX="-525.0" stroke="#2c2c2c">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Line>
+        <ImageView fitHeight="74.0" fitWidth="151.0" layoutX="23.0" layoutY="791.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/faktura/logo-acreno.jpg" />
+            </image>
+        </ImageView>
+        <Label layoutX="498.0" layoutY="838.0" prefHeight="17.0" prefWidth="68.0" text="POTPIS (MP)" />
+      <Line endX="-100.0" endY="-3.0517578125E-5" fill="#363636" layoutX="709.0" layoutY="72.0" startX="-525.0" startY="-1.52587890625E-5" stroke="#cdcdcd">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Line>
     </children>
 </AnchorPane>

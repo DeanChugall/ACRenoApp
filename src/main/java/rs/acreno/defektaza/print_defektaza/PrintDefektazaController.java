@@ -19,14 +19,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PrintDefektazaController implements Initializable {
 
-    @FXML private Button btnZatvoriPrintDefektaza;
+    @FXML private Button btnPrintZatvori;
     @FXML private AnchorPane ancorPanePrint;
     @FXML private Button btnPrintDefektaza;
 
     @FXML private TextField txtFidDefektaze;
     @FXML private TextField txtRegTablica;
     @FXML private TextField txtfKilometraza;
-    @FXML private TextField txtfDatumDefektaze;
+    @FXML private TextField txtfDatum;
     @FXML private TextField txtfVreme;
     @FXML private TextArea txtAreaopisDefektaze;
     @FXML private TextArea txtAreaDetaljiDefektaze;
@@ -49,7 +49,7 @@ public class PrintDefektazaController implements Initializable {
             txtfKlijent.setText(defektazaController.getTxtfKlijent().getText());
             txtRegTablica.setText(defektazaController.getTxtfRegOznaka().getText());
             txtfKilometraza.setText(defektazaController.getTxtfKilometraza().getText());
-            txtfDatumDefektaze.setText(GeneralUiUtility.formatDateForUs(defektazaController.getDatePickerDatum().getValue()));
+            txtfDatum.setText(GeneralUiUtility.formatDateForUs(defektazaController.getDatePickerDatum().getValue()));
             txtfVreme.setText(defektazaController.getTxtfVreme().getText());
             txtAreaopisDefektaze.setText(defektazaController.getTxtAreaOpisDefektaze().getText());
             txtAreaDetaljiDefektaze.setText(defektazaController.getTxtAreOstaliDetaljiDefektaze().getText());
@@ -63,7 +63,7 @@ public class PrintDefektazaController implements Initializable {
      */
     public void btnPrintActDefektazaAct(ActionEvent actionEvent) {
         ancorPanePrint.requestFocus(); // remove focus from table for print
-        GeneralUiUtility.printStaff(ancorPanePrint, btnPrintDefektaza, btnZatvoriPrintDefektaza);
+        GeneralUiUtility.printStaff(ancorPanePrint, btnPrintDefektaza, btnPrintZatvori);
     }
 
     /**

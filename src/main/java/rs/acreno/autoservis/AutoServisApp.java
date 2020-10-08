@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.autoservis.splash.SplashScreenController;
@@ -23,9 +22,8 @@ import java.util.TimerTask;
 
 public class AutoServisApp extends Application {
 
-    private static final Logger logger = Logger.getLogger(AutoServisApp.class);
-
-    private static final double EPSILON = 0.0000005;
+    // private static final Logger logger = Logger.getLogger(AutoServisApp.class);
+    // private static final double EPSILON = 0.0000005;
 
     private final Timer t = new Timer();
     private TimerTask tt;
@@ -64,9 +62,7 @@ public class AutoServisApp extends Application {
                 return null;
             }
         };
-        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(
-                task.progressProperty()
-        );
+        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(task.progressProperty());
         // color the bar green when the work is complete.
         /*splashScreenController.getPrgBarLoadStaff().progressProperty().addListener(observable -> {
             if (splashScreenController.getPrgBarLoadStaff().getProgress() >= 1 - EPSILON) {

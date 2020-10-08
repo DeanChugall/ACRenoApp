@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
          <children>
@@ -37,18 +38,6 @@
                   <Font name="Segoe UI Bold" size="27.0" />
                </font>
             </TextField>
-            <Button focusTraversable="false" layoutX="691.0" layoutY="21.0" mnemonicParsing="false" onAction="#saveAutomobil" prefHeight="63.0" prefWidth="98.0" text="Sačuvaj">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/btn_save_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
             <Line endX="495.0" layoutX="302.0" layoutY="85.0" startX="-299.0">
                <effect>
                   <DropShadow />
@@ -120,7 +109,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora:" textFill="#d3d3d3">
+            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora (cc):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -130,7 +119,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora:" textFill="#d3d3d3">
+            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora (kW):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -145,7 +134,7 @@
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cmbVrstaGorivaAutomobila" layoutX="15.0" layoutY="317.0" prefHeight="25.0" prefWidth="235.0" promptText="Vrsta Goriva...">
+            <ComboBox fx:id="cmbVrstaGorivaAutomobila1" layoutX="15.0" layoutY="317.0" prefHeight="25.0" prefWidth="235.0" promptText="Vrsta Goriva..." visible="false">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Dizel" />
@@ -159,7 +148,7 @@
                   <String fx:value="Dizel" />
                </value>
             </ComboBox>
-            <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža:" textFill="#d3d3d3">
+            <Label layoutX="286.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Kilometraža (km):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -189,7 +178,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila:" textFill="#d3d3d3">
+            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -209,7 +198,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila:" textFill="#d3d3d3">
+            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -250,6 +239,24 @@
                   <DropShadow />
                </effect>
             </Line>
+            <TextField fx:id="txtFvrstaGorivaVozila" layoutX="15.0" layoutY="317.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Goriva...">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnUcitajSaobracajnu" layoutX="549.0" layoutY="485.0" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="130.0" prefWidth="235.0" text="    Učitaj Saobraćajnu">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
+                     </image></ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children></AnchorPane>
    </center>
    <top>
@@ -258,34 +265,67 @@
             <DropShadow />
          </effect>
          <children>
-            <Label fx:id="lblHeaderTitle" layoutX="14.0" layoutY="17.0" prefHeight="57.0" prefWidth="428.0" text="UNOS AUTOMOBILA:" textFill="#c6c6c6">
+            <Label fx:id="lblHeaderTitle" layoutX="84.0" layoutY="17.0" prefHeight="57.0" prefWidth="428.0" text="UNOS AUTOMOBILA:" textFill="#c6c6c6">
                <font>
-                  <Font name="Segoe UI" size="39.0" />
+                  <Font name="Segoe UI" size="30.0" />
                </font>
             </Label>
             <Button fx:id="btnClose" layoutX="691.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnZatvoriCreateAutomobilUi" prefHeight="53.0" prefWidth="98.0" textAlignment="CENTER">
                <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                      </image>
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <TextField fx:id="txtfIdKAutomobila" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="445.0" layoutY="19.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="163.0">
+            <TextField fx:id="txtfIdKAutomobila" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="400.0" layoutY="19.0" minHeight="-Infinity" prefHeight="53.0" prefWidth="138.0">
                <font>
                   <Font name="Segoe UI Bold" size="36.0" />
                </font>
             </TextField>
+            <Button focusTraversable="false" layoutX="560.0" layoutY="19.0" mnemonicParsing="false" onAction="#saveAutomobil" prefHeight="53.0" prefWidth="109.0" text="Sačuvaj">
+               <graphic>
+                  <ImageView fitHeight="41.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/save.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="90.68" radius="61.5175" width="157.39" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="71.0" fitWidth="74.0" layoutX="9.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/auto_servis/car_home.png" />
+               </image></ImageView>
          </children></AnchorPane>
    </top>
    <bottom>
       <AnchorPane prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
          <children>
-            <Button disable="true" layoutX="4.0" layoutY="5.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="121.0" text="Učitaj Saobraćajnu" />
             <Button fx:id="btnObrisiAutomobil" layoutX="646.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnObrisiAutomobilAct" prefHeight="42.0" prefWidth="140.0" text="Obriši Automobil">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
@@ -294,6 +334,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </AnchorPane>

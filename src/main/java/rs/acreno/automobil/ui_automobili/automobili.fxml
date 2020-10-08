@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
     <center>
         <AnchorPane prefHeight="719.0" prefWidth="1476.0" BorderPane.alignment="CENTER">
             <children>
@@ -39,7 +40,10 @@
                      </graphic>
                      <font>
                         <Font name="Segoe UI Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                         <TableView fx:id="tblFakture" layoutX="7.0" layoutY="60.0" prefHeight="359.0" prefWidth="1435.0" stylesheets="@/table-view.css">
                             <columns>
                                 <TableColumn fx:id="tblRowIdRacuna" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID Racuna" />
@@ -86,7 +90,10 @@
                               <Image url="@/add_icon.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                         <TableView fx:id="tblRadniNalozi" layoutX="8.0" layoutY="60.0" prefHeight="215.0" prefWidth="734.0" stylesheets="@/table-view.css">
                             <columns>
                                 <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
@@ -134,7 +141,10 @@
                               <Image url="@/add_icon.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                         <TableView fx:id="tblDefektaza" layoutX="14.0" layoutY="56.0" prefHeight="219.0" prefWidth="671.0" stylesheets="@/table-view.css">
                             <columns>
                                 <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
@@ -158,17 +168,7 @@
     <top>
         <AnchorPane prefHeight="94.0" prefWidth="1432.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <children>
-                <Button disable="true" graphicTextGap="10.0" layoutX="911.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniKlijentaUi" prefHeight="53.0" prefWidth="166.0" text="Izmeni Klijenta">
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@/auto_servis/clients_home.png" />
-                     <effect>
-                        <DropShadow height="0.0" offsetY="2.0" radius="4.75" />
-                     </effect>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button disable="true" graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
+                <Button graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -179,20 +179,29 @@
                      </effect>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1317.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="70.0" prefWidth="144.0">
                <graphic>
                   <ImageView fitHeight="62.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                      </image>
                      <effect>
-                        <DropShadow height="0.0" offsetY="2.0" radius="4.75" />
-                     </effect></ImageView>
+                        <DropShadow height="0.0" offsetY="2.0" radius="0.3025" width="3.21" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
                </graphic>
                <effect>
                   <DropShadow />
-               </effect></Button>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
                 <ImageView fitHeight="67.0" fitWidth="270.0" layoutX="29.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@/tablica.png" />

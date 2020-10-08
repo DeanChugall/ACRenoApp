@@ -1,38 +1,50 @@
 package rs.acreno.autoservis;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import rs.acreno.artikli.ArtkikliController;
 import rs.acreno.automobil.*;
+import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
+import rs.acreno.autoservis.splash.SplashScreenController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
+import rs.acreno.klijent.licna_karta.LicnaKarta;
 import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
 import rs.acreno.system.util.GeneralUiUtility;
 import rs.acreno.system.util.properties.ApplicationProperties;
+import rs.acreno.zakazivanje.Zakazivanje;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +52,8 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -57,9 +71,12 @@ public class AutoServisController implements Initializable {
     @FXML private Label lblTime;
     @FXML private Label lblVerzijaAplikacije;
     @FXML private Label lblReleaseDate;
-    @FXML private Button btnOtvoriArtiklKarticu;
+    @FXML private Label lblLicencaAplikacije;
 
-    // 1.1 ************* FXMLs Automobil Kartica
+    //MENU
+    @FXML private MenuItem menuBtnOaplikaciji;
+
+
     /**
      * txtF za Reg. Tablicu u {@link #txtFieldRegTablicaSaerchKeyListener), pa posle bitno za
      * prosledjivanje tablice {@link AutomobiliController}-u, a koristi se {@link #openAutomobiliUi }
@@ -68,6 +85,7 @@ public class AutoServisController implements Initializable {
      * @see {@link #openAutomobiliUi }
      * @see {@link AutomobiliController}
      */
+    // 1.1 ************* FXMLs Automobil Kartica
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtfVinAutomobila;
     @FXML private TextField txtfModelAutomobila;
@@ -77,12 +95,18 @@ public class AutoServisController implements Initializable {
     @FXML private Button btnNoviAutomobil;
     @FXML private Button btnUrediAutomobil;
     @FXML private TextField txtFidAutomobila;
+    @FXML private Button btnZakaziSerivis;
+    @FXML private TextField txtFkubikazaAuta;
+    @FXML private TextField txtFsnagaAuta;
+    @FXML private CheckBox chkBoxServisnaKnjizica;
+    @FXML private ImageView imageMarkaVozila;
 
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
-    /* @FXML private Button btnNoviAutomobilInKlijentArea;
-     @FXML private Button btnUrediAutomobilFromKlijent;*/
+    @FXML private Button btnOtvoriCitacLicneKarte;
+    @FXML private Button btnUcitajPodatkeSaLicneKarte;
+
     @FXML private Button btnOtvoriKlijentEditMode;
     @FXML private TextField txtFiDKlijenta;
     @FXML private TextField txtFbrojTelefona;
@@ -172,6 +196,8 @@ public class AutoServisController implements Initializable {
 
 
     private boolean weAreFromTable = false;
+    private boolean ifWeAreFromUcitajSaobracajnu = false;
+
 
     /**
      * Empty inicijalizaciona metoda ovog {@link AutoServisController}-a, if we need this for later use
@@ -186,14 +212,20 @@ public class AutoServisController implements Initializable {
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             lblVerzijaAplikacije.setText(ApplicationProperties.getInstance().getProperty("app.version"));
             lblReleaseDate.setText(ApplicationProperties.getInstance().getProperty("app.date"));
-
+            lblLicencaAplikacije.setText(ApplicationProperties.getInstance().getProperty("app.copyright.main.window"));
+            String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+            Image image = new Image(logo);
+            imageMarkaVozila.setImage(image);
             //PROVERA INTERNETA
             final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
             ses.scheduleWithFixedDelay(() -> {
                 if (GeneralUiUtility.netIsAvailable()) { //Imamo internet (TRUE)
                     lineInternetIndicator.setStroke(Color.rgb(36, 164, 11));//promeni boju indikatora
+                    btnZakaziSerivis.setDisable(false); //Omoguci dugme Zakazi Servis jer radimo preko Gcalendar
+
                 } else { // Nmea Interneta (FALSE)
                     lineInternetIndicator.setStroke(Color.rgb(198, 13, 13));
+                    btnZakaziSerivis.setDisable(true); //Onemoguci dugme Zakazi Servis jer radimo preko Gcalendar
                 }
                 System.out.println(new Date() + " = ping IMA INTERNETA !");
             }, 2, Constants.APP_UCESTALOST_PROVERE_INTERNETA, TimeUnit.SECONDS);
@@ -213,6 +245,45 @@ public class AutoServisController implements Initializable {
 
 
     // 3.0 ***************  AUTOMOBILI STAFF ***************************
+
+    private Automobil automobil;
+
+    @FXML public void ucitajSaobracajnu(ActionEvent actionEvent) throws AcrenoException, SQLException {
+        logger.info("Kliknuto ucitaj sobracajnu !!!");
+        ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
+        String regOznaka = Saobracajna.automobil().getRegOznaka();
+        String test = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2); // Sredi REG Tablicu jer nam treba XX-XXX-XX
+        txtFieldRegOznaka.setText(test.toLowerCase()); // da bi radilo trebaju nam mala slova
+        automobil = automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, test.toLowerCase()).get(0);
+        automobilForEdit = automobil; // Da bi moglo da se uredi automobil klikom na dugme
+        popuniAutomobilTxtfOve(automobil);
+
+        // list view staff
+        listViewAutmobiliSearch.setVisible(false); // Zatvori listu
+        btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
+        btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
+
+
+        //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
+                automobil.getIdKlijenta()).get(0);
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnNoviAutomobil.setDisable(false);
+        btnOtvoriKlijentEditMode.setDisable(false);
+
+        //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
+        popuniTabeluAutomobiliklijenta(klijent);
+
+        String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+        Image image = new Image(logo);
+        imageMarkaVozila.setImage(image);
+    }
 
     /**
      * Pretraga i filtriranje Autmobila po REG. TABLICI u KeyListeneru TxtF-a
@@ -304,20 +375,26 @@ public class AutoServisController implements Initializable {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
             //Moze .getSelectedItems().get(0) jer ima samo jedan Automobil
             if (listViewAutmobiliSearch.getSelectionModel().getSelectedItems().size() > 0) {
-                //POPUNI TXTFove SA PODACIUMA AUTOMOBILA
-                Automobil automobil = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0);
-                popuniAutomobilTxtfOve(automobil);
+                automobil = listViewAutmobiliSearch.getSelectionModel().getSelectedItems().get(0);
+                popuniAutomobilTxtfOve(automobil); //POPUNI TXTFove SA PODACIUMA AUTOMOBILA
 
                 // list view staff
                 listViewAutmobiliSearch.setVisible(false); // Zatvori listu
                 btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
                 btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
 
-
                 //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
                 klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
                         listViewAutmobiliSearch.getSelectionModel().getSelectedItem().getIdKlijenta()).get(0);
+
+                //Popuni TXTf sa podacima klijenta
                 txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+                txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+                txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+                txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+                txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+                txtFeMailKlijenta.setText(klijent.getEmail());
+                txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
                 btnNoviAutomobil.setDisable(false);
 
                 //Popuni Tabelu sa automobilima u KLLIJENT KARTICI
@@ -476,14 +553,35 @@ public class AutoServisController implements Initializable {
         addEditAutomobilController.setWeAreInEditMode(false); // NISMO U EDITu kliknuto diretno na dugme Novi Automobil
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
 
+
         //Kada se zatvori "CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI" da uradimo neke stvari ovde
         stageNewAutomobil.setOnCloseRequest(windowEvent -> {
             logger.debug("stageNewAutomobil --> setOnCloseRequest");
-            popuniTabeluAutomobiliklijenta(klijent);
-            Automobil tempAuto = addEditAutomobilController.getAutomobil();
-            popuniAutomobilTxtfOve(tempAuto);
-            btnOtvoriAutomobilKarticu.setDisable(false);
-            btnUrediAutomobil.setDisable(false);
+            //Ako se brise auto da se isprazne polja u automobil sekciji...Dobijamo podatak iz AddEdit kontrolora da
+            //je stisnuto dume "Brisi Automobil"
+            if (addEditAutomobilController.isDeleteButtonPressed()) {
+                txtFidAutomobila.setText("");
+                txtFieldRegOznaka.setText("");
+                txtfVinAutomobila.setText("");
+                txtfGodisteAutomobila.setText("");
+                txtfMarkaAutomobila.setText("");
+                txtfModelAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                txtFkubikazaAuta.setText("");
+                txtFsnagaAuta.setText("");
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+                String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+                Image image = new Image(logo);
+                imageMarkaVozila.setImage(image);
+            }else{
+                popuniTabeluAutomobiliklijenta(klijent);
+                Automobil tempAuto = addEditAutomobilController.getAutomobil();
+                popuniAutomobilTxtfOve(tempAuto);
+                btnOtvoriAutomobilKarticu.setDisable(false);
+                btnUrediAutomobil.setDisable(false);
+            }
         });
         stageNewAutomobil.showAndWait();
     }
@@ -503,8 +601,17 @@ public class AutoServisController implements Initializable {
         txtfMarkaAutomobila.setText(automobil.getMarkaVozila());
         txtfGoriivoAutomobila.setText(automobil.getVrstaGorivaVozila());
         txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
-    }
+        txtFkubikazaAuta.setText(String.valueOf(automobil.getZapreminaVozila()));
+        txtFsnagaAuta.setText(String.valueOf(automobil.getSnagaVozila()));
+        if (txtfMarkaAutomobila.getText().isEmpty()) {
+            return;
+        } else {
+            String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+            Image image = new Image(logo);
+            imageMarkaVozila.setImage(image);
+        }
 
+    }
 
     // 3.1 *************** EDIT AUTOMOBILI STAFF
 
@@ -514,15 +621,9 @@ public class AutoServisController implements Initializable {
      */
     public void txtFieldRegTablicaSaerchhOnMouseClick() {
         listViewKlijentiSearch.setVisible(false);
-       /* btnOtvoriAutomobilKarticu.setDisable(true);
-        btnNoviAutomobil.setDisable(true);
-        btnNoviAutomobilInKlijentArea.setDisable(true);
-        btnUrediAutomobil.setDisable(true);
-        btnUrediAutomobilFromKlijent.setDisable(true);*/
     }
 
-
-    Automobil automobilForEdit;
+    private Automobil automobilForEdit;
 
     /**
      * Metoda koja se koristi za editovanje {@link Automobil} objekta, a dugme {@link #btnUrediAutomobil)}.
@@ -540,9 +641,11 @@ public class AutoServisController implements Initializable {
      */
     @FXML private void btnUrediAutomobilAct() throws IOException {
         // Moze jer je samo jed izabran u "listViewAutmobiliSearch"
-        if (!weAreFromTable) { //  Ako je kliknuto iz tabele auto, nemoj selektovati iz ListViewa
+        //  Ako je kliknuto iz tabele auto, nemoj selektovati iz ListViewa i ako je ucitana saobracajna nemoj ovo.
+        if (!weAreFromTable && !ifWeAreFromUcitajSaobracajnu) {
             automobilForEdit = listViewAutmobiliSearch.getSelectionModel().getSelectedItem();
         }
+
         // Standart FX load UI
         FXMLLoader fxmlLoaderNewAutomobil = new FXMLLoader(getClass().getResource(Constants.CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI));
         Stage stageNewAutomobil = new Stage();
@@ -551,25 +654,12 @@ public class AutoServisController implements Initializable {
         if (automobilForEdit.getRegOznaka().isEmpty()) {
             automobilForEdit.setRegOznaka("");
         } else {
-
             stageNewAutomobil.setTitle("Izmena Autmobila: " + automobilForEdit.getRegOznaka());
         }
-
-        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
-            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
-            System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
-            popuniAutomobilTxtfOve(automobilForEdit);
-            popuniTabeluAutomobiliklijenta(klijent);
-            btnOtvoriAutomobilKarticu.setDisable(false);
-            btnUrediAutomobil.setDisable(false);
-
-        });
-
-
+        //Inicijalizacija CREATE NEW KLIJENT Controllora-a
         Scene scene = new Scene(fxmlLoaderNewAutomobil.load());
         stageNewAutomobil.setScene(scene);
         stageNewAutomobil.setResizable(false);
-
         //Set AutoServisController u AutomobiliController UI
         AddEditAutomobilController addEditAutomobilController = fxmlLoaderNewAutomobil.getController();
         addEditAutomobilController.setAutoServisController(this, stageNewAutomobil);
@@ -578,12 +668,131 @@ public class AutoServisController implements Initializable {
         addEditAutomobilController.setKlijent(klijent); //Prosledi Klijent Obj
         addEditAutomobilController.setLblHeaderTitle("IZMENA AUTOMOBILA:");
 
-        stageNewAutomobil.showAndWait();
 
+        stageNewAutomobil.setOnCloseRequest(windowEvent -> {
+            // txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
+            System.out.println("FORM BUUTTON btnUrediAutomobilAct --- CREATE_EDIT_AUTOMOBIL_UI_VIEW_URI");
+            popuniAutomobilTxtfOve(automobilForEdit);
+            popuniTabeluAutomobiliklijenta(klijent);
+            btnOtvoriAutomobilKarticu.setDisable(false);
+            btnUrediAutomobil.setDisable(false);
+            //Ako se brise auto da se isprazne polja u automobil sekciji...Dobijamo podatak iz AddEdit kontrolora da
+            //je stisnuto dume "Brisi Automobil"
+            if (addEditAutomobilController.isDeleteButtonPressed()) {
+                System.out.println(addEditAutomobilController.isDeleteButtonPressed() + " ...YES");
+                txtFidAutomobila.setText("");
+                txtFieldRegOznaka.setText("");
+                txtfVinAutomobila.setText("");
+                txtfGodisteAutomobila.setText("");
+                txtfMarkaAutomobila.setText("");
+                txtfModelAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                txtFkubikazaAuta.setText("");
+                txtFsnagaAuta.setText("");
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+            }
+        });
+        stageNewAutomobil.showAndWait();
     }
 
 
     // 4.0 ***************  KLIJENTI STAFF ***************************
+
+    //Otvori GUI za citanje Licne Karte
+    @FXML public void ucitajLicnuKartu(ActionEvent actionEvent) {
+        LicnaKarta.main(null); //Otvori GUI za citanje Licne Karte
+        //btnOtvoriCitacLicneKarte.setDisable(true);
+        btnUcitajPodatkeSaLicneKarte.setDisable(false);
+    }
+
+    /**
+     * Metoda koja se koristi za brzo citanje {@link Klijent}-a iz saobracajne, kada nemamo LK.
+     *
+     * @throws SQLException Pošto trazimo klijenta po matičnom broju
+     * @bitno regOznaka mora da bude jer se inicira citanje Saobraćajne tim
+     * @see #btnUrediAutomobil
+     * @see Klijent
+     * @see Saobracajna
+     */
+    @FXML public void btnBrzoCitanjeSobracajneKlijent() throws AcrenoException, SQLException {
+        logger.info("**************  BRZO ČITANJE SAOBRAĆAJNE  *************");
+        String regOznaka = Saobracajna.automobil().getRegOznaka(); // Mora da bude zbog iniciranje metode citanja
+        String JMBG = Saobracajna.klijent.getMaticniBroj();
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.MATICNI_BROJ, JMBG).get(0);
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnOtvoriKlijentEditMode.setDisable(false);
+        btnOtvoriCitacLicneKarte.setDisable(false);
+        btnUcitajPodatkeSaLicneKarte.setDisable(true);
+        popuniTabeluAutomobiliklijenta(klijent);
+
+        btnNoviAutomobil.setDisable(false);
+        btnOtvoriAutomobilKarticu.setDisable(true);
+        btnUrediAutomobil.setDisable(true);
+        txtFidAutomobila.setText("");
+        txtFieldRegOznaka.setText("");
+        txtfVinAutomobila.setText("");
+        txtfGodisteAutomobila.setText("");
+        txtfMarkaAutomobila.setText("");
+        txtfModelAutomobila.setText("");
+        txtfGoriivoAutomobila.setText("");
+        txtfGoriivoAutomobila.setText("");
+        txtFkubikazaAuta.setText("");
+        txtFsnagaAuta.setText("");
+    }
+
+    public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
+
+    //TODO moze ovo bolje
+    public static void ucitajLicnuKartu(@NotNull Klijent klijent) {
+        logger.info("CITANJE LICNE KARTE");
+        klijentStatic = klijent; //Postavljanje staticne metode...za sada tako
+    }
+
+    @FXML private void popunjavanjePoljaSaLicneKarte() throws AcrenoException, SQLException {
+        //txtFiDKlijenta.setText(String.valueOf(klijentStatic.getIdKlijenta()));
+        // list view staff
+        listViewAutmobiliSearch.setVisible(false); // Zatvori listu
+        btnOtvoriAutomobilKarticu.setDisable(true); // Omoguci dugme za otvaranje Automobil kartice
+        btnUrediAutomobil.setDisable(true); // Omoguci dugme za Editovanje Automobila
+
+        txtFidAutomobila.setText("");
+        txtFieldRegOznaka.setText("");
+        txtfVinAutomobila.setText("");
+        txtfGodisteAutomobila.setText("");
+        txtfMarkaAutomobila.setText("");
+        txtfModelAutomobila.setText("");
+        txtfGoriivoAutomobila.setText("");
+        txtfGoriivoAutomobila.setText("");
+        txtFkubikazaAuta.setText("");
+        txtFsnagaAuta.setText("");
+        String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+        Image image = new Image(logo);
+        imageMarkaVozila.setImage(image);
+
+        //NADJI KLIJENTA PO JMBG i POSTAVI U txtf  txtFieldPretragaKlijenta
+        String maticniBroj = klijentStatic.getMaticniBroj();
+        //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.MATICNI_BROJ, maticniBroj).get(0);
+        txtFiDKlijenta.setText(String.valueOf(klijent.getIdKlijenta())); // u "txtFiDKlijenta" postavi ID klijenta
+        txtFieldPretragaKlijenta.setText(klijent.getImePrezime());
+        txtFbrojTelefona.setText(klijent.getTelefonMobilni());
+        txtFadresaKlijenta.setText(klijent.getUlicaBroj());
+        txtFmestoStanovanjaKlijenta.setText(klijent.getMesto());
+        txtFeMailKlijenta.setText(klijent.getEmail());
+        txtAreaOstaliDetaljiKlijenta.setText(klijent.getOstaliDetalji());
+        btnNoviAutomobil.setDisable(false);
+        btnOtvoriKlijentEditMode.setDisable(false);
+        btnOtvoriCitacLicneKarte.setDisable(false);
+        btnUcitajPodatkeSaLicneKarte.setDisable(true);
+        popuniTabeluAutomobiliklijenta(klijent);
+    }
 
     /**
      * Pretraga i filtriranje Klijenta po IMENU I PREZIMENU u KeyListeneru TxtF-a
@@ -682,11 +891,10 @@ public class AutoServisController implements Initializable {
                 String brojTelefonaKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getTelefonMobilni();
                 int idKlijenta = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0).getIdKlijenta();
 
-
                 //Napravi Klijent Objekat iz odabrane LISTVIEW stavke
                 klijent = listViewKlijentiSearch.getSelectionModel().getSelectedItems().get(0);
 
-                txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi REG. OZNAKU u TF
+                txtFieldPretragaKlijenta.setText(imePrezimeKlijenta); // Postavi IME I PREZIME u TF
                 txtFiDKlijenta.setText(String.valueOf(idKlijenta)); // u "txtFiDKlijenta" postavi ID klijenta
                 txtFbrojTelefona.setText(brojTelefonaKlijenta);
                 txtFadresaKlijenta.setText(klijent.getUlicaBroj());
@@ -697,9 +905,6 @@ public class AutoServisController implements Initializable {
                 listViewKlijentiSearch.setVisible(false); // Zatvori listu
                 popuniTabeluAutomobiliklijenta(klijent);
                 btnOtvoriKlijentEditMode.setDisable(false);
-                //((Node) mouseEvent.getSource()).getScene().getWindow().hide();
-                //openAddEditklijent();
-                // ((Stage) ((Node) mouseEvent.getSource()).getScene().getWindow()).show();
             }
         }
     }
@@ -751,6 +956,16 @@ public class AutoServisController implements Initializable {
      * @see CreateNewKlijentUiController
      */
     @FXML private void openAddEditklijent() throws IOException {
+
+       /* if (ifWeAreFromCitacLicneKarte == true) {
+            //createNewKlijentUiController.setKlijent(klijentStatic); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
+           // klijent = klijentStatic;
+
+        }
+        if (ifWeAreFromCitacLicneKarte == false) {
+            //createNewKlijentUiController.setKlijent(klijent); // prosledi Klijenta u EDIT KLIIJENT CONTROLLER
+            System.out.println("nooooo" + ifWeAreFromCitacLicneKarte);
+        }*/
         // Standart FX load UI
         if (klijent.getImePrezime() != null) {
             FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
@@ -761,7 +976,6 @@ public class AutoServisController implements Initializable {
             stageKljent.setScene(scene);
             stageKljent.setResizable(false);
             stageKljent.setTitle("Klijent: " + txtFieldPretragaKlijenta.getText());
-
 
             //Set AutoServisController u CREATE NEW KLIJENT CONTROLORU  UI
             CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
@@ -792,9 +1006,6 @@ public class AutoServisController implements Initializable {
                     btnOtvoriKlijentEditMode.setDisable(false);
                 }
                 if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                    btnNoviAutomobil.setDisable(true);
-                    btnOtvoriAutomobilKarticu.setDisable(true);
-                    btnUrediAutomobil.setDisable(true);
                     btnOtvoriKlijentEditMode.setDisable(true);
                     txtFieldRegOznaka.setText("");
                     txtFieldPretragaKlijenta.setText("");
@@ -807,6 +1018,23 @@ public class AutoServisController implements Initializable {
                     txtAreaOstaliDetaljiKlijenta.setText("");
                     tblAutomobiliInKlijent.getItems().clear();
                     tblAutomobiliInKlijent.refresh();
+
+                    btnNoviAutomobil.setDisable(true);
+                    btnOtvoriAutomobilKarticu.setDisable(true);
+                    btnUrediAutomobil.setDisable(true);
+                    txtFidAutomobila.setText("");
+                    txtFieldRegOznaka.setText("");
+                    txtfVinAutomobila.setText("");
+                    txtfGodisteAutomobila.setText("");
+                    txtfMarkaAutomobila.setText("");
+                    txtfModelAutomobila.setText("");
+                    txtfGoriivoAutomobila.setText("");
+                    txtfGoriivoAutomobila.setText("");
+                    txtFkubikazaAuta.setText("");
+                    txtFsnagaAuta.setText("");
+                    String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+                    Image image = new Image(logo);
+                    imageMarkaVozila.setImage(image);
                 }
             });
             stageKljent.showAndWait();
@@ -869,9 +1097,6 @@ public class AutoServisController implements Initializable {
                 btnOtvoriKlijentEditMode.setDisable(false);
             }
             if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                btnNoviAutomobil.setDisable(true);
-                btnOtvoriAutomobilKarticu.setDisable(true);
-                btnUrediAutomobil.setDisable(true);
                 btnOtvoriKlijentEditMode.setDisable(true);
                 txtFieldRegOznaka.setText("");
                 txtFieldPretragaKlijenta.setText("");
@@ -884,12 +1109,26 @@ public class AutoServisController implements Initializable {
                 txtAreaOstaliDetaljiKlijenta.setText("");
                 tblAutomobiliInKlijent.getItems().clear();
                 tblAutomobiliInKlijent.refresh();
+
+                btnNoviAutomobil.setDisable(true);
+                btnOtvoriAutomobilKarticu.setDisable(true);
+                btnUrediAutomobil.setDisable(true);
+                txtFidAutomobila.setText("");
+                txtFieldRegOznaka.setText("");
+                txtfVinAutomobila.setText("");
+                txtfGodisteAutomobila.setText("");
+                txtfMarkaAutomobila.setText("");
+                txtfModelAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                txtfGoriivoAutomobila.setText("");
+                txtFkubikazaAuta.setText("");
+                txtFsnagaAuta.setText("");
+                String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+                Image image = new Image(logo);
+                imageMarkaVozila.setImage(image);
             }
-
-
             //btnOtvoriKlijentEditMode.setDisable(true);
             listViewKlijentiSearch.setVisible(false);
-
         });
         stageNewKlijent.showAndWait();
     }
@@ -1034,6 +1273,109 @@ public class AutoServisController implements Initializable {
         System.exit(0);
     }
 
+    // 7.0 *************** MENU ACTION BUTTONs STAFF ***************************
 
+    private final Timer t = new Timer();
+    private TimerTask tt;
+    private boolean isJustOpenApp = true;
+
+    @FXML private void menuBtnOAplikaciji() throws IOException {
+        Stage stageSpashScreen = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(AutoServisController.class.getResource(Constants.SPLASH_SCREEN_URI));
+        stageSpashScreen.initStyle(StageStyle.UNDECORATED);
+        stageSpashScreen.initStyle(StageStyle.TRANSPARENT);
+        stageSpashScreen.setResizable(false);
+        stageSpashScreen.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageSpashScreen.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(loader.load());
+        scene.setFill(Color.TRANSPARENT);
+        stageSpashScreen.setScene(scene);
+        stageSpashScreen.setResizable(false);
+
+        // SplashScreenController INSTANCA
+        SplashScreenController splashScreenController = loader.getController();
+        splashScreenController.setAutoServisAppController(null, stageSpashScreen);
+
+        stageSpashScreen.show();
+
+        final Task<Void> task = new Task<>() {
+            final int N_ITERATIONS = 50;
+
+            @Override
+            protected @Nullable Void call() throws Exception {
+                for (int i = 0; i < N_ITERATIONS; i++) {
+                    updateProgress(i + 1, N_ITERATIONS);
+                    // sleep is used to simulate doing some work which takes some time....
+                    Thread.sleep(120);
+                }
+
+                return null;
+            }
+        };
+        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(task.progressProperty());
+        // color the bar green when the work is complete.
+
+        stageSpashScreen.show();
+
+        //Start Thread
+        final Thread thread = new Thread(task, "task-thread");
+        thread.setDaemon(true);
+        thread.start();
+
+        //Load splash screen with fade in effect
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), stageSpashScreen.getScene().getRoot());
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.setCycleCount(1);
+        fadeIn.setAutoReverse(true);
+
+        //Finish splash with fade out effect
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), stageSpashScreen.getScene().getRoot());
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setCycleCount(1);
+        fadeIn.play();
+
+        //After fade in, start fade out
+        fadeIn.setOnFinished((e) -> {
+            tt = new TimerTask() {
+                @Override
+                public void run() {
+                    if (isJustOpenApp) {
+                        fadeOut.play();
+                        isJustOpenApp = true;
+                    }
+                }
+            };
+            t.schedule(tt, Constants.SPLASH_SCREEN_DELAY_ABOUT_WINDOW, 15000);
+        });
+
+        fadeOut.setOnFinished((e) -> Platform.runLater(() -> {
+            tt.cancel();
+            t.purge();
+            stageSpashScreen.close();
+        }));
+    }
+
+    // 8.0 *************** ZAKAZI SERVIS BUTTONs STAFF ***************************
+    @FXML public void btnZakaziServisAct(ActionEvent actionEvent) {
+        Zakazivanje zakazivanje = new Zakazivanje();
+        Stage stage = new Stage();
+        stage.setTitle("Zakazivanje");
+        Text text = new Text(10, 40, "Zakazivanje");
+        text.setFont(new Font(40));
+        Scene scene = new Scene(new Group(text));
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.setResizable(true);
+        stage.centerOnScreen();
+        stage.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        zakazivanje.start(stage);
+    }
+
+    public void oAplikacijiKlikNaLogo(MouseEvent mouseEvent) throws IOException {
+        menuBtnOAplikaciji();
+    }
 }
 

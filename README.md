@@ -1,6 +1,10 @@
+
+
 # "AC Reno" Auto Servis Application
 Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
+
+###### Currrent release is: ALPHA 2.6
 
 #### System Requirements
 
@@ -14,18 +18,18 @@ popravki i održavanja automobila.
 ---
 Add VM options for run JavaFX app on compile runtime:
 
-```java
+```shell
 --module-path /PATH/TO/YOUR/JAVA/FX/javafx-sdk-14/lib 
                                         --add-modules javafx.controls,javafx.fxml
 ```
-
 
 Where is '/PATH/.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory.
 
 ---
 Run App command
-```bash
-java -jar --module-path {%PATH_TO_YOUR_FX_LIB_DIR}}/lib --add-modules javafx.controls,javafx.fxml ACReno.jar
+```shell
+java -jar --module-path ${JAVA_FX} 
+        --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media ACReno.jar
 ```
 
  GPL3 LICENSE SYNOPSIS

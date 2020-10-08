@@ -3,7 +3,7 @@ package rs.acreno.klijent.ui_klijent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,11 +11,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import rs.acreno.automobil.AutomobiliController;
+import rs.acreno.automobil.saobracajna.Saobracajna;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.klijent.Klijent;
 import rs.acreno.klijent.KlijentDAO;
 import rs.acreno.klijent.SQLKlijnetDAO;
+import rs.acreno.klijent.licna_karta.LicnaKarta;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.GeneralUiUtility;
@@ -119,8 +122,6 @@ public class CreateNewKlijentUiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-
-
             try {
                 if (!isWeAreInEditMode()) {
                     klijent = new Klijent();
@@ -183,7 +184,6 @@ public class CreateNewKlijentUiController implements Initializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -204,14 +204,12 @@ public class CreateNewKlijentUiController implements Initializable {
         if (txtfImePrezimeKlijenta.getText().isEmpty()) {
             GeneralUiUtility.alertDialogBox(
                     Alert.AlertType.INFORMATION,
-                    "Niste Uneli Ime klijenta@",
+                    "Niste Uneli Ime klijenta",
                     "EDITOVANJE KLIJENTA",
-                    "Niste Uneli Ime klijenta!"
-
-            );
+                    "Niste Uneli Ime klijenta!");
         } else {
             try {
-                //klijent = new Klijent();
+                // klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,txtfIdKlijenta.getText()).get(0);
                 klijent.setIdKlijenta(Integer.parseInt(txtfIdKlijenta.getText()));
                 klijent.setImePrezime(txtfImePrezimeKlijenta.getText());
                 klijent.setMesto(txtfGradKlijenta.getText());
@@ -228,12 +226,14 @@ public class CreateNewKlijentUiController implements Initializable {
                 klijent.setWeb(txtfWebSajtKlijenta.getText());
                 klijent.setDatumAcrRegistracijeKliljenta(
                         GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
+
             } catch (IllegalArgumentException exception) {
                 logger.error("From saveKlijent() sa porukom: " + exception);
             }
             try {
                 klijentDAO.updateKlijent(klijent);
-                autoServisController.get().setKlijent(klijent);
+
+
                 if (!isCloseButtonPresed) {
                     GeneralUiUtility.alertDialogBox(
                             Alert.AlertType.INFORMATION,
@@ -242,7 +242,9 @@ public class CreateNewKlijentUiController implements Initializable {
                             "Uspesno sačuvane izmene Klijenta: " + klijent.getImePrezime() + " !"
 
                     );
+                    autoServisController.get().setKlijent(klijent);
                     btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
+
                 }
             } catch (AcrenoException | SQLException e) {
 
@@ -339,6 +341,7 @@ public class CreateNewKlijentUiController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
+                    isDeleteButtonPressed = true;
                     klijentDAO.deleteKlijent(klijent);
                     btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
                 }
@@ -347,6 +350,45 @@ public class CreateNewKlijentUiController implements Initializable {
             saveKlijent(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
             btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
+    }
+
+    @FXML public void ucitajLicnaKarta(ActionEvent actionEvent) {
+        LicnaKarta.main(null); //Otvori GUI za citanje Licne Karte
+    }
+
+    public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
+
+    //TODO moze ovo bolje
+    public static void ucitajLicnuKartu(@NotNull Klijent klijent) {
+        logger.info("CITANJE LICNE KARTE");
+        klijentStatic = klijent; //Postavljanje staticne metode...za sada tako
+    }
+
+    @FXML public void popunjavanjePoljaSaLicneKarte() {
+        //NADJI KLIJENTA PO JMBG i POSTAVI U txtf  txtFieldPretragaKlijenta
+        klijent = klijentStatic;
+        txtfImePrezimeKlijenta.setText(klijent.getImePrezime());
+        txtfUlicaBrojKlijenta.setText(klijent.getUlicaBroj());
+        txtfGradKlijenta.setText(klijent.getMesto());
+        txtfMaticniBrojKlijenta.setText(klijent.getMaticniBroj());
+        txtfBrojLicneKarteKlijenta.setText(klijent.getBrLicneKarte());
+    }
+
+    @FXML public void ucitajSaobracajna(ActionEvent actionEvent) {
+        String regOznaka = Saobracajna.automobil().getRegOznaka();
+        String imeVlasnika = Saobracajna.klijent.getImePrezime().toUpperCase();
+        String[] grad = Saobracajna.klijent.getUlicaBroj().split(",");
+        String gradSredjen = grad[0];
+        String ulicaBroj = grad[2] + " " + grad[3];
+        String JMBG = Saobracajna.klijent.getMaticniBroj();
+        System.out.println("Grad: " + gradSredjen);
+        System.out.println("ULICA i Broj: " + ulicaBroj);
+        System.out.println("JMBG: " + JMBG);
+
+        txtfImePrezimeKlijenta.setText(imeVlasnika);
+        txtfUlicaBrojKlijenta.setText(ulicaBroj);
+        txtfGradKlijenta.setText(gradSredjen);
+        txtfMaticniBrojKlijenta.setText(JMBG);
     }
 
 }
