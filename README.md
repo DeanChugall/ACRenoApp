@@ -1,6 +1,7 @@
 # "AC Reno" Auto Servis Application
 ![build](https://img.shields.io/travis/acrenoai/ACRenoApp/master?logo=GitHub&style=flat-square)
 ![build](http://img.shields.io/badge/version-BETA%201.0-brightgreen?style=flat-square&logo=GitHub)
+![build](http://img.shields.io/badge/licence-GPL%203-brightgreen?style=flat-square&logo=GNU)
 
 Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
@@ -50,4 +51,4 @@ java -jar --module-path ${JAVA_FX}
 9. The software author or license can not be held liable for any damages inflicted by the software.
 ```
 
-More information on about the [LICENSE can be found here](https://github.com/acrenoai/ACRenoApp/blob/dev-1.0/LICENSE.md)
+More information on about the [LICENSE can be found here](https://github.com/acrenoai/ACRenoApp/blob/beta-1-0/LICENSE.md)
