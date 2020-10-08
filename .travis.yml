@@ -1,9 +1,5 @@
 language: java
 install: true
-script:
-  - echo "skipping tests"
 jdk:
-  - oraclejdk8
   - oraclejdk14
-  - openjdk10
   - openjdk14
