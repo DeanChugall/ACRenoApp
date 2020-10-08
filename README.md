@@ -8,12 +8,16 @@
 
 <p align="left">
   <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
+  <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-home.png">
 </p>
 
-Open source [**"_AC Reno_"**](https://acreno.rs) aplikacija za vođenje tekućih poslova oko evidencije 
-popravki i održavanja automobila. Aplikaciju razvija i održava "AC Reno" Auto Servis iz Novog Sada.
 
-Oficijalna web stranica servisa: [**www.acreno.rs**](https://acreno.rs) 
+Open source [**"_AC Reno_"**](https://acreno.rs) aplikacija za vođenje tekućih poslova oko evidencije 
+popravki i održavanja automobila. 
+
+* Aplikaciju razvija i održava "AC Reno" Auto Servis iz Novog Sada.
+
+* Oficijalna web stranica servisa: [**www.acreno.rs**](https://acreno.rs) 
 
 #### System Requirements
 
