@@ -1,5 +1,6 @@
 # "AC Reno" Auto Servis Application
 ![build](https://img.shields.io/travis/acrenoai/ACRenoApp/master?logo=GitHub&style=flat-square)
+![build](http://img.shields.io/badge/version-BETA%201.0-brightgreen?style=flat-square&logo=GitHub)
 
 Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
