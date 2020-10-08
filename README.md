@@ -1,10 +1,10 @@
-
-
 # "AC Reno" Auto Servis Application
+![build](https://api.travis-ci.org/acrenoai/ACRenoApp.svg?branch=master&status=passed)
+
 Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
 popravki i održavanja automobila.
 
-###### Currrent release is: ALPHA 2.6
+###### Currrent release is: BETA 1.0
 
 #### System Requirements
 
