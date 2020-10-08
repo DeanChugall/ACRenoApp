@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>rs.acreno</groupId>
     <artifactId>ACReno</artifactId>
-    <version>Alpha 2.6</version>
+    <version>Beta 1.1</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
         </license>
     </licenses>
     <organization>
-        <name>ACReno Auto Servis</name>
+        <name>AC Reno Auto Servis</name>
         <url>https://www.acreno.rs</url>
     </organization>
     <developers>

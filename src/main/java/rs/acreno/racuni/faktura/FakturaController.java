@@ -1131,10 +1131,10 @@ public class FakturaController implements Initializable {
             posaoArtikliObject.setOpisPosaoArtiklli(opisArtikla);
             posaoArtikliObject.setCena(Double.parseDouble(String.valueOf(cenaArtikla)));
             posaoArtikliObject.setNabavnaCena(Double.parseDouble(String.valueOf(nabavnaCenaArtikla)));
-            posaoArtikliObject.setKolicina(Integer.parseInt("1"));
+            posaoArtikliObject.setKolicina(Integer.parseInt("1")); // Default vrednost za kolicinu artikla
             posaoArtikliObject.setJedinicaMere(jedinicaMereArtikla);
             posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
-            posaoArtikliObject.setPopust(Integer.parseInt("0"));
+            posaoArtikliObject.setPopust(Integer.parseInt("0")); // Default vrednost za popust
             try {
                 posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
                 //Create ObservableList<PosaoArtikli> and insert in table for print and preview
@@ -1176,40 +1176,48 @@ public class FakturaController implements Initializable {
         //  posaoArtikliObject.setIdPosaoArtikli(0);
         posaoArtikliObject.setIdRacuna(brojFakture);
 
+        //BITNO, OVAJ ID ARTIKLA MORA DA POSTOJI JER NAM ON SLUZI ZA UNOS BEZ ICEGA, SAMO NA KLIK DUGME !!!
         posaoArtikliObject.setIdArtikla(Integer.parseInt("40"));
 
         posaoArtikliObject.setNazivArtikla(txtfNazivArtikla.getText());
         posaoArtikliObject.setOpisPosaoArtiklli(txtFopisArtikla.getText());
-        posaoArtikliObject.setCena(Double.parseDouble(txtFcenaArtikla.getText()));
-        posaoArtikliObject.setNabavnaCena(Double.parseDouble(txtFnabavnaCenaArtikla.getText()));
-        posaoArtikliObject.setKolicina(Integer.parseInt(txtFKolicinaArtikla.getText()));
-        posaoArtikliObject.setJedinicaMere(txtFjedinicaMereArtikla.getText());
-        posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
-        posaoArtikliObject.setPopust(Integer.parseInt(txtFpopustArtikla.getText()));
-        try {
-            posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
+        //Provera da li su uneseni samo broje u polja "CENA ARTIKLA" i "NABAVNA CENA ARTIKLA"
+        if (txtFcenaArtikla.getText().matches(".*[a-zA-Z]+.*") || txtFnabavnaCenaArtikla.getText().matches(".*[a-zA-Z]+.*")) {
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                    "Greška u unosu cena...", "Greška",
+                    "Molimo da proverite da li ste uneli samo brojeve u cenama !");
+        } else {
+            posaoArtikliObject.setCena(Double.parseDouble(txtFcenaArtikla.getText()));
+            posaoArtikliObject.setNabavnaCena(Double.parseDouble(txtFnabavnaCenaArtikla.getText()));
+            posaoArtikliObject.setKolicina(Integer.parseInt(txtFKolicinaArtikla.getText()));
+            posaoArtikliObject.setJedinicaMere(txtFjedinicaMereArtikla.getText());
+            posaoArtikliObject.setDetaljiPosaoArtikli(txtAreaDetaljiOpisArtikla.getText());
+            posaoArtikliObject.setPopust(Integer.parseInt(txtFpopustArtikla.getText()));
+            try {
+                posaoArtikliDAO.insertPosaoArtikliDao(posaoArtikliObject); // SQL Staff
 
-            //Create ObservableList<PosaoArtikli> and insert in table for print and preview
-            ObservableList<PosaoArtikli> posaoArtiklovi = FXCollections.observableArrayList(
-                    posaoArtikliDAO.findPosaoArtikliByPropertyDao(
-                            PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture));
+                //Create ObservableList<PosaoArtikli> and insert in table for print and preview
+                ObservableList<PosaoArtikli> posaoArtiklovi = FXCollections.observableArrayList(
+                        posaoArtikliDAO.findPosaoArtikliByPropertyDao(
+                                PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture));
 
-            setTableData(posaoArtiklovi); // Popunjavanje i omogucavanje EDITA u Tabeli
+                setTableData(posaoArtiklovi); // Popunjavanje i omogucavanje EDITA u Tabeli
 
-        } catch (AcrenoException | SQLException e) {
-            e.printStackTrace();
+            } catch (AcrenoException | SQLException e) {
+                e.printStackTrace();
+            }
+            //GeneralUiUtility.clearTextFieldsInPane(paneArtikli);
+            txtfNazivArtikla.setText("");
+            txtFopisArtikla.setText("");
+            txtFjedinicaMereArtikla.setText("kom");
+            txtFKolicinaArtikla.setText("1");
+            txtFcenaArtikla.setText("0");
+            txtFnabavnaCenaArtikla.setText("0");
+            txtFpopustArtikla.setText("0");
+            txtAreaDetaljiOpisArtikla.setText("");
+
+            GeneralUiUtility.clearTextFieldsInPane(panePretragaArtikli);
         }
-        //GeneralUiUtility.clearTextFieldsInPane(paneArtikli);
-        txtfNazivArtikla.setText("");
-        txtFopisArtikla.setText("");
-        txtFjedinicaMereArtikla.setText("kom");
-        txtFKolicinaArtikla.setText("1");
-        txtFcenaArtikla.setText("0");
-        txtFnabavnaCenaArtikla.setText("0");
-        txtFpopustArtikla.setText("0");
-        txtAreaDetaljiOpisArtikla.setText("");
-
-        GeneralUiUtility.clearTextFieldsInPane(panePretragaArtikli);
         // txtFieldPretragaArtikla.requestFocus();
     }
 
@@ -1221,6 +1229,7 @@ public class FakturaController implements Initializable {
      */
     private Stage stagePrint;
     PrintRacuniControler printRacuniControler;
+
     /**
      * Inicijalizacija {@link PrintRacuniControler}, a implementira se {@link #initialize}
      *
@@ -1299,7 +1308,7 @@ public class FakturaController implements Initializable {
             printRacuniControler.lblDatumPrometaPonuda.setText("Datum Prometa:");
             printRacuniControler.lblPonudaVaziDo.setText("Važi do:");
             printRacuniControler.lblPodnozije.setText("Ova ponuda je validan bez pečata i potpisa " +
-                                                            "po identifikacionoj oznaci u zaglavlju.");
+                    "po identifikacionoj oznaci u zaglavlju.");
             stagePrint.showAndWait();//Open Stage and wait
 
         } catch (IOException ex) {
@@ -1438,8 +1447,8 @@ public class FakturaController implements Initializable {
                 }
             }
         } else { }*/
-            btnSacuvajRacunAction(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
-            btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
+        btnSacuvajRacunAction(); //Cuvamo kljijenta ako ima nesto u TXTFu Ime Prezime
+        btnCloseFakture.fireEvent(new WindowEvent(stagePrint, WindowEvent.WINDOW_CLOSE_REQUEST));
 
     }
 
