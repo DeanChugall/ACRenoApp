@@ -1,13 +1,15 @@
-# "AC Reno" Auto Servis Application
+# ["AC Reno" Auto Servis Application](https://acreno.rs)
 ![build](https://img.shields.io/travis/acrenoai/ACRenoApp/master?logo=GitHub&style=flat-square)
 ![build](http://img.shields.io/badge/version-BETA%201.0-brightgreen?style=flat-square&logo=GitHub)
 ![build](http://img.shields.io/badge/licence-GPL%203-brightgreen?style=flat-square&logo=GNU)
 ![build](http://img.shields.io/badge/code-JavaFX-blue?style=flat-square&logo=Java)
 
-Open source "AC Reno" aplikacija za vođenje tekućih poslova oko evidencije 
-popravki i održavanja automobila.
-
 ###### Currrent release is: BETA 1.0
+
+Open source [**"_AC Reno_"**](https://acreno.rs) aplikacija za vođenje tekućih poslova oko evidencije 
+popravki i održavanja automobila. Aplikaciju razvija i održava "AC Reno" Auto Servis iz Novog Sada.
+
+Oficijalna web stranica servisa: [**www.acreno.rs**](https://acreno.rs) 
 
 <p align="center">
   <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
