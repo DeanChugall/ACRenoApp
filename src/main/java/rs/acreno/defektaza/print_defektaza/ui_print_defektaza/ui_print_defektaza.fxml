@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.print_defektaza.PrintDefektazaController">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="842.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.print_defektaza.PrintDefektazaController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="17.0" prefHeight="53.0" prefWidth="450.0" text="&quot;AC Reno&quot; Auto Servis" textAlignment="CENTER" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="17.0">
          <font>
@@ -21,7 +22,10 @@
                   <Image url="@/faktura/printer-icon.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
 
       <TextField fx:id="txtFidDefektaze" alignment="CENTER" layoutX="505.0" layoutY="103.0" prefHeight="39.0" prefWidth="141.0">
          <font>
@@ -123,7 +127,10 @@
                   <Image url="@/btn_close_icon.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="87.0" prefHeight="71.0" prefWidth="339.0" text="DEFEKTAŽA">
          <font>
             <Font name="System Bold" size="49.0" />

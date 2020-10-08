@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1084.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.DefektazaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1084.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.defektaza.DefektazaController">
    <center>
       <AnchorPane prefHeight="562.0" prefWidth="1084.0" BorderPane.alignment="CENTER">
          <children>
@@ -117,7 +118,10 @@
                         <Font name="Segoe UI Bold" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datePickerDatum" focusTraversable="false" layoutX="507.0" layoutY="114.0" minHeight="-Infinity" prefHeight="39.0" prefWidth="176.0" />
+                  <DatePicker fx:id="datePickerDatum" focusTraversable="false" layoutX="507.0" layoutY="114.0" minHeight="-Infinity" prefHeight="39.0" prefWidth="176.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
                   <TextField fx:id="txtfKlijent" alignment="CENTER" focusTraversable="false" layoutX="622.0" layoutY="21.0" prefHeight="52.0" prefWidth="262.0">
                      <font>
                         <Font name="Segoe UI Bold" size="18.0" />
@@ -134,6 +138,9 @@
                            </effect>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView fitHeight="67.0" fitWidth="270.0" layoutX="337.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -177,10 +184,13 @@
                         <Image url="@/close-app.png" />
                      </image>
                      <effect>
-                        <DropShadow height="112.92" radius="50.03" width="89.2" />
+                        <DropShadow height="0.0" radius="21.8" width="89.2" />
                      </effect>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <TextField fx:id="txtfIdDefektaze" alignment="CENTER" focusTraversable="false" layoutX="390.0" layoutY="20.0" minHeight="-Infinity" prefHeight="56.0" prefWidth="155.0">
                <font>
                   <Font name="Segoe UI Bold" size="37.0" />
@@ -192,13 +202,16 @@
                         <Image url="@/save.png" />
                      </image>
                      <effect>
-                        <DropShadow height="92.17" radius="61.150000000000006" width="154.43" />
+                        <DropShadow height="0.0" radius="38.1075" width="154.43" />
                      </effect>
                   </ImageView>
                </graphic>
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </AnchorPane>
@@ -216,7 +229,10 @@
                </graphic>
                <font>
                   <Font name="Segoe UI" size="12.0" />
-               </font></Button>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
          <effect>
             <DropShadow />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="ancorPanePrint" prefHeight="977.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.PrintRacuniControler">
+<AnchorPane fx:id="ancorPanePrint" prefHeight="977.0" prefWidth="677.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.print_racun.PrintRacuniControler">
     <children>
       <Pane layoutX="10.0" layoutY="195.0" prefHeight="46.0" prefWidth="220.0" style="-fx-background-color: #1a1a1a;">
          <children>
@@ -62,6 +63,9 @@
          <font>
             <Font name="Segoe UI" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
         <TableView fx:id="tblPosaoArtikli" focusTraversable="false" layoutX="5.0" layoutY="350.0" prefHeight="408.0" prefWidth="665.0" stylesheets="/table-view.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.0">
             <columns>
@@ -344,6 +348,9 @@
                     </image>
                 </ImageView>
             </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
       <Pane layoutX="10.0" layoutY="138.0" prefHeight="46.0" prefWidth="220.0" style="-fx-background-color: #1a1a1a;">
          <children>

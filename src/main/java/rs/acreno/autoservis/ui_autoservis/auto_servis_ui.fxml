@@ -288,7 +288,7 @@
                         <Image url="@/auto_servis/bar_code_home.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" focusTraversable="false" graphicTextGap="20.0" layoutX="450.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="216.0" text="KARTICA ARTIKLI">
+                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" focusTraversable="false" graphicTextGap="20.0" layoutX="468.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="210.0" text="KARTICA ARTIKLI">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>

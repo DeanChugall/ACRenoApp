@@ -1006,9 +1006,6 @@ public class AutoServisController implements Initializable {
                     btnOtvoriKlijentEditMode.setDisable(false);
                 }
                 if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                    btnNoviAutomobil.setDisable(true);
-                    btnOtvoriAutomobilKarticu.setDisable(true);
-                    btnUrediAutomobil.setDisable(true);
                     btnOtvoriKlijentEditMode.setDisable(true);
                     txtFieldRegOznaka.setText("");
                     txtFieldPretragaKlijenta.setText("");
@@ -1035,6 +1032,9 @@ public class AutoServisController implements Initializable {
                     txtfGoriivoAutomobila.setText("");
                     txtFkubikazaAuta.setText("");
                     txtFsnagaAuta.setText("");
+                    String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+                    Image image = new Image(logo);
+                    imageMarkaVozila.setImage(image);
                 }
             });
             stageKljent.showAndWait();
@@ -1097,9 +1097,6 @@ public class AutoServisController implements Initializable {
                 btnOtvoriKlijentEditMode.setDisable(false);
             }
             if (createNewKlijentUiController.isDeleteButtonPressed()) {
-                btnNoviAutomobil.setDisable(true);
-                btnOtvoriAutomobilKarticu.setDisable(true);
-                btnUrediAutomobil.setDisable(true);
                 btnOtvoriKlijentEditMode.setDisable(true);
                 txtFieldRegOznaka.setText("");
                 txtFieldPretragaKlijenta.setText("");
@@ -1113,7 +1110,7 @@ public class AutoServisController implements Initializable {
                 tblAutomobiliInKlijent.getItems().clear();
                 tblAutomobiliInKlijent.refresh();
 
-                btnNoviAutomobil.setDisable(false);
+                btnNoviAutomobil.setDisable(true);
                 btnOtvoriAutomobilKarticu.setDisable(true);
                 btnUrediAutomobil.setDisable(true);
                 txtFidAutomobila.setText("");
@@ -1126,12 +1123,12 @@ public class AutoServisController implements Initializable {
                 txtfGoriivoAutomobila.setText("");
                 txtFkubikazaAuta.setText("");
                 txtFsnagaAuta.setText("");
+                String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
+                Image image = new Image(logo);
+                imageMarkaVozila.setImage(image);
             }
-
-
             //btnOtvoriKlijentEditMode.setDisable(true);
             listViewKlijentiSearch.setVisible(false);
-
         });
         stageNewKlijent.showAndWait();
     }

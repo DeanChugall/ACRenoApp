@@ -206,12 +206,10 @@ public class CreateNewKlijentUiController implements Initializable {
                     Alert.AlertType.INFORMATION,
                     "Niste Uneli Ime klijenta",
                     "EDITOVANJE KLIJENTA",
-                    "Niste Uneli Ime klijenta!"
-
-            );
+                    "Niste Uneli Ime klijenta!");
         } else {
             try {
-                //klijent = new Klijent();
+                // klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,txtfIdKlijenta.getText()).get(0);
                 klijent.setIdKlijenta(Integer.parseInt(txtfIdKlijenta.getText()));
                 klijent.setImePrezime(txtfImePrezimeKlijenta.getText());
                 klijent.setMesto(txtfGradKlijenta.getText());
@@ -228,12 +226,14 @@ public class CreateNewKlijentUiController implements Initializable {
                 klijent.setWeb(txtfWebSajtKlijenta.getText());
                 klijent.setDatumAcrRegistracijeKliljenta(
                         GeneralUiUtility.formatDateForUs(datePicDatumAdregistracijeKlijenta.getValue()));
+
             } catch (IllegalArgumentException exception) {
                 logger.error("From saveKlijent() sa porukom: " + exception);
             }
             try {
                 klijentDAO.updateKlijent(klijent);
-               autoServisController.get().setKlijent(klijent);
+
+
                 if (!isCloseButtonPresed) {
                     GeneralUiUtility.alertDialogBox(
                             Alert.AlertType.INFORMATION,
@@ -242,7 +242,9 @@ public class CreateNewKlijentUiController implements Initializable {
                             "Uspesno sačuvane izmene Klijenta: " + klijent.getImePrezime() + " !"
 
                     );
+                    autoServisController.get().setKlijent(klijent);
                     btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
+
                 }
             } catch (AcrenoException | SQLException e) {
 
@@ -379,7 +381,7 @@ public class CreateNewKlijentUiController implements Initializable {
         String gradSredjen = grad[0];
         String ulicaBroj = grad[2] + " " + grad[3];
         String JMBG = Saobracajna.klijent.getMaticniBroj();
-        System.out.println("Grad: "+ gradSredjen);
+        System.out.println("Grad: " + gradSredjen);
         System.out.println("ULICA i Broj: " + ulicaBroj);
         System.out.println("JMBG: " + JMBG);
 
@@ -387,7 +389,7 @@ public class CreateNewKlijentUiController implements Initializable {
         txtfUlicaBrojKlijenta.setText(ulicaBroj);
         txtfGradKlijenta.setText(gradSredjen);
         txtfMaticniBrojKlijenta.setText(JMBG);
-        }
-
     }
+
+}
 

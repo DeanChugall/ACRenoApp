@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
+<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
     <top>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
             <effect>
@@ -31,6 +31,9 @@
                                   <DropShadow />
                               </effect>
                               <Image url="@/close-app.png" />
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                           </ImageView>
                       </graphic>
                       <cursor>
@@ -127,7 +130,7 @@
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <effect>
                         <DropShadow />
@@ -297,6 +300,9 @@
                     <effect>
                         <DropShadow />
                     </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
             </Pane>
         </AnchorPane>

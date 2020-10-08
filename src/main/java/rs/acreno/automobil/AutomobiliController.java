@@ -16,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -26,7 +25,6 @@ import rs.acreno.automobil.ui_add_edit_automobil.AddEditAutomobilController;
 import rs.acreno.autoservis.AutoServisController;
 import rs.acreno.defektaza.*;
 import rs.acreno.klijent.Klijent;
-import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
 import rs.acreno.nalozi.*;
 import rs.acreno.racuni.Racun;
 import rs.acreno.racuni.RacuniDAO;
@@ -46,8 +44,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutomobiliController implements Initializable {
 
     private static final Logger logger = Logger.getLogger(AutomobiliController.class);
-    @FXML private BorderPane automobiliUiBorderPane;
-    @FXML private Button btnNoviRacun;
     @FXML private Button btnZatvoriProzorAutomobili;
 
 
@@ -648,44 +644,6 @@ public class AutomobiliController implements Initializable {
     }
 
 
-    // 6.0 *************** KLIJENT ***************************
-
-    /**
-     * Otavranje {@link CreateNewKlijentUiController}-a UI-a, setovanje {@code OnCloseRequest(windowEvent} koji
-     * se koristi za update polja Ime i prezime klijenta u {@link AutomobiliController}-u
-     * <p>
-     * Inicijalizacija {@link CreateNewKlijentUiController} da bi smo mogli da pristupimo poljima, ali najbitnije
-     * da prosledimo {@link Klijent} Objekat posto odavde idemo u EDIT MODE.
-     *
-     * @throws IOException Location exception
-     * @see CreateNewKlijentUiController#setKlijent(Klijent)
-     * @see Klijent
-     */
-    @FXML private void btnOpenIzmeniKlijentaUi() throws IOException {
-
-        FXMLLoader fxmlLoaderKlijent = new FXMLLoader(getClass().getResource(Constants.CREATE_KLIJENT_UI_VIEW_URI));
-        Stage stageKlijent = new Stage();
-        stageKlijent.initModality(Modality.APPLICATION_MODAL);
-        stageKlijent.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
-        stageKlijent.setScene(new Scene(fxmlLoaderKlijent.load()));
-
-        stageKlijent.setOnCloseRequest(windowEvent -> {
-            txtFieldImeKlijenta.setText(klijenti.get(0).getImePrezime());// Moze jer je samo jedan Klijent
-        });
-
-        //Inicijalizacija CREATE NEW KLIJENT Controllora-a
-        CreateNewKlijentUiController createNewKlijentUiController = fxmlLoaderKlijent.getController();
-        createNewKlijentUiController.setAutmobilController(this, stageKlijent);
-        createNewKlijentUiController.setKlijent(klijenti.get(0));//Prosledi u  KLIJENT OBJEKAT (EDIT MODE)
-        createNewKlijentUiController.setWeAreInEditMode(true);
-
-        //Postavi Title u stageu Klijent Controlloru
-        stageKlijent.setTitle("Uređivanje Klijenta: " + txtFieldImeKlijenta.getText());
-
-        stageKlijent.showAndWait();
-    }
-
-
     // 7.0 *************** EDIT AUTOMOBILI ***************************
     Stage stageNewAutomobil;
 
@@ -740,10 +698,10 @@ public class AutomobiliController implements Initializable {
     public void btnNoviRacunKr(@NotNull KeyEvent keyEvent) throws IOException {
         switch (keyEvent.getCode()) {
             case UP:
-                //System.out.println("UP");
+                //t
                 break;
             case DOWN:
-                //System.out.println("DOWN FRON LIST");
+                //t
                 break;
             case ENTER:
                 logger.debug("TEST");

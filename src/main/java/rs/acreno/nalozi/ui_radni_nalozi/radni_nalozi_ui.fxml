@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1084.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.RadniNalogController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1084.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.nalozi.RadniNalogController">
    <center>
       <AnchorPane prefHeight="562.0" prefWidth="1084.0" BorderPane.alignment="CENTER">
          <children>
@@ -128,6 +129,9 @@
                            </effect>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView fitHeight="67.0" fitWidth="270.0" layoutX="337.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -174,7 +178,10 @@
                         <DropShadow />
                      </effect>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <TextField fx:id="txtfIdRadnogNaloga" alignment="CENTER" focusTraversable="false" layoutX="472.0" layoutY="22.0" minHeight="-Infinity" prefHeight="56.0" prefWidth="155.0">
                <font>
                   <Font name="Segoe UI Bold" size="37.0" />
@@ -190,6 +197,9 @@
                      </effect>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </AnchorPane>
@@ -207,7 +217,10 @@
                </graphic>
                <font>
                   <Font name="Segoe UI" size="12.0" />
-               </font></Button>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
          <effect>
             <DropShadow />
