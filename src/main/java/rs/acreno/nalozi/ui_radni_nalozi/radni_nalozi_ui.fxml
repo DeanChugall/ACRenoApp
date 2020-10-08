@@ -168,7 +168,7 @@
                <graphic>
                   <ImageView fitHeight="46.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                      </image>
                      <effect>
                         <DropShadow />
@@ -181,9 +181,9 @@
                </font></TextField>
             <Button focusTraversable="false" layoutX="797.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnSacuvajRadniNalogAction" prefHeight="55.0" prefWidth="104.0" text="Sačuvaj">
                <graphic>
-                  <ImageView fitHeight="27.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_save_icon.png" />
+                        <Image url="@/save.png" />
                      </image>
                      <effect>
                         <DropShadow height="95.13" radius="45.582499999999996" width="89.2" />

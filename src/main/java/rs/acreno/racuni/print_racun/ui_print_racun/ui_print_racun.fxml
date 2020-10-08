@@ -338,9 +338,9 @@
       </TextField>
         <Button fx:id="btnPrintClose" layoutX="378.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnPrintActClose" prefHeight="39.0" prefWidth="135.0">
             <graphic>
-                <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                     </image>
                 </ImageView>
             </graphic>

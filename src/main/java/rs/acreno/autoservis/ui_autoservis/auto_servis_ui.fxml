@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -456,14 +457,14 @@
                   <DropShadow />
                </effect>
             </Line>
-                <Button fx:id="btnCloseApplication" focusTraversable="false" layoutX="1206.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="56.0" prefWidth="176.0">
+                <Button fx:id="btnCloseApplication" focusTraversable="false" graphicTextGap="0.0" layoutX="1262.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#btnCloseApplication" prefHeight="66.0" prefWidth="124.0">
                <font>
                   <Font name="Segoe UI Bold" size="12.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="58.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                      </image>
                      <effect>
                         <DropShadow />
@@ -472,8 +473,11 @@
                </graphic>
                <effect>
                   <DropShadow />
-               </effect></Button>
-            <Button graphicTextGap="10.0" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnZakaziServisAct" prefHeight="76.0" prefWidth="180.0" text="Zakaži Servis">
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></Button>
+            <Button fx:id="btnZakaziSerivis" disable="true" graphicTextGap="10.0" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnZakaziServisAct" prefHeight="76.0" prefWidth="180.0" text="Zakaži Servis">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -99,14 +99,14 @@ public class AutoServisController implements Initializable {
     @FXML private Button btnNoviAutomobil;
     @FXML private Button btnUrediAutomobil;
     @FXML private TextField txtFidAutomobila;
+    @FXML private Button btnZakaziSerivis;
 
     // 1.2 ************* FXMLs Klijent Kartica
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
     @FXML private Button btnOtvoriCitacLicneKarte;
     @FXML private Button btnUcitajPodatkeSaLicneKarte;
-    /* @FXML private Button btnNoviAutomobilInKlijentArea;
-     @FXML private Button btnUrediAutomobilFromKlijent;*/
+
     @FXML private Button btnOtvoriKlijentEditMode;
     @FXML private TextField txtFiDKlijenta;
     @FXML private TextField txtFbrojTelefona;
@@ -219,8 +219,10 @@ public class AutoServisController implements Initializable {
             ses.scheduleWithFixedDelay(() -> {
                 if (GeneralUiUtility.netIsAvailable()) { //Imamo internet (TRUE)
                     lineInternetIndicator.setStroke(Color.rgb(36, 164, 11));//promeni boju indikatora
+                    btnZakaziSerivis.setDisable(false); //Omoguci dugme Zakazi Servis jer radimo preko Gcalendar
                 } else { // Nmea Interneta (FALSE)
                     lineInternetIndicator.setStroke(Color.rgb(198, 13, 13));
+                    btnZakaziSerivis.setDisable(true); //Onemoguci dugme Zakazi Servis jer radimo preko Gcalendar
                 }
                 System.out.println(new Date() + " = ping IMA INTERNETA !");
             }, 2, Constants.APP_UCESTALOST_PROVERE_INTERNETA, TimeUnit.SECONDS);

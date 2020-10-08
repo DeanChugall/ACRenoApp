@@ -184,10 +184,10 @@
                <graphic>
                   <ImageView fitHeight="62.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/btn_close_icon.png" />
+                        <Image url="@/close-app.png" />
                      </image>
                      <effect>
-                        <DropShadow height="0.0" offsetY="2.0" radius="4.75" />
+                        <DropShadow height="85.99" offsetY="2.0" radius="46.2625" width="101.06" />
                      </effect></ImageView>
                </graphic>
                <effect>

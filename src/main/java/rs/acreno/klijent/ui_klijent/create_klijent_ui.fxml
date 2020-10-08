@@ -23,19 +23,25 @@
                 </TextField>
                 <Button fx:id="btnCloseCreateEditKlijent" focusTraversable="false" layoutX="717.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnZatvoriCreateKlijentUi" prefHeight="51.0" prefWidth="61.0" textAlignment="CENTER">
                     <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="43.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@/btn_close_icon.png" />
+                                <Image url="@/close-app.png" />
                             </image>
+                     <effect>
+                        <DropShadow height="121.81" radius="55.2175" width="101.06" />
+                     </effect>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button focusTraversable="false" layoutX="601.0" layoutY="7.0" mnemonicParsing="false" onAction="#saveKlijent" prefHeight="51.0" prefWidth="98.0" text="Sačuvaj">
+                <Button focusTraversable="false" layoutX="588.0" layoutY="7.0" mnemonicParsing="false" onAction="#saveKlijent" prefHeight="51.0" prefWidth="111.0" text="Sačuvaj">
                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="38.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@/btn_save_icon.png" />
+                                <Image url="@/save.png" />
                             </image>
+                     <effect>
+                        <DropShadow height="106.99" radius="50.769999999999996" width="98.09" />
+                     </effect>
                         </ImageView>
                     </graphic>
                     <opaqueInsets>
