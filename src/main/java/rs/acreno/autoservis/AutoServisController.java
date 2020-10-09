@@ -252,17 +252,26 @@ public class AutoServisController implements Initializable {
         logger.info("Kliknuto ucitaj sobracajnu !!!");
         ifWeAreFromUcitajSaobracajnu = true; // Ako jesmo nemopj ucitavati sa Liste
         String regOznaka = Saobracajna.automobil().getRegOznaka();
-        String test = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2); // Sredi REG Tablicu jer nam treba XX-XXX-XX
-        txtFieldRegOznaka.setText(test.toLowerCase()); // da bi radilo trebaju nam mala slova
-        automobil = automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, test.toLowerCase()).get(0);
+        String srediRegOznaku = regOznaka.substring(0, 2) + "-" + regOznaka.substring(2); // Sredi REG Tablicu jer nam treba XX-XXX-XX
+        txtFieldRegOznaka.setText(srediRegOznaku.toLowerCase()); // da bi radilo trebaju nam mala slova
+
+        //Ako se  ocita saobracajna a automobil nije u DBu...Sistemu, postavi samo podatke
+        //TODO videti posto se dva puta pojavljuje dijalog-obavestenje o citanju saobravcajne
+        if (automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, srediRegOznaku.toLowerCase()).isEmpty()) {
+            Automobil nepostojeciAutomobil = Saobracajna.automobil();
+            popuniAutomobilTxtfOve(nepostojeciAutomobil);
+            return;
+        }
+
+        automobil = automobilDAO.findAutomobilByProperty(AutoSearchType.BR_TABLICE, srediRegOznaku.toLowerCase()).get(0);
         automobilForEdit = automobil; // Da bi moglo da se uredi automobil klikom na dugme
+        //Ako se samo klikne na ucitaj saobracajnu a nije uveden u siste (DB)
         popuniAutomobilTxtfOve(automobil);
 
         // list view staff
         listViewAutmobiliSearch.setVisible(false); // Zatvori listu
         btnOtvoriAutomobilKarticu.setDisable(false); // Omoguci dugme za otvaranje Automobil kartice
         btnUrediAutomobil.setDisable(false); // Omoguci dugme za Editovanje Automobila
-
 
         //NADJI KLIJENTA i POSTAVI U txtf  txtFieldPretragaKlijenta
         klijent = klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA,
@@ -567,7 +576,6 @@ public class AutoServisController implements Initializable {
                 txtfMarkaAutomobila.setText("");
                 txtfModelAutomobila.setText("");
                 txtfGoriivoAutomobila.setText("");
-                txtfGoriivoAutomobila.setText("");
                 txtFkubikazaAuta.setText("");
                 txtFsnagaAuta.setText("");
                 btnOtvoriAutomobilKarticu.setDisable(true);
@@ -575,7 +583,7 @@ public class AutoServisController implements Initializable {
                 String logo = GeneralUiUtility.ucitajLogoAutomobila(txtfMarkaAutomobila.getText());
                 Image image = new Image(logo);
                 imageMarkaVozila.setImage(image);
-            }else{
+            } else {
                 popuniTabeluAutomobiliklijenta(klijent);
                 Automobil tempAuto = addEditAutomobilController.getAutomobil();
                 popuniAutomobilTxtfOve(tempAuto);

@@ -233,7 +233,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button layoutX="613.0" layoutY="93.0" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="62.0" prefWidth="178.0" text="Postavi Podatke">
+            <Button fx:id="btnPostaviPodatkeLicnaKarta" disable="true" layoutX="613.0" layoutY="93.0" mnemonicParsing="false" onAction="#popunjavanjePoljaSaLicneKarte" prefHeight="62.0" prefWidth="178.0" text="Postavi Podatke">
                 <font>
                     <Font name="System Bold" size="12.0" />
                 </font>

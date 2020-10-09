@@ -52,7 +52,7 @@ public class CreateNewKlijentUiController implements Initializable {
     @FXML private TextField txtfWebSajtKlijenta;
     @FXML private Button btnCloseCreateEditKlijent;
     @FXML private DatePicker datePicDatumAdregistracijeKlijenta;
-
+    @FXML private Button btnPostaviPodatkeLicnaKarta;
 
     /**
      * Referenca ka {@link AutomobiliController}-u
@@ -232,7 +232,7 @@ public class CreateNewKlijentUiController implements Initializable {
             }
             try {
                 klijentDAO.updateKlijent(klijent);
-
+                autoServisController.get().setKlijent(klijent);
 
                 if (!isCloseButtonPresed) {
                     GeneralUiUtility.alertDialogBox(
@@ -242,9 +242,7 @@ public class CreateNewKlijentUiController implements Initializable {
                             "Uspesno sačuvane izmene Klijenta: " + klijent.getImePrezime() + " !"
 
                     );
-                    autoServisController.get().setKlijent(klijent);
                     btnCloseCreateEditKlijent.fireEvent(new WindowEvent(stageCreateNewKlijent, WindowEvent.WINDOW_CLOSE_REQUEST));
-
                 }
             } catch (AcrenoException | SQLException e) {
 
@@ -354,6 +352,7 @@ public class CreateNewKlijentUiController implements Initializable {
 
     @FXML public void ucitajLicnaKarta(ActionEvent actionEvent) {
         LicnaKarta.main(null); //Otvori GUI za citanje Licne Karte
+        btnPostaviPodatkeLicnaKarta.setDisable(false);
     }
 
     public static Klijent klijentStatic; // Potrebno jer prosledjujemo Klijenta iz Klase SAOBRACAJNA
@@ -372,23 +371,23 @@ public class CreateNewKlijentUiController implements Initializable {
         txtfGradKlijenta.setText(klijent.getMesto());
         txtfMaticniBrojKlijenta.setText(klijent.getMaticniBroj());
         txtfBrojLicneKarteKlijenta.setText(klijent.getBrLicneKarte());
+
     }
 
     @FXML public void ucitajSaobracajna(ActionEvent actionEvent) {
-        String regOznaka = Saobracajna.automobil().getRegOznaka();
+        String regOznaka = Saobracajna.automobil().getRegOznaka(); // Mora zbog iniciojalizacije
         String imeVlasnika = Saobracajna.klijent.getImePrezime().toUpperCase();
         String[] grad = Saobracajna.klijent.getUlicaBroj().split(",");
         String gradSredjen = grad[0];
         String ulicaBroj = grad[2] + " " + grad[3];
         String JMBG = Saobracajna.klijent.getMaticniBroj();
-        System.out.println("Grad: " + gradSredjen);
-        System.out.println("ULICA i Broj: " + ulicaBroj);
-        System.out.println("JMBG: " + JMBG);
 
         txtfImePrezimeKlijenta.setText(imeVlasnika);
         txtfUlicaBrojKlijenta.setText(ulicaBroj);
         txtfGradKlijenta.setText(gradSredjen);
         txtfMaticniBrojKlijenta.setText(JMBG);
+
+
     }
 
 }
