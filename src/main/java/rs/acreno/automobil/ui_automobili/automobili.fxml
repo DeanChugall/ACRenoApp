@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="automobiliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="846.0" prefWidth="1475.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.automobil.AutomobiliController">
+    <center>
+        <AnchorPane prefHeight="719.0" prefWidth="1476.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutX="8.0" layoutY="8.0" prefHeight="434.0" prefWidth="1451.0" style="-fx-background-color: #252525;">
+                    <children>
+                        <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="1448.0" style="-fx-background-color: #1a1a1a;" text="Računi:" textFill="WHITE">
+                            <font>
+                                <Font name="Segoe UI Bold" size="26.0" />
+                            </font>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                            <graphic>
+                                <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@/faktura/racun-icon.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Button fx:id="btnNoviRacun" layoutX="1166.0" layoutY="8.0" minHeight="-Infinity" mnemonicParsing="false" onKeyReleased="#btnNoviRacunKr" onMouseClicked="#btnOpenFakturaUi" prefHeight="41.0" prefWidth="273.0" text="Novi Račun">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/add_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                        <TableView fx:id="tblFakture" layoutX="7.0" layoutY="60.0" prefHeight="359.0" prefWidth="1435.0" stylesheets="@/table-view.css">
+                            <columns>
+                                <TableColumn fx:id="tblRowIdRacuna" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID Racuna" />
+                                <TableColumn fx:id="tblRowIdAutomobila" prefWidth="89.0" text="ID Automobila" visible="false" />
+                                <TableColumn fx:id="tblRowDatumRacuna" prefWidth="76.00003051757812" sortType="DESCENDING" text="Datum" />
+                                <TableColumn fx:id="tblRowIdKilometraza" prefWidth="128.0" text="Kilometraza" />
+                                <TableColumn fx:id="tblRowPopustRacuna" prefWidth="79.0" text="Popust %" />
+                                <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="980.0" text="Napomene" />
+                                <TableColumn fx:id="tblRowBtnIzmeniRacun" minWidth="0.0" prefWidth="86.0" />
+                            </columns>
+                        </TableView>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Pane>
+                <Pane layoutX="14.0" layoutY="436.0" prefHeight="302.0" prefWidth="743.0" style="-fx-background-color: #252525;">
+                    <children>
+                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="748.0" style="-fx-background-color: #1a1a1a;" text="Radni Nalozi:" textFill="WHITE">
+                            <font>
+                                <Font name="Segoe UI Bold" size="26.0" />
+                            </font>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/work_order_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                        </Label>
+                        <Button fx:id="btnNoviRadniNalog" layoutX="572.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenNoviRadniNalog" prefHeight="37.0" prefWidth="157.0" text="Novi Radni Nalog">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/add_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                        <TableView fx:id="tblRadniNalozi" layoutX="8.0" layoutY="60.0" prefHeight="215.0" prefWidth="734.0" stylesheets="@/table-view.css">
+                            <columns>
+                                <TableColumn fx:id="tblColIdRadniNaloga" prefWidth="75.0" text="IdRadnogNaloga" visible="false" />
+                                <TableColumn fx:id="tblColRadniNalogIdAutomobila" prefWidth="75.0" text="IdAutomobila" visible="false" />
+                                <TableColumn fx:id="tblColRadniNalogDatum" prefWidth="75.0" text="Datum" />
+                                <TableColumn fx:id="tblColRadniNalogVreme" prefWidth="75.0" text="Vreme" />
+                                <TableColumn fx:id="tblColRadniNalogKilometraza" prefWidth="94.00003051757812" text="Kilometraza" />
+                                <TableColumn fx:id="tblColRadniNalogDetaljiStranke" prefWidth="169.00003051757812" text="DetaljiStranke" />
+                                <TableColumn fx:id="tblColRadniNalogDetaljiServisera" prefWidth="225.0" text="DetaljiServisera" />
+                                <TableColumn fx:id="tblColRadniNalogBtnIzmeni" />
+                            </columns>
+                        </TableView>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Pane>
+                <Pane layoutX="769.0" layoutY="436.0" prefHeight="302.0" prefWidth="690.0" style="-fx-background-color: #252525;">
+                    <children>
+                        <Label focusTraversable="false" graphicTextGap="10.0" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="701.0" style="-fx-background-color: #1a1a1a;" text="Defektaže:" textFill="WHITE">
+                            <font>
+                                <Font name="Segoe UI Bold" size="26.0" />
+                            </font>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/automobili_kartica/defektaza-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                        </Label>
+                        <Button fx:id="btnDefektaza" layoutX="519.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#btnOpenDefektaza" prefHeight="36.0" prefWidth="157.0" text="Nova Defektaža">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/add_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                        <TableView fx:id="tblDefektaza" layoutX="14.0" layoutY="56.0" prefHeight="219.0" prefWidth="671.0" stylesheets="@/table-view.css">
+                            <columns>
+                                <TableColumn fx:id="tblColIdDefektaze" prefWidth="75.0" text="idDefektaze" visible="false" />
+                                <TableColumn fx:id="tblColIdAutaDefektaze" prefWidth="75.0" text="idAuta" visible="false" />
+                                <TableColumn fx:id="tblColDatumDefektaze" prefWidth="97.0" text="Datum" />
+                                <TableColumn fx:id="tblColVreme" prefWidth="91.00003051757812" text="Vreme" />
+                                <TableColumn fx:id="tblColKilometraza" text="Kilometraza" />
+                                <TableColumn fx:id="tblColOpisDefektaze" prefWidth="155.0" text="Opis Defektaže" />
+                                <TableColumn fx:id="tblColOstaliDetaljiDefektaze" prefWidth="165.0" text="Ostali Detalji Defektaže" />
+                                <TableColumn fx:id="tblColBtnIzmeniDefektazu" prefWidth="70.0" />
+                            </columns>
+                        </TableView>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+    <top>
+        <AnchorPane prefHeight="94.0" prefWidth="1432.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+            <children>
+                <Button graphicTextGap="10.0" layoutX="305.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnOpenIzmeniAutomobilUi" prefHeight="53.0" prefWidth="166.0" text="Izmena Automobila">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/auto_servis/edit_icon.png" />
+                            </image>
+                     <effect>
+                        <DropShadow height="11.86" offsetY="3.0" radius="2.465" width="0.0" />
+                     </effect>
+                        </ImageView>
+                    </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="btnZatvoriProzorAutomobili" layoutX="1317.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnZatvoriProzorAutomobiliAction" prefHeight="70.0" prefWidth="144.0">
+               <graphic>
+                  <ImageView fitHeight="62.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/close-app.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="0.0" offsetY="2.0" radius="0.3025" width="3.21" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+               </graphic>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <ImageView fitHeight="67.0" fitWidth="270.0" layoutX="29.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/tablica.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="txtFieldRegOznaka" alignment="CENTER" editable="false" focusTraversable="false" layoutX="56.0" layoutY="19.0" minHeight="-Infinity" prefHeight="49.0" prefWidth="237.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="26.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="txtFieldImeKlijenta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="499.0" layoutY="18.0" prefHeight="55.0" prefWidth="393.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="26.0" />
+                    </font>
+                </TextField>
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </AnchorPane>
+    </top>
+   <bottom>
+      <AnchorPane prefHeight="10.0" prefWidth="1475.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

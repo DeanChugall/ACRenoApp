@@ -1,0 +1,34 @@
+/target/
+**/target/
+out
+*.class
+
+# Package Files #
+*.war
+*.ear
+bin/
+
+# DB
+*.laccdb
+
+# IntelliJ IDEA
+.idea/
+out/
+.idea
+*.iws
+*.iml
+*.ipr
+
+# maven #
+dependency-reduced-pom.xml
+
+# logs #
+*.log
+logs/
+*.lck
+**/META-INF/
+!.mvn/wrapper/maven-wrapper.jar
+/target/archive-tmp/
+/target/classes/
+/target/generated-sources/
+/target/maven-status/

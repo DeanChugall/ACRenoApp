@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="artikliUiBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1200.0" style="-fx-background-color: #2d2d2d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.artikli.ArtkikliController">
+    <top>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1200.0" style="-fx-background-color: #1c1c1c;" BorderPane.alignment="CENTER">
+            <effect>
+                <DropShadow />
+            </effect>
+         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1180.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                  <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="36.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@/auto_servis/bar_code_home.png" />
+                  </ImageView>
+                  <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="1046.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="72.0" prefWidth="110.0">
+                      <font>
+                          <Font name="Segoe UI" size="12.0" />
+                      </font>
+                      <graphic>
+                          <ImageView fitHeight="65.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                              <effect>
+                                  <DropShadow />
+                              </effect>
+                              <Image url="@/close-app.png" />
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                          </ImageView>
+                      </graphic>
+                      <cursor>
+                          <Cursor fx:constant="DEFAULT" />
+                      </cursor>
+                      <effect>
+                          <DropShadow />
+                      </effect>
+                  </Button>
+                  <Label layoutX="157.0" layoutY="28.0" text="KARTICA ARTIKLI" textFill="WHITE">
+                      <font>
+                          <Font name="Segoe UI" size="44.0" />
+                      </font>
+                  </Label>
+            </children>
+         </Pane>
+        </AnchorPane>
+    </top>
+    <center>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+            <Pane layoutX="7.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="836.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="357.0" AnchorPane.topAnchor="1.0">
+                <effect>
+                    <DropShadow />
+                </effect>
+                <Label layoutX="-4.0" prefHeight="63.0" prefWidth="849.0" style="-fx-background-color: #1a1a1a;" text="PRETRAGA ARTIKALA / DELOVA" textFill="#c3c3c3">
+                    <font>
+                        <Font name="Segoe UI" size="20.0" />
+                    </font>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                            <effect>
+                                <DropShadow height="121.81" radius="61.8875" width="127.74" />
+                            </effect>
+                            <Image url="@/auto_servis/search_icon.png" />
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <TextField fx:id="txtfFindArtikl" layoutX="9.0" layoutY="70.0" onKeyReleased="#pretragaTabeleKlijenti" prefHeight="25.0" prefWidth="338.0">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <TableView fx:id="tblArtikli" editable="true" focusTraversable="false" layoutX="9.0" layoutY="107.0" minHeight="-Infinity" prefHeight="475.0" prefWidth="821.0" stylesheets="/table-view.css">
+                    <placeholder>
+                        <Label text="Nepostoji u bazi podataka za traženi Artikl!" />
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="tblColIDartikla" prefWidth="41.0" text="ID" />
+                        <TableColumn fx:id="tblColKataloskiBrojArtikla" text="Kat.Broj">
+                            <graphic>
+                                <ImageView fitHeight="23.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@/auto_servis/search_icon.png" />
+                                </ImageView>
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblColOpisArtikla" prefWidth="95.0" text="Opis" />
+                        <TableColumn fx:id="tblColNazivArtikla" prefWidth="167.0" text="Naziv" />
+                        <TableColumn fx:id="tblColJedinicaMereArtikla" prefWidth="44.0" text="J.M." />
+                        <TableColumn fx:id="tblColKolicinaArtikla" prefWidth="51.0" text="Količina" />
+                        <TableColumn fx:id="tblColNabavnaCenaArtikla" prefWidth="99.0" text="Nabavna Cena" />
+                        <TableColumn fx:id="tblColCenaArtikla" prefWidth="76.0" text="Cena" />
+                        <TableColumn fx:id="tblColButtonUredi" prefWidth="86.0">
+                            <graphic>
+                                <ImageView fitHeight="23.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@/auto_servis/edit_icon.png" />
+                                </ImageView>
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblButtonObrisi" prefWidth="72.0">
+                            <graphic>
+                                <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@/btn_delete_icon.png" />
+                                </ImageView>
+                            </graphic>
+                        </TableColumn>
+                    </columns>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TableView>
+                <Button disable="true" focusTraversable="false" graphicTextGap="10.0" layoutX="534.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="43.0" prefWidth="141.0" text="Uvezi Artikle">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@/auto_servis/import_article_icon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+            </Pane>
+            <Pane fx:id="paneUnosArtikli" layoutX="873.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="313.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="873.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
+                <effect>
+                    <DropShadow />
+                </effect>
+                <Label layoutX="-11.0" prefHeight="63.0" prefWidth="324.0" style="-fx-background-color: #1a1a1a;" text="UNOS ARTIKALA / DELOVA" textFill="#c3c3c3">
+                    <font>
+                        <Font name="Segoe UI" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <effect>
+                                <DropShadow height="121.81" radius="61.8875" width="127.74" />
+                            </effect>
+                            <Image url="@/auto_servis/edit_icon.png" />
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <TextField fx:id="txtfIdArtikla" alignment="CENTER" editable="false" layoutX="243.0" layoutY="19.0" prefHeight="24.0" prefWidth="55.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <Label layoutX="14.0" layoutY="79.0" prefHeight="25.0" prefWidth="80.0" text="Kataloški Broj" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="140.0" prefHeight="25.0" prefWidth="80.0" text="Naziv Artikla" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="201.0" prefHeight="25.0" prefWidth="80.0" text="Opis Artikla" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="385.0" prefHeight="25.0" prefWidth="80.0" text="Jedinica Mere" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="449.0" prefHeight="25.0" prefWidth="80.0" text="Količina" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="324.0" prefHeight="25.0" prefWidth="80.0" text="Nabavna Cena" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <Label layoutX="14.0" layoutY="263.0" prefHeight="25.0" prefWidth="80.0" text="Cena Artikla" textFill="#e1e1e1">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Label>
+                <TextField fx:id="txtfKataloskiBroj" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="300.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <TextField fx:id="txtfNazivArtikla" layoutX="14.0" layoutY="165.0" prefHeight="36.0" prefWidth="300.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <TextField fx:id="txtfOpisArtikla" layoutX="14.0" layoutY="227.0" prefHeight="36.0" prefWidth="300.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <TextField fx:id="txtfCenaArtikla" layoutX="14.0" layoutY="288.0" prefHeight="36.0" prefWidth="300.0" text="0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <TextField fx:id="txtfNabavnaCenaArtikla" layoutX="14.0" layoutY="349.0" prefHeight="36.0" prefWidth="300.0" text="0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <ComboBox fx:id="cmbJedinicaMere" layoutX="14.0" layoutY="410.0" prefHeight="38.0" prefWidth="300.0">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="kom" />
+                            <String fx:value="lit" />
+                            <String fx:value="Kg" />
+                            <String fx:value="metar" />
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="kom" />
+                    </value>
+                </ComboBox>
+                <TextField fx:id="txtfKolicinaArtikla" layoutX="14.0" layoutY="474.0" prefHeight="36.0" prefWidth="300.0" text="0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="17.0" />
+                    </font>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </TextField>
+                <Button fx:id="btnDodajArtikl" focusTraversable="false" layoutX="14.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#btnDodajArtiklAct" prefHeight="51.0" prefWidth="300.0" stylesheets="@/button.css" text="DODAJ ARTIKL U BAZU">
+                    <font>
+                        <Font name="Segoe UI" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@/add_icon.png" />
+                        </ImageView>
+                    </graphic>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+            </Pane>
+        </AnchorPane>
+    </center>
+   <left>
+      <AnchorPane prefHeight="719.0" prefWidth="11.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="719.0" prefWidth="5.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
