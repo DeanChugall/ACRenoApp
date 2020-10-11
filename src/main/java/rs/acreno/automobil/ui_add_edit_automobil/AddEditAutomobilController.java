@@ -65,6 +65,7 @@ public class AddEditAutomobilController implements Initializable {
     @FXML private TextArea txtaNapomeneAutomobila;
     @FXML private Button btnClose;
     @FXML private Button btnUcitajSaobracajnu;
+    @FXML private CheckBox chlBoxDaLiImaServisnuKnjizicu;
 
     private static final Logger logger = Logger.getLogger(AutoServisController.class);
     private boolean isCloseButtonPresed = false;
@@ -190,6 +191,7 @@ public class AddEditAutomobilController implements Initializable {
             txtfDatumPrveRegistracijeAutomobila.setText(getAutomobil().getDatumPrveRegistracijeVozila());
             txtfBrojMestaZaSedenje.setText(String.valueOf(getAutomobil().getBrojMestaZaSedenje()));
             txtaNapomeneAutomobila.setText(getAutomobil().getNapomeneAutomobila());
+            chlBoxDaLiImaServisnuKnjizicu.setSelected(automobil.getDaLiImaKnjizicu() == 1);
 
         } else { //NOT EDIT MODE (FALSE)
             try {
@@ -233,33 +235,48 @@ public class AddEditAutomobilController implements Initializable {
                     "Molimo Vas da unesete Registarsku Oznaku !",
                     "GREŠKA U ČUVANJU AUTOMOBILA...",
                     "Niste u mogućnosti da sačuvate ovaj Automobil jer nije unešena Registarska oznaka!");
+            return;
+        }
+        //Proveri polja da li je unos INT, mora jel smo stavili polja u INT
+        if (GeneralUiUtility.proveriStringDaLiImaSlova(txtfIdKAutomobila.getText() +
+                txtfGodisteAutomobila.getText() + txtfZapreminaAutomobila.getText()
+                + txtfSnagaAutomobila.getText() + txtfMasaAutomobila.getText()
+                + txtfBrojVrataAutomobila.getText() + txtfDozvoljenaMasaAutomobila.getText()
+                + txtfBrojMestaZaSedenje.getText())) {
+            GeneralUiUtility.alertDialogBox(
+                    Alert.AlertType.ERROR,
+                    "Neispravni unos podataka...Polja označena sa *** su brojevna polja!",
+                    "GREŠKA U ČUVANJU AUTOMOBILA...Polja označena sa *** su brojevna polja!",
+                    "Molimo Vas da unesete ispravne podatke, verovatno ste uneli slova umesto brojeva! \n" +
+                            "Obratite pažnju gde ne smeju slova da se unesu.\nPolja označena sa *** su brojevna polja!");
         } else {
-            try {
-                // automobil = new Automobil();
-                automobil.setIdAuta(Integer.parseInt(txtfIdKAutomobila.getText()));
-                automobil.setIdKlijenta(klijent.getIdKlijenta());
-                automobil.setRegOznaka(txtFieldRegOznaka.getText());
-                automobil.setVinVozila(txtfVinVozila.getText());
-                automobil.setDatumAcrRegistracijeAuta(
-                        GeneralUiUtility.formatDateForUs(datePickerDatumAcrRegistracije.getValue()));
-                automobil.setModelVozila(txtfModelAutomobila.getText());
-                automobil.setMarkaVozila(txtfMarkaAutomobila.getText());
-                automobil.setVrstaVozila(txtfVrstaAutomobila.getText());
-                automobil.setGodisteVozila(Integer.parseInt(txtfGodisteAutomobila.getText()));
-                automobil.setZapreminaVozila(Integer.parseInt(txtfZapreminaAutomobila.getText()));
-                automobil.setSnagaVozila(Integer.parseInt(txtfSnagaAutomobila.getText()));
-                automobil.setVrstaGorivaVozila(txtFvrstaGorivaVozila.getText());
-                automobil.setKilomteraza(txtfKilometrazaAutomobila.getText());
-                automobil.setBrojMotoraVozila(txtfBrojMotoraAutomobila.getText());
-                automobil.setBojaVozila(txtfBojaAutomobila.getText());
-                automobil.setMasaVozila(Integer.parseInt(txtfMasaAutomobila.getText()));
-                automobil.setBrojVrataVozila(Integer.parseInt(txtfBrojVrataAutomobila.getText()));
-                automobil.setNajvecaDozvoljenaMasaVozila(Integer.parseInt(txtfDozvoljenaMasaAutomobila.getText()));
-                automobil.setDatumPrveRegistracijeVozila(txtfDatumPrveRegistracijeAutomobila.getText());
-                automobil.setBrojMestaZaSedenje(Integer.parseInt(txtfBrojMestaZaSedenje.getText()));
-                automobil.setNapomeneAutomobila(txtaNapomeneAutomobila.getText());
-            } catch (NumberFormatException e) {
-                logger.debug("NUMBER FORMAT EXEPTION in saveAutomobil() + AddEDIT +CONTROLLER");
+            // automobil = new Automobil();
+            automobil.setIdAuta(Integer.parseInt(txtfIdKAutomobila.getText()));
+            automobil.setIdKlijenta(klijent.getIdKlijenta());
+            automobil.setRegOznaka(txtFieldRegOznaka.getText());
+            automobil.setVinVozila(txtfVinVozila.getText());
+            automobil.setDatumAcrRegistracijeAuta(
+                    GeneralUiUtility.formatDateForUs(datePickerDatumAcrRegistracije.getValue()));
+            automobil.setModelVozila(txtfModelAutomobila.getText());
+            automobil.setMarkaVozila(txtfMarkaAutomobila.getText());
+            automobil.setVrstaVozila(txtfVrstaAutomobila.getText());
+            automobil.setGodisteVozila(Integer.parseInt(txtfGodisteAutomobila.getText()));
+            automobil.setZapreminaVozila(Integer.parseInt(txtfZapreminaAutomobila.getText()));
+            automobil.setSnagaVozila(Integer.parseInt(txtfSnagaAutomobila.getText()));
+            automobil.setVrstaGorivaVozila(txtFvrstaGorivaVozila.getText());
+            automobil.setKilomteraza(txtfKilometrazaAutomobila.getText());
+            automobil.setBrojMotoraVozila(txtfBrojMotoraAutomobila.getText());
+            automobil.setBojaVozila(txtfBojaAutomobila.getText());
+            automobil.setMasaVozila(Integer.parseInt(txtfMasaAutomobila.getText()));
+            automobil.setBrojVrataVozila(Integer.parseInt(txtfBrojVrataAutomobila.getText()));
+            automobil.setNajvecaDozvoljenaMasaVozila(Integer.parseInt(txtfDozvoljenaMasaAutomobila.getText()));
+            automobil.setDatumPrveRegistracijeVozila(txtfDatumPrveRegistracijeAutomobila.getText());
+            automobil.setBrojMestaZaSedenje(Integer.parseInt(txtfBrojMestaZaSedenje.getText()));
+            automobil.setNapomeneAutomobila(txtaNapomeneAutomobila.getText());
+            if (chlBoxDaLiImaServisnuKnjizicu.isSelected()) {
+                automobil.setDaLiImaKnjizicu(1);
+            } else {
+                automobil.setDaLiImaKnjizicu(0);
             }
             try {
                 automobilDAO.updateAutomobil(automobil);  // Save Automobil Obj in Database
@@ -268,7 +285,7 @@ public class AddEditAutomobilController implements Initializable {
             }
             if (!isCloseButtonPresed) {
                 GeneralUiUtility.alertDialogBox(
-                        Alert.AlertType.CONFIRMATION,
+                        Alert.AlertType.INFORMATION,
                         "USPESNO SAČUVAN AUTOMOBIL",
                         "ČUVANJE AUTOMOBILA",
                         "Uspesno ste sacuvali Automobil registarske oznake: " + automobil.getRegOznaka());
@@ -368,5 +385,6 @@ public class AddEditAutomobilController implements Initializable {
         txtfDozvoljenaMasaAutomobila.setText(String.valueOf(automobil.getNajvecaDozvoljenaMasaVozila()));
         txtfDatumPrveRegistracijeAutomobila.setText(String.valueOf(automobil.getDatumPrveRegistracijeVozila()));
         txtfBrojMestaZaSedenje.setText(String.valueOf(automobil.getBrojMestaZaSedenje()));
+        chlBoxDaLiImaServisnuKnjizicu.setSelected(automobil.getDaLiImaKnjizicu() == 1);
     }
 }

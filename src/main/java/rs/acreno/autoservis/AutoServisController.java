@@ -625,6 +625,9 @@ public class AutoServisController implements Initializable, Serializable {
         txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
         txtFkubikazaAuta.setText(String.valueOf(automobil.getZapreminaVozila()));
         txtFsnagaAuta.setText(String.valueOf(automobil.getSnagaVozila()));
+        System.out.println("***************************** DA LI IMA KNJIZICU:  " + automobil.getDaLiImaKnjizicu());
+        chkBoxServisnaKnjizica.setSelected(automobil.getDaLiImaKnjizicu() == 1);
+
         if (txtfMarkaAutomobila.getText().isEmpty()) {
             return;
         } else {
@@ -1300,6 +1303,7 @@ public class AutoServisController implements Initializable, Serializable {
         btnOtvoriKlijentEditMode.setDisable(true);
         //Clear Table Automobili in Klijent's
         tblAutomobiliInKlijent.getItems().clear();
+        chkBoxServisnaKnjizica.setSelected(false);
 
     }
 

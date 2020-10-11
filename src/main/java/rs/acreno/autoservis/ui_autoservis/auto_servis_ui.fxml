@@ -444,7 +444,7 @@
                   <Label alignment="CENTER" layoutX="156.0" layoutY="236.0" prefHeight="17.0" prefWidth="147.0" text="Marka" textFill="#c3c3c3" />
                   <TextField fx:id="txtfGoriivoAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="232.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
-                        <Font name="Segoe UI Bold" size="10.0" />
+                        <Font name="Verdana Bold" size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -467,7 +467,7 @@
                      </font></Label>
                   <TextField fx:id="txtfVinAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="157.0" layoutY="207.0" prefHeight="23.0" prefWidth="300.0">
                      <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
+                        <Font name="Verdana Bold" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -485,7 +485,7 @@
                   </TextField>
                   <TextField fx:id="txtfGodisteAutomobila" alignment="CENTER" editable="false" focusTraversable="false" layoutX="156.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
+                        <Font name="Verdana Bold" size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -548,7 +548,7 @@
                   </ImageView>
                   <TextField fx:id="txtFkubikazaAuta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="308.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
-                        <Font name="Segoe UI Bold" size="10.0" />
+                        <Font name="Verdana Bold" size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -564,10 +564,10 @@
                         </Lighting>
                      </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="308.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="Kubikaža" textFill="#c3c3c3" />
+                  <Label alignment="CENTER" layoutX="311.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="Kubikaža" textFill="#c3c3c3" />
                   <TextField fx:id="txtFsnagaAuta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="384.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
-                        <Font name="Segoe UI Bold" size="10.0" />
+                        <Font name="Verdana Bold" size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -583,8 +583,8 @@
                         </Lighting>
                      </effect>
                   </TextField>
-                  <Label alignment="CENTER" layoutX="383.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="kW" textFill="#c3c3c3" />
-                  <CheckBox fx:id="chkBoxServisnaKnjizica" layoutX="346.0" layoutY="329.0" mnemonicParsing="false" text="Servisna Knjižica" textFill="#c9c9c9" />
+                  <Label alignment="CENTER" layoutX="386.0" layoutY="280.0" prefHeight="17.0" prefWidth="67.0" text="kW" textFill="#c3c3c3" />
+                  <CheckBox fx:id="chkBoxServisnaKnjizica" disable="true" layoutX="346.0" layoutY="329.0" mnemonicParsing="false" style="-fx-opacity: 0.8;" text="Servisna Knjižica" textFill="#c9c9c9" />
                   <Label focusTraversable="false" layoutX="-6.0" layoutY="355.0" prefHeight="35.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" textFill="#c3c3c3">
                      <font>
                         <Font name="Segoe UI" size="48.0" />

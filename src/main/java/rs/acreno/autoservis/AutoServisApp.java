@@ -66,6 +66,9 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     public void start(@NotNull Stage stage) throws Exception {
         //prefs.removeNode();
         //System.exit(-1);
+        for (String s : sviKljuceviPreferenceNode) {
+            System.out.println(s);
+        }
         if (sviKljuceviPreferenceNode.length == 0) {
 
             ButtonType OK = new ButtonType("Da", ButtonBar.ButtonData.OK_DONE);

@@ -6,8 +6,7 @@ public class SqlQuerys {
     public static final String INSERT_KLIJENT_IN_TABLE =
             "INSERT INTO Klijenti (" +
                     " IdKlijenta, imePrezime, Mesto, PostanskiBroj, UlicaBroj, BrLicneKarte, maticniBroj," +
-                    " ostaliDetalji, email, telefonMobilni, telefonFiksni, web, brojRacuna," +
-                    " banka, datumAcrRegistracijeKliljenta )" +
+                    " ostaliDetalji, email, telefonMobilni, telefonFiksni, web, brojRacuna, banka )" +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     public static final String UPDATE_KLIJENT_TABLE =
@@ -30,13 +29,15 @@ public class SqlQuerys {
 
     public static final String FIND_ALL_KLIJENTS = "SELECT * FROM Klijenti";
 
-    //SQLQ AUTOMOBILI
+    //*********************************************************************
+    //************************ SQLQ AUTOMOBILI ****************************
+    //*********************************************************************
     public static final String INSERT_AUTOMOBIL_IN_TABLE =
             "INSERT INTO Automobil ( IdAuta, Idklijenta, regOznaka, kilomteraza, vrstaVozila, markaVozila, modelVozila," +
                     " godisteVozila, zapreminaVozila, snagaVozila, vinVozila, brojMotoraVozila, vrstaGorivaVozila," +
                     " bojaVozila, masaVozila, najvecaDozvoljenaMasaVozila, datumPrveRegistracijeVozila," +
-                    " brojMestaZaSedenje, brojVrataVozila, napomeneAutomobila, datumAcrRegistracijeAuta)" +
-                    "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    " brojMestaZaSedenje, brojVrataVozila, napomeneAutomobila, datumAcrRegistracijeAuta, daLiImaKnjizicu)" +
+                    "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
     public static final String UPDATE_CAR_TABLE =
@@ -60,7 +61,8 @@ public class SqlQuerys {
                     "brojMestaZaSedenje=?," +
                     "brojVrataVozila=?," +
                     "napomeneAutomobila=?," +
-                    "datumAcrRegistracijeAuta=?" +
+                    "datumAcrRegistracijeAuta=?," +
+                    "daLiImaKnjizicu=?" +
                     " WHERE idAuta=?";
 
     public static final String FIND_ALL_AUTOMOBILI = "SELECT * FROM Automobil";

@@ -61,6 +61,7 @@ public class SQLAutomobilDAO implements AutomobilDAO{
             pstmt.setInt(19, auto.getBrojVrataVozila());
             pstmt.setString(20, auto.getNapomeneAutomobila());
             pstmt.setString(21, auto.getDatumAcrRegistracijeAuta());
+            pstmt.setInt(22, auto.getDaLiImaKnjizicu());
             pstmt.executeUpdate();
             System.out.println("FROM : insertKlijnet");
         } catch (SQLException e) {
@@ -85,7 +86,7 @@ public class SQLAutomobilDAO implements AutomobilDAO{
                     auto.getBojaVozila(), auto.getMasaVozila(), auto.getNajvecaDozvoljenaMasaVozila(),
                     auto.getDatumPrveRegistracijeVozila(), auto.getBrojMestaZaSedenje(),
                     auto.getBrojVrataVozila(), auto.getNapomeneAutomobila(),
-                    auto.getDatumAcrRegistracijeAuta(), auto.getIdAuta());
+                    auto.getDatumAcrRegistracijeAuta(), auto.getDaLiImaKnjizicu(), auto.getIdAuta()); // Mora getIdAuta() Auta na kraju !!!
         } catch (SQLException e) {
             logger.error(e.getMessage() + " >>>>  Greska u DB UpdateAutomobil AUTA !");
             throw new AcrenoException("Greska u DB UpdateAutomobil AUTA", e);

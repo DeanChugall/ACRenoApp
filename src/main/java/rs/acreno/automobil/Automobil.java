@@ -26,6 +26,7 @@ public class Automobil implements Serializable {
     private int brojVrataVozila;
     private String napomeneAutomobila;
     private String datumAcrRegistracijeAuta;
+    private int daLiImaKnjizicu;
 
     public Automobil() {
     }
@@ -37,7 +38,7 @@ public class Automobil implements Serializable {
 
     public Automobil(int idKlijenta, String regOznaka, String kilometraza, String markaVozila,
                      String modelVozila, int godisteVozila, String vinVozila,
-                     String napomeneAutomobila, String datumAcrRegistracije) {
+                     String napomeneAutomobila, String datumAcrRegistracije, int daLiImaKnjizicu) {
         this.idKlijenta = idKlijenta;
         this.regOznaka = regOznaka;
         this.kilomteraza = kilometraza;
@@ -47,6 +48,7 @@ public class Automobil implements Serializable {
         this.vinVozila = vinVozila;
         this.napomeneAutomobila = napomeneAutomobila;
         this.datumAcrRegistracijeAuta = datumAcrRegistracije;
+        this.daLiImaKnjizicu = daLiImaKnjizicu;
     }
 
     public Automobil(String regOznaka, String markaVozila,
@@ -227,37 +229,46 @@ public class Automobil implements Serializable {
         this.datumAcrRegistracijeAuta = datumAcrRegistracijeAuta;
     }
 
-    @Override public String toString() {
-        return "Automobil{" +
-                "idAuta=" + idAuta +
-                ", idKlijenta=" + idKlijenta +
-                ", regOznaka='" + regOznaka + '\'' +
-                ", kilomteraza='" + kilomteraza + '\'' +
-                ", vrstaVozila='" + vrstaVozila + '\'' +
-                ", markaVozila='" + markaVozila + '\'' +
-                ", modelVozila='" + modelVozila + '\'' +
-                ", godisteVozila=" + godisteVozila +
-                ", zapreminaVozila=" + zapreminaVozila +
-                ", snagaVozila=" + snagaVozila +
-                ", vinVozila='" + vinVozila + '\'' +
-                ", brojMotoraVozila='" + brojMotoraVozila + '\'' +
-                ", vrstaGorivaVozila='" + vrstaGorivaVozila + '\'' +
-                ", bojaVozila='" + bojaVozila + '\'' +
-                ", masaVozila=" + masaVozila +
-                ", najvecaDozvoljenaMasaVozila=" + najvecaDozvoljenaMasaVozila +
-                ", datumPrveRegistracijeVozila='" + datumPrveRegistracijeVozila + '\'' +
-                ", brojMestaZaSedenje=" + brojMestaZaSedenje +
-                ", brojVrataVozila=" + brojVrataVozila +
-                ", napomeneAutomobila='" + napomeneAutomobila + '\'' +
-                ", datumAcrRegistracijeAuta='" + datumAcrRegistracijeAuta + '\'' +
-                '}';
+    public int getDaLiImaKnjizicu() {
+        return daLiImaKnjizicu;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idAuta, regOznaka, markaVozila, modelVozila,
-                godisteVozila, zapreminaVozila, snagaVozila, vinVozila,
-                brojMotoraVozila, bojaVozila, masaVozila, najvecaDozvoljenaMasaVozila,
-                datumPrveRegistracijeVozila, brojMestaZaSedenje, brojVrataVozila);
+    public void setDaLiImaKnjizicu(int daLiImaKnjizicu) {
+        this.daLiImaKnjizicu = daLiImaKnjizicu;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Automobil automobil = (Automobil) o;
+        return idAuta == automobil.idAuta &&
+                idKlijenta == automobil.idKlijenta &&
+                godisteVozila == automobil.godisteVozila &&
+                zapreminaVozila == automobil.zapreminaVozila &&
+                snagaVozila == automobil.snagaVozila &&
+                masaVozila == automobil.masaVozila &&
+                najvecaDozvoljenaMasaVozila == automobil.najvecaDozvoljenaMasaVozila &&
+                brojMestaZaSedenje == automobil.brojMestaZaSedenje &&
+                brojVrataVozila == automobil.brojVrataVozila &&
+                daLiImaKnjizicu == automobil.daLiImaKnjizicu &&
+                Objects.equals(regOznaka, automobil.regOznaka) &&
+                Objects.equals(kilomteraza, automobil.kilomteraza) &&
+                Objects.equals(vrstaVozila, automobil.vrstaVozila) &&
+                Objects.equals(markaVozila, automobil.markaVozila) &&
+                Objects.equals(modelVozila, automobil.modelVozila) &&
+                Objects.equals(vinVozila, automobil.vinVozila) &&
+                Objects.equals(brojMotoraVozila, automobil.brojMotoraVozila) &&
+                Objects.equals(vrstaGorivaVozila, automobil.vrstaGorivaVozila) &&
+                Objects.equals(bojaVozila, automobil.bojaVozila) &&
+                Objects.equals(datumPrveRegistracijeVozila, automobil.datumPrveRegistracijeVozila) &&
+                Objects.equals(napomeneAutomobila, automobil.napomeneAutomobila) &&
+                Objects.equals(datumAcrRegistracijeAuta, automobil.datumAcrRegistracijeAuta);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(idAuta, idKlijenta, regOznaka, kilomteraza, vrstaVozila, markaVozila,
+                modelVozila, godisteVozila, zapreminaVozila, snagaVozila, vinVozila, brojMotoraVozila,
+                vrstaGorivaVozila, bojaVozila, masaVozila, najvecaDozvoljenaMasaVozila, datumPrveRegistracijeVozila,
+                brojMestaZaSedenje, brojVrataVozila, napomeneAutomobila, datumAcrRegistracijeAuta, daLiImaKnjizicu);
     }
 }

@@ -89,17 +89,17 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="549.0" layoutY="189.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Vrsta Vozila:" textFill="#d3d3d3">
+            <Label layoutX="552.0" layoutY="184.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Vrsta Vozila:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtfVrstaAutomobila" layoutX="550.0" layoutY="207.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Vozila...">
+            <TextField fx:id="txtfVrstaAutomobila" layoutX="550.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Vozila...">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="16.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Godište Vozila:" textFill="#d3d3d3">
+            <Label layoutX="16.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Godište Vozila:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -109,7 +109,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Zapremina Motora (cc):" textFill="#d3d3d3">
+            <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Zapremina Motora (cc):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -119,7 +119,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="550.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Snaga Motora (kW):" textFill="#d3d3d3">
+            <Label layoutX="550.0" layoutY="240.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Snaga Motora (kW):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -178,7 +178,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Masa Vozila (kg):" textFill="#d3d3d3">
+            <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -188,7 +188,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="552.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Vrata:" textFill="#d3d3d3">
+            <Label layoutX="552.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Broj Vrata:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -198,7 +198,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Najveća Dozvoljena Masa Vozila (kg):" textFill="#d3d3d3">
+            <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Najveća Dozvoljena Masa Vozila (kg):" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -218,7 +218,7 @@
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="551.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Mesta za sedenje:" textFill="#d3d3d3">
+            <Label layoutX="551.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Broj Mesta za sedenje:" textFill="#d3d3d3">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -257,6 +257,11 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <CheckBox fx:id="chlBoxDaLiImaServisnuKnjizicu" layoutX="14.0" layoutY="628.0" mnemonicParsing="false" text="Da Li Ima Servisnu Knjižicu" textFill="#e8e8e8">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </CheckBox>
          </children></AnchorPane>
    </center>
    <top>
