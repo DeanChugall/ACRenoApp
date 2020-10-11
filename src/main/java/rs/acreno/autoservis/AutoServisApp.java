@@ -12,18 +12,21 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.autoservis.splash.SplashScreenController;
+import rs.acreno.system.config.ConfigAcreno;
 import rs.acreno.system.config.ConfigApp;
 import rs.acreno.system.constants.Constants;
+import rs.acreno.system.util.GeneralUiUtility;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -46,6 +49,7 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     private final String[] sviKljuceviPreferenceNode = prefs.keys(); //Uzmi sve kljuceve iz prefa Noda
 
     private ConfigApp configApp;
+    private ConfigAcreno configAcreno;
 
     public AutoServisApp() throws BackingStoreException {
     }
@@ -66,60 +70,96 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     public void start(@NotNull Stage stage) throws Exception {
         //prefs.removeNode();
         //System.exit(-1);
-        for (String s : sviKljuceviPreferenceNode) {
-            System.out.println(s);
-        }
-        if (sviKljuceviPreferenceNode.length == 0) {
-
-            ButtonType OK = new ButtonType("Da", ButtonBar.ButtonData.OK_DONE);
-            ButtonType CANCEL = new ButtonType("Odustani", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            String text =
-                    "Aplikacija je prvi put pokrenuta." + "\n" +
-                            "Molimo Vas da popunite polja u konfiguracionom prozoru." + "\n" +
-                            "Takođe isto tako možete da ih posle izmenite!" + "\n" +
-                            "Putanja: Glavni Meni || APP Info || Konfiguracija";
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, text,  OK, CANCEL);
-            alert.setTitle("Obaveštenje!");
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setHeaderText("*** Prvi Put Pokrenuta Aplikacija ***");
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.orElse(CANCEL) == OK) {
-                FXMLLoader fxmlLoaderConfig = new FXMLLoader(getClass().getResource(Constants.CONFIG_UI_VIEW_URI));
-                Stage stageConfig = new Stage();
-                stageConfig.initModality(Modality.APPLICATION_MODAL);
-                stageConfig.setResizable(false);
-                stageConfig.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
-                stageConfig.setTitle("Konfiguracija Aplikacije");
-                stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
-                stageConfig.showAndWait();
-
+        if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_11)) {
+            if (sviKljuceviPreferenceNode.length == 0) {
                 configApp = new ConfigApp();
-                configApp.setSpashScreenAboutDelayAplikacije("5000");
-                configApp.setDatumObjaveAplikacije("10.10.2020");
+                configApp.setSpashScreenAboutDelayAplikacije("4000");
+                configApp.setDatumObjaveAplikacije("11.10.2020");
                 configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
                 configApp.setImeFirme("");
                 configApp.setIntervalProvereInternetaAplikacije("30");
                 configApp.setLicencaAplikacije("Copyright @ 2020 AC Reno Inc. All rights reserved");
-                configApp.setLicencaPodnozijaAplikacije(
-                        "Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under " +
-                                "GNU GENERAL PUBLIC LICENSE  Version 3");
+                configApp.setLicencaPodnozijaAplikacije("Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under GNU GENERAL PUBLIC LICENSE  Version 3");
                 configApp.setPutanjaDoGKalendara("http://calendar.google.com");
                 configApp.setSpashScreenDelayAplikacije("400");
                 configApp.setVerzijaAplikacije("Beta 1.2");
-                byte[] data1 = SerializationUtils.serialize(configApp);
-                prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data1);
-                //return;
-                pokreniApp();
-                logger.info("Prvo Pokretanje APlikacije!");
+                byte[] data = SerializationUtils.serialize(configApp);
+                prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data);
+                configAcreno = new ConfigAcreno();
+                byte[] dataConfigAcreno = SerializationUtils.serialize(configAcreno);
+                prefs.putByteArray(Constants.ACRENO_CONFIG_NODE_KEY, dataConfigAcreno);
 
+                ButtonType OK = new ButtonType("Da", ButtonBar.ButtonData.OK_DONE);
+                ButtonType CANCEL = new ButtonType("Odustani", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                String text =
+                        "Aplikacija je prvi put pokrenuta." + "\n" +
+                                "Molimo Vas da popunite polja u konfiguracionom prozoru." + "\n" +
+                                "Takođe isto tako možete da ih posle izmenite!" + "\n" +
+                                "Putanja: Glavni Meni || APP Info || Konfiguracija";
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, text, OK, CANCEL);
+                alert.setTitle("Obaveštenje!");
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setHeaderText("*** Prvi Put Pokrenuta Aplikacija ***");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.orElse(CANCEL) == OK) {
+                    FXMLLoader fxmlLoaderConfig = new FXMLLoader(getClass().getResource(Constants.CONFIG_UI_VIEW_URI));
+                    Stage stageConfig = new Stage();
+                    stageConfig.initModality(Modality.APPLICATION_MODAL);
+                    stageConfig.setResizable(false);
+                    stageConfig.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+                    stageConfig.setTitle("Konfiguracija Aplikacije");
+                    stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
+                    stageConfig.showAndWait();
+
+                    configApp = new ConfigApp();
+                    configApp.setSpashScreenAboutDelayAplikacije("5000");
+                    configApp.setDatumObjaveAplikacije("10.10.2020");
+                    configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
+                    configApp.setImeFirme("");
+                    configApp.setIntervalProvereInternetaAplikacije("30");
+                    configApp.setLicencaAplikacije("Copyright @ 2020 AC Reno Inc. All rights reserved");
+                    configApp.setLicencaPodnozijaAplikacije(
+                            "Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under " +
+                                    "GNU GENERAL PUBLIC LICENSE  Version 3");
+                    configApp.setPutanjaDoGKalendara("http://calendar.google.com");
+                    configApp.setSpashScreenDelayAplikacije("400");
+                    configApp.setVerzijaAplikacije("Beta 1.2");
+                    byte[] data1 = SerializationUtils.serialize(configApp);
+                    prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data1);
+                    //return;
+                    pokreniApp();
+                    logger.info("Prvo Pokretanje APlikacije!");
+
+                }
+            } else {
+                pokreniApp();
             }
         } else {
-            pokreniApp();
+            System.out.println("Java version was 8 or greater!");
+            String java_version = System.getProperty("java.version");
+            String java_runtime_version = System.getProperty("java.runtime.version");
+            String java_home = System.getProperty("java.home");
+            String java_vendor = System.getProperty("java.vendor");
+            String java_vendor_uri = System.getProperty("java.vendor.url");
+            //String clasPath = ("CLAS PATH: " + System.getProperty("java.class.path"));
+            GeneralUiUtility.alertDialogBox(Alert.AlertType.ERROR,
+                    "Greška...",
+                    "Greška JAVA !",
+                    "Nemate noviju JAVU instaliranu na računaru.\n" +
+                            java_version + "\n" +
+                            java_runtime_version + "\n" +
+                            java_home + "\n" +
+                            java_vendor + "\n" +
+                            java_vendor_uri);
+
+            logger.error(" >>>>   GRESKA U JAVA NIJE DOBRA !");
+            System.exit(-1);
         }
     }
+
 
     private void pokreniApp() throws BackingStoreException, IOException {
         Constants constants = new Constants();
