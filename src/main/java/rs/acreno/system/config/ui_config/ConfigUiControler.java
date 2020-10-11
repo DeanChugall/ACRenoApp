@@ -233,7 +233,7 @@ public class ConfigUiControler implements Initializable {
         ButtonType OK = new ButtonType("Da", ButtonBar.ButtonData.OK_DONE);
         ButtonType CANCEL = new ButtonType("Odustani", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(Alert.AlertType.WARNING,
-                "Ova akcija ce obrisati sve, Jeste li sugurni",
+                "Ova akcija ce obrisati sve i mora da se pokrene opet, Jeste li sugurni?",
                 OK,
                 CANCEL);
 
@@ -251,6 +251,7 @@ public class ConfigUiControler implements Initializable {
                         "Uspešno ste obrisali konfiguracione podatke u aplikaciji.");
 
                 logger.info("Brisanje KONFIGURACIJE !");
+                System.exit(0);
 
             } catch (BackingStoreException e) {
                 e.printStackTrace();

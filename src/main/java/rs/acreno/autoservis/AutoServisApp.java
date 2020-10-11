@@ -7,23 +7,30 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.acreno.autoservis.splash.SplashScreenController;
+import rs.acreno.system.config.ConfigApp;
 import rs.acreno.system.constants.Constants;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class AutoServisApp extends Application implements Initializable, Serializable {
 
@@ -35,22 +42,95 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     private TimerTask tt;
     private boolean isJustOpenApp = true;
 
-    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(() -> {
+    private final Preferences prefs = Preferences.userNodeForPackage(String.class);
+    private final String[] sviKljuceviPreferenceNode = prefs.keys(); //Uzmi sve kljuceve iz prefa Noda
 
+    private ConfigApp configApp;
+
+    public AutoServisApp() throws BackingStoreException {
+    }
+
+    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        boolean configAPPTrue = Arrays.asList(sviKljuceviPreferenceNode).contains(Constants.APP_CONFIG_NODE_KEY);
+
+        if (configAPPTrue) { // Objekat "ConfigApp"
+            configApp = SerializationUtils.deserialize(prefs.getByteArray(Constants.APP_CONFIG_NODE_KEY, null));
+        }
+
+        Platform.runLater(() -> {
         });
     }
 
     @Override
     public void start(@NotNull Stage stage) throws Exception {
+        //prefs.removeNode();
+        //System.exit(-1);
+        if (sviKljuceviPreferenceNode.length == 0) {
+
+            ButtonType OK = new ButtonType("Da", ButtonBar.ButtonData.OK_DONE);
+            ButtonType CANCEL = new ButtonType("Odustani", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            String text =
+                    "Aplikacija je prvi put pokrenuta." + "\n" +
+                            "Molimo Vas da popunite polja u konfiguracionom prozoru." + "\n" +
+                            "Takođe isto tako možete da ih posle izmenite!" + "\n" +
+                            "Putanja: Glavni Meni // APP Info // Konfiguracija";
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, text,  OK, CANCEL);
+            alert.setTitle("Obaveštenje!");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setHeaderText("*** Prvi Put Pokrenuta Aplikacija ***");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.orElse(CANCEL) == OK) {
+                FXMLLoader fxmlLoaderConfig = new FXMLLoader(getClass().getResource(Constants.CONFIG_UI_VIEW_URI));
+                Stage stageConfig = new Stage();
+                stageConfig.initModality(Modality.APPLICATION_MODAL);
+                stageConfig.setResizable(false);
+                stageConfig.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+                stageConfig.setTitle("Konfiguracija Aplikacije");
+                stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
+                stageConfig.showAndWait();
+
+                configApp = new ConfigApp();
+                configApp.setSpashScreenAboutDelayAplikacije("5000");
+                configApp.setDatumObjaveAplikacije("10.10.2020");
+                configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
+                configApp.setImeFirme("");
+                configApp.setIntervalProvereInternetaAplikacije("30");
+                configApp.setLicencaAplikacije("Copyright @ 2020 AC Reno Inc. All rights reserved");
+                configApp.setLicencaPodnozijaAplikacije(
+                        "Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under " +
+                                "GNU GENERAL PUBLIC LICENSE  Version 3");
+                configApp.setPutanjaDoGKalendara("http://calendar.google.com");
+                configApp.setSpashScreenDelayAplikacije("400");
+                configApp.setVerzijaAplikacije("Beta 1.2");
+                byte[] data1 = SerializationUtils.serialize(configApp);
+                prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data1);
+                //return;
+                pokreniApp();
+                logger.info("Prvo Pokretanje APlikacije!");
+
+            }
+        } else {
+            pokreniApp();
+        }
+    }
+
+    private void pokreniApp() throws BackingStoreException, IOException {
         Constants constants = new Constants();
         Stage stageSpashScreen = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AutoServisController.class.getResource(Constants.SPLASH_SCREEN_URI));
+        loader.setLocation(AutoServisController.class.
+
+                getResource(Constants.SPLASH_SCREEN_URI));
         stageSpashScreen.initStyle(StageStyle.UNDECORATED);
         stageSpashScreen.initStyle(StageStyle.TRANSPARENT);
         stageSpashScreen.setResizable(false);
-        stageSpashScreen.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageSpashScreen.getIcons().
+
+                add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
         Scene scene = new Scene(loader.load());
         scene.setFill(Color.TRANSPARENT);
         stageSpashScreen.setScene(scene);
@@ -74,7 +154,11 @@ public class AutoServisApp extends Application implements Initializable, Seriali
                 return null;
             }
         };
-        splashScreenController.getPrgBarLoadStaff().progressProperty().bind(task.progressProperty());
+        splashScreenController.getPrgBarLoadStaff().
+
+                progressProperty().
+
+                bind(task.progressProperty());
         // color the bar green when the work is complete.
         /*splashScreenController.getPrgBarLoadStaff().progressProperty().addListener(observable -> {
             if (splashScreenController.getPrgBarLoadStaff().getProgress() >= 1 - EPSILON) {
@@ -104,7 +188,9 @@ public class AutoServisApp extends Application implements Initializable, Seriali
         fadeIn.play();
 
         //After fade in, start fade out
-        fadeIn.setOnFinished((e) -> {
+        fadeIn.setOnFinished((e) ->
+
+        {
             tt = new TimerTask() {
                 @Override
                 public void run() {
@@ -119,26 +205,29 @@ public class AutoServisApp extends Application implements Initializable, Seriali
             t.schedule(tt, constants.SPLASH_SCREEN_DELAY, 5000);
         });
 
-        fadeOut.setOnFinished((e) -> Platform.runLater(new Runnable() {
-            @Override public void run() {
-                try {
-                    FXMLLoader fxmlLoaderAutoServiApp = new FXMLLoader(getClass().getResource(Constants.HOME_UI_VIEW_URI));
-                    Scene sceneAutoServisApp = new Scene(fxmlLoaderAutoServiApp.load());
-                    Stage stageAutoServisApp = new Stage();
-                    stageAutoServisApp.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
-                    stageAutoServisApp.setScene(sceneAutoServisApp);
-                    stageAutoServisApp.setResizable(false);
-                    stageAutoServisApp.setTitle("ACR Informacioni Sistem || \"AC Reno\" Auto Servis");
-                    stageAutoServisApp.show();
-                    tt.cancel();
-                    t.purge();
-                    stageSpashScreen.close();
-
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-        }));
+        fadeOut.setOnFinished((e) ->
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        try {
+                            FXMLLoader fxmlLoaderAutoServiApp =
+                                    new FXMLLoader(getClass().getResource(Constants.HOME_UI_VIEW_URI));
+                            Scene sceneAutoServisApp = new Scene(fxmlLoaderAutoServiApp.load());
+                            Stage stageAutoServisApp = new Stage();
+                            stageAutoServisApp.getIcons()
+                                    .add(new Image(AutoServisController.class.
+                                            getResourceAsStream(Constants.APP_ICON)));
+                            stageAutoServisApp.setScene(sceneAutoServisApp);
+                            stageAutoServisApp.setResizable(false);
+                            stageAutoServisApp.setTitle("ACR Informacioni Sistem || \"AC Reno\" Auto Servis");
+                            stageAutoServisApp.show();
+                            tt.cancel();
+                            t.purge();
+                            stageSpashScreen.close();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
+                }));
     }
 
     @Override
@@ -149,6 +238,4 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }

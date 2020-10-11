@@ -6,23 +6,45 @@ import org.apache.commons.lang3.SerializationUtils;
 import rs.acreno.system.config.ConfigAcreno;
 import rs.acreno.system.config.ConfigApp;
 import rs.acreno.system.util.GeneralUiUtility;
-import rs.acreno.system.util.properties.AcrenoProperties;
-import rs.acreno.system.util.properties.ApplicationProperties;
 
+import java.util.Arrays;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 public class Constants {
 
     //Config Staf
-    private  ConfigAcreno configAcreno;
-    private  ConfigApp configApp;
+    private ConfigAcreno configAcreno;
+    private static ConfigApp configApp;
 
-    public Constants() {}
+    public Constants() throws BackingStoreException {
 
+        //Uzmi sve kljuceve iz prefa Noda
+        Preferences prefs = Preferences.userNodeForPackage(String.class);
+        String[] sviKljuceviPreferenceNode = prefs.keys();
+        boolean configAcrenoTrue = Arrays.asList(sviKljuceviPreferenceNode).contains(Constants.ACRENO_CONFIG_NODE_KEY);
+        boolean configAPPTrue = Arrays.asList(sviKljuceviPreferenceNode).contains(Constants.APP_CONFIG_NODE_KEY);
+
+        //Ako Nodovi postoje radi DESERIJALIZACIJU objekta
+        if (configAcrenoTrue) { // Objekat "ConfigAcreno"
+            configAcreno = SerializationUtils.deserialize(prefs.getByteArray(Constants.ACRENO_CONFIG_NODE_KEY, null));
+        } else {
+            byte[] data = SerializationUtils.serialize(configAcreno);
+            prefs.putByteArray(Constants.ACRENO_CONFIG_NODE_KEY, data);
+        }
+        if (configAPPTrue) { // Objekat "ConfigApp"
+            configApp = SerializationUtils.deserialize(prefs.getByteArray(Constants.APP_CONFIG_NODE_KEY, null));
+        } else {
+            //Serijalizacija Objekta
+            byte[] data = SerializationUtils.serialize(configApp);
+            prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data);
+        }
+
+    }
 
     // *******************  DB Staf SQLite ***************************
-    public static final String IME_BAZE = ApplicationProperties.getInstance().getProperty("database.name");
-    public static final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + GeneralUiUtility.getExecutionPath() +
+    public final String IME_BAZE = defAPPconf().getImeBazePodatakaAplikacije();
+    public final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + GeneralUiUtility.getExecutionPath() +
             GeneralUiUtility.getSystemSeparator() + IME_BAZE;
 
     // *******************  FX UIs Path ***************************
@@ -36,12 +58,12 @@ public class Constants {
     //RACUNI FAKTURE
     public static final String FAKTURA_UI_VIEW_URI = "/faktura_ui.fxml";
     public static final String PRINT_FAKTURA_UI_VIEW_URI = "/ui_print_racun.fxml";
-    public  String PRINT_FAKTURA_ADRESA_FIRME = defConfACReno().getAdresaFirme();
-    public  String PRINT_FAKTURA_GRAD_FIRME = defConfACReno().getGradFirme();
-    public  String PRINT_FAKTURA_TELEFON_FIRME = defConfACReno().getTelefonFirme();
-    public  String PRINT_FAKTURA_SAJT_FIRME = defConfACReno().getSajtFirme();
-    public  String PRINT_FAKTURA_EMAIL_FIRME = defConfACReno().getEmailFirme();
-    public  String PRINT_FAKTURA_ZIRORACUN_FIRME = defConfACReno().getZiroRacunFirme();
+    public String PRINT_FAKTURA_ADRESA_FIRME = defConfACReno().getAdresaFirme();
+    public String PRINT_FAKTURA_GRAD_FIRME = defConfACReno().getGradFirme();
+    public String PRINT_FAKTURA_TELEFON_FIRME = defConfACReno().getTelefonFirme();
+    public String PRINT_FAKTURA_SAJT_FIRME = defConfACReno().getSajtFirme();
+    public String PRINT_FAKTURA_EMAIL_FIRME = defConfACReno().getEmailFirme();
+    public String PRINT_FAKTURA_ZIRORACUN_FIRME = defConfACReno().getZiroRacunFirme();
 
     //RADNI NALOZI
     public static final String RADNI_NALOZI_UI_VIEW_URI = "/radni_nalozi_ui.fxml";
@@ -68,17 +90,17 @@ public class Constants {
 
     //KLIJENT U AUTO SERVIS UIa
     public static final KeyCode OTVORI_KLIJENT_KARTICU_KEYCODE = KeyCode.F;
-    public static final KeyCombination.Modifier OTVORI_KLIJENT_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+    //public static final KeyCombination.Modifier OTVORI_KLIJENT_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
     //Shor Cut Otvori ARTIKLE
-    public static final KeyCode OTVORI_ARTIKL_KARTICU_KEYCODE = KeyCode.A;
-    public static final KeyCombination.Modifier OTVORI_ARTIKL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
+    //public static final KeyCode OTVORI_ARTIKL_KARTICU_KEYCODE = KeyCode.A;
+    //public static final KeyCombination.Modifier OTVORI_ARTIKL_KARTICU_KEYCOMBINATION = KeyCombination.CONTROL_ANY;
 
     // ******************* SYSTEM ***************************
     public static final String APP_ICON = "/faktura/logo-acreno.jpg";
     public static final String APP_CLIENTS_ICON = "/auto_servis/clients_home.png";
     public static final String APP_AUTOMOBIL_ICON = "/auto_servis/car_home.png";
     public static final String APP_ARTIKLI_ICON = "/auto_servis/bar_code_home.png";
-    public static final String APP_MAIN_PNG_LOGO = "/acr_logo.png";
+    //public static final String APP_MAIN_PNG_LOGO = "/acr_logo.png";
     public int APP_UCESTALOST_PROVERE_INTERNETA = Integer.parseInt(defAPPconf().getIntervalProvereInternetaAplikacije());
 
 
@@ -97,7 +119,7 @@ public class Constants {
     public static final String APP_CONFIG_NODE_KEY = "configAPP";
 
     //TODO: Napisati JAVA DOC
-    private  ConfigAcreno defConfACReno() {
+    private ConfigAcreno defConfACReno() {
         Preferences prefs = Preferences.userNodeForPackage(String.class);
         configAcreno = SerializationUtils.deserialize(prefs.getByteArray(ACRENO_CONFIG_NODE_KEY, null));
 
@@ -105,13 +127,12 @@ public class Constants {
     }
 
     //TODO: Napisati JAVA DOC
-    private  ConfigApp defAPPconf() {
+    private ConfigApp defAPPconf() {
         Preferences prefs = Preferences.userNodeForPackage(String.class);
         configApp = SerializationUtils.deserialize(prefs.getByteArray(APP_CONFIG_NODE_KEY, null));
 
         return configApp;
     }
-
 
 
 }

@@ -33,6 +33,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.prefs.BackingStoreException;
 
 public class PrintRacuniControler implements Initializable, Serializable {
 
@@ -132,7 +133,11 @@ public class PrintRacuniControler implements Initializable, Serializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
 
-            initRacunFields(); //INIT RACUN FIELDS
+            try {
+                initRacunFields(); //INIT RACUN FIELDS
+            } catch (BackingStoreException e) {
+                e.printStackTrace();
+            }
             initKlijentsFields();//INIT KLIJENT FIELDS
             initAutomobil();//INIT AUTOMOBIL FIELDS
 
@@ -282,7 +287,7 @@ public class PrintRacuniControler implements Initializable, Serializable {
      * @see Racun
      * @see FakturaController
      */
-    private void initRacunFields() {
+    private void initRacunFields() throws BackingStoreException {
         //INIT RACUN FIELDS
         txtFidRacuna.setText(fakturaController.getIdRacuna()); // SET ID RACUNA/FAKTURE form Faktura Controller
         lblDatumRacuna.setText(racun.getDatum());

@@ -7,9 +7,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import rs.acreno.system.constants.Constants;
 
+import java.util.prefs.BackingStoreException;
+
 public class Zakazivanje extends Application {
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws BackingStoreException {
 
         Constants constants = new Constants();
         WebView webView = new WebView();

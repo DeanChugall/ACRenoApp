@@ -6,6 +6,7 @@ import rs.acreno.system.constants.Constants;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.prefs.BackingStoreException;
 
 public class AcrSqlSetUp {
 
@@ -15,7 +16,8 @@ public class AcrSqlSetUp {
 
     public static Connection connect() {
         try {
-            String url = Constants.MSACCESS_STRING_URL;
+            Constants constants = new Constants();
+            String url = constants.MSACCESS_STRING_URL;
             logger.debug("URL DATABASE: " + url);
             // db parameters
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver"); //BITNOOOO JER NECE DA RADI U JARu ako nije tu
@@ -23,7 +25,7 @@ public class AcrSqlSetUp {
             conn = DriverManager.getConnection(url);
             logger.debug("Connection to SQLite has been established.");
 
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException | ClassNotFoundException | BackingStoreException throwables) {
             throwables.printStackTrace();
         }
         return conn;

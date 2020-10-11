@@ -16,6 +16,7 @@ import rs.acreno.system.util.properties.ApplicationProperties;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.prefs.BackingStoreException;
 
 public class SplashScreenController implements Initializable {
 
@@ -27,6 +28,9 @@ public class SplashScreenController implements Initializable {
     @FXML private Label lblCopyRight;
     @FXML private Label lblImeFirme;
     @FXML private AnchorPane aPaneSplashScreen;
+
+    public SplashScreenController() throws BackingStoreException {
+    }
 
     public ProgressBar getPrgBarLoadStaff() {
         return prgBarLoadStaff;

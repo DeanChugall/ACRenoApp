@@ -5,16 +5,17 @@ import rs.acreno.system.constants.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.prefs.BackingStoreException;
 
 import static org.junit.Assert.assertEquals;
 
 public class DatabaseTest {
     Connection conn = null;
-
     @Test
-    public void setup() {
+    public void setup() throws BackingStoreException {
 
-        String url = Constants.MSACCESS_STRING_URL;
+        Constants constants = new Constants();
+        String url = constants.MSACCESS_STRING_URL;
         String expextedUrl = "jdbc:sqlite:/home/datatab/Desktop/PROGRAMIRANJE/PROJEKTI/ACReno/src/main/resources/db/acreno.db";
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");

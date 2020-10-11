@@ -61,6 +61,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 public class AutoServisController implements Initializable, Serializable {
@@ -214,7 +215,12 @@ public class AutoServisController implements Initializable, Serializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            Constants constants = new Constants();
+            Constants constants = null;
+            try {
+                constants = new Constants();
+            } catch (BackingStoreException e) {
+                e.printStackTrace();
+            }
 
             GeneralUiUtility.initSat(lblTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
             GeneralUiUtility.initSat(lblDate, DateTimeFormatter.ofPattern("dd.MM.yyyy."));
@@ -1295,7 +1301,7 @@ public class AutoServisController implements Initializable, Serializable {
     private TimerTask tt;
     private boolean isJustOpenApp = true;
 
-    @FXML private void menuBtnOAplikaciji() throws IOException {
+    @FXML private void menuBtnOAplikaciji() throws IOException, BackingStoreException {
         Constants constants = new Constants();
         Stage stageSpashScreen = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -1375,12 +1381,12 @@ public class AutoServisController implements Initializable, Serializable {
         }));
     }
 
-    @FXML public void oAplikacijiKlikNaLogo(MouseEvent mouseEvent) throws IOException {
+    @FXML public void oAplikacijiKlikNaLogo(MouseEvent mouseEvent) throws IOException, BackingStoreException {
         menuBtnOAplikaciji();
     }
 
     // 8.0 *************** ZAKAZI SERVIS BUTTONs STAFF ***************************
-    @FXML public void btnZakaziServisAct(ActionEvent actionEvent) {
+    @FXML public void btnZakaziServisAct(ActionEvent actionEvent) throws BackingStoreException {
         Zakazivanje zakazivanje = new Zakazivanje();
         Stage stage = new Stage();
         stage.setTitle("Zakazivanje");
