@@ -75,7 +75,7 @@ public class AutoServisApp extends Application implements Initializable, Seriali
                     "Aplikacija je prvi put pokrenuta." + "\n" +
                             "Molimo Vas da popunite polja u konfiguracionom prozoru." + "\n" +
                             "Takođe isto tako možete da ih posle izmenite!" + "\n" +
-                            "Putanja: Glavni Meni // APP Info // Konfiguracija";
+                            "Putanja: Glavni Meni || APP Info || Konfiguracija";
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION, text,  OK, CANCEL);
             alert.setTitle("Obaveštenje!");
