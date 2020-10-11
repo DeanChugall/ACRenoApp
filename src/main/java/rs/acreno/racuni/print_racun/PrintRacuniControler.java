@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikli;
 import rs.acreno.artikli.posao_artikli_dao.PosaoArtikliDAO;
@@ -38,6 +39,8 @@ import java.util.prefs.BackingStoreException;
 public class PrintRacuniControler implements Initializable, Serializable {
 
     private static final long serialVersionUID = 6529685098267757690L;
+
+    private static final Logger logger = Logger.getLogger(PrintRacuniControler.class);
 
     //HEADER
     @FXML private AnchorPane ancorPanePrint;

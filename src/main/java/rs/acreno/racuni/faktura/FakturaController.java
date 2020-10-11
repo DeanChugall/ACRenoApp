@@ -77,6 +77,7 @@ public class FakturaController implements Initializable, java.io.Serializable {
     @FXML private DatePicker datePickerDatumPrometa;
     @FXML private DatePicker datePickerDatumValute;
     @FXML private TextArea txtAreaNapomenaRacuna;
+    @FXML private TextArea txtAreaStaJeUradjeno;
 
     //FXMLs KALKULACIJE TFa
     @FXML private TextField txtFpopustRacuna;
@@ -431,6 +432,7 @@ public class FakturaController implements Initializable, java.io.Serializable {
             txtAreaNapomenaRacuna.setText(noviRacun.getNapomeneRacuna());
             txtFpopustRacuna.setText(String.valueOf(noviRacun.getPopust()));
             txtfKilometraza.setText(noviRacun.getKilometraza());
+            txtAreaStaJeUradjeno.setText(noviRacun.getStaJeUradjeno());
         } else {
             noviRacun = new Racun();
             noviRacun.setIdRacuna(brojFakture);
@@ -1349,6 +1351,7 @@ public class FakturaController implements Initializable, java.io.Serializable {
             noviRacun.setDatumValute(GeneralUiUtility.formatDateForUs(datePickerDatumValute.getValue()));
             noviRacun.setNapomeneRacuna(txtAreaNapomenaRacuna.getText());
             noviRacun.setPopust(Integer.parseInt(txtFpopustRacuna.getText()));
+            noviRacun.setStaJeUradjeno(txtAreaStaJeUradjeno.getText());
             racuniDAO.updateRacun(noviRacun);
             if (ifWeAreFromBtnSacuvajRacun) {
                 GeneralUiUtility.alertDialogBox(

@@ -51,8 +51,9 @@
                                 <TableColumn fx:id="tblRowDatumRacuna" prefWidth="76.00003051757812" sortType="DESCENDING" text="Datum" />
                                 <TableColumn fx:id="tblRowIdKilometraza" prefWidth="128.0" text="Kilometraza" />
                                 <TableColumn fx:id="tblRowPopustRacuna" prefWidth="79.0" text="Popust %" />
-                                <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="980.0" text="Napomene" />
-                                <TableColumn fx:id="tblRowBtnIzmeniRacun" minWidth="0.0" prefWidth="86.0" />
+                                <TableColumn fx:id="tblRowNapomeneRacuna" prefWidth="531.0" text="Napomene Servisera Na Računu" />
+                        <TableColumn fx:id="tblRowUradjeno" prefWidth="444.0" text="Urađeni Servisni Poslovi" />
+                                <TableColumn fx:id="tblRowBtnIzmeniRacun" minWidth="0.0" prefWidth="90.0" />
                             </columns>
                         </TableView>
                     </children>

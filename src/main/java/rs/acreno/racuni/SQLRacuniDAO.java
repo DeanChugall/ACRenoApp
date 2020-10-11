@@ -2,7 +2,9 @@ package rs.acreno.racuni;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import rs.acreno.racuni.print_racun.PrintRacuniControler;
 import rs.acreno.system.DAO.SqlQuerys;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.AcrSqlSetUp;
@@ -12,6 +14,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SQLRacuniDAO implements RacuniDAO {
+
+    private static final Logger logger = Logger.getLogger(SQLRacuniDAO.class);
+
     private Connection connection;
     private final QueryRunner dbAccess = new QueryRunner();
     private List<Racun> racunList = null;
@@ -39,9 +44,11 @@ public class SQLRacuniDAO implements RacuniDAO {
                     , racun.getDatumPrometa()
                     , racun.getDatumValute()
                     , racun.getPopust()
-                    , racun.getNapomeneRacuna());
+                    , racun.getNapomeneRacuna()
+                    , racun.getStaJeUradjeno());
 
         } catch (SQLException e) {
+            logger.error(">>>>>>>>>>>> Greska u DB insertRacun RACUNI: " + e.getMessage());
             throw new AcrenoException("Greska u DB insertRacun RACUNI", e);
         } finally {
             if (connection != null) {
@@ -63,9 +70,11 @@ public class SQLRacuniDAO implements RacuniDAO {
                     , racun.getDatumValute()
                     , racun.getPopust()
                     , racun.getNapomeneRacuna()
+                    , racun.getStaJeUradjeno()
                     , racun.getIdRacuna());
             return true;
         } catch (SQLException e) {
+            logger.error(">>>>>>>>>>>> Greska u DB updateRacun RACUNI: " + e.getMessage());
             throw new AcrenoException("Greska u DB updateRacun RACUNI", e);
         } finally {
             if (connection != null) {
@@ -81,6 +90,7 @@ public class SQLRacuniDAO implements RacuniDAO {
             dbAccess.update(connection, SqlQuerys.DELETE_FROM_RACUN, idRacun);
             return true;
         } catch (Exception e) {
+            logger.error(">>>>>>>>>>>> Greska u DB DELETE deleteRacun RACUNI: " + e.getMessage());
             throw new AcrenoException("Greska u DB DELETE deleteRacun RACUNI", e);
         } finally {
             if (connection != null) {
@@ -107,6 +117,10 @@ public class SQLRacuniDAO implements RacuniDAO {
                 whereClause = "datum LIKE ?";
                 valueClause = "%" + value.toString() + "%";
             }
+            case STA_JE_URADJENO -> {
+                whereClause = "staJeUradjeno LIKE ?";
+                valueClause = "%" + value.toString() + "%";
+            }
             default -> System.out.println("Nepoznati Search type RACUNI");
         }
         try {
@@ -114,6 +128,7 @@ public class SQLRacuniDAO implements RacuniDAO {
             racunList = dbAccess.query(connection, SqlQuerys.FIND_ALL_RACUNE_BY_PROPERTY +
                     whereClause, new BeanListHandler<>(Racun.class), valueClause);
         } catch (Exception e) {
+            logger.error(">>>>>>>>>>>> Greska u DB findRacunByProperty RACUNA: " + e.getMessage());
             throw new AcrenoException("Greska u DB findRacunByProperty RACUNA", e);
         } finally {
             if (connection != null) {
@@ -130,6 +145,7 @@ public class SQLRacuniDAO implements RacuniDAO {
             racunList = dbAccess.query(connection, SqlQuerys.FIND_ALL_RACUNE,
                     new BeanListHandler<>(Racun.class));
         } catch (SQLException e) {
+            logger.error(">>>>>>>>>>>> Greska u DB findAllRacune RACUNA: " + e.getMessage());
             throw new AcrenoException("Greska u DB findAllRacune RACUNA", e);
         } finally {
             if (connection != null) {

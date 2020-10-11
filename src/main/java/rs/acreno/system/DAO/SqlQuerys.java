@@ -81,8 +81,9 @@ public class SqlQuerys {
                     ", datumPrometa" +
                     ", datumValute" +
                     ", popust" +
-                    ", napomeneRacuna)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+                    ", napomeneRacuna" +
+                    ", staJeUradjeno)\n" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String UPDATE_RACUN_TABLE = "" +
             "UPDATE Racuni\n" +
@@ -94,7 +95,8 @@ public class SqlQuerys {
             ", datumValute = ?" +
             ", popust = ?" +
             ", napomeneRacuna = ?" +
-            "WHERE idRacuna=?";
+            ", staJeUradjeno = ?" +
+            "WHERE idRacuna = ?";
 
     public static final String DELETE_FROM_RACUN = "DELETE FROM Racuni WHERE idRacuna=?";
 

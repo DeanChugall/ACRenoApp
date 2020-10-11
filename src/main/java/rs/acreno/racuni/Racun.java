@@ -12,6 +12,7 @@ public class Racun {
     private String datumValute;
     private int popust;
     private String napomeneRacuna;
+    private String staJeUradjeno;
 
     public Racun() {
     }
@@ -80,35 +81,17 @@ public class Racun {
         this.napomeneRacuna = napomeneRacuna;
     }
 
-    @Override public String toString() {
-        return "Racun{" +
-                "idRacuna=" + idRacuna +
-                ", IdAutomobila=" + IdAutomobila +
-                ", kilometraza='" + kilometraza + '\'' +
-                ", datum='" + datum + '\'' +
-                ", datumPrometa='" + datumPrometa + '\'' +
-                ", datumValute='" + datumValute + '\'' +
-                ", popust=" + popust +
-                ", napomeneRacuna='" + napomeneRacuna + '\'' +
-                '}';
+
+    public String getStaJeUradjeno() {
+        return staJeUradjeno;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Racun racun = (Racun) o;
-        return idRacuna == racun.idRacuna &&
-                IdAutomobila == racun.IdAutomobila &&
-                popust == racun.popust &&
-                Objects.equals(datum, racun.datum) &&
-                Objects.equals(napomeneRacuna, racun.napomeneRacuna);
+    public void setStaJeUradjeno(String staJeUradjeno) {
+        this.staJeUradjeno = staJeUradjeno;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idRacuna, IdAutomobila, datum, popust, napomeneRacuna);
-    }
+
+
 }
 
 

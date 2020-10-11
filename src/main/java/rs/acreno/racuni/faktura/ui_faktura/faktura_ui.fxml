@@ -371,7 +371,7 @@
                       </ImageView>
                    </graphic>
                 </Label>
-                <TextArea fx:id="txtAreaNapomenaRacuna" focusTraversable="false" layoutX="5.0" layoutY="43.0" prefHeight="136.0" prefWidth="427.0" promptText="Napomena servisera u računu..." wrapText="true" />
+                <TextArea fx:id="txtAreaNapomenaRacuna" focusTraversable="false" layoutX="5.0" layoutY="43.0" prefHeight="133.0" prefWidth="427.0" promptText="Napomena servisera u računu..." wrapText="true" />
              </Pane>
             <Button alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnPrintPonudaAction" prefHeight="28.0" prefWidth="142.0" stylesheets="/button.css" text="PONUDA">
                <effect>
@@ -532,6 +532,15 @@
                 <Font name="Segoe UI Bold" size="16.0" />
              </font>
           </TextField>
+         <TextArea fx:id="txtAreaStaJeUradjeno" focusTraversable="false" layoutX="133.0" layoutY="20.0" prefHeight="62.0" prefWidth="368.0" promptText="Napomena servisera u računu..." wrapText="true" />
+         <Label layoutX="138.0" layoutY="-1.0" prefHeight="23.0" prefWidth="251.0" text="Šta je uradjeno:" textFill="#d3d3d3">
+            <padding>
+               <Insets left="1.0" />
+            </padding>
+            <font>
+               <Font name="Segoe UI Bold" size="11.0" />
+            </font>
+         </Label>
        </AnchorPane>
     </bottom>
 </BorderPane>

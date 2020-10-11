@@ -62,6 +62,7 @@ public class AutomobiliController implements Initializable, Serializable {
     @FXML private TableColumn<Racun, String> tblRowDatumRacuna;
     @FXML private TableColumn<Racun, Number> tblRowPopustRacuna;
     @FXML private TableColumn<Racun, String> tblRowNapomeneRacuna;
+    @FXML private TableColumn<Racun, String> tblRowUradjeno;
     @FXML private TableColumn<Racun, Button> tblRowBtnIzmeniRacun;
 
     //FXMLs TABELA RADNI NALOZI
@@ -377,6 +378,11 @@ public class AutomobiliController implements Initializable, Serializable {
         tblRowNapomeneRacuna.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getNapomeneRacuna()));
         tblRowNapomeneRacuna.setStyle("-fx-alignment: CENTER;");
+
+        //Tbl Coll URADJENO
+        tblRowUradjeno.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getStaJeUradjeno()));
+        tblRowUradjeno.setStyle("-fx-alignment: CENTER;");
 
         tblFakture.setItems(racuni);
     }
