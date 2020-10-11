@@ -484,14 +484,14 @@
                 <DropShadow />
              </effect>
           </Label>
-          <Button fx:id="btnOdustaniObrisiRacun" focusTraversable="false" layoutX="5.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnOdustaniObrisiRacunAction" prefHeight="36.0" prefWidth="129.0" text="Obriši Račun">
+          <Button fx:id="btnOdustaniObrisiRacun" focusTraversable="false" layoutX="5.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnOdustaniObrisiRacunAction" prefHeight="36.0" prefWidth="115.0" text="Obriši Račun">
              <graphic>
                 <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                    <Image url="@/btn_delete_icon.png" />
                 </ImageView>
              </graphic>
              <font>
-                <Font name="Segoe UI Bold" size="11.0" />
+                <Font name="Verdana Bold" size="10.0" />
              </font>
             <cursor>
                <Cursor fx:constant="HAND" />

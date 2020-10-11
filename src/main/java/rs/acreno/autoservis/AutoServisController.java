@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -25,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,12 +40,10 @@ import rs.acreno.klijent.KlijentSearchType;
 import rs.acreno.klijent.SQLKlijnetDAO;
 import rs.acreno.klijent.licna_karta.LicnaKarta;
 import rs.acreno.klijent.ui_klijent.CreateNewKlijentUiController;
-import rs.acreno.system.config.ConfigAcreno;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
 import rs.acreno.system.util.ActionButtonTableCell;
 import rs.acreno.system.util.GeneralUiUtility;
-import rs.acreno.system.util.properties.ApplicationProperties;
 import rs.acreno.zakazivanje.Zakazivanje;
 
 import java.io.IOException;
@@ -62,7 +60,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 public class AutoServisController implements Initializable, Serializable {
 
@@ -79,6 +76,7 @@ public class AutoServisController implements Initializable, Serializable {
     @FXML private Label lblVerzijaAplikacije;
     @FXML private Label lblReleaseDate;
     @FXML private Label lblLicencaAplikacije;
+    @FXML private Button btnPonistiSve;
 
     //MENU
     @FXML private MenuItem menuBtnOaplikaciji;
@@ -93,6 +91,7 @@ public class AutoServisController implements Initializable, Serializable {
      * @see {@link AutomobiliController}
      */
     // 1.1 ************* FXMLs Automobil Kartica
+    @FXML Pane paneAutomobili;
     @FXML private TextField txtFieldRegOznaka;
     @FXML private TextField txtfVinAutomobila;
     @FXML private TextField txtfModelAutomobila;
@@ -109,6 +108,7 @@ public class AutoServisController implements Initializable, Serializable {
     @FXML private ImageView imageMarkaVozila;
 
     // 1.2 ************* FXMLs Klijent Kartica
+    @FXML Pane paneKlijent;
     @FXML private TextField txtFieldPretragaKlijenta;
     @FXML private Button btnOtvoriAutomobilKarticu;
     @FXML private Button btnOtvoriCitacLicneKarte;
@@ -1286,6 +1286,24 @@ public class AutoServisController implements Initializable, Serializable {
     }
 
     /**
+     * Ponisti Sav polja i postavi dugmice na pocetno stanje
+     */
+    @FXML public void btnPonistiSveAct(ActionEvent actionEvent) {
+        System.out.println("PONISTI SVE");
+        GeneralUiUtility.clearTextFieldsInPane(paneAutomobili);
+        GeneralUiUtility.clearTextFieldsInPane(paneKlijent);
+        //Disable button Automobili
+        btnNoviAutomobil.setDisable(true);
+        btnOtvoriAutomobilKarticu.setDisable(true);
+        btnUrediAutomobil.setDisable(true);
+        //Disable Klijent's buttons
+        btnOtvoriKlijentEditMode.setDisable(true);
+        //Clear Table Automobili in Klijent's
+        tblAutomobiliInKlijent.getItems().clear();
+
+    }
+
+    /**
      * Zatvori ACReno Aplikaciju
      */
     @FXML private void btnCloseApplication() {
@@ -1402,7 +1420,6 @@ public class AutoServisController implements Initializable, Serializable {
     }
 
 
-
     @FXML public void menuBtnConfig(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoaderConfig = new FXMLLoader(getClass().getResource(Constants.CONFIG_UI_VIEW_URI));
         Stage stageConfig = new Stage();
@@ -1413,5 +1430,7 @@ public class AutoServisController implements Initializable, Serializable {
         stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
         stageConfig.showAndWait();
     }
+
+
 }
 

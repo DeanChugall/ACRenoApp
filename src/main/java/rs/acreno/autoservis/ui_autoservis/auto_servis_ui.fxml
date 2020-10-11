@@ -13,7 +13,7 @@
     <center>
         <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="662.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-            <Pane layoutX="709.0" layoutY="13.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
+            <Pane fx:id="paneKlijent" layoutX="709.0" layoutY="13.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
                   <Label fx:id="lblBrojTelefona" focusTraversable="false" layoutX="8.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Broj Telefona:" textFill="#e1e1e1" />
                   <TextField fx:id="txtFbrojTelefona" alignment="CENTER" editable="false" focusTraversable="false" layoutX="6.0" layoutY="179.0" prefHeight="25.0" prefWidth="140.0">
@@ -314,7 +314,7 @@
                   <DropShadow />
                </effect>
             </Pane>
-            <Pane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="680.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
+            <Pane fx:id="paneAutomobili" layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="680.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="13.0">
                <children>
                       <ImageView fitHeight="99.0" fitWidth="454.0" layoutX="9.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -324,7 +324,7 @@
                         <DropShadow />
                      </effect>
                       </ImageView>
-                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="468.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="210.0" text="AUTOMOBIL KARTICA">
+                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="468.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="210.0" text="AUTOMOBIL KARTICA">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -374,7 +374,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="468.0" layoutY="189.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="210.0" text="UREDI AUTOMOBIL">
+                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="468.0" layoutY="191.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="210.0" text="UREDI AUTOMOBIL">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -651,6 +651,19 @@
                   <DropShadow />
                </effect>
             </Pane>
+            <Button fx:id="btnPonistiSve" layoutX="9.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnPonistiSveAct" prefHeight="26.0" prefWidth="107.0" text="Ponitšti sve">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@/btn_delete_icon.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Verdana Bold" size="10.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             </children>
         </AnchorPane>
     </center>
