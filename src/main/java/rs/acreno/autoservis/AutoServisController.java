@@ -625,7 +625,6 @@ public class AutoServisController implements Initializable, Serializable {
         txtfGodisteAutomobila.setText(String.valueOf(automobil.getGodisteVozila()));
         txtFkubikazaAuta.setText(String.valueOf(automobil.getZapreminaVozila()));
         txtFsnagaAuta.setText(String.valueOf(automobil.getSnagaVozila()));
-        System.out.println("***************************** DA LI IMA KNJIZICU:  " + automobil.getDaLiImaKnjizicu());
         chkBoxServisnaKnjizica.setSelected(automobil.getDaLiImaKnjizicu() == 1);
 
         if (txtfMarkaAutomobila.getText().isEmpty()) {
@@ -1436,5 +1435,15 @@ public class AutoServisController implements Initializable, Serializable {
     }
 
 
+    public void btnOtvoriPretraguAct(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoaderConfig = new FXMLLoader(getClass().getResource(Constants.PRETRAGA_UI_VIEW_URI));
+        Stage stageConfig = new Stage();
+        stageConfig.initModality(Modality.APPLICATION_MODAL);
+        stageConfig.setResizable(false);
+        stageConfig.getIcons().add(new Image(AutoServisController.class.getResourceAsStream(Constants.APP_ICON)));
+        stageConfig.setTitle("Konfiguracija Aplikacije");
+        stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
+        stageConfig.showAndWait();
+    }
 }
 

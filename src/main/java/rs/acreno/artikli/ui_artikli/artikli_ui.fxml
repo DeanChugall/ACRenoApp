@@ -16,19 +16,24 @@
             <effect>
                 <DropShadow />
             </effect>
-         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1180.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <Pane layoutX="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="1180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
             <children>
-                  <ImageView fitHeight="65.0" fitWidth="113.0" layoutX="36.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="66.0" fitWidth="103.0" layoutX="36.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                       <Image url="@/auto_servis/bar_code_home.png" />
                   </ImageView>
-                  <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="1046.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="72.0" prefWidth="110.0">
+                  <Label layoutX="157.0" layoutY="28.0" text="KARTICA ARTIKLI" textFill="WHITE">
+                      <font>
+                          <Font name="Segoe UI" size="44.0" />
+                      </font>
+                  </Label>
+                  <Button fx:id="btnCloseArtikliKarticu" focusTraversable="false" layoutX="1056.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnCloseArtikliKarticuAct" prefHeight="72.0" prefWidth="110.0">
                       <font>
                           <Font name="Segoe UI" size="12.0" />
                       </font>
                       <graphic>
                           <ImageView fitHeight="65.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
                               <effect>
-                                  <DropShadow />
+                                  <DropShadow height="0.0" radius="0.0" width="0.0" />
                               </effect>
                               <Image url="@/close-app.png" />
                         <cursor>
@@ -37,17 +42,12 @@
                           </ImageView>
                       </graphic>
                       <cursor>
-                          <Cursor fx:constant="DEFAULT" />
+                          <Cursor fx:constant="HAND" />
                       </cursor>
                       <effect>
                           <DropShadow />
                       </effect>
                   </Button>
-                  <Label layoutX="157.0" layoutY="28.0" text="KARTICA ARTIKLI" textFill="WHITE">
-                      <font>
-                          <Font name="Segoe UI" size="44.0" />
-                      </font>
-                  </Label>
             </children>
          </Pane>
         </AnchorPane>
@@ -66,7 +66,7 @@
                         <Insets left="20.0" />
                     </padding>
                     <effect>
-                        <DropShadow />
+                        <DropShadow height="15.07" radius="8.5175" />
                     </effect>
                     <graphic>
                         <ImageView fitHeight="48.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
@@ -138,9 +138,6 @@
                 </Button>
             </Pane>
             <Pane fx:id="paneUnosArtikli" layoutX="873.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="313.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="873.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
-                <effect>
-                    <DropShadow />
-                </effect>
                 <Label layoutX="-11.0" prefHeight="63.0" prefWidth="324.0" style="-fx-background-color: #1a1a1a;" text="UNOS ARTIKALA / DELOVA" textFill="#c3c3c3">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
@@ -149,13 +146,10 @@
                         <Insets left="20.0" />
                     </padding>
                     <effect>
-                        <DropShadow />
+                        <DropShadow blurType="GAUSSIAN" height="18.03" radius="9.2575" />
                     </effect>
                     <graphic>
                         <ImageView fitHeight="35.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                            <effect>
-                                <DropShadow height="121.81" radius="61.8875" width="127.74" />
-                            </effect>
                             <Image url="@/auto_servis/edit_icon.png" />
                         </ImageView>
                     </graphic>

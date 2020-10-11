@@ -80,6 +80,8 @@ public class Constants {
     public static final String ARTIKLI_UI_VIEW_URI = "/artikli_ui.fxml";
     //CONFIG GUI
     public static final String CONFIG_UI_VIEW_URI = "/config_ui.fxml";
+    //PRETRAGA GUI
+    public static final String PRETRAGA_UI_VIEW_URI = "/pretraga_ui.fxml";
 
 
     // *******************  KOMBINACIJE NA TASTERIMA ZA KEYBOARD SHORTCUT ***************************

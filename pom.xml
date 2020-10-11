@@ -151,6 +151,10 @@
             <resource>
                 <directory>src/main/java/rs/acreno/system/config/ui_config</directory>
             </resource>
+            <!--PRETRAGA UI-->
+            <resource>
+                <directory>src/main/java/rs/acreno/system/pretraga/ui_pretraga</directory>
+            </resource>
         </resources>
     </build>
     <repositories>
