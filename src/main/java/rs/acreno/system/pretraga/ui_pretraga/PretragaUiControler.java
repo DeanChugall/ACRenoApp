@@ -181,7 +181,7 @@ public class PretragaUiControler implements Initializable, Serializable {
                     automobilDAO.findAutomobilByProperty(AutoSearchType.ID_AUTA, racuni.get(0).getIdAutomobila()));
 
             klijenti = FXCollections.observableArrayList(
-                    klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA, "53"));
+                    klijentDAO.findKlijentByProperty(KlijentSearchType.ID_KLIJENTA, "14"));
 
         } catch (AcrenoException | SQLException e) {
             e.printStackTrace();

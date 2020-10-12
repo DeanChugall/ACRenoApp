@@ -37,7 +37,7 @@
                 <Font name="Segoe UI Bold" size="12.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="26.0" prefHeight="46.0" prefWidth="186.0" text="&quot;AC Reno&quot;" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="26.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="184.0" layoutY="26.0" prefHeight="46.0" prefWidth="186.0" text="&quot;AC Reno&quot;" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="307.0" AnchorPane.topAnchor="26.0">
             <font>
                 <Font name="Segoe UI Bold Italic" size="37.0" />
             </font>
@@ -162,7 +162,7 @@
                 <Font name="Segoe UI Bold" size="11.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="363.0" layoutY="28.0" prefHeight="39.0" prefWidth="166.0" text="Auto Servis">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="28.0" prefHeight="39.0" prefWidth="166.0" text="Auto Servis">
             <font>
                 <Font name="Segoe UI" size="32.0" />
             </font>
