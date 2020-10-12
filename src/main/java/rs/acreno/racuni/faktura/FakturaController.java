@@ -46,6 +46,7 @@ import rs.acreno.racuni.SQLRacuniDAO;
 import rs.acreno.racuni.print_racun.PrintRacuniControler;
 import rs.acreno.system.constants.Constants;
 import rs.acreno.system.exeption.AcrenoException;
+import rs.acreno.system.pretraga.ui_pretraga.PretragaUiControler;
 import rs.acreno.system.util.ActionButtonTableCell;
 import rs.acreno.system.util.GeneralUiUtility;
 
@@ -127,6 +128,8 @@ public class FakturaController implements Initializable, java.io.Serializable {
     //INIT GUI FIELDS
     private int idAutomobila;
 
+
+
     //INIT ObservableList-s
     private ObservableList<Automobil> automobili;
     private ObservableList<Klijent> klijenti;
@@ -154,6 +157,9 @@ public class FakturaController implements Initializable, java.io.Serializable {
 
     private AutomobiliController automobiliController;
     private Stage automobilStage;
+
+    private PretragaUiControler pretragaUiControler;
+    private Stage pretragaStage;
 
     public Automobil getAutomobil() {
         return automobili.get(0);
@@ -269,6 +275,12 @@ public class FakturaController implements Initializable, java.io.Serializable {
         this.automobilStage = automobilStage;
     }
 
+
+    public void setPretragaUiControler(PretragaUiControler pretragaUiControler, Stage pretragaStage) {
+        this.pretragaUiControler = pretragaUiControler;
+        this.pretragaStage = pretragaStage;
+    }
+
     /**
      * Empty Constructor if we need in some case
      */
@@ -359,30 +371,47 @@ public class FakturaController implements Initializable, java.io.Serializable {
             //Izracunavanje NABAVNE CENE TOTAL sume u tabeli Posao Artikli
             setTotalSumaNabavneCene(tblRowTotalNabavneCene);
             // Ako je racun u edit modu nemoj praviti novi racun nego prosledi RACUN koji je za izmenu
-            if (automobiliController.isRacunInEditMode()) { //TRUE
-                newOrEditRacun(true);
-                try { // Nadji sve PosaoArtikle po Broju Fakture i popuni tabelu jer smo u EDIT MODU
-                    posaoArtikli = FXCollections.observableArrayList(
-                            posaoArtikliDAO.findPosaoArtikliByPropertyDao(
-                                    PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture)
-                    );
+            if (automobiliController !=null){
+                if (automobiliController.isRacunInEditMode()) { //TRUE
+                    newOrEditRacun(true);
+                    try { // Nadji sve PosaoArtikle po Broju Fakture i popuni tabelu jer smo u EDIT MODU
+                        posaoArtikli = FXCollections.observableArrayList(
+                                posaoArtikliDAO.findPosaoArtikliByPropertyDao(
+                                        PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture)
+                        );
 
-                    popuniTabeluRacuni(); //popuni tabelu PosaoArtikli za Editovanje jer smo u EDIT MODU
+                        popuniTabeluRacuni(); //popuni tabelu PosaoArtikli za Editovanje jer smo u EDIT MODU
 
-                } catch (AcrenoException | SQLException e) {
-                    e.printStackTrace();
+                    } catch (AcrenoException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else { //Nismo u Edit Modu (FALSE)
+                    //Datum
+                    LocalDate now = LocalDate.now();
+                    datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
+                    datePickerDatumPrometa.setValue(now); //Postavi danasnji datum Prometa u datePiceru
+                    datePickerDatumValute.setValue(now); //Postavi danasnji datum Prometa u datePiceru
+                    newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
                 }
-            } else { //Nismo u Edit Modu (FALSE)
-                //Datum
-                LocalDate now = LocalDate.now();
-                datePickerDatumRacuna.setValue(now); //Postavi danasnji datum Racuna u datePiceru
-                datePickerDatumPrometa.setValue(now); //Postavi danasnji datum Prometa u datePiceru
-                datePickerDatumValute.setValue(now); //Postavi danasnji datum Prometa u datePiceru
-                newOrEditRacun(false); // Nismo u edit modu pa napravi novi racun
+            }else{
+                if (pretragaUiControler.isRacunInEditMode()) {
+                    newOrEditRacun(true);
+                    try { // Nadji sve PosaoArtikle po Broju Fakture i popuni tabelu jer smo u EDIT MODU
+                        posaoArtikli = FXCollections.observableArrayList(
+                                posaoArtikliDAO.findPosaoArtikliByPropertyDao(
+                                        PosaoArtikliDaoSearchType.ID_RACUNA_POSAO_ARTIKLI_DAO, brojFakture)
+                        );
+                        //txtFregTablica.setText("");
+                        //txtFklijentImePrezime.setText("PRETRAGA");
+                        popuniTabeluRacuni(); //popuni tabelu PosaoArtikli za Editovanje jer smo u EDIT MODU
+
+                    } catch (AcrenoException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
-
     /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
      * <p>
@@ -392,12 +421,24 @@ public class FakturaController implements Initializable, java.io.Serializable {
      */
     private void initGUI() {
         //Inicijalizacija podataka
-        automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
-        klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
-        idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
-        //Popunjavanje GUIa
-        txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime()); //Moze jer je samo jedan Klijent
-        txtFregTablica.setText(automobili.get(0).getRegOznaka()); //Moze jer je samo jedan Automobil
+        if (automobiliController != null) {
+            automobili = automobiliController.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
+            klijenti = automobiliController.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
+            idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
+            //Popunjavanje GUIa
+            txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime()); //Moze jer je samo jedan Klijent
+            txtFregTablica.setText(automobili.get(0).getRegOznaka()); //Moze jer je samo jedan Automobil
+        }
+        if (pretragaUiControler != null) {
+            automobili = pretragaUiControler.getAutomobil(); //Get AUTOMOBIL from automobiliController #Filtered
+            klijenti = pretragaUiControler.getKlijenti(); //Get KLIJENTA from automobiliController #Filtered
+            idAutomobila = automobili.get(0).getIdAuta(); //Moze jer je samo jedan Automobil
+            //Popunjavanje GUIa
+            txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime()); //Moze jer je samo jedan Klijent
+            txtFregTablica.setText(automobili.get(0).getRegOznaka()); //Moze jer je samo jedan Automobil
+        }
+
+
     }
 
     /**

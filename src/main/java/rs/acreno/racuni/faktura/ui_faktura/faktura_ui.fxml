@@ -247,7 +247,7 @@
                 <ListView fx:id="listViewPretragaKatalskiBrojArtikli" layoutX="240.0" layoutY="96.0" onMouseClicked="#zatvoriListViewPretragaPoKatBrojuArtikla" prefHeight="200.0" prefWidth="332.0" visible="false" />
                 <ListView fx:id="listViewPretragaArtikli" layoutX="17.0" layoutY="96.0" onMouseClicked="#zatvoriListViewSearchArtikli" prefHeight="200.0" prefWidth="332.0" visible="false" />
              </Pane>
-             <Button alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="58.0" prefWidth="142.0" stylesheets="/button.css" text="RAČUN">
+             <Button fx:id="btnPrintFakture" alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="58.0" prefWidth="142.0" stylesheets="/button.css" text="RAČUN">
                 <effect>
                    <DropShadow />
                 </effect>
@@ -373,7 +373,7 @@
                 </Label>
                 <TextArea fx:id="txtAreaNapomenaRacuna" focusTraversable="false" layoutX="5.0" layoutY="43.0" prefHeight="133.0" prefWidth="427.0" promptText="Napomena servisera u računu..." wrapText="true" />
              </Pane>
-            <Button alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnPrintPonudaAction" prefHeight="28.0" prefWidth="142.0" stylesheets="/button.css" text="PONUDA">
+            <Button fx:id="btnPrintPonude" alignment="CENTER" focusTraversable="false" layoutX="1246.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnPrintPonudaAction" prefHeight="28.0" prefWidth="142.0" stylesheets="/button.css" text="PONUDA">
                <effect>
                   <DropShadow />
                </effect>

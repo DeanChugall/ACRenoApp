@@ -12,7 +12,7 @@
     <center>
         <AnchorPane prefHeight="719.0" prefWidth="1476.0" BorderPane.alignment="CENTER">
             <children>
-                <Pane layoutX="8.0" layoutY="8.0" prefHeight="434.0" prefWidth="1451.0" style="-fx-background-color: #252525;">
+                <Pane fx:id="paneRacuni" layoutX="8.0" layoutY="8.0" prefHeight="434.0" prefWidth="1451.0" style="-fx-background-color: #252525;">
                     <children>
                         <Label focusTraversable="false" layoutX="-3.0" layoutY="7.0" prefHeight="45.0" prefWidth="1448.0" style="-fx-background-color: #1a1a1a;" text="Računi:" textFill="WHITE">
                             <font>

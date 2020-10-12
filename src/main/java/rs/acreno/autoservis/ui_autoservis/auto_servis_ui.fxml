@@ -13,7 +13,7 @@
     <center>
         <AnchorPane fx:id="aPaneAutomobil" minHeight="-Infinity" prefHeight="662.0" prefWidth="1400.0" style="-fx-background-color: #2d2d2d;">
             <children>
-            <Pane fx:id="paneKlijent" layoutX="709.0" layoutY="9.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="9.0">
+            <Pane fx:id="paneKlijent" layoutX="709.0" layoutY="9.0" prefHeight="647.0" prefWidth="677.0" style="-fx-background-color: #252525;" AnchorPane.topAnchor="9.0">
                <children>
                   <Label fx:id="lblBrojTelefona" focusTraversable="false" layoutX="8.0" layoutY="161.0" prefHeight="17.0" prefWidth="114.0" text="Broj Telefona:" textFill="#e1e1e1" />
                   <TextField fx:id="txtFbrojTelefona" alignment="CENTER" editable="false" focusTraversable="false" layoutX="6.0" layoutY="179.0" prefHeight="25.0" prefWidth="140.0">
@@ -83,8 +83,8 @@
                         </Lighting>
                      </effect>
                   </TextField>
-                  <Label fx:id="lblOstaliDetaljiKlijenta" focusTraversable="false" layoutX="8.0" layoutY="217.0" prefHeight="17.0" prefWidth="183.0" text="Ostali detalji vezano za Klijenta:" textFill="#e1e1e1" />
-                  <TextArea fx:id="txtAreaOstaliDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="7.0" layoutY="240.0" prefHeight="79.0" prefWidth="483.0" wrapText="true">
+                  <Label fx:id="lblOstaliDetaljiKlijenta" focusTraversable="false" layoutX="8.0" layoutY="209.0" prefHeight="17.0" prefWidth="183.0" text="Ostali detalji vezano za Klijenta:" textFill="#e1e1e1" />
+                  <TextArea fx:id="txtAreaOstaliDetaljiKlijenta" editable="false" focusTraversable="false" layoutX="7.0" layoutY="229.0" prefHeight="90.0" prefWidth="510.0" wrapText="true">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
@@ -269,9 +269,9 @@
                   <DropShadow />
                </effect>
             </Pane>
-            <Pane layoutX="12.0" layoutY="435.0" minWidth="-Infinity" prefHeight="182.0" prefWidth="680.0" style="-fx-background-color: #252525;">
+            <Pane layoutX="12.0" layoutY="435.0" minWidth="-Infinity" prefHeight="222.0" prefWidth="680.0" style="-fx-background-color: #252525;">
                <children>
-                  <Label focusTraversable="false" layoutX="-4.0" layoutY="77.0" prefHeight="63.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" text="      ARTIKLI" textFill="#c3c3c3">
+                  <Label focusTraversable="false" layoutX="-4.0" layoutY="88.0" prefHeight="63.0" prefWidth="687.0" style="-fx-background-color: #1a1a1a;" text="      ARTIKLI" textFill="#c3c3c3">
                      <font>
                         <Font name="Segoe UI" size="48.0" />
                      </font>
@@ -293,7 +293,7 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <ImageView fitHeight="54.0" fitWidth="97.0" layoutX="8.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="54.0" fitWidth="97.0" layoutX="8.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/auto_servis/bar_code_home.png" />
                      </image>
@@ -305,7 +305,7 @@
                      <effect>
                         <DropShadow height="91.92" radius="32.9225" spread="0.06" width="41.77" />
                      </effect></ImageView>
-                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" focusTraversable="false" graphicTextGap="20.0" layoutX="465.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="210.0" text="KARTICA ARTIKLI">
+                  <Button fx:id="btnOtvoriArtiklKarticu" alignment="CENTER" focusTraversable="false" graphicTextGap="20.0" layoutX="465.0" layoutY="94.0" mnemonicParsing="false" onAction="#btnOtvoriArtiklKarticuAct" prefHeight="51.0" prefWidth="210.0" text="KARTICA ARTIKLI">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -347,6 +347,19 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button fx:id="btnPonistiSve" layoutX="4.0" layoutY="161.0" mnemonicParsing="false" onAction="#btnPonistiSveAct" prefHeight="56.0" prefWidth="107.0" text="Ponitšti sve">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@/btn_delete_icon.png" />
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Verdana Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
                <effect>
                   <DropShadow />
@@ -362,7 +375,7 @@
                         <DropShadow />
                      </effect>
                       </ImageView>
-                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="468.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="85.0" prefWidth="210.0" text="AUTOMOBIL KARTICA">
+                  <Button fx:id="btnOtvoriAutomobilKarticu" alignment="BASELINE_LEFT" disable="true" graphicTextGap="0.0" layoutX="468.0" layoutY="160.0" mnemonicParsing="false" onAction="#btnOtvoriAutomobilKarticu" prefHeight="105.0" prefWidth="210.0" text="AUTOMOBIL KARTICA">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -412,7 +425,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="468.0" layoutY="191.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="210.0" text="UREDI AUTOMOBIL">
+                  <Button fx:id="btnUrediAutomobil" alignment="CENTER" disable="true" graphicTextGap="20.0" layoutX="468.0" layoutY="271.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#btnUrediAutomobilAct" prefHeight="67.0" prefWidth="210.0" text="UREDI AUTOMOBIL">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -545,7 +558,7 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="30.0" layoutX="468.0" layoutY="274.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="74.0" prefWidth="210.0" text="             UČITAJ SAOBRAĆAJNU">
+                  <Button fx:id="btnUrediAutomobil1" alignment="BASELINE_LEFT" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="30.0" layoutX="468.0" layoutY="84.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="70.0" prefWidth="210.0" text="             UČITAJ SAOBRAĆAJNU">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -579,11 +592,6 @@
                         </Lighting>
                      </effect>
                   </TextField>
-                  <ImageView fitHeight="41.0" fitWidth="52.0" layoutX="473.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
-                     </image>
-                  </ImageView>
                   <TextField fx:id="txtFkubikazaAuta" alignment="CENTER" editable="false" focusTraversable="false" layoutX="308.0" layoutY="298.0" prefHeight="23.0" prefWidth="72.0">
                      <font>
                         <Font name="Verdana Bold" size="12.0" />
@@ -684,24 +692,16 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <ImageView fitHeight="41.0" fitWidth="52.0" layoutX="475.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/auto_servis/citaj_saobracajnu.png" />
+                     </image>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow />
                </effect>
             </Pane>
-            <Button fx:id="btnPonistiSve" layoutX="9.0" layoutY="621.0" mnemonicParsing="false" onAction="#btnPonistiSveAct" prefHeight="34.0" prefWidth="107.0" text="Ponitšti sve">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@/btn_delete_icon.png" />
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Verdana Bold" size="10.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             </children>
         </AnchorPane>
     </center>

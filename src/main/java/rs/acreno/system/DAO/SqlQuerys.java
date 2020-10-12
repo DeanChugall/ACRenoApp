@@ -5,8 +5,21 @@ public class SqlQuerys {
     //SQLQ KLIJENTI
     public static final String INSERT_KLIJENT_IN_TABLE =
             "INSERT INTO Klijenti (" +
-                    " IdKlijenta, imePrezime, Mesto, PostanskiBroj, UlicaBroj, BrLicneKarte, maticniBroj," +
-                    " ostaliDetalji, email, telefonMobilni, telefonFiksni, web, brojRacuna, banka )" +
+                    " IdKlijenta," +
+                    " imePrezime," +
+                    " Mesto," +
+                    " PostanskiBroj," +
+                    " UlicaBroj," +
+                    " BrLicneKarte," +
+                    " maticniBroj," +
+                    " ostaliDetalji," +
+                    " email," +
+                    " telefonMobilni," +
+                    " telefonFiksni," +
+                    " web," +
+                    " brojRacuna," +
+                    " banka, " +
+                    "datumAcrRegistracijeKliljenta )" +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     public static final String UPDATE_KLIJENT_TABLE =
@@ -30,7 +43,7 @@ public class SqlQuerys {
     public static final String FIND_ALL_KLIJENTS = "SELECT * FROM Klijenti";
 
     //*********************************************************************
-    //************************ SQLQ AUTOMOBILI ****************************
+    //************************ SQL AUTOMOBILI ****************************
     //*********************************************************************
     public static final String INSERT_AUTOMOBIL_IN_TABLE =
             "INSERT INTO Automobil ( IdAuta, Idklijenta, regOznaka, kilomteraza, vrstaVozila, markaVozila, modelVozila," +

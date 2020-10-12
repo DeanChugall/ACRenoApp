@@ -868,7 +868,6 @@ public class AutoServisController implements Initializable, Serializable {
                             btnUrediAutomobil.setDisable(true);
                         } else {
                             setText(item.getImePrezime());
-
                         }
                     }
                 });

@@ -119,8 +119,6 @@ public class PrintRacuniControler implements Initializable, Serializable {
         });
     }
 
-
-
     /**
      * Referenca ka {@link FakturaController}-u, ako slucajno zatreba nesto iz tog kontrolora
      */
@@ -353,6 +351,5 @@ public class PrintRacuniControler implements Initializable, Serializable {
     @FXML private void btnPrintActClose(@NotNull ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
-
 
 }
