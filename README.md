@@ -1,10 +1,10 @@
 # [_"AC Reno" Auto Servis_ Informacioni Sistem](https://acreno.rs)
 ![build](https://img.shields.io/travis/acrenoai/ACRenoApp/master?logo=GitHub&style=flat-square)
-![build](http://img.shields.io/badge/version-BETA%201.3-brightgreen?style=flat-square&logo=GitHub)
+![build](http://img.shields.io/badge/version-BETA%201.4-brightgreen?style=flat-square&logo=GitHub)
 ![build](http://img.shields.io/badge/licence-GPL%203-brightgreen?style=flat-square&logo=GNU)
 ![build](http://img.shields.io/badge/code-JavaFX-blue?style=flat-square&logo=Java)
 
-###### Currrent release is: BETA 1.3
+###### Currrent release is: BETA 1.4
 
 <p align="left">
   <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
