@@ -36,7 +36,7 @@ Add VM options for run JavaFX app on compile runtime:
                                         --add-modules javafx.controls,javafx.fxml
 ```
 
-Where is '/PATH/.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory.
+Where is '/PATH/.../.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory.
 
 ---
 Run App command
