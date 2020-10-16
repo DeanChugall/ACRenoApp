@@ -71,16 +71,16 @@
             <font>
                 <Font name="Segoe UI Bold" size="13.0" />
             </font></Label>
-        <TextArea fx:id="txtAreaDetaljiKlijenta" focusTraversable="false" layoutX="19.0" layoutY="337.0" prefHeight="200.0" prefWidth="626.0">
+        <TextArea fx:id="txtAreaDetaljiKlijenta" focusTraversable="false" layoutX="19.0" layoutY="337.0" prefHeight="200.0" prefWidth="626.0" wrapText="true">
             <font>
-                <Font name="System Bold" size="14.0" />
+                <Font name="Verdana Bold" size="13.0" />
             </font>
             <effect>
                 <DropShadow />
             </effect></TextArea>
-        <TextArea fx:id="txtAreaDetaljiServisera" focusTraversable="false" layoutX="19.0" layoutY="561.0" prefHeight="200.0" prefWidth="626.0">
+        <TextArea fx:id="txtAreaDetaljiServisera" focusTraversable="false" layoutX="19.0" layoutY="561.0" prefHeight="200.0" prefWidth="626.0" wrapText="true">
             <font>
-                <Font name="System Bold" size="14.0" />
+                <Font name="Verdana Bold" size="13.0" />
             </font>
             <effect>
                 <DropShadow />

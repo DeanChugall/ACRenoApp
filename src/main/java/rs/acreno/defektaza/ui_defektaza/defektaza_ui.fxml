@@ -12,12 +12,12 @@
    <center>
       <AnchorPane prefHeight="562.0" prefWidth="1084.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutX="14.0" layoutY="213.0" prefHeight="317.0" prefWidth="500.0" style="-fx-background-color: #252525;">
+            <Pane layoutX="556.0" layoutY="213.0" prefHeight="317.0" prefWidth="512.0" style="-fx-background-color: #252525;">
                <effect>
                   <DropShadow />
                </effect>
                <children>
-                  <Label focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="495.0" style="-fx-background-color: #1a1a1a;" text="Opis Defektaže" textFill="WHITE">
+                  <Label focusTraversable="false" layoutX="-4.0" layoutY="14.0" prefHeight="45.0" prefWidth="521.0" style="-fx-background-color: #1a1a1a;" text="Detalji Servisera:" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="26.0" />
                      </font>
@@ -35,18 +35,18 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <TextArea fx:id="txtAreaOpisDefektaze" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="475.0" promptText="Unesite Opis Defektaže...">
+                  <TextArea fx:id="txtAreaOpisDefektaze" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="475.0" promptText="Unesite Detalje Uradjene Defektaže..." wrapText="true">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Verdana Bold" size="13.0" />
                      </font></TextArea>
                </children>
             </Pane>
-            <Pane layoutX="554.0" layoutY="213.0" prefHeight="317.0" prefWidth="515.0" style="-fx-background-color: #252525;">
+            <Pane layoutX="14.0" layoutY="213.0" prefHeight="317.0" prefWidth="515.0" style="-fx-background-color: #252525;">
                <effect>
                   <DropShadow />
                </effect>
                <children>
-                  <Label focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="509.0" style="-fx-background-color: #1a1a1a;" text="Detalji Defektaže:" textFill="WHITE">
+                  <Label focusTraversable="false" layoutX="-4.0" layoutY="14.0" prefHeight="45.0" prefWidth="527.0" style="-fx-background-color: #1a1a1a;" text="Opis Klijenta:" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="26.0" />
                      </font>
@@ -64,9 +64,9 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <TextArea fx:id="txtAreOstaliDetaljiDefektaze" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="493.0" promptText="Unesite Detalje Defektaže...">
+                  <TextArea fx:id="txtAreOstaliDetaljiDefektaze" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="493.0" promptText="Unesite Detalje Klijenta na Defektažei..." wrapText="true">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Verdana Bold" size="13.0" />
                      </font></TextArea>
                </children>
             </Pane>

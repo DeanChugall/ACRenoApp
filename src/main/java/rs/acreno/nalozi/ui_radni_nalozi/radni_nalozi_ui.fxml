@@ -35,7 +35,10 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <TextArea fx:id="txtAreaDetaljiStranke" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="475.0" promptText="Unesite Zapažanja Klijenta..." />
+                  <TextArea fx:id="txtAreaDetaljiStranke" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="475.0" promptText="Unesite Zapažanja Klijenta..." wrapText="true">
+                     <font>
+                        <Font name="Verdana Bold" size="13.0" />
+                     </font></TextArea>
                </children>
             </Pane>
             <Pane layoutX="554.0" layoutY="213.0" prefHeight="317.0" prefWidth="515.0" style="-fx-background-color: #252525;">
@@ -61,7 +64,10 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <TextArea fx:id="txtAreDetaljiServisera" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="493.0" promptText="Unesite Detalje Servisera..." />
+                  <TextArea fx:id="txtAreDetaljiServisera" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="238.0" prefWidth="493.0" promptText="Unesite Detalje Servisera..." wrapText="true">
+                     <font>
+                        <Font name="Verdana Bold" size="13.0" />
+                     </font></TextArea>
                </children>
             </Pane>
             <Pane layoutX="14.0" layoutY="9.0" prefHeight="196.0" prefWidth="1053.0" style="-fx-background-color: #252525;">
