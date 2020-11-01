@@ -212,6 +212,8 @@ public class GeneralUiUtility {
             imageSource = "marke_automobila/skoda_logo.png";
         } else if (markaAutomobila.toLowerCase().contains("bmw")) {
             imageSource = "marke_automobila/bmw_logo.png";
+        } else if (markaAutomobila.toLowerCase().contains("toyo")) {
+            imageSource = "marke_automobila/toyota_logo.png";
         } else {
             imageSource = "marke_automobila/acr_car.png";
         }
