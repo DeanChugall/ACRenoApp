@@ -208,8 +208,7 @@ public class PretragaUiControler implements Initializable, Serializable {
         //Refresuje tabelu u povratku u Automobil UI
         stageFaktura.setOnCloseRequest(windowEvent -> {
             // popuniTabeluRacuni(); //Popuni tabelu jer kada se pravi novi racun nece da se refresuje
-            //tblFakture.refresh(); //Uradi refresh tabele da se vide izmene
-            System.out.println("TESSSSSSSSSSSTTTT");
+            tblFakture.refresh(); //Uradi refresh tabele da se vide izmene
             brojFakture = 0;
             racun = null;
 
