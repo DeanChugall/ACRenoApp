@@ -412,6 +412,7 @@ public class FakturaController implements Initializable, java.io.Serializable {
             }
         });
     }
+
     /**
      * Inicijalizacija podataka {@link Automobil}, {@link Klijent} koji su dobijeni iz {@link AutomobiliController}
      * <p>
@@ -437,8 +438,6 @@ public class FakturaController implements Initializable, java.io.Serializable {
             txtFklijentImePrezime.setText(klijenti.get(0).getImePrezime()); //Moze jer je samo jedan Klijent
             txtFregTablica.setText(automobili.get(0).getRegOznaka()); //Moze jer je samo jedan Automobil
         }
-
-
     }
 
     /**
@@ -1558,8 +1557,6 @@ public class FakturaController implements Initializable, java.io.Serializable {
     public void txtFopisArtiklaMc(MouseEvent mouseEvent) {
         txtFopisArtikla.setText("");
     }
-
-
 }
 
 
