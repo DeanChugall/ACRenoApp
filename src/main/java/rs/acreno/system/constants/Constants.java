@@ -39,9 +39,6 @@ public class Constants {
             byte[] data = SerializationUtils.serialize(configApp);
             prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data);
         }
-
-        System.out.println("PUTANJAAAAAAAAAAAAAA: >>>>   " + defAPPconf().getPutanjaDoBazePodataka());
-
     }
 
     // *******************  DB Staf SQLite ***************************

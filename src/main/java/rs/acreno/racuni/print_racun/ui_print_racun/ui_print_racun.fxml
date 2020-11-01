@@ -406,5 +406,10 @@
                 <Image url="@/faktura/identifikacioniKodRacuna.jpg" />
             </image>
         </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="15.0" layoutX="156.0" layoutY="102.0" prefHeight="18.0" prefWidth="23.0" text="||" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
