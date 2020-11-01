@@ -45,10 +45,6 @@ public class Constants {
     }
 
     // *******************  DB Staf SQLite ***************************
-
-    /*public final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + GeneralUiUtility.getExecutionPath() +
-            GeneralUiUtility.getSystemSeparator() + IME_BAZE;*/
-
     public String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + defAPPconf().getPutanjaDoBazePodataka();
 
     // *******************  FX UIs Path ***************************
