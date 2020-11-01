@@ -20,7 +20,7 @@ public class Constants {
     public Constants() throws BackingStoreException {
 
         //Uzmi sve kljuceve iz prefa Noda
-        Preferences prefs = Preferences.userNodeForPackage(String.class);
+        Preferences prefs = Preferences.userNodeForPackage(Constants.class);
         String[] sviKljuceviPreferenceNode = prefs.keys();
         boolean configAcrenoTrue = Arrays.asList(sviKljuceviPreferenceNode).contains(Constants.ACRENO_CONFIG_NODE_KEY);
         boolean configAPPTrue = Arrays.asList(sviKljuceviPreferenceNode).contains(Constants.APP_CONFIG_NODE_KEY);
@@ -40,17 +40,21 @@ public class Constants {
             prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data);
         }
 
+        System.out.println("PUTANJAAAAAAAAAAAAAA: >>>>   " + defAPPconf().getPutanjaDoBazePodataka());
+
     }
 
     // *******************  DB Staf SQLite ***************************
-    public final String IME_BAZE = defAPPconf().getImeBazePodatakaAplikacije();
-    public final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + GeneralUiUtility.getExecutionPath() +
-            GeneralUiUtility.getSystemSeparator() + IME_BAZE;
+
+    /*public final String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + GeneralUiUtility.getExecutionPath() +
+            GeneralUiUtility.getSystemSeparator() + IME_BAZE;*/
+
+    public String MSACCESS_STRING_URL = "jdbc:ucanaccess://" + defAPPconf().getPutanjaDoBazePodataka();
 
     // *******************  FX UIs Path ***************************
     //AUTO SERVIS HOME
-    public static final String SPLASH_SCREEN_URI = "/splash_screen.fxml";
-    public static final String HOME_UI_VIEW_URI = "/auto_servis_ui.fxml";
+    public static String SPLASH_SCREEN_URI = "/splash_screen.fxml";
+    public static String HOME_UI_VIEW_URI = "/auto_servis_ui.fxml";
     public String AUTO_SERVIS_LICENCA_U_PODNOZIJU = defAPPconf().getLicencaPodnozijaAplikacije();
 
     //AUTOMOBIL
@@ -122,7 +126,7 @@ public class Constants {
 
     //TODO: Napisati JAVA DOC
     private ConfigAcreno defConfACReno() {
-        Preferences prefs = Preferences.userNodeForPackage(String.class);
+        Preferences prefs = Preferences.userNodeForPackage(Constants.class);
         configAcreno = SerializationUtils.deserialize(prefs.getByteArray(ACRENO_CONFIG_NODE_KEY, null));
 
         return configAcreno;
@@ -130,7 +134,7 @@ public class Constants {
 
     //TODO: Napisati JAVA DOC
     private ConfigApp defAPPconf() {
-        Preferences prefs = Preferences.userNodeForPackage(String.class);
+        Preferences prefs = Preferences.userNodeForPackage(Constants.class);
         configApp = SerializationUtils.deserialize(prefs.getByteArray(APP_CONFIG_NODE_KEY, null));
 
         return configApp;

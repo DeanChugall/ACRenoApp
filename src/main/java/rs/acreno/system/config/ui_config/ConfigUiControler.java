@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ import rs.acreno.system.constants.Constants;
 import rs.acreno.system.util.GeneralUiUtility;
 import rs.acreno.system.util.properties.AcrenoProperties;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
@@ -45,19 +47,19 @@ public class ConfigUiControler implements Initializable {
     @FXML private TextField txtFLicenca;
     @FXML private TextField txtFLicencaPodnozijaAplikacije;
     @FXML private TextField txtFdatumObjave;
-    @FXML private TextField txtFimeBazePodataka;
     @FXML private TextField txtFintervalProvereInterneta;
     @FXML private TextField txtFsplashScreenDelay;
     @FXML private TextField txtFsplashScreenAboutDelay;
     @FXML private TextField txtFputanjaDoGkalendara;
     @FXML private Label lblLozinka;
+    @FXML private TextField txtFputanjaDoBaze;
 
     private ConfigAcreno configAcreno;
     private ConfigApp configApp;
 
     private static final Logger logger = Logger.getLogger(AcrenoProperties.class);
 
-    private final Preferences prefs = Preferences.userNodeForPackage(String.class);
+    private final Preferences prefs = Preferences.userNodeForPackage(Constants.class);
 
     private final String[] sviKljuceviPreferenceNode = prefs.keys(); //Uzmi sve kljuceve iz prefa Noda
 
@@ -82,7 +84,7 @@ public class ConfigUiControler implements Initializable {
                     txtFLicenca.setDisable(false);
                     txtFLicencaPodnozijaAplikacije.setDisable(false);
                     txtFdatumObjave.setDisable(false);
-                    txtFimeBazePodataka.setDisable(false);
+                    txtFputanjaDoBaze.setDisable(false);
                     txtFintervalProvereInterneta.setDisable(false);
                     txtFsplashScreenDelay.setDisable(false);
                     txtFsplashScreenAboutDelay.setDisable(false);
@@ -137,7 +139,7 @@ public class ConfigUiControler implements Initializable {
                 txtFLicenca.setText(configApp.getLicencaAplikacije());
                 txtFLicencaPodnozijaAplikacije.setText(configApp.getLicencaPodnozijaAplikacije());
                 txtFdatumObjave.setText(configApp.getDatumObjaveAplikacije());
-                txtFimeBazePodataka.setText(configApp.getImeBazePodatakaAplikacije());
+                txtFputanjaDoBaze.setText(configApp.getPutanjaDoBazePodataka());
                 txtFintervalProvereInterneta.setText(configApp.getIntervalProvereInternetaAplikacije());
                 txtFsplashScreenDelay.setText(configApp.getSpashScreenDelayAplikacije());
                 txtFsplashScreenAboutDelay.setText(configApp.getSpashScreenAboutDelayAplikacije());
@@ -150,11 +152,10 @@ public class ConfigUiControler implements Initializable {
                 configApp.setLicencaAplikacije(txtFLicenca.getText());
                 configApp.setLicencaPodnozijaAplikacije(txtFLicencaPodnozijaAplikacije.getText());
                 configApp.setDatumObjaveAplikacije(txtFdatumObjave.getText());
-                configApp.setImeBazePodatakaAplikacije(txtFimeBazePodataka.getText());
-                configApp.setIntervalProvereInternetaAplikacije(txtFimeBazePodataka.getText());
+                configApp.setPutanjaDoBazePodataka(txtFputanjaDoBaze.getText());
+                configApp.setIntervalProvereInternetaAplikacije(txtFintervalProvereInterneta.getText());
                 configApp.setSpashScreenDelayAplikacije(txtFsplashScreenDelay.getText());
                 configApp.setSpashScreenAboutDelayAplikacije(txtFsplashScreenAboutDelay.getText());
-                configApp.setSpashScreenAboutDelayAplikacije(txtFintervalProvereInterneta.getText());
                 configApp.setPutanjaDoGKalendara(txtFputanjaDoGkalendara.getText());
                 //Serijalizacija Objekta
                 byte[] data = SerializationUtils.serialize(configApp);
@@ -186,7 +187,8 @@ public class ConfigUiControler implements Initializable {
             configApp.setLicencaAplikacije(txtFLicenca.getText());
             configApp.setLicencaPodnozijaAplikacije(txtFLicencaPodnozijaAplikacije.getText());
             configApp.setDatumObjaveAplikacije(txtFdatumObjave.getText());
-            configApp.setImeBazePodatakaAplikacije(txtFimeBazePodataka.getText());
+            //configApp.setImeBazePodatakaAplikacije(txtFimeBazePodataka.getText());
+            configApp.setPutanjaDoBazePodataka(txtFputanjaDoBaze.getText());
             configApp.setIntervalProvereInternetaAplikacije(txtFintervalProvereInterneta.getText());
             configApp.setSpashScreenDelayAplikacije(txtFsplashScreenDelay.getText());
             configApp.setSpashScreenAboutDelayAplikacije(txtFsplashScreenAboutDelay.getText());
@@ -272,5 +274,13 @@ public class ConfigUiControler implements Initializable {
 
     @FXML public void btnActZatvoriConfig(ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML public void btnPutanjaDoBazeAct(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(null);
+        txtFputanjaDoBaze.setText(file.getAbsolutePath());
+
     }
 }

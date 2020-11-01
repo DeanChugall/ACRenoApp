@@ -89,12 +89,12 @@
             </Label>
             <Pane fx:id="paneConfig" layoutX="11.0" layoutY="86.0" prefHeight="470.0" prefWidth="774.0">
                <children>
-                  <TextField fx:id="txtFLicencaPodnozijaAplikacije" disable="true" focusTraversable="false" layoutX="420.0" layoutY="159.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                  <TextField fx:id="txtFLicencaPodnozijaAplikacije" disable="true" focusTraversable="false" layoutX="420.0" layoutY="119.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="420.0" layoutY="136.0" prefHeight="24.0" prefWidth="211.0" text="Licenca Aplikacije Dole:(restart)" textFill="#e8e8e8">
+                  <Label layoutX="420.0" layoutY="96.0" prefHeight="24.0" prefWidth="211.0" text="Licenca Aplikacije Dole:(restart)" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
@@ -129,124 +129,129 @@
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="231.0" prefHeight="24.0" prefWidth="116.0" text="E-mail:" textFill="#e8e8e8">
+                  <Label layoutX="3.0" layoutY="285.0" prefHeight="24.0" prefWidth="116.0" text="E-mail:" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFeMail" focusTraversable="false" layoutX="7.0" layoutY="256.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Email Firme...">
+                  <TextField fx:id="txtFeMail" focusTraversable="false" layoutY="310.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Email Firme...">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="181.0" prefHeight="24.0" prefWidth="116.0" text="Web Sajt :" textFill="#e8e8e8">
+                  <Label layoutX="3.0" layoutY="235.0" prefHeight="24.0" prefWidth="116.0" text="Web Sajt :" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFwebSajt" focusTraversable="false" layoutX="7.0" layoutY="206.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Web Sajt Firme...">
+                  <TextField fx:id="txtFwebSajt" focusTraversable="false" layoutY="260.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Web Sajt Firme...">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="135.0" prefHeight="24.0" prefWidth="116.0" text="Telefon:" textFill="#e8e8e8">
+                  <Label layoutX="3.0" layoutY="189.0" prefHeight="24.0" prefWidth="116.0" text="Telefon:" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFtelefon" focusTraversable="false" layoutX="7.0" layoutY="158.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Telefon Firme...">
+                  <TextField fx:id="txtFtelefon" focusTraversable="false" layoutY="212.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Telefon Firme...">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="91.0" prefHeight="24.0" prefWidth="116.0" text="Žiro Račun:" textFill="#e8e8e8">
+                  <Label layoutX="3.0" layoutY="145.0" prefHeight="24.0" prefWidth="116.0" text="Žiro Račun:" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFziroRacun" focusTraversable="false" layoutX="7.0" layoutY="112.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Žiro Račun Firme....">
+                  <TextField fx:id="txtFziroRacun" focusTraversable="false" layoutY="166.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Žiro Račun Firme....">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </TextField>
-                      <Label layoutX="420.0" layoutY="182.0" prefHeight="24.0" prefWidth="179.0" text="Datum Objave Aplikacije" textFill="#e8e8e8">
+                      <Label layoutX="420.0" layoutY="142.0" prefHeight="24.0" prefWidth="179.0" text="Datum Objave Aplikacije" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="420.0" layoutY="90.0" prefHeight="24.0" prefWidth="116.0" text="Licenca Aplikacije:" textFill="#e8e8e8">
+                      <Label layoutX="420.0" layoutY="50.0" prefHeight="24.0" prefWidth="116.0" text="Licenca Aplikacije:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="420.0" layoutY="228.0" prefHeight="24.0" prefWidth="161.0" text="Ime Baze Podataka:" textFill="#e8e8e8">
+                      <Label layoutX="419.0" layoutY="223.0" prefHeight="24.0" prefWidth="161.0" text="Putanja Do Baze Podataka:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="10.0" layoutY="-4.0" prefHeight="24.0" prefWidth="116.0" text="Adresa Kompanije:" textFill="#e8e8e8">
+                      <Label layoutX="3.0" layoutY="50.0" prefHeight="24.0" prefWidth="116.0" text="Adresa Kompanije:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="10.0" layoutY="44.0" prefHeight="24.0" prefWidth="116.0" text="Grad Kompanije:" textFill="#e8e8e8">
+                      <Label layoutX="3.0" layoutY="98.0" prefHeight="24.0" prefWidth="116.0" text="Grad Kompanije:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="420.0" layoutY="-5.0" prefHeight="24.0" prefWidth="116.0" text="Ime Firme:" textFill="#e8e8e8">
+                      <Label prefHeight="24.0" prefWidth="116.0" text="Ime Firme:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <Label layoutX="421.0" layoutY="41.0" prefHeight="24.0" prefWidth="116.0" text="Verzija Aplikacije:" textFill="#e8e8e8">
+                      <Label layoutX="421.0" layoutY="1.0" prefHeight="24.0" prefWidth="116.0" text="Verzija Aplikacije:" textFill="#e8e8e8">
                           <font>
                               <Font name="Segoe UI" size="14.0" />
                           </font>
                       </Label>
-                      <TextField fx:id="txtFimeBazePodataka" disable="true" focusTraversable="false" layoutX="420.0" layoutY="252.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                      <TextField fx:id="txtFdatumObjave" disable="true" focusTraversable="false" layoutX="420.0" layoutY="165.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFdatumObjave" disable="true" focusTraversable="false" layoutX="420.0" layoutY="205.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                      <TextField fx:id="txtFLicenca" disable="true" focusTraversable="false" layoutX="420.0" layoutY="73.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFLicenca" disable="true" focusTraversable="false" layoutX="420.0" layoutY="113.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                      <TextField fx:id="txtFVerzijaAplikacije" disable="true" focusTraversable="false" layoutX="420.0" layoutY="25.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFVerzijaAplikacije" disable="true" focusTraversable="false" layoutX="420.0" layoutY="65.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                      <TextField fx:id="txtFImeFirme" focusTraversable="false" layoutY="24.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0" promptText="Unesite  Naziv Firme...">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFImeFirme" focusTraversable="false" layoutX="420.0" layoutY="19.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0" promptText="Unesite  Naziv Firme...">
+                      <TextField fx:id="txtFGrad" focusTraversable="false" layoutY="122.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Grad Firme...">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFGrad" focusTraversable="false" layoutX="7.0" layoutY="68.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Grad Firme...">
+                      <TextField fx:id="txtFadresa" focusTraversable="false" layoutY="74.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Adresu Firme...">
                           <font>
                               <Font name="Segoe UI" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField fx:id="txtFadresa" focusTraversable="false" layoutX="7.0" layoutY="20.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="227.0" promptText="Unesite Adresu Firme...">
-                          <font>
-                              <Font name="Segoe UI" size="12.0" />
-                          </font>
-                      </TextField>
-                  <Label layoutX="420.0" layoutY="407.0" prefHeight="24.0" prefWidth="226.0" text="Putanja do G-Kalendara (http://):" textFill="#e8e8e8">
+                  <Label layoutX="1.0" layoutY="339.0" prefHeight="24.0" prefWidth="226.0" text="Putanja do G-Kalendara (http://):" textFill="#e8e8e8">
                      <font>
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFputanjaDoGkalendara" focusTraversable="false" layoutX="420.0" layoutY="429.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0" promptText="Unesite URL Kalendara Fime...">
+                  <TextField fx:id="txtFputanjaDoGkalendara" focusTraversable="false" layoutX="1.0" layoutY="361.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0" promptText="Unesite URL Kalendara Fime...">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btnPutanjaDoBaze" layoutX="653.0" layoutY="240.0" mnemonicParsing="false" onAction="#btnPutanjaDoBazeAct" text="Putanja do baze">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="txtFputanjaDoBaze" disable="true" focusTraversable="false" layoutX="415.0" layoutY="242.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="223.0">
+                     <font>
+                        <Font name="Segoe UI" size="8.0" />
                      </font>
                   </TextField>
                </children></Pane>

@@ -17,11 +17,15 @@ public class ConfigApp implements Serializable {
     private String licencaAplikacije;
     private String licencaPodnozijaAplikacije;
     private String datumObjaveAplikacije;
-    private String imeBazePodatakaAplikacije;
+    private String putanjaDoBazePodataka;
     private String intervalProvereInternetaAplikacije;
     private String spashScreenDelayAplikacije;
     private String spashScreenAboutDelayAplikacije;
     private String putanjaDoGKalendara;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getImeFirme() {
         return imeFirme;
@@ -63,12 +67,12 @@ public class ConfigApp implements Serializable {
         this.datumObjaveAplikacije = datumObjaveAplikacije;
     }
 
-    public String getImeBazePodatakaAplikacije() {
-        return imeBazePodatakaAplikacije;
+    public String getPutanjaDoBazePodataka() {
+        return putanjaDoBazePodataka;
     }
 
-    public void setImeBazePodatakaAplikacije(String imeBazePodatakaAplikacije) {
-        this.imeBazePodatakaAplikacije = imeBazePodatakaAplikacije;
+    public void setPutanjaDoBazePodataka(String putanjaDoBazePodataka) {
+        this.putanjaDoBazePodataka = putanjaDoBazePodataka;
     }
 
     public String getIntervalProvereInternetaAplikacije() {
@@ -103,21 +107,6 @@ public class ConfigApp implements Serializable {
         this.putanjaDoGKalendara = putanjaDoGKalendara;
     }
 
-    @Override public String toString() {
-        return "ConfigApp{" +
-                "imeFirme='" + imeFirme + '\'' +
-                ", verzijaAplikacije='" + verzijaAplikacije + '\'' +
-                ", licencaAplikacije='" + licencaAplikacije + '\'' +
-                ", licencaPodnozijaAplikacije='" + licencaPodnozijaAplikacije + '\'' +
-                ", datumObjaveAplikacije='" + datumObjaveAplikacije + '\'' +
-                ", imeBazePodatakaAplikacije='" + imeBazePodatakaAplikacije + '\'' +
-                ", intervalProvereInternetaAplikacije='" + intervalProvereInternetaAplikacije + '\'' +
-                ", spashScreenDelayAplikacije='" + spashScreenDelayAplikacije + '\'' +
-                ", spashScreenAboutDelayAplikacije='" + spashScreenAboutDelayAplikacije + '\'' +
-                ", putanjaDoGKalendara='" + putanjaDoGKalendara + '\'' +
-                '}';
-    }
-
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -127,7 +116,7 @@ public class ConfigApp implements Serializable {
                 Objects.equals(licencaAplikacije, configApp.licencaAplikacije) &&
                 Objects.equals(licencaPodnozijaAplikacije, configApp.licencaPodnozijaAplikacije) &&
                 Objects.equals(datumObjaveAplikacije, configApp.datumObjaveAplikacije) &&
-                Objects.equals(imeBazePodatakaAplikacije, configApp.imeBazePodatakaAplikacije) &&
+                Objects.equals(putanjaDoBazePodataka, configApp.putanjaDoBazePodataka) &&
                 Objects.equals(intervalProvereInternetaAplikacije, configApp.intervalProvereInternetaAplikacije) &&
                 Objects.equals(spashScreenDelayAplikacije, configApp.spashScreenDelayAplikacije) &&
                 Objects.equals(spashScreenAboutDelayAplikacije, configApp.spashScreenAboutDelayAplikacije) &&
@@ -136,7 +125,7 @@ public class ConfigApp implements Serializable {
 
     @Override public int hashCode() {
         return Objects.hash(imeFirme, verzijaAplikacije, licencaAplikacije, licencaPodnozijaAplikacije,
-                datumObjaveAplikacije, imeBazePodatakaAplikacije, intervalProvereInternetaAplikacije,
+                datumObjaveAplikacije, putanjaDoBazePodataka, intervalProvereInternetaAplikacije,
                 spashScreenDelayAplikacije, spashScreenAboutDelayAplikacije, putanjaDoGKalendara);
     }
 }

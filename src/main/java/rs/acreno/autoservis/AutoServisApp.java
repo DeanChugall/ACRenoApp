@@ -45,7 +45,7 @@ public class AutoServisApp extends Application implements Initializable, Seriali
     private TimerTask tt;
     private boolean isJustOpenApp = true;
 
-    private final Preferences prefs = Preferences.userNodeForPackage(String.class);
+    private final Preferences prefs = Preferences.userNodeForPackage(Constants.class);
     private final String[] sviKljuceviPreferenceNode = prefs.keys(); //Uzmi sve kljuceve iz prefa Noda
 
     private ConfigApp configApp;
@@ -75,14 +75,15 @@ public class AutoServisApp extends Application implements Initializable, Seriali
                 configApp = new ConfigApp();
                 configApp.setSpashScreenAboutDelayAplikacije("4000");
                 configApp.setDatumObjaveAplikacije("11.10.2020");
-                configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
+                //configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
+                //configApp.setPutanjaDoBazePodataka(configApp.getPutanjaDoBazePodataka());
                 configApp.setImeFirme("");
                 configApp.setIntervalProvereInternetaAplikacije("30");
                 configApp.setLicencaAplikacije("Copyright @ 2020 AC Reno Inc. All rights reserved");
                 configApp.setLicencaPodnozijaAplikacije("Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under GNU GENERAL PUBLIC LICENSE  Version 3");
                 configApp.setPutanjaDoGKalendara("http://calendar.google.com");
                 configApp.setSpashScreenDelayAplikacije("400");
-                configApp.setVerzijaAplikacije("Beta 1.2");
+                configApp.setVerzijaAplikacije("Beta 1.4");
                 byte[] data = SerializationUtils.serialize(configApp);
                 prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data);
                 configAcreno = new ConfigAcreno();
@@ -114,22 +115,6 @@ public class AutoServisApp extends Application implements Initializable, Seriali
                     stageConfig.setScene(new Scene(fxmlLoaderConfig.load()));
                     stageConfig.showAndWait();
 
-                    configApp = new ConfigApp();
-                    configApp.setSpashScreenAboutDelayAplikacije("5000");
-                    configApp.setDatumObjaveAplikacije("10.10.2020");
-                    configApp.setImeBazePodatakaAplikacije("Database-ACReo-APP.accdb");
-                    configApp.setImeFirme("");
-                    configApp.setIntervalProvereInternetaAplikacije("30");
-                    configApp.setLicencaAplikacije("Copyright @ 2020 AC Reno Inc. All rights reserved");
-                    configApp.setLicencaPodnozijaAplikacije(
-                            "Copyright @ 2020 \"AC Reno\" Inc. All rights reserved under " +
-                                    "GNU GENERAL PUBLIC LICENSE  Version 3");
-                    configApp.setPutanjaDoGKalendara("http://calendar.google.com");
-                    configApp.setSpashScreenDelayAplikacije("400");
-                    configApp.setVerzijaAplikacije("Beta 1.2");
-                    byte[] data1 = SerializationUtils.serialize(configApp);
-                    prefs.putByteArray(Constants.APP_CONFIG_NODE_KEY, data1);
-                    //return;
                     pokreniApp();
                     logger.info("Prvo Pokretanje APlikacije!");
 
@@ -155,7 +140,7 @@ public class AutoServisApp extends Application implements Initializable, Seriali
                             java_vendor + "\n" +
                             java_vendor_uri);
 
-            logger.error(" >>>>   GRESKA U JAVA NIJE DOBRA !");
+            logger.error(" >>>>   GRESKA U start() NIJE DOBRA ! " + System.class.getName());
             System.exit(-1);
         }
     }
