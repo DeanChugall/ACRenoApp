@@ -29,20 +29,24 @@ popravki i održavanja automobila.
 #### Korisne komande:
 
 ---
-Add VM options for run JavaFX app on compile runtime:
+Add VM options for run JavaFX app on compile runtime in IntelliJ:
 
 ```shell
---module-path /PATH/TO/YOUR/JAVA/FX/javafx-sdk-14/lib 
-                                        --add-modules javafx.controls,javafx.fxml
+--module-path ${JAVA_FX} --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media
 ```
 
-Where is '/PATH/.../.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory.
+Where is '/PATH/.../.../.../FX/javafx-sdk-14/lib'  your JavaFx lib directory or in this case is declared in
+IntelliJ PATH VARIABLE.
 
+Go to:
+ ```shell
+Preferences (File -> Settings) -> Appearance & Behavior -> Path Variables
+```
 ---
 Run App command
 ```shell
-java -jar --module-path ${JAVA_FX} 
-        --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media ACReno.jar
+java -jar --module-path "%JAVA_FX%\lib" --add-modules javafx.controls,javafx.fxml,javafx.web,
+                                    javafx.graphics,javafx.media,javafx.base,javafx.swing, ACReno.jar
 ```
 
  GPL3 LICENSE SYNOPSIS
