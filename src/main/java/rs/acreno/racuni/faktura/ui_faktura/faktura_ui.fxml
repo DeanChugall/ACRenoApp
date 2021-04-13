@@ -10,7 +10,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="808.0" prefWidth="1400.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.acreno.racuni.faktura.FakturaController">
     <center>
-       <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
+       <SplitPane focusTraversable="false" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #2d2d2d;" BorderPane.alignment="CENTER">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="651.0" prefWidth="1398.0">
              <Pane layoutX="20.0" layoutY="12.0" minHeight="-Infinity" prefHeight="103.0" prefWidth="308.0" style="-fx-background-color: #252525;" AnchorPane.rightAnchor="630.0">
                 <effect>
@@ -57,22 +57,6 @@
                 <effect>
                    <DropShadow />
                 </effect>
-                <Button fx:id="btnDodajArtiklRacun" focusTraversable="false" graphicTextGap="20.0" layoutX="9.0" layoutY="117.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN">
-                   <graphic>
-                      <ImageView fitHeight="43.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
-                         <effect>
-                            <DropShadow blurType="GAUSSIAN" height="0.0" offsetY="2.0" radius="4.69" width="20.76" />
-                         </effect>
-                         <Image url="@/auto_servis/ucitaj_saobracajnu_icon.png" />
-                      </ImageView>
-                   </graphic>
-                   <font>
-                      <Font name="Segoe UI Bold" size="22.0" />
-                   </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                </Button>
                 <Label layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="890.0" style="-fx-background-color: #1a1a1a;" text="Artikl:" textFill="WHITE">
                    <font>
                       <Font name="Segoe UI Bold" size="26.0" />
@@ -168,27 +152,27 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                 </Button>
-                <TextField fx:id="txtFopisArtikla" focusTraversable="false" layoutX="11.0" layoutY="67.0" onMouseClicked="#txtFopisArtiklaMc" prefHeight="34.0" prefWidth="183.0" promptText="Opis Artikla">
+                <TextField fx:id="txtFopisArtikla" layoutX="11.0" layoutY="67.0" onMouseClicked="#txtFopisArtiklaMc" prefHeight="34.0" prefWidth="183.0" promptText="Opis Artikla">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtfNazivArtikla" focusTraversable="false" layoutX="202.0" layoutY="67.0" prefHeight="34.0" prefWidth="190.0" promptText="Naziv Artikla">
+                <TextField fx:id="txtfNazivArtikla" layoutX="202.0" layoutY="67.0" prefHeight="34.0" prefWidth="190.0" promptText="Naziv Artikla">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFjedinicaMereArtikla" alignment="CENTER" focusTraversable="false" layoutX="402.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="JM" text="kom">
+                <TextField fx:id="txtFjedinicaMereArtikla" alignment="CENTER" layoutX="402.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="JM" text="kom">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFKolicinaArtikla" focusTraversable="false" layoutX="485.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="Količina" text="1">
+                <TextField fx:id="txtFKolicinaArtikla" layoutX="485.0" layoutY="67.0" prefHeight="34.0" prefWidth="72.0" promptText="Količina" text="1">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
-                <TextField fx:id="txtFcenaArtikla" alignment="CENTER" focusTraversable="false" layoutX="568.0" layoutY="67.0" prefHeight="34.0" prefWidth="114.0" promptText="Cena" text="0">
+                <TextField fx:id="txtFcenaArtikla" alignment="CENTER" layoutX="568.0" layoutY="67.0" prefHeight="34.0" prefWidth="114.0" promptText="Cena" text="0">
                    <font>
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
@@ -203,6 +187,22 @@
                       <Font name="Segoe UI Bold" size="12.0" />
                    </font>
                 </TextField>
+                <Button fx:id="btnDodajArtiklRacun" graphicTextGap="20.0" layoutX="9.0" layoutY="117.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="481.0" text="DODAJ ARTIKL U RACUN">
+                   <graphic>
+                      <ImageView fitHeight="43.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                         <effect>
+                            <DropShadow blurType="GAUSSIAN" height="0.0" offsetY="2.0" radius="4.69" width="20.76" />
+                         </effect>
+                         <Image url="@/auto_servis/ucitaj_saobracajnu_icon.png" />
+                      </ImageView>
+                   </graphic>
+                   <font>
+                      <Font name="Segoe UI Bold" size="22.0" />
+                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                </Button>
              </Pane>
              <Pane fx:id="panePretragaArtikli" layoutX="20.0" layoutY="11.0" prefHeight="103.0" prefWidth="419.0" style="-fx-background-color: #252525;">
                 <effect>
@@ -295,7 +295,7 @@
                       </TableColumn>
                    </columns>
                 </TableView>
-                <Label layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="1379.0" style="-fx-background-color: #1a1a1a;" text="Artikli u Računu:" textFill="WHITE">
+                <Label focusTraversable="false" layoutX="-5.0" layoutY="5.0" prefHeight="32.0" prefWidth="1379.0" style="-fx-background-color: #1a1a1a;" text="Artikli u Računu:" textFill="WHITE">
                    <font>
                       <Font name="Segoe UI Bold" size="26.0" />
                    </font>

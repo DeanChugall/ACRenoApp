@@ -319,7 +319,6 @@ public class FakturaController implements Initializable, java.io.Serializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Platform.runLater(() -> {
             try {
                 artikli = FXCollections.observableArrayList(artikliDAO.findAllArtikle());
@@ -328,7 +327,6 @@ public class FakturaController implements Initializable, java.io.Serializable {
             }
             //txtFieldPretragaArtikla.setOnKeyReleased(this::txtFieldPretragaArtiklaKeyListener);
             btnDodajArtiklRacun.setOnMouseClicked(this::btnDodajArtiklRacunMouseClick);
-
             //Postavljenje dugmica DELETE u Tabeli POSAO ARTIKLI
             tblRowButton.setCellFactory(ActionButtonTableCell.forTableColumn("Brisanje", p -> {
                 try {
@@ -360,6 +358,8 @@ public class FakturaController implements Initializable, java.io.Serializable {
                 // Izracunavanje GRAND TOTAL SUME Sa popustom na ceo racun i formatiramo decimale
                 double totoalSumGrand = izracunajGrandTotalSaPopustomNaCeoRacun();
                 txtfGrandTotal.setText(GeneralUiUtility.formatDecimalPlaces(totoalSumGrand));
+
+
 
                 return p;
             }));

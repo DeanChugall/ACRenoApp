@@ -15,17 +15,6 @@
             <Font name="System Bold" size="39.0" />
          </font>
       </Label>
-      <Button fx:id="btnPrintDefektaza" layoutX="443.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnPrintActDefektazaAct" prefHeight="40.0" prefWidth="94.0" text="Print">
-         <graphic>
-            <ImageView fitHeight="29.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/faktura/printer-icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
 
       <TextField fx:id="txtFidDefektaze" alignment="CENTER" layoutX="505.0" layoutY="103.0" prefHeight="39.0" prefWidth="141.0">
          <font>
@@ -120,17 +109,6 @@
             <DropShadow />
          </effect>
       </TextField>
-      <Button fx:id="btnPrintZatvori" layoutX="553.0" layoutY="1.0" mnemonicParsing="false" onAction="#btnZatvoriPrintDefektazaActtion" prefHeight="39.0" prefWidth="94.0" text="Zatvori">
-         <graphic>
-            <ImageView fitHeight="26.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/btn_close_icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="87.0" prefHeight="71.0" prefWidth="339.0" text="DEFEKTAŽA">
          <font>
             <Font name="System Bold" size="49.0" />
@@ -166,5 +144,27 @@
             <DropShadow />
          </effect>
       </Line>
+      <Button fx:id="btnPrintDefektaza" layoutX="190.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnPrintActDefektazaAct" prefHeight="40.0" prefWidth="94.0" text="Print">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/faktura/printer-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="btnPrintZatvori" layoutX="292.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnZatvoriPrintDefektazaActtion" prefHeight="39.0" prefWidth="94.0" text="Zatvori">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/btn_close_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </AnchorPane>

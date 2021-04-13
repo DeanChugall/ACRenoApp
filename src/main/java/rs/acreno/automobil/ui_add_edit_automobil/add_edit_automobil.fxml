@@ -76,7 +76,7 @@
             </Label>
             <TextField fx:id="txtfMarkaAutomobila" layoutX="17.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Marka Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="284.0" layoutY="183.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Model Vozila:" textFill="#d3d3d3">
@@ -86,7 +86,7 @@
             </Label>
             <TextField fx:id="txtfModelAutomobila" layoutX="285.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Model Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="552.0" layoutY="184.0" prefHeight="17.0" prefWidth="201.0" style="-fx-background-color: #292929;" text="Vrsta Vozila:" textFill="#d3d3d3">
@@ -96,7 +96,7 @@
             </Label>
             <TextField fx:id="txtfVrstaAutomobila" layoutX="550.0" layoutY="201.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="16.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Godište Vozila:" textFill="#d3d3d3">
@@ -106,7 +106,7 @@
             </Label>
             <TextField fx:id="txtfGodisteAutomobila" layoutX="16.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Godište Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="285.0" layoutY="242.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Zapremina Motora (cc):" textFill="#d3d3d3">
@@ -116,7 +116,7 @@
             </Label>
             <TextField fx:id="txtfZapreminaAutomobila" layoutX="286.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Zapremina Motora...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="550.0" layoutY="240.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Snaga Motora (kW):" textFill="#d3d3d3">
@@ -126,7 +126,7 @@
             </Label>
             <TextField fx:id="txtfSnagaAutomobila" layoutX="550.0" layoutY="261.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Snaga Motora...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="15.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Vrsta Goriva:" textFill="#d3d3d3">
@@ -155,7 +155,7 @@
             </Label>
             <TextField fx:id="txtfKilometrazaAutomobila" layoutX="286.0" layoutY="316.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Klometraža....">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="549.0" layoutY="297.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Broj Motora Vozila:" textFill="#d3d3d3">
@@ -165,7 +165,7 @@
             </Label>
             <TextField fx:id="txtfBrojMotoraAutomobila" layoutX="550.0" layoutY="317.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Motora...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="17.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Boja Vozila:" textFill="#d3d3d3">
@@ -175,7 +175,7 @@
             </Label>
             <TextField fx:id="txtfBojaAutomobila" layoutX="17.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Boja Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="286.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Masa Vozila (kg):" textFill="#d3d3d3">
@@ -185,7 +185,7 @@
             </Label>
             <TextField fx:id="txtfMasaAutomobila" layoutX="286.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Masa Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="552.0" layoutY="352.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Broj Vrata:" textFill="#d3d3d3">
@@ -195,7 +195,7 @@
             </Label>
             <TextField fx:id="txtfBrojVrataAutomobila" layoutX="550.0" layoutY="371.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Vrata...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="15.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Najveća Dozvoljena Masa Vozila (kg):" textFill="#d3d3d3">
@@ -205,7 +205,7 @@
             </Label>
             <TextField fx:id="txtfDozvoljenaMasaAutomobila" layoutX="15.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Dozvoljena Masa Vozila...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="284.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="Datum Prve Registracije:" textFill="#d3d3d3">
@@ -215,7 +215,7 @@
             </Label>
             <TextField fx:id="txtfDatumPrveRegistracijeAutomobila" layoutX="285.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Datum Prve Registracije...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="551.0" layoutY="408.0" prefHeight="17.0" prefWidth="235.0" style="-fx-background-color: #292929;" text="***Broj Mesta za sedenje:" textFill="#d3d3d3">
@@ -225,7 +225,7 @@
             </Label>
             <TextField fx:id="txtfBrojMestaZaSedenje" layoutX="550.0" layoutY="427.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Broj Mesta za sedenje...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Label layoutX="14.0" layoutY="466.0" prefHeight="17.0" prefWidth="201.0" text="Napomene o Vozilu:" textFill="#d3d3d3">
@@ -241,7 +241,7 @@
             </Line>
             <TextField fx:id="txtFvrstaGorivaVozila" layoutX="15.0" layoutY="317.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="235.0" promptText="Vrsta Goriva...">
                <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
+                  <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </TextField>
             <Button fx:id="btnUcitajSaobracajnu" layoutX="549.0" layoutY="485.0" mnemonicParsing="false" onAction="#ucitajSaobracajnu" prefHeight="130.0" prefWidth="235.0" text="    Učitaj Saobraćajnu">
