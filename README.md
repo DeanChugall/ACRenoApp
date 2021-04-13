@@ -4,7 +4,7 @@
 ![build](http://img.shields.io/badge/licence-GPL%203-brightgreen?style=flat-square&logo=GNU)
 ![build](http://img.shields.io/badge/code-JavaFX-blue?style=flat-square&logo=Java)
 
-###### Currrent release is: BETA 1.4
+###### Currrent release is: BETA 1.5
 
 <p align="left">
   <img width="300" height="170" src="https://www.acreno.rs/wp-content/uploads/media/acr-slpash.png">
